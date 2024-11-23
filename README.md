@@ -1,3 +1,9 @@
+To create the working environment:
+python .\config\install_packages.py
+
+To delete all previously installed libraries (in case of a problem):
+pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}
+
 To run the program:
 streamlit run main.py
 
