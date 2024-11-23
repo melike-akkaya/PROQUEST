@@ -1,5 +1,8 @@
+To create the asset database:
+python .\config\setupdatabase.py
+
 To create the working environment:
-python .\config\install_packages.py
+python .\config\installpackages.py
 
 To delete all previously installed libraries (in case of a problem):
 pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}

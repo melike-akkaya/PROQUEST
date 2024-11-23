@@ -1,5 +1,4 @@
 import streamlit as st
-import json
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
@@ -8,6 +7,14 @@ import logging
 from src.prompt import query_uniprot, generate_solr_query
 import io
 from contextlib import redirect_stdout
+import sqlite3
+
+def fetch_data_from_db(query, params=None):
+    with sqlite3.connect('asset_uniprot.db') as conn:
+        cur = conn.cursor()
+        cur.execute(query, params or ())
+        data = cur.fetchall()
+    return data
 
 # Initialize logging stream in session state if not already present
 if 'log_stream' not in st.session_state:
@@ -26,14 +33,10 @@ with st.spinner("Loading required fields..."):
     if 'queryfields' not in st.session_state:
         with open("asset/queryfields.txt", "r") as f:
             st.session_state.queryfields = f.read()
-
-    if 'resultfields' not in st.session_state:
-        with open("asset/resultfields.json", "r") as f:
-            st.session_state.resultfields = json.load(f)
-
     if 'searchfields' not in st.session_state:
-        with open("asset/searchfields.json", "r") as f:
-            st.session_state.searchfields = json.load(f)
+        st.session_state.searchfields = fetch_data_from_db("SELECT * FROM search_fields")
+    if 'resultfields' not in st.session_state:
+        st.session_state.resultfields = fetch_data_from_db("SELECT * FROM result_fields")
 
 st.title("🧬 UniProt KB LLM Query Interface V2")
 
@@ -66,7 +69,6 @@ if submitted:
             # Clear log stream
             st.session_state.log_stream.seek(0)
             st.session_state.log_stream.truncate()
-
 
             # Set up LLM based on selection and API key
             if llm_type == "gemini-pro":
