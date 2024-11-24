@@ -10,7 +10,7 @@ from main import fetch_data_from_db
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from prompt import generate_solr_query
 
-API_KEY = "AIzaSyDwBRFAbG8vKBd-5ToKs-VxLRdjUP3MpQs"
+API_KEY = "YOUR_API_KEY_HERE"
 
 with open("asset/queryfields.txt", "r") as f:
     queryFields = f.read()
@@ -22,7 +22,7 @@ with open('./test/queries.txt', 'r') as file:
     queries = [line.split('\t')[0].strip() for line in lines]
     correct_solr_sql = [line.split('\t')[1].strip() for line in lines]
 
-llm = GoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=API_KEY)
+llm = GoogleGenerativeAI(model="gemini-pro", google_api_key=API_KEY)
 
 results = []
 for question, correct_query in zip(queries, correct_solr_sql):

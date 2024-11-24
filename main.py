@@ -43,7 +43,9 @@ st.title("🧬 UniProt KB LLM Query Interface V2")
 # Streamlit form
 with st.form("query_form"):
     model_choices = [
-        "gemini-pro", "gemini-1.5-flash", "gpt-4o-mini", "gpt-4o","claude-3-5-sonnet-20240620", "meta/llama-3.1-405b-instruct"   
+        "gemini-pro", "gemini-1.5-flash", "gpt-4o-mini", "gpt-4o", 
+        "claude-3-5-sonnet-20240620", "meta/llama-3.1-405b-instruct",
+        "microsoft/phi-3.5-mini-instruct" 
     ]
 
     # LLM selection
@@ -83,6 +85,8 @@ if submitted:
                 llm = ChatAnthropic(model="claude-3-5-sonnet-20240620", anthropic_api_key=api_key)
             elif llm_type == "meta/llama-3.1-405b-instruct":
                 llm = ChatNVIDIA(model="meta/llama-3.1-405b-instruct", api_key=api_key)
+            elif llm_type == "microsoft/phi-3.5-mini-instruct": 
+                llm = ChatNVIDIA(model="microsoft/phi-3-mini-4k-instruct", api_key=api_key)
 
             if verbose:
                 logger.info(f"Using LLM: {llm_type}")
