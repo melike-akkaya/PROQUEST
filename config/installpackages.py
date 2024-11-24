@@ -12,7 +12,8 @@ def main():
         "langchain_google_genai",
         "langchain_anthropic",
         "langchain_nvidia_ai_endpoints",
-        "langchain"
+        "langchain",
+        "scikit-learn"
     ]
 
     for package in packages:

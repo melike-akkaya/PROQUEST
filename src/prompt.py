@@ -1,9 +1,8 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-import streamlit as st
 import requests
 
-def generate_solr_query(question, llm):
+def generate_solr_query(question, llm, searchFields, queryFields, resultFields):
     """
     Generate a Solr query for the UniProt database from a natural language query.
 
@@ -61,7 +60,7 @@ The question is: {question}
 Generate a Solr query for the UniProt database based on this natural language query."""
     )
     chain = LLMChain(llm=llm, prompt=prompt)
-    solr_query = chain.run(question=question, searchfields=st.session_state.searchfields, queryfields=st.session_state.queryfields, resultfields=st.session_state.resultfields)
+    solr_query = chain.run(question=question, searchfields=searchFields, queryfields=queryFields, resultfields=resultFields)
     return solr_query.strip()
 
 
