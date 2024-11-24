@@ -1,89 +1,89 @@
 Query,Correct Solr SQL,Generated Solr SQL,Match
-What proteins are related to Alzheimer's disease?,(cc_disease:Alzheimer's),xref_alzforum:*,False
-What is the function of protein P53?,(id:P53_HUMAN) AND (cc_function:*),function:[KW-0699],False
-What is the structure of human hemoglobin?,(organism_name:human) AND (protein_name:hemoglobin) AND (database:pdb),(organism_name:human) AND (protein_name:hemoglobin) AND (structure_3d:YES),False
+What proteins are related to Alzheimer's disease?,(cc_disease:Alzheimer's),"(disease:""Alzheimer's disease"") OR (keyword:""Alzheimer's disease"") OR (go:""Alzheimer's disease"") OR (cc_disease:""Alzheimer's disease"")",False
+What is the function of protein P53?,(id:P53_HUMAN) AND (cc_function:*),(accession:P53) AND (cc_function:*),False
+What is the structure of human hemoglobin?,(organism_name:human) AND (protein_name:hemoglobin) AND (database:pdb),(protein_name:hemoglobin) AND (organism_name:human) AND (structure_3d:*),False
 List all proteins involved in glycolysis.,"(go:""glycolysis"")","(go:""glycolysis"")",True
-What is the UniProt ID for insulin?,(protein_name:insulin),accession:P01308,False
-Retrieve all proteins in Homo sapiens with a known 3D structure.,"(organism_name:""Homo sapiens"") AND (structure_3d:true)",(organism_name:Homo sapiens) AND (database:pdb),False
-What is the protein sequence of bovine serum albumin?,"(protein_name:""bovine serum albumin"") AND (organism_name:""Bos taurus"")",,False
-What are the post-translational modifications of P53?,(protein_name:P53) AND (cc_ptm:*),(accession:P53_HUMAN) AND (cc_ptm:*)),False
-Retrieve proteins involved in apoptosis in Mus musculus.,"(organism_name:""Mus musculus"") AND (go:apoptosis)","(organism_name:""Mus musculus"") AND (go:""apoptosis"")",False
-Show proteins in Saccharomyces cerevisiae that bind ATP.,"(organism_name:""Saccharomyces cerevisiae"") AND (ft_binding:ATP)",(organism_name:Saccharomyces cerevisiae) AND (ft_binding:ATP),False
-What proteins are part of the human mitochondrial proteome?,"(organism_name:Human) AND (proteomecomponent:""mitochondrion"")",,False
-List enzymes involved in DNA replication in E. coli.,"(organism_name:""Escherichia coli"") AND (go:""DNA replication"") AND (ec:*)","(ec:*) AND (go:""DNA replication"") AND (organism_name:Escherichia coli)",False
-Retrieve all proteins with catalytic activity in Arabidopsis thaliana.,"(organism_name:""Arabidopsis thaliana"") AND (cc_catalytic_activity:*)",(organism_name:Arabidopsis thaliana) AND (cc_catalytic_activity:true),False
-What is the gene name for protein Q9H0K1 in humans?,(accession:Q9H0K1) AND (organism_name:human),gene:Q9H0K1 AND organism_name:human,False
-List all proteins expressed in the human liver.,(organism_name:human) AND (tissue:liver),,False
-Find all membrane proteins in Drosophila melanogaster.,"(organism_name:""Drosophila melanogaster"") AND (cc_scl_term:membrane)","(organism_name:""Drosophila melanogaster"") AND (cc_subcellular_location:membrane)",False
-Show all proteins with zinc-binding domains in Homo sapiens.,"(organism_name:""Homo sapiens"") AND (ft_zn_fing:*)",(organism_name:Homo sapiens) AND (ft_domain:Zinc_finger),False
-Retrieve proteins localized in the nucleus of human cells.,(organism_name:human) AND (cc_scl_term:nucleus),(organism_name:human) AND (cc_subcellular_location:nucleus),False
-Show proteins that are G-protein coupled receptors (GPCRs) in mice.,(organism_name:mouse) AND (family:G-protein coupled receptor),,False
-Which proteins are secreted by E. coli?,"(organism_name:""Escherichia coli"") AND (cc_subcellular_location:secreted)","organism_name:""Escherichia coli"" AND (ft_signal:""YES"" OR cc_subcellular_location:""secreted"")",False
-Find all proteins that contain a WD40 repeat.,(ft_repeat:WD40),(cc_domain:WD40),False
-Retrieve proteins involved in autophagy in yeast.,(organism_name:yeast) AND (go:autophagy),"(go:""autophagy"") AND (organism_name:Saccharomyces cerevisiae)",False
-What are the isoforms of human P53 protein?,(protein_name:P53) AND (organism_name:Human) AND (is_isoform:true),,False
-Show all proteins in humans with a phosphorylation site.,(organism_name:human) AND (ft_mod_res:phosphorylation),(organism_name:human) AND (ft_mod_res:phospho),False
+What is the UniProt ID for insulin?,(protein_name:insulin),(protein_name:insulin),True
+Retrieve all proteins in Homo sapiens with a known 3D structure.,"(organism_name:""Homo sapiens"") AND (structure_3d:true)","(organism_name:""Homo sapiens"") AND (xref_pdb:*)",False
+What is the protein sequence of bovine serum albumin?,"(protein_name:""bovine serum albumin"") AND (organism_name:""Bos taurus"")","(protein_name:""bovine serum albumin"")",False
+What are the post-translational modifications of P53?,(protein_name:P53) AND (cc_ptm:*),(accession:P53) AND (cc_ptm:),False
+Retrieve proteins involved in apoptosis in Mus musculus.,"(organism_name:""Mus musculus"") AND (go:apoptosis)","(organism_name:""Mus musculus"") AND (go:(apoptosis))",False
+Show proteins in Saccharomyces cerevisiae that bind ATP.,"(organism_name:""Saccharomyces cerevisiae"") AND (ft_binding:ATP)","(organism_name:""Saccharomyces cerevisiae"") AND (ft_positional:ATP)",False
+What proteins are part of the human mitochondrial proteome?,"(organism_name:Human) AND (proteomecomponent:""mitochondrion"")","(organism_name:human) AND (organelle:Mitochondrion) AND (proteome_component:""mitochondrial proteome"")",False
+List enzymes involved in DNA replication in E. coli.,"(organism_name:""Escherichia coli"") AND (go:""DNA replication"") AND (ec:*)","(organism_name:""Escherichia coli"") AND (ec:*) AND (go:""DNA replication"")",False
+Retrieve all proteins with catalytic activity in Arabidopsis thaliana.,"(organism_name:""Arabidopsis thaliana"") AND (cc_catalytic_activity:*)","(organism_name:""Arabidopsis thaliana"") AND (cc_catalytic_activity:*)",True
+What is the gene name for protein Q9H0K1 in humans?,(accession:Q9H0K1) AND (organism_name:human),(accession:Q9H0K1) AND (organism_name:human) AND (*:*),False
+List all proteins expressed in the human liver.,(organism_name:human) AND (tissue:liver),(organism_name:human) AND (tissue:liver),True
+Find all membrane proteins in Drosophila melanogaster.,"(organism_name:""Drosophila melanogaster"") AND (cc_scl_term:membrane)","(organism_name:""Drosophila melanogaster"") AND (keyword:""Membrane protein"") OR (keyword:""Transmembrane protein"") OR (ft_transmem:* OR ft_topo_dom:*)",False
+Show all proteins with zinc-binding domains in Homo sapiens.,"(organism_name:""Homo sapiens"") AND (ft_zn_fing:*)","(organism_name:""Homo sapiens"") AND (cc_domain:""zinc-binding"") OR (cc_family:""zinc-binding"") OR (ft_domain:""zinc-finger"") OR (cc_similarity:""zinc-finger"")",False
+Retrieve proteins localized in the nucleus of human cells.,(organism_name:human) AND (cc_scl_term:nucleus),(organism_name:human) AND (cc_subcellular_location:Nucleus),False
+Show proteins that are G-protein coupled receptors (GPCRs) in mice.,(organism_name:mouse) AND (family:G-protein coupled receptor),(organism_name:mouse) AND (keyword:G-protein coupled receptor),False
+Which proteins are secreted by E. coli?,"(organism_name:""Escherichia coli"") AND (cc_subcellular_location:secreted)","(organism_name:""Escherichia coli"") AND (keyword:secreted)",False
+Find all proteins that contain a WD40 repeat.,(ft_repeat:WD40),(motif:WD40) OR (ft_motif_name:WD40) OR (pfam:xref_pfam:PF00400),False
+Retrieve proteins involved in autophagy in yeast.,(organism_name:yeast) AND (go:autophagy),(organism_name:yeast) AND (go:autophagy),True
+What are the isoforms of human P53 protein?,(protein_name:P53) AND (organism_name:Human) AND (is_isoform:true),(protein_name:P53) AND (organism_name:Human) AND (is_isoform:true),True
+Show all proteins in humans with a phosphorylation site.,(organism_name:human) AND (ft_mod_res:phosphorylation),"(organism_name:human) AND (ft_mod_res:""phosphorylation"")",False
 Retrieve proteins in humans that bind DNA.,(organism_name:human) AND (ft_dna_bind:*),(organism_name:human) AND (ft_positional:DNA),False
-Find proteins that are involved in the circadian rhythm in Drosophila.,"(organism_name:Drosophila) AND (go:""circadian rhythm"")","(organism_name:Drosophila) AND (go:""circadian rhythm"")",True
-What is the length of the insulin protein sequence?,protein_name:insulin,,False
-Show proteins involved in lipid metabolism in plants.,"(organism_name:plants) AND (go:""lipid metabolism"")","(go:""lipid metabolism"") AND (organism_name:""plants"")",False
-Retrieve all proteins with disulfide bonds in humans.,(organism_name:human) AND (ft_disulfid:*),(organism_name:human) AND (ft_disulfid:true),False
-Find proteins in bacteria with oxidoreductase activity.,(organism_name:bacteria) AND (ec:1.*),"(organism_name:""bacteria"") AND (ec:1.*)",False
-List all proteins involved in the TCA cycle in yeast.,"(organism_name:yeast) AND (go:""TCA cycle"")",,False
-Show proteins in Homo sapiens with N-linked glycosylation sites.,"(organism_name:""Homo sapiens"") AND (ft_carbohyd:N-linked)",(organism_name:Homo sapiens) AND (ft_carbohyd:N-linked),False
-What is the function of human albumin?,(organism_name:human) AND (protein_name:albumin),"(organism_name:Homo sapiens) AND (protein_name:albumin) AND (go:""albumin binding"")",False
-List all proteins involved in photosynthesis in plants.,(taxonomy_name:plants) AND (go:photosynthesis),"go:""photosynthesis"" AND (organism_name:""plants"")",False
-Retrieve all kinases in humans.,(organism_name:human) AND (ec:2.7.*),,False
-Show proteins in humans that are involved in the immune response.,(organism_name:human) AND (go:immune response),"(organism_name:human) AND (go:""immune response"")",False
-Find all heat shock proteins in Drosophila.,"(organism_name:Drosophila) AND (protein_name:""heat shock protein"")","(organism_name:""Drosophila"") AND (go:""heat shock response"")",False
-List proteins associated with Huntingtonâ€™s disease.,(cc_disease:Huntington's),(cc_disease:Huntington disease),False
-What is the role of the protein encoded by BRCA1?,(gene:BRCA1) AND (cc_function:*),,False
-Retrieve proteins with SH3 domains in Mus musculus.,"(organism_name:""Mus musculus"") AND (ft_domain:SH3)","(organism_name:""Mus musculus"") AND (cc_domain:SH3)",False
-Find all proteins with a transmembrane domain in E. coli.,"(organism_name:""Escherichia coli"") AND (ft_transmem:*)","(organism_name:""Escherichia coli"") AND (ft_transmem:true)",False
-Show all ubiquitin-related proteins in humans.,(organism_name:human) AND (protein_name:ubiquitin),(organism_name:human) AND (ft_positional:ubiquitin),False
-Retrieve all proteins involved in cell cycle regulation in Homo sapiens.,"(organism_name:""Homo sapiens"") AND (go:cell cycle regulation)",,False
-List proteins with heme-binding activity in Drosophila.,(organism_name:Drosophila) AND (ft_binding:heme),(organism_name:Drosophila) AND (ft_act_site:heme),False
-Show proteins with calcium ion-binding activity in humans.,"(organism_name:human) AND (ft_positional:""calcium ion binding"")",(organism_name:human) AND (ft_positional:calcium),False
-Find proteins with GTPase activity in yeast.,(organism_name:yeast) AND (go:GTPase activity),"ec:3.6.5.* AND organism_name:""Saccharomyces cerevisiae""",False
-Show all proteins with known 3D structures in zebrafish.,(organism_name:Zebrafish) AND (database:pdb),,False
-Retrieve proteins with catalytic activity localized to the mitochondria in humans.,(organism_name:human) AND (cc_catalytic_activity:*) AND (organelle:Mitochondrion),(organism_name:human) AND (function_catalytic_activity:true) AND (subcellular_location_mitochondria:true),False
-List all proteins in Homo sapiens that are involved in signal transduction pathways.,"(organism_name:""Homo sapiens"") AND (go:signal transduction)","organism_name:Homo sapiens AND (go:""signal transduction"")",False
-What are the orthologs of human P53 in Mus musculus and Danio rerio?,"(gene:P53 AND organism_name:""Homo sapiens"") AND (organism_name:""Mus musculus"" OR organism_name:""Danio rerio"")",gene_exact:TP53 AND (organism_name:Mus musculus OR organism_name:Danio rerio),False
-Find proteins in Arabidopsis thaliana that are involved in the response to oxidative stress.,"(organism_name:""Arabidopsis thaliana"") AND (go:""response to oxidative stress"")",,False
-Show all proteins involved in iron transport in plants.,(go:*iron transport*) AND (taxonomy_name:plant),"(go:""iron transport"") AND (organism_name:Plants)",False
+Find proteins that are involved in the circadian rhythm in Drosophila.,"(organism_name:Drosophila) AND (go:""circadian rhythm"")","(organism_name:Drosophila) AND (go_c:""circadian rhythm"")",False
+What is the length of the insulin protein sequence?,protein_name:insulin,(protein_name:insulin) AND (length:[* TO *]),False
+Show proteins involved in lipid metabolism in plants.,"(organism_name:plants) AND (go:""lipid metabolism"")",(organism_name:plant) AND (go:lipid metabolism),False
+Retrieve all proteins with disulfide bonds in humans.,(organism_name:human) AND (ft_disulfid:*),(organism_name:human) AND (ft_disulfid:),False
+Find proteins in bacteria with oxidoreductase activity.,(organism_name:bacteria) AND (ec:1.*),(organism_name:bacteria) AND (ec:1.*.*),False
+List all proteins involved in the TCA cycle in yeast.,"(organism_name:yeast) AND (go:""TCA cycle"")","(organism_name:yeast) AND (go:""citric acid cycle"" OR go:""tricarboxylic acid cycle"" OR go:""TCA cycle"" OR go:""Krebs cycle"")",False
+Show proteins in Homo sapiens with N-linked glycosylation sites.,"(organism_name:""Homo sapiens"") AND (ft_carbohyd:N-linked)","(organism_name:""Homo sapiens"") AND (keyword:""N-linked glycosylation"")",False
+What is the function of human albumin?,(organism_name:human) AND (protein_name:albumin),(protein_name:albumin) AND (organism_name:human) AND (cc_function:[* TO *]),False
+List all proteins involved in photosynthesis in plants.,(taxonomy_name:plants) AND (go:photosynthesis),"(go:""photosynthesis"") AND (taxonomy_name:plants)",False
+Retrieve all kinases in humans.,(organism_name:human) AND (ec:2.7.*),"(organism_name:Human) AND (keyword:""kinase"")",False
+Show proteins in humans that are involved in the immune response.,(organism_name:human) AND (go:immune response),(organism_name:human) AND (go:immune response),True
+Find all heat shock proteins in Drosophila.,"(organism_name:Drosophila) AND (protein_name:""heat shock protein"")",(organism_name:Drosophila) AND (keyword:heat shock),False
+List proteins associated with Huntingtonâ€™s disease.,(cc_disease:Huntington's),"(cc_disease:""Huntington's disease"") OR (disease:""Huntington's disease"")",False
+What is the role of the protein encoded by BRCA1?,(gene:BRCA1) AND (cc_function:*),(gene_exact:BRCA1) AND (reviewed:true) AND (existence:1) AND ((cc_function:*) OR (ft_positional:*) OR (cc_catalytic_activity:*)),False
+Retrieve proteins with SH3 domains in Mus musculus.,"(organism_name:""Mus musculus"") AND (ft_domain:SH3)","(organism_name:""Mus musculus"") AND (ft_domain:SH3)",True
+Find all proteins with a transmembrane domain in E. coli.,"(organism_name:""Escherichia coli"") AND (ft_transmem:*)","(organism_name:""Escherichia coli"") AND (ft_transmem:*)",True
+Show all ubiquitin-related proteins in humans.,(organism_name:human) AND (protein_name:ubiquitin),(protein_name:ubiquitin) AND (organism_name:human),False
+Retrieve all proteins involved in cell cycle regulation in Homo sapiens.,"(organism_name:""Homo sapiens"") AND (go:cell cycle regulation)","(organism_name:""Homo sapiens"") AND (go:""cell cycle regulation"")",False
+List proteins with heme-binding activity in Drosophila.,(organism_name:Drosophila) AND (ft_binding:heme),(organism_name:Drosophila) AND (keyword:heme) AND (go_f:molecular_function),False
+Show proteins with calcium ion-binding activity in humans.,"(organism_name:human) AND (ft_positional:""calcium ion binding"")","(organism_name:human) AND (go_f:""calcium ion binding"")",False
+Find proteins with GTPase activity in yeast.,(organism_name:yeast) AND (go:GTPase activity),"(organism_name:yeast) AND (keyword:""GTPase"")",False
+Show all proteins with known 3D structures in zebrafish.,(organism_name:Zebrafish) AND (database:pdb),(organism_name:zebrafish) AND (database:pdb),False
+Retrieve proteins with catalytic activity localized to the mitochondria in humans.,(organism_name:human) AND (cc_catalytic_activity:*) AND (organelle:Mitochondrion),"(organism_name:human) AND (cc_catalytic_activity:*) AND (cc_subcellular_location:""Mitochondrion"")",False
+List all proteins in Homo sapiens that are involved in signal transduction pathways.,"(organism_name:""Homo sapiens"") AND (go:signal transduction)","(organism_name:""Homo sapiens"") AND (keyword:""signal transduction"")",False
+What are the orthologs of human P53 in Mus musculus and Danio rerio?,"(gene:P53 AND organism_name:""Homo sapiens"") AND (organism_name:""Mus musculus"" OR organism_name:""Danio rerio"")",((gene:p53) AND (organism_name:human) AND (database:orthodb) AND (organism_name:(Mus musculus OR Danio rerio))) OR ((gene:p53) AND (organism_name:human) AND (database:inparanoid) AND (organism_name:(Mus musculus OR Danio rerio))),False
+Find proteins in Arabidopsis thaliana that are involved in the response to oxidative stress.,"(organism_name:""Arabidopsis thaliana"") AND (go:""response to oxidative stress"")","(organism_name:""Arabidopsis thaliana"") AND (go:""response to oxidative stress"")",True
+Show all proteins involved in iron transport in plants.,(go:*iron transport*) AND (taxonomy_name:plant),"(organism_name:plant) AND (go:""iron transport"")",False
 List all proteins with serine/threonine kinase activity in humans.,(organism_name:Human) AND (ec:2.7.11.*),(organism_name:human) AND (ec:2.7.11.*),False
 Retrieve proteins that are involved in neurotransmitter release in mice.,"(organism_name:mouse) AND (go:""neurotransmitter release"")","(organism_name:mouse) AND (go:""neurotransmitter release"")",True
-Find proteins in Drosophila melanogaster that have DNA-binding domains and are transcription factors.,"(organism_name:""Drosophila melanogaster"") AND (ft_dna_bind:*) AND (keyword:transcription factor)",,False
-What proteins in E. coli are involved in antibiotic resistance?,"(organism_name:""Escherichia coli"") AND (keyword:antibiotic resistance)","(organism_name:""Escherichia coli"") AND (go:""antibiotic resistance"")",False
-Show proteins that are secreted and involved in the immune response in humans.,"(organism_name:human) AND (cc_subcellular_location:secreted) AND (go:""immune response"")",(organism_name:human) AND (go:immune response) AND (ft_secreted:true),False
-Retrieve all proteins involved in the Wnt signaling pathway in zebrafish.,"(organism_name:zebrafish) AND (cc_pathway:""Wnt signaling pathway"")","(organism_name:""Danio rerio"") AND (go:""Wnt signaling pathway"")",False
-Find proteins in Saccharomyces cerevisiae involved in chromatin remodeling.,"(organism_name:""Saccharomyces cerevisiae"") AND (go:""chromatin remodeling"")",,False
-Show proteins with ubiquitin ligase activity in humans.,"""1. (organism_name:human) AND (go:ubiquitin ligase activity) 2. (organism_name:human) AND (cc_function:ubiquitin ligase) 3. (protein_name:ubiquitin ligase) AND (organism_name:human) 4. (organism_name:human) AND (ec:6.3.2.*)""",(organism_name:human) AND (ec:6.3.*),False
-List proteins in Mus musculus with ATPase activity and localized to the plasma membrane.,"(organism_name:""Mus musculus"") AND (ec:3.6.1.*) AND (cc_subcellular_location:""plasma membrane"")","(organism_name:""Mus musculus"") AND (ec:3.6.*) AND (cc_subcellular_location:""Plasma membrane"")",False
-Retrieve all enzymes involved in lipid biosynthesis in bacteria.,"(organism_name:bacteria) AND (go:""lipid biosynthetic process"") AND (ec:*)","(organism_name:""Bacteria"") AND (ec:2.3.*) AND (go:""lipid biosynthesis"")",False
-What human proteins interact with viral proteins?,"""1. (organism_name:human) AND (interactor:virus) 2. (organism_name:human) AND (cc_interaction:viral)""",,False
-List all proteins in Homo sapiens that are annotated with a GO term related to apoptosis.,"(organism_name:""Homo sapiens"") AND (go:apoptosis)","(organism_name:""Homo sapiens"") AND (go:""apoptosis"")",False
-Show proteins involved in RNA splicing in plants.,(go:RNA splicing) AND (taxonomy_name:plants),"(go:""RNA splicing"") AND (organism_name:plants)",False
-Retrieve proteins with signal peptides that are involved in protein transport in humans.,"(organism_name:human) AND (cc_function:""protein transport"") AND (ft_signal:*)","(organism_name:human) AND (ft_signal:YES) AND (go:""protein transport"")",False
-Find proteins that are methyltransferases in yeast.,"""(organism_name:yeast) AND (protein_name:methyltransferase) (organism_name:yeast) AND (ec:2.1.1.*)""",,False
-List proteins in mice that are involved in insulin signaling.,(organism_name:mouse) AND (go:insulin signaling),"(organism_name:mouse) AND (go:""insulin signaling pathway"")",False
-Retrieve proteins involved in muscle contraction in Drosophila.,"(organism_name:Drosophila) AND (go:""muscle contraction"")","(organism_name:Drosophila) AND (go:""muscle contraction"")",True
-Retrieve proteins with catalytic activity localized to the mitochondria in humans.,(organism_name:human) AND (cc_catalytic_activity:*) AND (subcellular location term:Mitochondrion),(organism_name:human) AND (cc_catalytic_activity:true) AND (organelle:Mitochondrion),False
-Retrieve human protein kinases,(go:0004672) AND (taxonomy_id:9606) AND (reviewed:true),,False
-"Show me all the human, reviewed proteins which have an experimental CC subunit but not a CC INTERACTION line",(taxonomy_id:9606) NOT (interactor:*) AND (cc_subunit_exp:*),(organism_name:human) AND (reviewed:true) AND (cc_subunit:true) AND NOT (cc_interaction:true),False
-Retrieve multidrug antibiotic resistance-related proteins in reference proteome for Klebsiella pneumoniae,"""multidrug"" AND (taxonomy_id:1125630) AND (keyword:KW-0046)",(organism_name:klebsiella pneumoniae) AND (keyword:*(multidrug OR antibiotic resistance*)) AND (scope:reference proteome),False
-Find genes that are causally connected to xeroderma pigmentosum,"(cc_disease:""xeroderma pigmentosum"")","(gene:""xeroderma pigmentosum"")",False
-What proteins are involved in Cystic Fibrosis?,(cc_disease:Cystic Fibrosis),,False
-What information is there on variant dbSNP rs63750001 in human Presenilin-1?,(Cross-references/genetic variation databses/dbSNP: rs63750001),(id:P49768) AND (xref_dbsnp:rs63750001),False
+Find proteins in Drosophila melanogaster that have DNA-binding domains and are transcription factors.,"(organism_name:""Drosophila melanogaster"") AND (ft_dna_bind:*) AND (keyword:transcription factor)","(organism_name:""Drosophila melanogaster"") AND (ft_domain:""DNA binding"") AND (keyword:""transcription factor"")",False
+What proteins in E. coli are involved in antibiotic resistance?,"(organism_name:""Escherichia coli"") AND (keyword:antibiotic resistance)","(organism_name:""Escherichia coli"") AND ((keyword:""antibiotic resistance"") OR (go:antibiotic* OR cc_disease:""antibiotic resistance""))",False
+Show proteins that are secreted and involved in the immune response in humans.,"(organism_name:human) AND (cc_subcellular_location:secreted) AND (go:""immune response"")","(organism_name:human) AND (go:immune response) AND (cc_subcellular_location:""Secreted"")",False
+Retrieve all proteins involved in the Wnt signaling pathway in zebrafish.,"(organism_name:zebrafish) AND (cc_pathway:""Wnt signaling pathway"")",(organism_name:zebrafish) AND (go:Wnt signaling pathway),False
+Find proteins in Saccharomyces cerevisiae involved in chromatin remodeling.,"(organism_name:""Saccharomyces cerevisiae"") AND (go:""chromatin remodeling"")","(organism_name:""Saccharomyces cerevisiae"") AND (go:""chromatin remodeling"")",True
+Show proteins with ubiquitin ligase activity in humans.,"""1. (organism_name:human) AND (go:ubiquitin ligase activity) 2. (organism_name:human) AND (cc_function:ubiquitin ligase) 3. (protein_name:ubiquitin ligase) AND (organism_name:human) 4. (organism_name:human) AND (ec:6.3.2.*)""",(organism_name:human) AND (ec:6.3.2.*),False
+List proteins in Mus musculus with ATPase activity and localized to the plasma membrane.,"(organism_name:""Mus musculus"") AND (ec:3.6.1.*) AND (cc_subcellular_location:""plasma membrane"")","(organism_name:""Mus musculus"") AND (ec:3.6.*) AND (cc_subcellular_location:""plasma membrane"") AND (keyword:""ATPase"")",False
+Retrieve all enzymes involved in lipid biosynthesis in bacteria.,"(organism_name:bacteria) AND (go:""lipid biosynthetic process"") AND (ec:*)","(ec:*) AND (go:""lipid biosynthetic process"") AND (taxonomy_name:bacteria)",False
+What human proteins interact with viral proteins?,"""1. (organism_name:human) AND (interactor:virus) 2. (organism_name:human) AND (cc_interaction:viral)""",(organism_name:human) AND (cc_interaction:(type:virus)),False
+List all proteins in Homo sapiens that are annotated with a GO term related to apoptosis.,"(organism_name:""Homo sapiens"") AND (go:apoptosis)","(organism_name:""Homo sapiens"") AND (go:(apoptosis OR ""regulation of apoptosis"" OR ""induction of apoptosis"" OR ""inhibition of apoptosis""))",False
+Show proteins involved in RNA splicing in plants.,(go:RNA splicing) AND (taxonomy_name:plants),"(go:""RNA splicing"") AND (taxonomy_name:Viridiplantae)",False
+Retrieve proteins with signal peptides that are involved in protein transport in humans.,"(organism_name:human) AND (cc_function:""protein transport"") AND (ft_signal:*)","(organism_name:human) AND (go:""protein transport"") AND (ft_signal:""*"")",False
+Find proteins that are methyltransferases in yeast.,"""(organism_name:yeast) AND (protein_name:methyltransferase) (organism_name:yeast) AND (ec:2.1.1.*)""",(organism_name:yeast) AND (ec:2.1.*),False
+List proteins in mice that are involved in insulin signaling.,(organism_name:mouse) AND (go:insulin signaling),(organism_name:mouse) AND (go:insulin signaling),True
+Retrieve proteins involved in muscle contraction in Drosophila.,"(organism_name:Drosophila) AND (go:""muscle contraction"")","(organism_name:Drosophila) AND (go_f:""muscle contraction"")",False
+Retrieve proteins with catalytic activity localized to the mitochondria in humans.,(organism_name:human) AND (cc_catalytic_activity:*) AND (subcellular location term:Mitochondrion),(cc_catalytic_activity:*) AND (organism_name:human) AND (cc_subcellular_location:mitochondrion),False
+Retrieve human protein kinases,(go:0004672) AND (taxonomy_id:9606) AND (reviewed:true),"(organism_name:human) AND (keyword:""protein kinase"")",False
+"Show me all the human, reviewed proteins which have an experimental CC subunit but not a CC INTERACTION line",(taxonomy_id:9606) NOT (interactor:*) AND (cc_subunit_exp:*),(organism_name:human) AND (reviewed:true) AND (cc_subunit:*) AND (cc_interaction:*)^(-1),False
+Retrieve multidrug antibiotic resistance-related proteins in reference proteome for Klebsiella pneumoniae,"""multidrug"" AND (taxonomy_id:1125630) AND (keyword:KW-0046)","(proteomecomponent:""reference proteome"") AND (organism_name:""Klebsiella pneumoniae"") AND (keyword:""antibiotic resistance"") AND (go:""multidrug transport"")",False
+Find genes that are causally connected to xeroderma pigmentosum,"(cc_disease:""xeroderma pigmentosum"")","(involvement_in_disease:""xeroderma pigmentosum"") AND (keyword:""DNA repair"") AND (organism_name:Human)",False
+What proteins are involved in Cystic Fibrosis?,(cc_disease:Cystic Fibrosis),(keyword:Cystic Fibrosis) OR (disease:Cystic Fibrosis) OR (go:Cystic Fibrosis) OR (cc_disease:Cystic Fibrosis),False
+What information is there on variant dbSNP rs63750001 in human Presenilin-1?,(Cross-references/genetic variation databses/dbSNP: rs63750001),"(xref_dbsnp:rs63750001) AND (organism_name:human) AND (protein_name:""Presenilin-1"")",False
 Reviewed entries for gene DSG2,(gene:DSG2) AND (reviewed:true),(reviewed:true) AND (gene:DSG2),False
 Proteins with ligase function in humans,(cc_function:ligase) AND (taxonomy_id:9606),(organism_name:human) AND (ec:6.*),False
-List all ATG7 entries that have an active site annotation and are reviewed (in SwissProt),(gene:atg7) AND (ft_act_site:*) AND (reviewed:true),,False
-Retrieve all C. elegans proteins with experimental evidence for Function,(organism_name:Caenorhabditis elegans [6239]) AND (cc_function:*) evidence:experimental,(organism_name:Caenorhabditis elegans) AND (cc_function:*),False
-Retrieve all proteins in Japanese rice encoded in the chloroplast,(organism_name:Oryza sativa subsp. japonica (Japanese rice/O. sativa/Japonica rice/Rice) [39947]) AND (encoded in: chloroplast),"(organism_name:""Oryza sativa Japonica Group"") AND (organelle:Chloroplast)",False
-Retrice all D.melanogaster proteins with direct protein sequencing evidence,(keyword:KW-0903) AND (taxonomy_id:7227),"(organism_name:""Drosophila melanogaster"") AND (cc_mass_spectrometry:direct sequencing)",False
-retrieve UniProt entry for SEP-1 in C. elegans,(protein_name:sep-1) AND (taxonomy_id:6239),,False
-Retrieve entries for  rat TCF25,(gene_name:tcf25) AND (taxonomy_id:10116),"protein_name:""TCF25"" AND organism_name:""rat""",False
-Retrieve entries which have a transit peptide & removal of initiator methionine,(ft_init_met:*) AND (ft_transit:*),(ft_transit:true) AND (ft_init_met:true),False
-Retrieve proteins from rabbit proteome that are 200-500 amino acids long and contain transmembrane helixes,(xref:proteomes-UP000001811) AND (ft_transmem:*) AND (length:[200 TO 500]),"(proteomecomponent:""rabbit"") AND (length:[200 TO 500]) AND (ft_transmem:TRUE)",False
-Find all protein from arthropods that contain IPR002413 signature,(xref:interpro-IPR002413) AND (taxonomy_id:6656) AND (reviewed:true),,False
-Find all proteins for Plasmodium falciparum 3d7 isolate that have crystal structures,(database:pdb) AND (taxonomy_id:36329),(organism_name:Plasmodium falciparum) AND (strain:3d7) AND (database:pdb),False
+List all ATG7 entries that have an active site annotation and are reviewed (in SwissProt),(gene:atg7) AND (ft_act_site:*) AND (reviewed:true),(id:ATG7*) AND (ft_act_site:*) AND (reviewed:true),False
+Retrieve all C. elegans proteins with experimental evidence for Function,(organism_name:Caenorhabditis elegans [6239]) AND (cc_function:*) evidence:experimental,"(organism_name:""Caenorhabditis elegans"") AND (existence:1)",False
+Retrieve all proteins in Japanese rice encoded in the chloroplast,(organism_name:Oryza sativa subsp. japonica (Japanese rice/O. sativa/Japonica rice/Rice) [39947]) AND (encoded in: chloroplast),"(organism_name:""Oryza sativa japonica"") AND (organelle:Chloroplast)",False
+Retrice all D.melanogaster proteins with direct protein sequencing evidence,(keyword:KW-0903) AND (taxonomy_id:7227),"(organism_name:""Drosophila melanogaster"") AND (protein_existence:1)",False
+retrieve UniProt entry for SEP-1 in C. elegans,(protein_name:sep-1) AND (taxonomy_id:6239),"(organism_name:""Caenorhabditis elegans"") AND (protein_name:""SEP-1"")",False
+Retrieve entries for  rat TCF25,(gene_name:tcf25) AND (taxonomy_id:10116),(organism_name:rat) AND (protein_name:TCF25),False
+Retrieve entries which have a transit peptide & removal of initiator methionine,(ft_init_met:*) AND (ft_transit:*),(ft_transit:*) AND (ft_init_met:*_cut),False
+Retrieve proteins from rabbit proteome that are 200-500 amino acids long and contain transmembrane helixes,(xref:proteomes-UP000001811) AND (ft_transmem:*) AND (length:[200 TO 500]),(organism_name:rabbit) AND (length:[200 TO 500]) AND (ft_helix:* AND ft_transmem:*),False
+Find all protein from arthropods that contain IPR002413 signature,(xref:interpro-IPR002413) AND (taxonomy_id:6656) AND (reviewed:true),(taxonomy_name:arthropoda) AND (xref_interpro:IPR002413),False
+Find all proteins for Plasmodium falciparum 3d7 isolate that have crystal structures,(database:pdb) AND (taxonomy_id:36329),"(organism_name:""Plasmodium falciparum"") AND (strain:""3d7"") AND (database:pdb) AND (structure_3d:*)",False

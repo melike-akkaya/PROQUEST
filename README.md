@@ -10,8 +10,8 @@ pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}
 To run the program:
 streamlit run main.py
 
-To get free API key for gemini-1.5-flash AND gemini-pro:
+To get free API key for GoogleGenerativeAI models:
 https://aistudio.google.com/prompts/new_chat
 
-To get free API key for microsoft/phi-3.5-mini-instruct:
-https://build.nvidia.com/microsoft/phi-3-mini-4k?snippet_tab=LangChain
+To get free API key for ChatNVIDIA models:
+https://build.nvidia.com/ibm/granite-3_0-8b-instruct?snippet_tab=LangChain

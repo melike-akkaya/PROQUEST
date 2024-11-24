@@ -3,6 +3,7 @@ from langchain_google_genai import GoogleGenerativeAI
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import sys
 import os
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
 
 # getting proper functions for custom modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -22,7 +23,7 @@ with open('./test/queries.txt', 'r') as file:
     queries = [line.split('\t')[0].strip() for line in lines]
     correct_solr_sql = [line.split('\t')[1].strip() for line in lines]
 
-llm = GoogleGenerativeAI(model="gemini-pro", google_api_key=API_KEY)
+llm = ChatNVIDIA(model="meta/llama-3.1-405b-instruct", api_key=API_KEY)
 
 results = []
 for question, correct_query in zip(queries, correct_solr_sql):
