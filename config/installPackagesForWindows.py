@@ -15,7 +15,8 @@ def main():
         "langchain",
         "scikit-learn",
         "langchain_mistralai",
-        "openpyxl"
+        "openpyxl",
+        "matplotlib"
     ]
 
     for package in packages:
