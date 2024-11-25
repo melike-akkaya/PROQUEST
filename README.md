@@ -15,3 +15,6 @@ https://aistudio.google.com/prompts/new_chat
 
 To get free API key for ChatNVIDIA models:
 https://build.nvidia.com/ibm/granite-3_0-8b-instruct?snippet_tab=LangChain
+
+To get free API key for ChatMistralAI models:
+https://console.mistral.ai/api-keys/

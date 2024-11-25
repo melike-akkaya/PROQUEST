@@ -13,7 +13,8 @@ def main():
         "langchain_anthropic",
         "langchain_nvidia_ai_endpoints",
         "langchain",
-        "scikit-learn"
+        "scikit-learn",
+        "langchain_mistralai"
     ]
 
     for package in packages:

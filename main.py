@@ -3,6 +3,7 @@ from langchain_openai import ChatOpenAI
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
+from langchain_mistralai.chat_models import ChatMistralAI
 import logging
 from src.prompt import query_uniprot, generate_solr_query
 import io
@@ -45,6 +46,7 @@ with st.form("query_form"):
     model_choices = [
         "gemini-pro", "gemini-1.5-flash", "gpt-4o-mini", "gpt-4o", 
         "claude-3-5-sonnet-20240620", "meta/llama-3.1-405b-instruct",
+        "mistral-small"
         # "ibm/granite-3.0-8b-instruct",
         # "zyphra/zamba2-7b-instruct",
         # "microsoft/phi-3.5-mini-instruct" 
@@ -87,6 +89,8 @@ if submitted:
                 llm = ChatAnthropic(model="claude-3-5-sonnet-20240620", anthropic_api_key=api_key)
             elif llm_type == "meta/llama-3.1-405b-instruct":
                 llm = ChatNVIDIA(model="meta/llama-3.1-405b-instruct", api_key=api_key)
+            elif llm_type == "mistral-small":
+                llm = ChatMistralAI(model="mistral-small", api_key=api_key)
             # elif llm_type == "ibm/granite-3.0-8b-instruct": 
             #     llm = ChatNVIDIA(model="ibm/granite-3.0-8b-instruct", api_key=api_key)
             # elif llm_type == "zyphra/zamba2-7b-instruct": 
