@@ -2,7 +2,6 @@ import os
 import sys
 import pandas as pd
 from openpyxl import Workbook
-from langchain_openai import ChatOpenAI
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
@@ -56,8 +55,7 @@ for model_name, api_key in models.items():
                 first_result = "ERROR"
                 print(f"Error processing query '{query}': {str(e)}")
 
-            if (str(first_result) == "ERROR" or str(first_result) == "NULL"):
-                retry_count -= 1
+            retry_count -= 1
 
         row = [query, solr_query, str(first_result)]
         data.append(row)
