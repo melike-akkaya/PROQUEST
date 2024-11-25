@@ -14,7 +14,8 @@ def main():
         "langchain_nvidia_ai_endpoints",
         "langchain",
         "scikit-learn",
-        "langchain_mistralai"
+        "langchain_mistralai",
+        "openpyxl"
     ]
 
     for package in packages:
