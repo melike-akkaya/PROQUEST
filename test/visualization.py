@@ -1,3 +1,5 @@
+# This script generates a bar chart to visualize the performance of different models by showing the number of correct, ERROR, and NULL results for query generation
+
 import matplotlib.pyplot as plt
 import numpy as np
 
