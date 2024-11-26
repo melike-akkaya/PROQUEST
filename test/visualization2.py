@@ -28,8 +28,8 @@ results = {
     }
 }
 
-fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15), sharex='col', sharey='row',
-                        gridspec_kw={'hspace': 0, 'wspace': 0})
+fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(15, 10), sharex='col', sharey='row',
+                        gridspec_kw={'hspace': 0.5, 'wspace': 0.3})
 
 categories = ['NULL', 'ERROR', 'Correct Result']
 colors = ['orange', 'red', 'blue']
@@ -38,11 +38,11 @@ for i, query_type in enumerate(query_types):
     for j, model in enumerate(models):
         data = results[model][query_type.split()[0].lower()]  
 
-        axs[i, j].bar(categories, data, color=colors, edgecolor='gray')
-
+        axs[i, j].bar(categories, data, color=colors, edgecolor='black')
+        axs[i, j].grid(True, which='both', linestyle='--', linewidth=0.5, color='grey', axis='both')
         for spine in ['top', 'right', 'bottom', 'left']:
-            axs[i, j].spines[spine].set_linewidth(2)
-            axs[i, j].spines[spine].set_color('gray')
+            axs[i, j].spines[spine].set_linewidth(1)
+            axs[i, j].spines[spine].set_color('black')
 
         if j != 0:
             axs[i, j].tick_params(labelleft=False)
@@ -52,13 +52,13 @@ for i, query_type in enumerate(query_types):
         axs[i, j].set_ylim(0, 50)
 
         if i == 0:
-            axs[i, j].set_title(model, fontsize=10, fontweight='bold', pad=10)
+            axs[i, j].set_title(model, fontsize=9, fontweight='bold', pad=10)
 
         if j == 0:
-            axs[i, j].set_ylabel(query_type, fontsize=10, fontweight='bold', labelpad=10)
+            axs[i, j].set_ylabel(query_type, fontsize=9, fontweight='bold', labelpad=10)
 
 plt.subplots_adjust(left=0.07, right=0.97, top=0.92, bottom=0.08)
 
-fig.suptitle('Model Performance Analysis', fontsize=16, fontweight='bold')
+fig.suptitle('Model Performance Analysis', fontsize=14, fontweight='bold')
 
 plt.show()
