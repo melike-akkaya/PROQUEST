@@ -36,8 +36,7 @@ macOS:
 streamlit run main.py
 
 
-
-
+## For The Free Api Keys
 
 
 To get free API key for GoogleGenerativeAI models:
