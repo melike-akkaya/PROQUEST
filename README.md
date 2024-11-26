@@ -14,6 +14,7 @@ python ./config/setupdatabase.py
 
 Windows:
 python .\config\installpackages.py
+
 macOS:
 python ./config/installpackages.py
 
@@ -22,6 +23,7 @@ If you encounter issues and need to uninstall all previously installed libraries
 
 Windows:
 pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}
+
 macOS:
 pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
 
@@ -29,6 +31,7 @@ pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
 
 Windows:
 streamlit run main.py
+
 macOS:
 streamlit run main.py
 
