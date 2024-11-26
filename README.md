@@ -2,10 +2,9 @@
 
 Follow these steps to set up and run the application. Instructions for both Windows and macOS are included.
 
--## 1.Create the Asset Database
+## 1.Create the Asset Database
 
 Windows:
-```bash
 python .\config\setupdatabase.py
 
 macOS:
