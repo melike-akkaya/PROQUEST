@@ -1,14 +1,42 @@
-To create the asset database:
+# Setup and Run Instructions
+
+Follow these steps to set up and run the application. Instructions for both Windows and macOS are included.
+
+-## 1.Create the Asset Database
+
+Windows:
+```bash
 python .\config\setupdatabase.py
 
-To create the working environment:
+macOS:
+python ./config/setupdatabase.py
+
+## 2. Create the Working Environment
+
+Windows:
 python .\config\installpackages.py
+macOS:
+python ./config/installpackages.py
 
-To delete all previously installed libraries (in case of a problem):
+## 3. Delete Previously Installed Libraries (If Needed)
+If you encounter issues and need to uninstall all previously installed libraries, use the following command.
+
+Windows:
 pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}
+macOS:
+pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
 
-To run the program:
+## 4. Run the Program
+
+Windows:
 streamlit run main.py
+macOS:
+streamlit run main.py
+
+
+
+
+
 
 To get free API key for GoogleGenerativeAI models:
 https://aistudio.google.com/prompts/new_chat
