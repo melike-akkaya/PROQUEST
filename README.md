@@ -77,19 +77,40 @@ pip freeze | %{$_.split('==')[0]} | %{pip uninstall -y $_}
 pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
 ```
 
----
+**Linux:**
+
+
+***1. Filter and Save Required Libraries to a File:***
+   Generate a list of specific libraries you wish to uninstall and save them into a `requirements.txt` file using the command:
+
+   ```bash
+   pip freeze | grep -E 'streamlit|requests|langchain_openai|langchain_google_genai|langchain_anthropic|langchain_nvidia_ai_endpoints|langchain|scikit-learn|langchain_mistralai|openpyxl|matplotlib' > requirements.txt
+   ```
+
+***2.Inspect the File: Review the list of libraries to be uninstalled to ensure accuracy:***
+   ```bash
+   cat requirements.txt
+   ```
+   Check for Local Packages: If there are any lines containing @ file:///, indicating a locally installed package, you will need to manually find the correct version to replace the path. Use the following command to find the version of a problematic module (replace <module_name> with the actual name of the module):
+   ```bash
+   pip show <module_name>
+   ```
+   After identifying the correct version, use a text editor like vim to manually replace the @ file:/// path in requirements.txt with the correct version number.
+   ```bash
+   vim requirements.txt
+   ```
+
+***3.Uninstall the Libraries: Uninstall the libraries listed in the requirements.txt file using:***
+   ```bash
+   cat requirements.txt | xargs -n1 pip uninstall -y
+   ```
+
 
 ## Running the Program
 
 Start the application by executing:
 
-**Windows:**
-
-```bash
-streamlit run main.py
-```
-
-**macOS:**
+**Windows, macOS and Linux:**
 
 ```bash
 streamlit run main.py
