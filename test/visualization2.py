@@ -33,6 +33,12 @@ results = {
     }
 }
 
+total_queries = {
+    "simple": 51,
+    "complex": 50,
+    "curator-written": 19
+}
+
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(15, 10), sharex='col', sharey='row',
                         gridspec_kw={'hspace': 0.5, 'wspace': 0.3})
 
@@ -40,10 +46,12 @@ categories = ['NULL', 'ERROR', 'Correct Result']
 colors = ['orange', 'red', 'blue']
 
 for i, query_type in enumerate(query_types):
+    query_key = query_type.split()[0].lower()
     for j, model in enumerate(models):
-        data = results[model][query_type.split()[0].lower()]  
+        data = results[model][query_key]
+        normalized_data = [value / total_queries[query_key] * 100 for value in data]  # normalize to percentage
 
-        axs[i, j].bar(categories, data, color=colors, edgecolor='black')
+        axs[i, j].bar(categories, normalized_data, color=colors, edgecolor='black')
         axs[i, j].grid(True, which='both', linestyle='--', linewidth=0.5, color='grey', axis='both')
         for spine in ['top', 'right', 'bottom', 'left']:
             axs[i, j].spines[spine].set_linewidth(1)
@@ -54,7 +62,7 @@ for i, query_type in enumerate(query_types):
         if i != 2:
             axs[i, j].tick_params(labelbottom=False)
 
-        axs[i, j].set_ylim(0, 50)
+        axs[i, j].set_ylim(0, 100)
 
         if i == 0:
             axs[i, j].set_title(model, fontsize=9, fontweight='bold', pad=10)

@@ -39,7 +39,7 @@ List all proteins involved in photosynthesis in plants.
 Retrieve all kinases in humans.
 Show proteins in humans that are involved in the immune response.
 Find all heat shock proteins in Drosophila.
-List proteins associated with Huntington’s disease.
+List proteins associated with Huntington's disease.
 What is the role of the protein encoded by BRCA1?
 Retrieve proteins with SH3 domains in Mus musculus.
 Find all proteins with a transmembrane domain in E. coli.
