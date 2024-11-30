@@ -16,7 +16,8 @@ models = {
     "gemini-pro": "api-key",
     "gemini-1.5-flash": "api-key",
     "meta/llama-3.1-405b-instruct": "api-key",
-    "mistral-small": "api-key"
+    "mistral-small": "api-key",
+    "codestral-latest": "api-key"
 }
 
 with open('test/queries.txt', 'r') as file:
@@ -24,6 +25,7 @@ with open('test/queries.txt', 'r') as file:
 
 wb = Workbook()
 wb.remove(wb.active)
+
 
 with open("asset/queryfields.txt", "r") as f:
     queryFields = f.read()
@@ -35,7 +37,7 @@ for model_name, api_key in models.items():
         llm = GoogleGenerativeAI(model=model_name, google_api_key=api_key)
     elif model_name == "meta/llama-3.1-405b-instruct":
         llm = ChatNVIDIA(model=model_name, api_key=api_key)
-    elif model_name == "mistral-small":
+    elif model_name in ["codestral-latest", "mistral-small"]:
         llm = ChatMistralAI(model=model_name, api_key=api_key)
 
     data = []

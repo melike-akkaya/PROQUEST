@@ -2,19 +2,19 @@
 
 import matplotlib.pyplot as plt
 
-models = ["gemini-pro", "gemini-1.5-flash", "meta-llama-3.1-405b-instruct", "mistrall-small"]
+models = ["gemini-pro", "gemini-1.5-flash", "meta-llama-3.1-405b-instruct", "mistrall-small", "codestral-latest"]
 query_types = ["simple queries", "complex queries", "curator-written queries"]
 
 results = {
     "gemini-pro": {
-        "simple": [3, 2, 46],
-        "complex": [9, 3, 38],
+        "simple": [9, 0, 42],
+        "complex": [14, 0, 36],
         "curator-written": [6, 0, 13]
     },
     "gemini-1.5-flash": {
-        "simple": [12, 0, 39],
-        "complex": [13, 0, 37],
-        "curator-written": [4, 0, 15]
+        "simple": [11, 0, 40],
+        "complex": [14, 0, 36],
+        "curator-written": [7, 0, 12]
     },
     "meta-llama-3.1-405b-instruct": {
         "simple": [9, 0, 42],
@@ -22,13 +22,18 @@ results = {
         "curator-written": [6, 0, 13]
     },
     "mistrall-small": {
-        "simple": [3, 25, 23],
-        "complex": [2, 34, 14],
-        "curator-written": [0, 17, 2]
+        "simple": [16, 0, 35],
+        "complex": [19, 0, 31],
+        "curator-written": [10, 0, 9]
+    },
+    "codestral-latest": {
+        "simple": [5, 0, 46],
+        "complex": [4, 0, 46],
+        "curator-written": [4, 0, 15]
     }
 }
 
-fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(15, 10), sharex='col', sharey='row',
+fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(15, 10), sharex='col', sharey='row',
                         gridspec_kw={'hspace': 0.5, 'wspace': 0.3})
 
 categories = ['NULL', 'ERROR', 'Correct Result']
