@@ -66,63 +66,64 @@ with st.form("query_form"):
     # Submit button
     submitted = st.form_submit_button("Search")
 
-if submitted and question and api_key:
-    try:
-        # Clear log stream
-        st.session_state.log_stream.seek(0)
-        st.session_state.log_stream.truncate()
+if submitted:
+    if question and api_key:
+        try:
+            # Clear log stream
+            st.session_state.log_stream.seek(0)
+            st.session_state.log_stream.truncate()
 
-        # Set up LLM based on selection and API key
-        if llm_type in ["gemini-pro", "gemini-1.5-flash"]:
-            llm = GoogleGenerativeAI(model=llm_type, google_api_key=api_key)
-        elif llm_type in ["gpt-4o", "gpt-4o-mini"]:
-            llm = ChatOpenAI(model=llm_type, api_key=api_key)
-        elif llm_type == "claude-3-5-sonnet-20240620":
-            llm = ChatAnthropic(model=llm_type, anthropic_api_key=api_key)
-        elif llm_type == "meta/llama-3.1-405b-instruct":
-            llm = ChatNVIDIA(model=llm_type, api_key=api_key)
-        elif llm_type in ["mistral-small", "codestral-latest"]:
-            llm = ChatMistralAI(model=llm_type, api_key=api_key)
-
-        if verbose:
-            logger.info(f"Using LLM: {llm_type}")
-            logger.info(f"Question: {question}")
-            logger.info(f"Limited to {limit} results")
-
-        with st.spinner("Generating query and fetching results..."):
-            solr_query = generate_solr_query(question, llm, st.session_state.searchfields, st.session_state.queryfields, st.session_state.resultfields)
-            st.subheader("Generated Solr Query:")
-            st.code(solr_query)
-            if verbose:
-                logger.info(f"Generated Solr query: {solr_query}")
-
-            results = query_uniprot(solr_query, limit)
-
-            st.subheader("Results:")
-            for item in results.get('results', []):
-                with st.expander(f"{item['entryType']}: {item['primaryAccession']}"):
-                    st.write(f"**Protein Name:** {item.get('proteinDescription', {}).get('recommendedName', {}).get('fullName', {}).get('value', 'N/A')}")
-                    st.write(f"**UniProt KB Entry Link:** [https://www.uniprot.org/uniprotkb/{item.get('primaryAccession', 'N/A')}]")
-                    st.write(f"**Gene:** {item.get('genes', [{}])[0].get('geneName', {}).get('value', 'N/A')}")
-                    st.write(f"**Organism:** {item.get('organism', {}).get('scientificName', 'N/A')}")
-                    st.write(f"**Function:** {item.get('comments', [{}])[0].get('texts', [{}])[0].get('value', 'N/A') if item.get('comments') else 'N/A'}")
+            # Set up LLM based on selection and API key
+            if llm_type in ["gemini-pro", "gemini-1.5-flash"]:
+                llm = GoogleGenerativeAI(model=llm_type, google_api_key=api_key)
+            elif llm_type in ["gpt-4o", "gpt-4o-mini"]:
+                llm = ChatOpenAI(model=llm_type, api_key=api_key)
+            elif llm_type == "claude-3-5-sonnet-20240620":
+                llm = ChatAnthropic(model=llm_type, anthropic_api_key=api_key)
+            elif llm_type == "meta/llama-3.1-405b-instruct":
+                llm = ChatNVIDIA(model=llm_type, api_key=api_key)
+            elif llm_type in ["mistral-small", "codestral-latest"]:
+                llm = ChatMistralAI(model=llm_type, api_key=api_key)
 
             if verbose:
-                st.subheader("Debug Logs:")
-                st.code(st.session_state.log_stream.getvalue())
-            
-            if verbose:
-                st.subheader("Full Query Result:")
-                st.json(results)
+                logger.info(f"Using LLM: {llm_type}")
+                logger.info(f"Question: {question}")
+                logger.info(f"Limited to {limit} results")
 
-    except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
-        if verbose:
-            logger.error(f"Error details: {str(e)}", exc_info=True)
-elif not api_key:
-    st.warning("Please enter your API key.")
-elif not question:
-    st.warning("Please enter a question.")
+            with st.spinner("Generating query and fetching results..."):
+                solr_query = generate_solr_query(question, llm, st.session_state.searchfields, st.session_state.queryfields, st.session_state.resultfields)
+                st.subheader("Generated Solr Query:")
+                st.code(solr_query)
+                if verbose:
+                    logger.info(f"Generated Solr query: {solr_query}")
+
+                results = query_uniprot(solr_query, limit)
+
+                st.subheader("Results:")
+                for item in results.get('results', []):
+                    with st.expander(f"{item['entryType']}: {item['primaryAccession']}"):
+                        st.write(f"**Protein Name:** {item.get('proteinDescription', {}).get('recommendedName', {}).get('fullName', {}).get('value', 'N/A')}")
+                        st.write(f"**UniProt KB Entry Link:** [https://www.uniprot.org/uniprotkb/{item.get('primaryAccession', 'N/A')}]")
+                        st.write(f"**Gene:** {item.get('genes', [{}])[0].get('geneName', {}).get('value', 'N/A')}")
+                        st.write(f"**Organism:** {item.get('organism', {}).get('scientificName', 'N/A')}")
+                        st.write(f"**Function:** {item.get('comments', [{}])[0].get('texts', [{}])[0].get('value', 'N/A') if item.get('comments') else 'N/A'}")
+
+                if verbose:
+                    st.subheader("Debug Logs:")
+                    st.code(st.session_state.log_stream.getvalue())
+                
+                if verbose:
+                    st.subheader("Full Query Result:")
+                    st.json(results)
+
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
+            if verbose:
+                logger.error(f"Error details: {str(e)}", exc_info=True)
+    elif not api_key:
+        st.warning("Please enter your API key.")
+    elif not question:
+        st.warning("Please enter a question.")
 
 st.sidebar.title("About")
 st.sidebar.info(
