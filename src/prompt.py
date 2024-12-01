@@ -2,7 +2,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import requests
 
-def generate_solr_query(question, llm, searchFields, queryFields, resultFields):
+def generate_solr_query(question, llm, searchFields, resultFields):
     """
     Generate a Solr query for the UniProt database from a natural language query.
 
@@ -14,21 +14,15 @@ def generate_solr_query(question, llm, searchFields, queryFields, resultFields):
         str: The generated Solr query.
     """
     prompt = PromptTemplate(
-        input_variables=["question", "searchfields", "queryfields", "resultfields"],
-        template="""Task: Generate a Solr query for the UniProt database from a natural language query. 
-
-Instructions: 
-- Use only the provided search fields and their corresponding terms from the UniProt database. 
+        input_variables=["question", "searchfields", "resultfields"],
+        template="""Task: Generate a Solr query for the UniProt database from a natural language query.
+Instructions:
+- Use only the provided search fields and their corresponding terms from the UniProt database.
 - Do not use any search fields or terms that are not provided in the UniProt documentation. 
-- Ensure the syntax of the generated Solr query is correct and compatible with UniProt's search system. 
-- Use the appropriate search field prefixes and syntax as specified in the UniProt documentation. 
-
+- Ensure the syntax of the generated Solr query is correct and compatible with UniProt's search system.
+- Use the appropriate search field prefixes and syntax as specified in the UniProt documentation.
 Search Fields:
 {searchfields}
-
-Query Fields:
-{queryfields}
-
 Result Fields:
 {resultfields}
 
@@ -54,15 +48,13 @@ Examples: Here are a few examples of generated Solr queries for particular natur
 (length:[1000 TO *]) AND (ft_positional:calcium)
 
 # Show me human proteins involved in DNA repair with a molecular weight between 50 and 100 kDa 
-(organism_name:human) AND (go:DNA repair) AND (mass:[50000 TO 100000]) 
-
-The question is: {question} 
+(organism_name:human) AND (go:DNA repair) AND (mass:[50000 TO 100000])
+The question is: {question}
 Generate a Solr query for the UniProt database based on this natural language query."""
     )
     chain = LLMChain(llm=llm, prompt=prompt)
-    solr_query = chain.run(question=question, searchfields=searchFields, queryfields=queryFields, resultfields=resultFields)
+    solr_query = chain.run(question=question, searchfields=searchFields, resultfields=resultFields)
     return solr_query.strip()
-
 
 def query_uniprot(solr_query, limit):
     """

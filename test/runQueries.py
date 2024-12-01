@@ -1,8 +1,11 @@
 import os
 import sys
-import time 
+import time
 import pandas as pd
 from openpyxl import Workbook
+
+sys.path.append('/Users/sezin/Desktop/Uniprot-LLM/src')  # Update this to the correct absolute path
+from prompt import generate_solr_query, query_uniprot
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
@@ -11,7 +14,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from main import fetch_data_from_db
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from prompt import generate_solr_query, query_uniprot
+# Dummy data replacements for the search and result fields
 
+
+# Assuming models initialization and API keys are managed as before
 models = {
     "gemini-pro": "api-key",
     "gemini-1.5-flash": "api-key",
@@ -26,13 +32,11 @@ with open('test/queries.txt', 'r') as file:
 wb = Workbook()
 wb.remove(wb.active)
 
-
-with open("asset/queryfields.txt", "r") as f:
-    queryFields = f.read()
 searchFields = fetch_data_from_db("SELECT * FROM search_fields")
 resultFields = fetch_data_from_db("SELECT * FROM result_fields")
 
 for model_name, api_key in models.items():
+    # Instantiate the language model depending on the provider
     if model_name in ["gemini-pro", "gemini-1.5-flash"]:
         llm = GoogleGenerativeAI(model=model_name, google_api_key=api_key)
     elif model_name == "meta/llama-3.1-405b-instruct":
@@ -41,18 +45,17 @@ for model_name, api_key in models.items():
         llm = ChatMistralAI(model=model_name, api_key=api_key)
 
     data = []
-
     for query in queries:
         retry_count = 10
         temp_solr = ""
         temp_result = ""
         while retry_count != 0:
             try:
-                solr_query = generate_solr_query(query, llm, searchFields, queryFields, resultFields)
+                solr_query = generate_solr_query(query, llm, searchFields, resultFields)
                 result = query_uniprot(solr_query, limit=1)
                 if 'results' in result and result['results']:
                     first_result = (result['results'][0]).get('proteinDescription', {}).get('recommendedName', {}).get('fullName', {}).get('value', 'N/A')
-                    print(f"{11-retry_count}. Result successfully find for '{query}'") 
+                    print(f"{11-retry_count}. Result successfully found for '{query}'")
                     retry_count -= 1
                     break  # exit loop if a valid result is found
                 else:
@@ -71,11 +74,11 @@ for model_name, api_key in models.items():
                 print(f"{11-retry_count}. Error processing query '{query}': {str(e)}")
 
             retry_count -= 1
-            time.sleep(3)  
+            time.sleep(3)
 
         row = [query, solr_query, str(first_result), 10-retry_count]
         data.append(row)
-        time.sleep(5) 
+        time.sleep(5)
 
     safe_title = model_name.replace("/", "-").replace("\\", "-").replace("?", "").replace("*", "").replace("[", "").replace("]", "").replace(":", "-")
     ws = wb.create_sheet(title=safe_title)
