@@ -91,7 +91,7 @@ if submitted:
                 logger.info(f"Limited to {limit} results")
 
             with st.spinner("Generating query and fetching results..."):
-                solr_query = generate_solr_query(question, llm, st.session_state.searchfields, st.session_state.queryfields, st.session_state.resultfields)
+                solr_query = generate_solr_query(question, llm, st.session_state.searchfields, st.session_state.resultfields)
                 st.subheader("Generated Solr Query:")
                 st.code(solr_query)
                 if verbose:

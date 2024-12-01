@@ -3,9 +3,8 @@ import sys
 import time
 import pandas as pd
 from openpyxl import Workbook
-
-sys.path.append('/Users/sezin/Desktop/Uniprot-LLM/src')  # Update this to the correct absolute path
-from prompt import generate_solr_query, query_uniprot
+#sys.path.append('/Users/sezin/Desktop/Uniprot-LLM/src')
+#from prompt import generate_solr_query, query_uniprot
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI

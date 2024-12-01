@@ -53,14 +53,6 @@ for i, query_type in enumerate(query_types):
 
         axs[i, j].bar(categories, normalized_data, color=colors, edgecolor='black')
         axs[i, j].grid(True, which='both', linestyle='--', linewidth=0.5, color='grey', axis='both')
-        for spine in ['top', 'right', 'bottom', 'left']:
-            axs[i, j].spines[spine].set_linewidth(1)
-            axs[i, j].spines[spine].set_color('black')
-
-        if j != 0:
-            axs[i, j].tick_params(labelleft=False)
-        if i != 2:
-            axs[i, j].tick_params(labelbottom=False)
 
         axs[i, j].set_ylim(0, 100)
 
