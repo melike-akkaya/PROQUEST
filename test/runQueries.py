@@ -10,9 +10,12 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from main import fetch_data_from_db
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+from prompt import generate_solr_query, query_uniprot
 # Dummy data replacements for the search and result fields
-searchFields = "List of fields provided by database schema or explicit definition in the script"
-resultFields = "Expected fields in results according to needs"
+
 
 # Assuming models initialization and API keys are managed as before
 models = {
@@ -27,6 +30,9 @@ with open('test/queries.txt', 'r') as file:
 
 wb = Workbook()
 wb.remove(wb.active)
+
+searchFields = fetch_data_from_db("SELECT * FROM search_fields")
+resultFields = fetch_data_from_db("SELECT * FROM result_fields")
 
 for model_name, api_key in models.items():
     # Instantiate the language model depending on the provider
