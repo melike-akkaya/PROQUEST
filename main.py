@@ -9,6 +9,7 @@ from src.prompt import query_uniprot, generate_solr_query
 import io
 from contextlib import redirect_stdout
 import sqlite3
+import time 
 
 def fetch_data_from_db(query, params=None):
     with sqlite3.connect('asset_uniprot.db') as conn:
@@ -61,10 +62,56 @@ with st.form("query_form"):
     # Return limit
     limit = st.number_input("Set return limit", min_value=1, max_value=100, value=5)
 
+    # retry count
+    retry_count = st.number_input("Set retry count", min_value=1, max_value=20, value=5)
+
     question = st.text_input("Enter your question about proteins:", placeholder="e.g., What proteins are related to Alzheimer's disease?")
 
     # Submit button
     submitted = st.form_submit_button("Search")
+
+    # counter func
+    def retries_counter(question, llm, searchfields, queryfields, resultfields, limit, retry_count):
+        
+        temp_solr = ""
+        temp_result = ""
+        status_placeholder = st.empty()
+        current_attempt = 1
+        total_count = retry_count
+
+        while retry_count > 0:
+            status_placeholder.info(f"Attempt {current_attempt} for query '{question}'...")
+
+            try:
+                solr_query = generate_solr_query(question, llm, searchfields, queryfields, resultfields)
+                
+                results = query_uniprot(solr_query, limit)
+
+                if results.get('results'):
+                    status_placeholder.success(f"Results found on attempt {current_attempt}.")
+                    return solr_query, results
+                else:
+                    temp_solr = solr_query
+                    temp_result = results
+                    if current_attempt == total_count:
+                        status_placeholder.error(f"No results found for query '{question}' after {total_count} attempts.")
+                    else:
+                        status_placeholder.warning(f"No results found on attempt {current_attempt}.")
+            except Exception as e:
+                status_placeholder.error(f"Error on attempt {current_attempt}: {str(e)}")
+                if temp_solr:
+                    solr_query = temp_solr
+                else:
+                    solr_query = "ERROR"
+                    temp_result = {"results": []}
+
+            current_attempt += 1
+            retry_count -= 1
+            time.sleep(1)  
+
+        # Return last attempt's Solr query and result (empty if no success)
+        #st.error(f"No results found for query '{question}' after {total_count} attempts.")
+        return temp_solr or "ERROR", temp_result
 
 if submitted:
     if question and api_key:
@@ -91,13 +138,24 @@ if submitted:
                 logger.info(f"Limited to {limit} results")
 
             with st.spinner("Generating query and fetching results..."):
-                solr_query = generate_solr_query(question, llm, st.session_state.searchfields, st.session_state.queryfields, st.session_state.resultfields)
+                #solr_query = generate_solr_query(question, llm, st.session_state.searchfields, st.session_state.queryfields, st.session_state.resultfields)
+                
+                solr_query, results = retries_counter(
+                    question,
+                    llm,
+                    st.session_state.searchfields,
+                    st.session_state.queryfields,
+                    st.session_state.resultfields,
+                    limit,
+                    retry_count
+                )
+                
                 st.subheader("Generated Solr Query:")
                 st.code(solr_query)
                 if verbose:
                     logger.info(f"Generated Solr query: {solr_query}")
 
-                results = query_uniprot(solr_query, limit)
+                #results = query_uniprot(solr_query, limit)
 
                 st.subheader("Results:")
                 for item in results.get('results', []):
