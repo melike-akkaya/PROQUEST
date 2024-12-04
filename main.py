@@ -63,7 +63,7 @@ with st.form("query_form"):
     limit = st.number_input("Set return limit", min_value=1, max_value=100, value=5)
 
     # retry count
-    retry_count = st.number_input("Set retry count", min_value=1, max_value=20, value=5)
+    retry_count = st.number_input("Set retry count", min_value=1, value=10)
 
     question = st.text_input("Enter your question about proteins:", placeholder="e.g., What proteins are related to Alzheimer's disease?")
 
