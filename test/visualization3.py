@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 
-file_path = 'results.xlsx'
+file_path = 'Prompt_Eng_Performance - Semantic search query examples - SOLR indexing_v0.21.xlsx'
 sheets = pd.read_excel(file_path, sheet_name=None)
 
 num_sheets = len(sheets)
