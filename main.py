@@ -107,7 +107,7 @@ with st.form("query_form"):
 
             current_attempt += 1
             retry_count -= 1
-            time.sleep(1)  
+            time.sleep(3)  
 
         # Return last attempt's Solr query and result (empty if no success)
         #st.error(f"No results found for query '{question}' after {total_count} attempts.")
@@ -173,6 +173,8 @@ if submitted:
                 if verbose:
                     st.subheader("Full Query Result:")
                     st.json(results)
+                    
+                time.sleep(5)
 
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
