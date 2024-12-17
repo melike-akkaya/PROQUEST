@@ -37,6 +37,8 @@ def main():
         "langchain_mistralai",
         "openpyxl",
         "matplotlib",
+        "h5py",
+        "annoy"
     ]
     
     for package in packages:

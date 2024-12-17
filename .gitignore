@@ -1,3 +1,7 @@
 __pycache__/
 apikeys.txt
 Prompt_Eng_Performance - Semantic search query examples - SOLR indexing_v0.21.xlsx
+asset/per-protein.h5
+venv
+protein_embeddings.ann
+protein_embeddings.zip
