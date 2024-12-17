@@ -94,7 +94,7 @@ pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
    Generate a list of specific libraries you wish to uninstall and save them into a `requirements.txt` file using the command:
 
    ```bash
-   pip freeze | grep -E 'streamlit|requests|langchain_openai|langchain_google_genai|langchain_anthropic|langchain_nvidia_ai_endpoints|langchain|scikit-learn|langchain_mistralai|openpyxl|matplotlib|chromadb|h5py' > requirements.txt
+   pip freeze | grep -E 'streamlit|requests|langchain_openai|langchain_google_genai|langchain_anthropic|langchain_nvidia_ai_endpoints|langchain|scikit-learn|langchain_mistralai|openpyxl|matplotlib|annoy|h5py' > requirements.txt
    ```
 
 ***2.Inspect the File: Review the list of libraries to be uninstalled to ensure accuracy:***
