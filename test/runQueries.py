@@ -13,11 +13,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 's
 from prompt import generate_solr_query, query_uniprot
 
 models = {
-    "gemini-pro": "api-key",
-    "gemini-1.5-flash": "api-key",
-    "meta/llama-3.1-405b-instruct": "api-key",
-    "mistral-small": "api-key",
-    "codestral-latest": "api-key"
+    "gemini-pro": "AIzaSyDWlhlJAz2olApQef32w2lXfzLGHWYHcaU"
     
    
 }
