@@ -18,6 +18,17 @@ models = {
     "meta/llama-3.1-405b-instruct": "api-key",
     "mistral-small": "api-key",
     "codestral-latest": "api-key"
+    
+   
+}
+
+# Define wait times for each model
+model_wait_times = {
+    "gemini-pro": 30,
+    "gemini-1.5-flash": 4,
+    "meta/llama-3.1-405b-instruct": 3,
+    "mistral-small": 3,
+    "codestral-latest": 3
 }
 
 with open('test/queries.txt', 'r') as file:
@@ -25,7 +36,6 @@ with open('test/queries.txt', 'r') as file:
 
 wb = Workbook()
 wb.remove(wb.active)
-
 
 with open("asset/queryfields.txt", "r") as f:
     queryFields = f.read()
@@ -52,7 +62,7 @@ for model_name, api_key in models.items():
                 result = query_uniprot(solr_query, limit=1)
                 if 'results' in result and result['results']:
                     first_result = (result['results'][0]).get('proteinDescription', {}).get('recommendedName', {}).get('fullName', {}).get('value', 'N/A')
-                    print(f"{11-retry_count}. Result successfully find for '{query}'") 
+                    print(f"{11-retry_count}. Result successfully found for '{query}'") 
                     retry_count -= 1
                     break  # exit loop if a valid result is found
                 else:
@@ -71,11 +81,11 @@ for model_name, api_key in models.items():
                 print(f"{11-retry_count}. Error processing query '{query}': {str(e)}")
 
             retry_count -= 1
-            time.sleep(3)  
+            time.sleep(model_wait_times[model_name])  # Use specific wait time for the model
 
         row = [query, solr_query, str(first_result), 10-retry_count]
         data.append(row)
-        time.sleep(5) 
+        time.sleep(model_wait_times[model_name])  # Use specific wait time between queries for the same model
 
     safe_title = model_name.replace("/", "-").replace("\\", "-").replace("?", "").replace("*", "").replace("[", "").replace("]", "").replace(":", "-")
     ws = wb.create_sheet(title=safe_title)
