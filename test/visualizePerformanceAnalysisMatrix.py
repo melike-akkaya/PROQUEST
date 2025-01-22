@@ -1,3 +1,5 @@
+# this script generated model performance analysis matrix which shows the results for simple, complex and curator-written queries for each model
+
 import matplotlib.pyplot as plt
 
 models = ["gemini-pro", "gemini-1.5-flash", "meta-llama-3.1-405b-instruct", "mistrall-small", "codestral-latest"]
