@@ -5,4 +5,3 @@ asset/per-protein.h5
 venv
 protein_embeddings.ann
 protein_embeddings.zip
-prott5_embedder/
