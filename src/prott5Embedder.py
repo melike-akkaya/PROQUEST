@@ -24,17 +24,10 @@ def getT5Model(model_dir, transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc
     return model, vocab
 
 def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_len=1000, max_batch=100):
-    #seq_dict = read_fasta(seq_path)
     model, vocab = getT5Model(model_dir)
 
-    avg_length = sum([len(seq) for _, seq in seq_dict.items()]) / len(seq_dict)
-    n_long = sum([1 for _, seq in seq_dict.items() if len(seq) > max_seq_len])
     seq_dict = sorted(seq_dict.items(), key=lambda kv: len(seq_dict[kv[0]]), reverse=True)
 
-    print("Average sequence length: {}".format(avg_length))
-    print("Number of sequences >{}: {}".format(max_seq_len, n_long))
-
-    start = time.time()
     batch = list()
     emb_dict = dict()
 
@@ -75,19 +68,7 @@ def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_l
 
                 emb_dict[identifier] = emb.detach().cpu().numpy().squeeze()
 
-    end = time.time()
-
-    for sequence_id, embedding in emb_dict.items():
-        print(sequence_id)
-        #hf.create_dataset(sequence_id, data=embedding)
-        np.savetxt("emb.txt", embedding,) 
-        break
-
-    print('\n############# STATS #############')
-    print('Total number of embeddings: {}'.format(len(emb_dict)))
-    print('Total time: {:.2f}[s]; time/prot: {:.4f}[s]; avg. len= {:.2f}'.format(
-        end - start, (end - start) / len(emb_dict), avg_length))
-    return True
+    return emb_dict
 
 # def create_arg_parser():
 #     """"Creates and returns the ArgumentParser object."""
