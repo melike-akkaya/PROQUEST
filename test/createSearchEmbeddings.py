@@ -94,6 +94,5 @@ for key in allSequences:
         all_rows.append(result_data)
         newRow = pd.DataFrame(all_rows)
         results_df = pd.concat([results_df, newRow], ignore_index=True)
-    break
 
 results_df.to_excel("protein_analysis_results.xlsx", index=False)
