@@ -24,7 +24,10 @@ def main():
         "openpyxl",
         "matplotlib",
         "h5py",
-        "annoy"
+        "annoy", 
+        "transformers",
+        "h5py",
+        "sentencepiece"
     ]
 
     for package in packages:

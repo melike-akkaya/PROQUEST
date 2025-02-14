@@ -33,33 +33,3 @@ def storeIdMap(ids):
     conn.commit()
     conn.close()
     print(f"ID map stored in SQLite database at {databaseFile}")
-
-def findEmbedding(filePath, key, output_file):
-    with h5py.File(filePath, "r") as h5_file:
-        if key in h5_file:
-            embedding = h5_file[key]
-            np.savetxt(output_file, embedding,) 
-        else:
-            print(f"Key '{key}' not found in the file.")
-
-def loadAnnoyIndex(index_path, dimension):
-    index = AnnoyIndex(dimension, 'euclidean')
-    index.load(index_path)
-    return index
-
-embeddings = []
-ids = []
-
-with h5py.File(filePath, "r") as h5_file:
-    for key in h5_file.keys():
-        embedding = np.array(h5_file[key])
-        
-        if isValidEmbedding(embedding):
-            embeddings.append(embedding)
-            ids.append(key)
-        else:
-            print(f"Invalid embedding for protein ID {key}, skipped.")
-
-buildAnnoyDb(embeddings)
-
-storeIdMap(ids)

@@ -1,15 +1,12 @@
-import argparse
 import time
-from pathlib import Path
 import torch
 import numpy as np
-import h5py
 from transformers import T5EncoderModel, T5Tokenizer
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print("Using device: {}".format(device))
 
-def get_T5_model(model_dir, transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc"):
+def getT5Model(model_dir, transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc"):
     print("Loading: {}".format(transformer_link))
     if model_dir is not None:
         print("##########################")
@@ -26,31 +23,9 @@ def get_T5_model(model_dir, transformer_link="Rostlab/prot_t5_xl_half_uniref50-e
     vocab = T5Tokenizer.from_pretrained(transformer_link, do_lower_case=False)
     return model, vocab
 
-def read_fasta(fasta_path):
-    '''
-        Reads in fasta file containing multiple sequences.
-        Returns dictionary of holding multiple sequences or only single 
-        sequence, depending on input file.
-    '''
-    sequences = dict()
-    with open(fasta_path, 'r') as fasta_f:
-        x=0
-        for line in fasta_f:
-            if line.startswith('>'):
-                uniprot_id = line.split("|")[1]
-                sequences[uniprot_id] = ''
-                if (x < 3):
-                    x +=1
-            else:
-                sequences[uniprot_id] += ' '.join(''.join(line.split()).upper().replace("-", ""))  # drop gaps, cast to upper-case, and add spaces between characters
-                if (x >= 3):
-                    break
-    print (sequences)
-    return sequences
-
-def get_embeddings(seq_path, emb_path, model_dir, per_protein, max_residues=4000, max_seq_len=1000, max_batch=100):
-    seq_dict = read_fasta(seq_path)
-    model, vocab = get_T5_model(model_dir)
+def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_len=1000, max_batch=100):
+    #seq_dict = read_fasta(seq_path)
+    model, vocab = getT5Model(model_dir)
 
     avg_length = sum([len(seq) for _, seq in seq_dict.items()]) / len(seq_dict)
     n_long = sum([1 for _, seq in seq_dict.items() if len(seq) > max_seq_len])
@@ -104,9 +79,7 @@ def get_embeddings(seq_path, emb_path, model_dir, per_protein, max_residues=4000
     end = time.time()
 
     for sequence_id, embedding in emb_dict.items():
-        print("buraaaaa")
         print(sequence_id)
-        print(embedding)
         #hf.create_dataset(sequence_id, data=embedding)
         np.savetxt("emb.txt", embedding,) 
         break
@@ -117,29 +90,16 @@ def get_embeddings(seq_path, emb_path, model_dir, per_protein, max_residues=4000
         end - start, (end - start) / len(emb_dict), avg_length))
     return True
 
-def create_arg_parser():
-    """"Creates and returns the ArgumentParser object."""
-    parser = argparse.ArgumentParser(description=(
-        't5_embedder.py creates T5 embeddings for a given text ' +
-        ' file containing sequence(s) in FASTA-format.'))
-    parser.add_argument('-i', '--input', required=True, type=str,
-                        help='A path to a fasta-formatted text file containing protein sequence(s).')
-    parser.add_argument('-o', '--output', required=True, type=str,
-                        help='A path for saving the created embeddings as NumPy npz file.')
-    parser.add_argument('--model', required=False, type=str,
-                        default=None,
-                        help='A path to a directory holding the checkpoint for a pre-trained model')
-    return parser
-
-def main():
-    parser = create_arg_parser()
-    args = parser.parse_args()
-
-    seq_path = Path(args.input)
-    emb_path = Path(args.output)
-    model_dir = Path(args.model) if args.model is not None else None
-
-    get_embeddings(seq_path, emb_path, model_dir, per_protein=True)
-
-if __name__ == '__main__':
-    main()
+# def create_arg_parser():
+#     """"Creates and returns the ArgumentParser object."""
+#     parser = argparse.ArgumentParser(description=(
+#         't5_embedder.py creates T5 embeddings for a given text ' +
+#         ' file containing sequence(s) in FASTA-format.'))
+#     parser.add_argument('-i', '--input', required=True, type=str,
+#                         help='A path to a fasta-formatted text file containing protein sequence(s).')
+#     parser.add_argument('-o', '--output', required=True, type=str,
+#                         help='A path for saving the created embeddings as NumPy npz file.')
+#     parser.add_argument('--model', required=False, type=str,
+#                         default=None,
+#                         help='A path to a directory holding the checkpoint for a pre-trained model')
+#     return parser
