@@ -74,7 +74,6 @@ def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_l
                         identifier, s_len, emb.shape))
 
                 emb_dict[identifier] = emb.detach().cpu().numpy().squeeze()
-                print(emb_dict)
 
     end = time.time()
 
