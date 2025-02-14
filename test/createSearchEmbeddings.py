@@ -39,30 +39,22 @@ def searchByEmbedding(embedding, index, num_neighbors=5):
     nearest_neighbors = index.get_nns_by_vector(embedding, num_neighbors, include_distances=True)
     return nearest_neighbors
 
-def searchSpecificEmbedding(emb_dict):
+def searchSpecificEmbedding(embedding):
     annoydb = 'protein_embeddings.ann' 
     embeddingDimension = 1024 
     
-    for sequence_id, embedding in emb_dict.items():
-        print(sequence_id)
+    annoy_index = AnnoyIndex(embeddingDimension, 'euclidean')
+    annoy_index.load(annoydb)
+    neighbors, distances = searchByEmbedding(embedding, annoy_index)
+    results = pd.DataFrame(columns=['index_id', 'protein_id', 'distance'])
+    for index_id, distance in zip(neighbors, distances):
+        protein_id = runSql("protein_index.db", f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
+        if not protein_id.empty:
+            newRow = pd.DataFrame({'index_id': [index_id], 'protein_id': [protein_id.iloc[0]['protein_id']], 'distance': [distance]})
+            newRow = newRow.dropna(axis=1, how='all')
+            results = pd.concat([results, newRow], ignore_index=True)
     
-        annoy_index = AnnoyIndex(embeddingDimension, 'euclidean')
-        annoy_index.load(annoydb)
-
-        neighbors, distances = searchByEmbedding(embedding, annoy_index)
-
-        results = pd.DataFrame(columns=['index_id', 'protein_id', 'distance'])
-
-        for index_id, distance in zip(neighbors, distances):
-            protein_id = runSql("protein_index.db", f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
-            if not protein_id.empty:
-                newRow = pd.DataFrame({'index_id': [index_id], 'protein_id': [protein_id.iloc[0]['protein_id']], 'distance': [distance]})
-                results = pd.concat([results, newRow], ignore_index=True)
-
-        for index, row in results.iterrows():
-            print(f"Index ID: {row['index_id']}, Protein ID: {row['protein_id']}, Distance: {row['distance']}")
-        
-        break
+    return results
 
 allSequences = read_fasta("uniprot_sprot.fasta")
 model_dir = None
@@ -76,9 +68,15 @@ for key in allSequences:
     embDict = getEmbeddings(sequence, model_dir, per_protein=True)
     endTimeToCreateEmbedding = datetime.now()
 
-    startTimeToFindByEmbedding = datetime.now()
-    searchSpecificEmbedding(embDict)
-    endTimeToFindByEmbedding = datetime.now()
+    for sequence_id, embedding in embDict.items():
+        print("Test for: " + sequence_id)
+        startTimeToFindByEmbedding = datetime.now()
+        foundEmbeddings = searchSpecificEmbedding(embedding)
+        endTimeToFindByEmbedding = datetime.now()
+
+        for index, row in foundEmbeddings.iterrows():
+            print(f"Index ID: {row['index_id']}, Protein ID: {row['protein_id']}, Distance: {row['distance']}")
+        break
     
     print("Duration to create embedding: " + str(endTimeToCreateEmbedding - startTimeToCreateEmbedding))
     print("Duration to find by embedding: " + str(endTimeToFindByEmbedding - startTimeToFindByEmbedding))
