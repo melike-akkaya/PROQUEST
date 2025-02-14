@@ -18,7 +18,6 @@ def read_fasta(fasta_path):
     '''
     sequences = dict()
     with open(fasta_path, 'r') as fasta_f:
-        x=0
         for line in fasta_f:
             if line.startswith('>'):
                 uniprot_id = line.split("|")[1]
@@ -29,8 +28,6 @@ def read_fasta(fasta_path):
 
 def runSql(dbPath, query):
     conn = sqlite3.connect(dbPath)
-    c = conn.cursor()
-    c.execute(query)
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
@@ -42,10 +39,11 @@ def searchByEmbedding(embedding, index, num_neighbors=5):
 def searchSpecificEmbedding(embedding):
     annoydb = 'protein_embeddings.ann' 
     embeddingDimension = 1024 
-    
+
     annoy_index = AnnoyIndex(embeddingDimension, 'euclidean')
     annoy_index.load(annoydb)
     neighbors, distances = searchByEmbedding(embedding, annoy_index)
+    
     results = pd.DataFrame(columns=['index_id', 'protein_id', 'distance'])
     for index_id, distance in zip(neighbors, distances):
         protein_id = runSql("protein_index.db", f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
@@ -59,33 +57,43 @@ def searchSpecificEmbedding(embedding):
 allSequences = read_fasta("uniprot_sprot.fasta")
 model_dir = None
 
-x = 0
-for key in allSequences:
-    sequence = dict()
-    sequence[key] = allSequences[key]
+results_df = pd.DataFrame()
 
+for key in allSequences:
+    sequence = {key: allSequences[key]}
     startTimeToCreateEmbedding = datetime.now()
-    embDict = getEmbeddings(sequence, model_dir, per_protein=True)
+    embDict = getEmbeddings(sequence, None, per_protein=True)
     endTimeToCreateEmbedding = datetime.now()
 
     for sequence_id, embedding in embDict.items():
-        print("Test for: " + sequence_id)
         startTimeToFindByEmbedding = datetime.now()
         foundEmbeddings = searchSpecificEmbedding(embedding)
         endTimeToFindByEmbedding = datetime.now()
 
-        for index, row in foundEmbeddings.iterrows():
-            print(f"Index ID: {row['index_id']}, Protein ID: {row['protein_id']}, Distance: {row['distance']}")
-        break
-    
-    print("Duration to create embedding: " + str(endTimeToCreateEmbedding - startTimeToCreateEmbedding))
-    print("Duration to find by embedding: " + str(endTimeToFindByEmbedding - startTimeToFindByEmbedding))
+        embeddingTime = endTimeToCreateEmbedding - startTimeToCreateEmbedding
+        searchTime = endTimeToFindByEmbedding - startTimeToFindByEmbedding
+        memory = psutil.virtual_memory()
+        cpuUsage = memory.used / (1024 ** 3)
 
-    memory = psutil.virtual_memory()
-    usedMemory = memory.used / (1024 ** 3)
-    print(f"Used CPU: {usedMemory:.2f} GB")
+        gpus = GPUtil.getGPUs()
+        gpuUsages = [gpu.memoryUsed / 1024 for gpu in gpus]
 
-    gpus = GPUtil.getGPUs()
-    for gpu in gpus:
-        usedMemory = gpu.memoryUsed / 1024
-        print(f"GPU ID: {gpu.id} - Used Memory: {usedMemory:.2f} GB")
+        all_rows = []
+        result_data = {
+            'Protein ID': sequence_id,
+            'Embedding Duration': embeddingTime.total_seconds(),
+            'Search Duration': searchTime.total_seconds(),
+            'CPU Usage': cpuUsage
+        }
+        for i, row in foundEmbeddings.iterrows():
+            result_data[f'{i}. Nearest Result'] = f"{row['protein_id']}, {row['distance']}"
+
+        for i, gpuUsages in enumerate(gpuUsages):
+            result_data[f'GPU_{i} Usage'] = gpuUsages
+        
+        all_rows.append(result_data)
+        newRow = pd.DataFrame(all_rows)
+        results_df = pd.concat([results_df, newRow], ignore_index=True)
+    break
+
+results_df.to_excel("protein_analysis_results.xlsx", index=False)
