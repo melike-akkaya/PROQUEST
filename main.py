@@ -12,7 +12,7 @@ import sqlite3
 import time 
 
 def fetch_data_from_db(query, params=None):
-    with sqlite3.connect('asset_uniprot.db') as conn:
+    with sqlite3.connect('protein_index.db') as conn:
         cur = conn.cursor()
         cur.execute(query, params or ())
         data = cur.fetchall()
