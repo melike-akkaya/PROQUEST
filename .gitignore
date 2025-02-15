@@ -9,3 +9,4 @@ protein_embeddings.zip
 uniprot_sprot.fasta.gz
 uniprot_sprot.fasta
 protein_analysis_results.xlsx
+gpu_memory_usage_log.txt

@@ -7,8 +7,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.prott5Embedder import getEmbeddings
 from annoy import AnnoyIndex
 from datetime import datetime
-import psutil
-import GPUtil
 
 def read_fasta(fasta_path):
     '''
@@ -59,10 +57,13 @@ model_dir = None
 
 results_df = pd.DataFrame()
 
+#x= 0
 for key in allSequences:
+    #x += 1
+
     sequence = {key: allSequences[key]}
     startTimeToCreateEmbedding = datetime.now()
-    embDict = getEmbeddings(sequence, None, per_protein=True)
+    embDict, tempDict = getEmbeddings(sequence, None, per_protein=True)
     endTimeToCreateEmbedding = datetime.now()
 
     for sequence_id, embedding in embDict.items():
@@ -72,27 +73,24 @@ for key in allSequences:
 
         embeddingTime = endTimeToCreateEmbedding - startTimeToCreateEmbedding
         searchTime = endTimeToFindByEmbedding - startTimeToFindByEmbedding
-        memory = psutil.virtual_memory()
-        cpuUsage = memory.used / (1024 ** 3)
-
-        gpus = GPUtil.getGPUs()
-        gpuUsages = [gpu.memoryUsed / 1024 for gpu in gpus]
 
         all_rows = []
         result_data = {
             'Protein ID': sequence_id,
-            'Embedding Duration': embeddingTime.total_seconds(),
-            'Search Duration': searchTime.total_seconds(),
-            'CPU Usage': cpuUsage
+            'Length': tempDict[sequence_id][0],
+            'Shape': tempDict[sequence_id][1],
+            'Embedding Duration (in seconds)': embeddingTime.total_seconds(),
+            'Search Duration (in seconds)': searchTime.total_seconds(),
         }
         for i, row in foundEmbeddings.iterrows():
             result_data[f'{i}. Nearest Result'] = f"{row['protein_id']}, {row['distance']}"
 
-        for i, gpuUsages in enumerate(gpuUsages):
-            result_data[f'GPU_{i} Usage'] = gpuUsages
-        
         all_rows.append(result_data)
         newRow = pd.DataFrame(all_rows)
+        newRow = newRow.dropna(axis=1, how='all')
         results_df = pd.concat([results_df, newRow], ignore_index=True)
+    
+    # if (x==500):
+    #     break
 
 results_df.to_excel("protein_analysis_results.xlsx", index=False)

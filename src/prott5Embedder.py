@@ -29,7 +29,8 @@ def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_l
     seq_dict = sorted(seq_dict.items(), key=lambda kv: len(seq_dict[kv[0]]), reverse=True)
 
     batch = list()
-    emb_dict = dict()
+    embDict = dict()
+    sizeDict = dict()
 
     for seq_idx, (pdb_id, seq) in enumerate(seq_dict, 1):
         #seq = seq.replace('U', 'X').replace('Z', 'X').replace('O', 'X')
@@ -62,13 +63,14 @@ def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_l
                 if per_protein:
                     emb = emb.mean(dim=0)
 
-                if len(emb_dict) == 0:
+                if len(embDict) == 0:
                     print("Embedded protein {} with length {} to emb. of shape: {}".format(
                         identifier, s_len, emb.shape))
 
-                emb_dict[identifier] = emb.detach().cpu().numpy().squeeze()
+                sizeDict[identifier] = [s_len, emb.shape]
+                embDict[identifier] = emb.detach().cpu().numpy().squeeze()
 
-    return emb_dict
+    return embDict, sizeDict
 
 # def create_arg_parser():
 #     """"Creates and returns the ArgumentParser object."""
