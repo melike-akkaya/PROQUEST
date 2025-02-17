@@ -57,9 +57,9 @@ model_dir = None
 
 results_df = pd.DataFrame()
 
-#x= 0
+# x= 0
 for key in allSequences:
-    #x += 1
+    # x += 1
 
     sequence = {key: allSequences[key]}
     startTimeToCreateEmbedding = datetime.now()

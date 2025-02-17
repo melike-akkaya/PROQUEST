@@ -33,8 +33,13 @@ def getEmbeddings(seq_dict, model_dir, per_protein, max_residues=4000, max_seq_l
     sizeDict = dict()
 
     for seq_idx, (pdb_id, seq) in enumerate(seq_dict, 1):
-        #seq = seq.replace('U', 'X').replace('Z', 'X').replace('O', 'X')
+        seq = seq.replace('U', 'X').replace('Z', 'X').replace('O', 'X')
         seq_len = len(seq)
+
+        # for i in range(seq_len // 4):
+        #     if seq[i] != ' ':
+        #         seq = seq[:i] + '*' + seq[i+1:]
+
         seq = ' '.join(list(seq))
         batch.append((pdb_id, seq, seq_len))
 
