@@ -2,10 +2,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def visualizeNearestSearchResults():
-    values = [460, 19, 10, 5, 4, 1, 1]
+    values = [177, 25, 17, 8, 10, 263]
     labels = ["First Nearest Result", "Second Nearest Result", "Third Nearest Result",
-            "Fourth Nearest Result", "Fifth Nearest Result", "Sixth Nearest Result",
-            "Seventh Nearest Result"]
+            "Fourth Nearest Result", "Fifth Nearest Result", "Cannot Find in First Five Result"]
     colors = plt.cm.Paired(range(len(values)))
 
     plt.figure(figsize=(10, 8))
@@ -20,7 +19,7 @@ def visualizeDuration(byLength):
     if (not byLength):
         data = pd.read_excel('Analysis Results.xlsx', usecols=['Embedding Duration (in seconds)', 'Search Duration (in seconds)'])
     else:
-        data = pd.read_excel('Analysis_Results.xlsx', usecols=['Length', 'Embedding Duration (in seconds)', 'Search Duration (in seconds)'])
+        data = pd.read_excel('Analysis Results.xlsx', usecols=['Length', 'Embedding Duration (in seconds)', 'Search Duration (in seconds)'])
         data = data.sort_values(by='Length')
 
     plt.figure(figsize=(10, 5))
@@ -37,9 +36,16 @@ def visualizeDuration(byLength):
     plt.show()
 
     plt.figure(figsize=(10, 5))
-    plt.plot(data['Search Duration (in seconds)'], label='Search Duration', color='green')
+    
+    if (byLength):
+        plt.plot(data['Length'], data['Search Duration (in seconds)'], label='Embedding Duration', color='blue')
+        plt.xlabel('Protein Length')
+    else:
+        plt.plot(data['Search Duration (in seconds)'], label='Embedding Duration', color='blue')
+        plt.xlabel('Protein ID')
+        
     plt.title('Search Duration')
-    plt.xlabel('Protein ID Index')
     plt.ylabel('Duration in seconds')
     plt.legend()
     plt.show()
+visualizeDuration(True)
