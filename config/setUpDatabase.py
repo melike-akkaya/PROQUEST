@@ -77,14 +77,16 @@ initialize_database()
 load_json_data('./asset/search-fields.json', 'search_fields')
 load_json_data('./asset/result-fields.json', 'result_fields')
 
-# def print_first_five_records(table):
-#     conn = sqlite3.connect('protein_index.db')
-#     c = conn.cursor()
-#     c.execute(f'SELECT * FROM {table} LIMIT 5')
-#     print(f"First 5 records from {table}:")
-#     for row in c.fetchall():
-#         print(row)
-#     conn.close()
+'''
+def print_first_five_records(table):
+     conn = sqlite3.connect('protein_index.db')
+     c = conn.cursor()
+     c.execute(f'SELECT * FROM {table} LIMIT 5')
+     print(f"First 5 records from {table}:")
+     for row in c.fetchall():
+         print(row)
+     conn.close()
 
-# print_first_five_records('search_fields')
-# print_first_five_records('result_fields')
+print_first_five_records('search_fields')
+print_first_five_records('result_fields')
+'''
