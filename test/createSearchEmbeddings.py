@@ -35,7 +35,7 @@ def searchByEmbedding(embedding, index, num_neighbors=5):
     return nearest_neighbors
 
 def searchSpecificEmbedding(embedding):
-    annoydb = 'protein_embeddings.ann' 
+    annoydb = 'asset/protein_embeddings.ann' 
     embeddingDimension = 1024 
 
     annoy_index = AnnoyIndex(embeddingDimension, 'euclidean')
@@ -44,7 +44,7 @@ def searchSpecificEmbedding(embedding):
     
     results = pd.DataFrame(columns=['index_id', 'protein_id', 'distance'])
     for index_id, distance in zip(neighbors, distances):
-        protein_id = runSql("protein_index.db", f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
+        protein_id = runSql("asset/protein_index.db", f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
         if not protein_id.empty:
             newRow = pd.DataFrame({'index_id': [index_id], 'protein_id': [protein_id.iloc[0]['protein_id']], 'distance': [distance]})
             newRow = newRow.dropna(axis=1, how='all')
@@ -52,15 +52,12 @@ def searchSpecificEmbedding(embedding):
     
     return results
 
-allSequences = read_fasta("uniprot_sprot.fasta")
+allSequences = read_fasta("asset/selected_proteins.fasta")
 model_dir = None
 
 results_df = pd.DataFrame()
 
-# x= 0
 for key in allSequences:
-    # x += 1
-
     sequence = {key: allSequences[key]}
     startTimeToCreateEmbedding = datetime.now()
     embDict, tempDict = getEmbeddings(sequence, None, per_protein=True)
@@ -83,14 +80,11 @@ for key in allSequences:
             'Search Duration (in seconds)': searchTime.total_seconds(),
         }
         for i, row in foundEmbeddings.iterrows():
-            result_data[f'{i}. Nearest Result'] = f"{row['protein_id']}, {row['distance']}"
+            result_data[f'{i + 1}. Nearest Result'] = f"{row['protein_id']}, {row['distance']}"
 
         all_rows.append(result_data)
         newRow = pd.DataFrame(all_rows)
         newRow = newRow.dropna(axis=1, how='all')
         results_df = pd.concat([results_df, newRow], ignore_index=True)
-    
-    # if (x==500):
-    #     break
 
 results_df.to_excel("protein_analysis_results.xlsx", index=False)
