@@ -15,20 +15,13 @@ def visualizeNearestSearchResults():
     plt.tight_layout()
     plt.show()
 
-def visualizeDuration(byLength):
-    if (not byLength):
-        data = pd.read_excel('Analysis Results.xlsx', usecols=['Embedding Duration (in seconds)', 'Search Duration (in seconds)'])
-    else:
-        data = pd.read_excel('Analysis Results.xlsx', usecols=['Length', 'Embedding Duration (in seconds)', 'Search Duration (in seconds)'])
-        data = data.sort_values(by='Length')
+def visualizeDuration():
+    data = pd.read_excel('Analysis Results.xlsx', usecols=['Length', 'Embedding Duration (in seconds)', 'Search Duration (in seconds)'])
+    data = data.sort_values(by='Length')
 
     plt.figure(figsize=(10, 5))
-    if (byLength):
-        plt.plot(data['Length'], data['Embedding Duration (in seconds)'], label='Embedding Duration', color='blue')
-        plt.xlabel('Protein Length')
-    else:
-        plt.plot(data['Embedding Duration (in seconds)'], label='Embedding Duration', color='blue')
-        plt.xlabel('Protein ID')
+    plt.plot(data['Length'], data['Embedding Duration (in seconds)'], label='Embedding Duration', color='blue')
+    plt.xlabel('Protein Length')
 
     plt.title('Embedding Duration')
     plt.ylabel('Duration in seconds')
@@ -37,15 +30,28 @@ def visualizeDuration(byLength):
 
     plt.figure(figsize=(10, 5))
     
-    if (byLength):
-        plt.plot(data['Length'], data['Search Duration (in seconds)'], label='Embedding Duration', color='blue')
-        plt.xlabel('Protein Length')
-    else:
-        plt.plot(data['Search Duration (in seconds)'], label='Embedding Duration', color='blue')
-        plt.xlabel('Protein ID')
+    plt.plot(data['Length'], data['Search Duration (in seconds)'], label='Embedding Duration', color='blue')
+    plt.xlabel('Protein Length')
         
     plt.title('Search Duration')
     plt.ylabel('Duration in seconds')
     plt.legend()
     plt.show()
-visualizeDuration(True)
+
+def blastComparison(totalProteins, values):
+    categories = ["1. Found Proteins", "2. Found Proteins", "3. Found Proteins", "4. Found Proteins", "5. Found Proteins"]
+    
+
+    percentages = [(v / totalProteins) * 100 for v in values]
+
+    plt.figure(figsize=(12, 6))
+    plt.bar(categories, values, color=['blue', 'green', 'red', 'purple', 'orange'])
+
+    for i, v in enumerate(values):
+        plt.text(i, v + 20, f"{v} ({percentages[i]:.1f}%)", ha='center', fontsize=12)
+
+    plt.title("Number of Found Proteins in Similar Proteins")
+    plt.ylim(0, totalProteins+50)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+    plt.show()
