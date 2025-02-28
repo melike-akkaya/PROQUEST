@@ -12,12 +12,12 @@ def isValidEmbedding(embedding):
 
 def buildAnnoyDb(embeddings, num_trees=10):
     dimension = embeddings[0].shape[0]  # assume all embeddings have the same dimension
-    index = AnnoyIndex(dimension, 'euclidean')  # could be 'angular', 'manhattan', or 'hamming'
+    index = AnnoyIndex(dimension, 'euclidean')  # could be 'angular', 'manhattan', 'euclidean' or 'hamming'
 
     for i, embedding in enumerate(embeddings):
         index.add_item(i, embedding)
-
-    index.build(num_trees)
+ 
+    index.build(num_trees) #, n_jobs=-1
     index.save(indexFile)
     print(f"Annoy index built and saved to {indexFile}")
     return index

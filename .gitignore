@@ -5,6 +5,9 @@ asset/per-protein.h5
 asset/per-protein.zip
 venv
 protein_embeddings.ann
+protein_embeddings_1.ann
+protein_embeddings_2.ann
+protein_embeddings_3.ann
 protein_embeddings.zip
 uniprot_sprot.fasta.gz
 uniprot_sprot.fasta
@@ -13,3 +16,6 @@ gpu_memory_usage_log.txt
 selected_proteins.fasta
 protein_index.zip
 protein_index.db
+protein_index_1.db
+protein_index_2.db
+protein_index_3.db
