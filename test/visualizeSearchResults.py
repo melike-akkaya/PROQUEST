@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 def visualizeNearestSearchResults():
     values = [177, 25, 17, 8, 10, 263]
