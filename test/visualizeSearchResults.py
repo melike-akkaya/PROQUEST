@@ -33,8 +33,9 @@ def visualizeDuration():
     plt.plot(data['Length'], data['Search Duration (in seconds)'], label='Embedding Duration', color='blue')
     plt.xlabel('Protein Length')
         
-    plt.title('Search Duration')
+    plt.title('Search Duration in Vector DB \n(where n = 10 and Euclidean Distance Algorithm is used)')
     plt.ylabel('Duration in seconds')
+    plt.ylim(0, 5) 
     plt.legend()
     plt.show()
 
@@ -50,7 +51,7 @@ def blastComparison(totalProteins, values):
     for i, v in enumerate(values):
         plt.text(i, v + 20, f"{v} ({percentages[i]:.1f}%)", ha='center', fontsize=12)
 
-    plt.title("Number of Found Proteins in Similar Proteins")
+    plt.title("Number of Found Proteins in Similar Proteins\n(where n = 10000 and Manhattan Distance Algorithm is used)")
     plt.ylim(0, totalProteins+50)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
 
