@@ -40,6 +40,20 @@ def visualizeDuration():
     plt.legend()
     plt.show()
 
+def visualizeDurationForBlastSearch():
+    data = pd.read_csv('blast.txt', delimiter='\t', usecols=['Length', 'Search Duration (in seconds)'])
+    
+    data = data.sort_values(by='Length')
+    
+    plt.figure(figsize=(10, 5))
+    plt.plot(data['Length'], data['Search Duration (in seconds)'], label='Search Duration', color='blue')
+    plt.xlabel('Protein Length')
+    plt.ylabel('Duration in seconds')
+    plt.title('Search Duration by Protein Length for Blast Search')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 def blastComparison(totalProteins, values):
     categories = ["1. Found Proteins", "2. Found Proteins", "3. Found Proteins", "4. Found Proteins", "5. Found Proteins"]
     
