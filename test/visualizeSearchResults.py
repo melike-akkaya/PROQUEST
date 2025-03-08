@@ -131,4 +131,27 @@ def compareTime(blastFile, vectorDbFiles):
     plt.tight_layout()
     plt.show()
 
-compareTime('blast.txt', ['vectordb0.txt', 'vectordb1.txt', 'vectordb2.txt', 'vectordb3.txt'])
+#compareTime('blast.txt', ['vectordb0.txt', 'vectordb1.txt', 'vectordb2.txt', 'vectordb3.txt'])
+
+def visualizeGpuUsage(file_path):
+    usage = []
+
+    with open(file_path, 'r') as file:
+        for line in file:
+            parts = line.split(' - ')
+            if len(parts) == 2:
+                memory_usage = float(parts[1].split(' ')[-2])
+                usage.append(memory_usage)
+    
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(usage, marker='o', linestyle='-', color='b', label='GPU Memory Usage')
+    plt.ylabel('GPU Memory Usage (GB)')
+    plt.title('GPU Memory Usage Over Time')
+    plt.ylim(0, 25)
+    plt.xlabel('Index')
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+
+    plt.show()
