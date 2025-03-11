@@ -72,67 +72,69 @@ def blastComparison(totalProteins, values):
 
     plt.show()
 
-def compareTime(blastFile, vectorDbFiles): 
+def compareTime(blastFile, vectorDbFiles):
     blastInfo = []
     with open(blastFile, 'r') as f:
         for line in f:
             parts = line.strip().split('\t')
             if len(parts) > 1:
                 try:
-                    blastInfo.append(float(parts[2]))  
+                    blastInfo.append(float(parts[2]))
                 except ValueError:
-                    continue  
+                    continue
                 
     avgBlastTime = sum(blastInfo) / len(blastInfo) if blastInfo else 0
 
-    avgEmbeddingTimes = []
-    avgSearchTimes = []
-    avgBlastTimes = [avgBlastTime] 
+    avgSearchTimes = [0] * (len(vectorDbFiles) + 2) 
+    avgBlastTimes = [avgBlastTime] + [0] * (len(vectorDbFiles) + 1)  
+    avgEmbeddingTimes = [0] * (len(vectorDbFiles) + 2)  
     
-    for file in vectorDbFiles:
-        secondInfo = []
-        thirdInfo = []
-        
+    embeddingInfo = []
+    if vectorDbFiles:
+        with open(vectorDbFiles[0], 'r') as f:
+            for line in f:
+                parts = line.strip().split(',')
+                if len(parts) > 1:
+                    try:
+                        embeddingInfo.append(float(parts[1]))
+                    except ValueError:
+                        continue
+
+    avgEmbeddingTime = sum(embeddingInfo) / len(embeddingInfo) if embeddingInfo else 0
+    avgEmbeddingTimes[1] = avgEmbeddingTime 
+
+    for i, file in enumerate(vectorDbFiles):
+        searchInfo = []
         with open(file, 'r') as f:
             for line in f:
                 parts = line.strip().split(',')
                 if len(parts) > 2:
                     try:
-                        secondInfo.append(float(parts[1]))
-                        thirdInfo.append(float(parts[2])) 
+                        searchInfo.append(float(parts[2]))
                     except ValueError:
-                        continue  
+                        continue
         
-        avgEmbeddingTime = sum(secondInfo) / len(secondInfo) if secondInfo else 0
-        avgSearchTime = sum(thirdInfo) / len(thirdInfo) if thirdInfo else 0
-        
-        avgEmbeddingTimes.append(avgEmbeddingTime)
-        avgSearchTimes.append(avgSearchTime)
+        avgSearchTime = sum(searchInfo) / len(searchInfo) if searchInfo else 0
+        avgSearchTimes[i + 2] = avgSearchTime 
 
-    avgBlastTimes = [avgBlastTime] + [0] * len(vectorDbFiles)  # 0 for vector dbs
-    avgSearchTimes = [0] + avgSearchTimes  # 0 for blast
-    avgEmbeddingTimes = [0] + avgEmbeddingTimes  # 0 for blast
-
-    numCategories = len(vectorDbFiles) + 1  # +1 for blast
+    numCategories = len(vectorDbFiles) + 2 
 
     x = np.arange(numCategories)
-
     barWidth = 0.25
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 6))
     plt.bar(x, avgBlastTimes, barWidth, label='Average Blast Time', color='blue')
-    plt.bar(x - barWidth / 2, avgSearchTimes, barWidth, label='Average Search Time', color='orange')
-    plt.bar(x + barWidth / 2, avgEmbeddingTimes, barWidth, label='Average Embedding Time', color='green')
+    plt.bar(x, avgEmbeddingTimes, barWidth, label='Average Embedding Creation Time', color='green')
+    plt.bar(x, avgSearchTimes, barWidth, label='Average Search Time', color='orange')
 
     plt.title('Average Time Analysis')
-    plt.xlabel('Files')
+    plt.xlabel('Categories')
     plt.ylabel('Average Time (in seconds)')
-    plt.xticks(x, ['blast'] + ['vectordb0\nn=10, euclidean'] + ['vectordb1\nn=1000, manhattan'] + ['vectordb2\nn=1000, angular'] + ['vectordb3\nn=10000, manhattan'] )
+    plt.xticks(x, ['Blast Search', 'Embedding Creation', 'vectordb0\nn=10, euclidean', 'vectordb1\nn=1000, manhattan', 'vectordb2\nn=1000, angular', 'vectordb3\nn=10000, manhattan'] )
+    plt.legend()
     plt.tight_layout()
     plt.show()
-
-#compareTime('blast.txt', ['vectordb0.txt', 'vectordb1.txt', 'vectordb2.txt', 'vectordb3.txt'])
-
+compareTime('blast.txt', ['vectordb0.txt', 'vectordb1.txt', 'vectordb2.txt', 'vectordb3.txt',])
 def visualizeGpuUsage(file_path):
     usage = []
 
