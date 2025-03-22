@@ -30,7 +30,7 @@ def runSql(dbPath, query):
     conn.close()
     return df
 
-def searchByEmbedding(embedding, index, num_neighbors=5):
+def searchByEmbedding(embedding, index, num_neighbors=250):
     nearest_neighbors = index.get_nns_by_vector(embedding, num_neighbors, include_distances=True)
     return nearest_neighbors
 
@@ -40,51 +40,32 @@ def searchSpecificEmbedding(embedding):
 
     annoy_index = AnnoyIndex(embeddingDimension, 'euclidean')
     annoy_index.load(annoydb)
-    neighbors, distances = searchByEmbedding(embedding, annoy_index)
+    neighbors, _ = searchByEmbedding(embedding, annoy_index)
     
-    results = pd.DataFrame(columns=['index_id', 'protein_id', 'distance'])
-    for index_id, distance in zip(neighbors, distances):
+    protein_ids = []
+    for index_id in neighbors:
         protein_id = runSql("asset/protein_index.db", f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
         if not protein_id.empty:
-            newRow = pd.DataFrame({'index_id': [index_id], 'protein_id': [protein_id.iloc[0]['protein_id']], 'distance': [distance]})
-            newRow = newRow.dropna(axis=1, how='all')
-            results = pd.concat([results, newRow], ignore_index=True)
+            protein_ids.append(protein_id.iloc[0]['protein_id'])
     
-    return results
+    return protein_ids
 
 allSequences = read_fasta("asset/selected_proteins.fasta")
 model_dir = None
 
-results_df = pd.DataFrame()
+with open("protein_analysis_results_0.txt", "w") as outfile:
+    for key in allSequences:
+        sequence = {key: allSequences[key]}
+        startTimeToCreateEmbedding = datetime.now()
+        embDict, tempDict = getEmbeddings(sequence, None, per_protein=True)
+        endTimeToCreateEmbedding = datetime.now()
 
-for key in allSequences:
-    sequence = {key: allSequences[key]}
-    startTimeToCreateEmbedding = datetime.now()
-    embDict, tempDict = getEmbeddings(sequence, None, per_protein=True)
-    endTimeToCreateEmbedding = datetime.now()
+        for sequence_id, embedding in embDict.items():
+            startTimeToFindByEmbedding = datetime.now()
+            foundProteinIDs = searchSpecificEmbedding(embedding)
+            endTimeToFindByEmbedding = datetime.now()
 
-    for sequence_id, embedding in embDict.items():
-        startTimeToFindByEmbedding = datetime.now()
-        foundEmbeddings = searchSpecificEmbedding(embedding)
-        endTimeToFindByEmbedding = datetime.now()
+            embeddingTime = endTimeToCreateEmbedding - startTimeToCreateEmbedding
+            searchTime = endTimeToFindByEmbedding - startTimeToFindByEmbedding
 
-        embeddingTime = endTimeToCreateEmbedding - startTimeToCreateEmbedding
-        searchTime = endTimeToFindByEmbedding - startTimeToFindByEmbedding
-
-        all_rows = []
-        result_data = {
-            'Protein ID': sequence_id,
-            'Length': tempDict[sequence_id][0],
-            'Shape': tempDict[sequence_id][1],
-            'Embedding Duration (in seconds)': embeddingTime.total_seconds(),
-            'Search Duration (in seconds)': searchTime.total_seconds(),
-        }
-        for i, row in foundEmbeddings.iterrows():
-            result_data[f'{i + 1}. Nearest Result'] = f"{row['protein_id']}, {row['distance']}"
-
-        all_rows.append(result_data)
-        newRow = pd.DataFrame(all_rows)
-        newRow = newRow.dropna(axis=1, how='all')
-        results_df = pd.concat([results_df, newRow], ignore_index=True)
-
-results_df.to_excel("protein_analysis_results.xlsx", index=False)
+            outfile.write(f"{sequence_id}, {embeddingTime.total_seconds()}, {searchTime.total_seconds()}, {', '.join(foundProteinIDs)}\n")
