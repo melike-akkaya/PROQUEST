@@ -125,7 +125,7 @@ Start the application by executing:
 **Windows, macOS and Linux:**
 
 ```bash
-streamlit run main.py
+python -m streamlit run main.py
 ```
 
 ---
