@@ -29,40 +29,51 @@ def runSql(dbPath, query):
     conn.close()
     return df
 
-def get_uniprot_protein_info(protein_id):
-    url = f"https://rest.uniprot.org/uniprotkb/{protein_id}.json"
-    try:
-        response = requests.get(url, timeout=5)
-        if response.status_code == 200:
-            data = response.json()
-            protein_name = data.get("proteinDescription", {}).get("recommendedName", {}).get("fullName", {}).get("value", "N/A")
-            genes = data.get("genes", [])
-            gene_symbol = genes[0].get("geneName", {}).get("value", "N/A") if genes else "N/A"
-            return protein_name, gene_symbol
-        else:
-            return "N/A", "N/A"
-    except Exception:
-        return "N/A", "N/A"
-
 def searchSpecificEmbedding(embedding):
-    annoydb = 'asset/protein_embeddings.ann'
+    annoydb = 'asset/protein_embeddings_2.ann'
     embeddingDimension = 1024
-    annoy_index = AnnoyIndex(embeddingDimension, 'euclidean')
+    annoy_index = AnnoyIndex(embeddingDimension, 'angular')
     annoy_index.load(annoydb)
-    neighbors, distances = annoy_index.get_nns_by_vector(embedding, 5, include_distances=True)
-    results = []
+    neighbors, distances = annoy_index.get_nns_by_vector(embedding, 250, include_distances=True)
+    
+    columns = ['protein_id', 'distance', 'protein_name', 'gene_symbol']
+    results_df = pd.DataFrame(columns=columns)
+    
     for index_id, distance in zip(neighbors, distances):
         protein_id_df = runSql(sqliteDb, f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
         if not protein_id_df.empty:
             protein_id = protein_id_df.iloc[0]['protein_id']
-            protein_name, gene_symbol = get_uniprot_protein_info(protein_id)
-            results.append({
-                'protein_id': protein_id,
-                'distance': distance,
-                'protein_name': protein_name,
-                'gene_symbol': gene_symbol
-            })
-    return pd.DataFrame(results)
+
+            df = runSql("asset/protein_index.db", f"SELECT protein_name, type, os, ox, gn, pe, sv FROM protein_info WHERE protein_id = '{protein_id}'")
+            if not df.empty:
+                new_row = {
+                    'protein_id': protein_id,
+                    'similarity': 1 - distance,
+                    'protein_name': df.iloc[0]['protein_name'],
+                    'type': df.iloc[0]['type'],
+                    'os': df.iloc[0]['os'],
+                    'ox': df.iloc[0]['ox'],
+                    'gn': df.iloc[0]['gn'],
+                    'pe': df.iloc[0]['pe'],
+                    'sv': df.iloc[0]['sv']
+                }
+            else :
+                new_row = {
+                    'protein_id': protein_id,
+                    'similarity': 1 - distance,
+                    'protein_name': "",
+                    'type': "",
+                    'os': "",
+                    'ox': "",
+                    'gn': "",
+                    'pe': "",
+                    'sv': ""
+                }
+        
+            results_df.loc[len(results_df)] = new_row
+            
+    return results_df
+
 
 if 'log_stream' not in st.session_state:
     st.session_state.log_stream = io.StringIO()
@@ -220,7 +231,7 @@ with tabs[0]: # LLM Query Tab
         elif not question:
             st.warning("Please enter a question.")
 
-with tabs[1]: # Vector Search Tab
+with tabs[1]:  # Vector Search Tab
     st.title("🔎 Vector Search")
 
     with st.form("vector_search_form"):
@@ -258,7 +269,7 @@ with tabs[1]: # Vector Search Tab
                 st.warning("❌ No similar proteins found.")
             else:
                 st.success("✅ Similar proteins found!")
-                st.write("Distance Metric: Euclidean")
+                st.write("Distance Metric: Angular")
                 foundEmbeddings["protein_id"] = foundEmbeddings["protein_id"].apply(
                     lambda pid: f'<a href="https://www.uniprot.org/uniprotkb/{pid}" target="_blank">{pid}</a>'
                 )
