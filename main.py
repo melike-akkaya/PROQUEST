@@ -36,7 +36,7 @@ def searchSpecificEmbedding(embedding):
     annoy_index.load(annoydb)
     neighbors, distances = annoy_index.get_nns_by_vector(embedding, 250, include_distances=True)
     
-    columns = ['protein_id', 'similarity', 'protein_name', 'type', 'os', 'ox', 'gn', 'pe', 'sv']
+    columns = ['protein_id', 'similarity', 'short_name', 'protein_name', 'organism', 'taxon_id', 'gene_name', 'pe', 'sv']
     results_df = pd.DataFrame(columns=columns)
     
     for index_id, distance in zip(neighbors, distances):
@@ -49,11 +49,11 @@ def searchSpecificEmbedding(embedding):
                 new_row = {
                     'protein_id': protein_id,
                     'similarity': 1 - distance,
-                    'protein_name': df.iloc[0]['protein_name'],
-                    'type': df.iloc[0]['type'],
-                    'os': df.iloc[0]['os'],
-                    'ox': df.iloc[0]['ox'],
-                    'gn': df.iloc[0]['gn'],
+                    'short_name': df.iloc[0]['protein_name'],
+                    'protein_name': df.iloc[0]['type'],
+                    'organism': df.iloc[0]['os'],
+                    'taxon_id': df.iloc[0]['ox'],
+                    'gene_name': df.iloc[0]['gn'],
                     'pe': df.iloc[0]['pe'],
                     'sv': df.iloc[0]['sv']
                 }
