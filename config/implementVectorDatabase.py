@@ -27,6 +27,8 @@ def storeIdMap(ids):
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS id_map (index_id INTEGER PRIMARY KEY, protein_id TEXT)''')
     
+    c.execute('''CREATE INDEX IF NOT EXISTS protein_id_index ON id_map(protein_id)''')
+    
     for i, protein_id in enumerate(ids):
         c.execute('INSERT INTO id_map (index_id, protein_id) VALUES (?, ?)', (i, protein_id))
     

@@ -20,3 +20,6 @@ protein_index_1.db
 protein_index_2.db
 protein_index_3.db
 modeldir/
+goa_uniprot_all.gpa.gz
+goa_uniprot_all.gpa
+goa_uniprot_updated.gpa
