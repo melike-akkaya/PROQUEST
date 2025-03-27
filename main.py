@@ -36,7 +36,7 @@ def searchSpecificEmbedding(embedding):
     annoy_index.load(annoydb)
     neighbors, distances = annoy_index.get_nns_by_vector(embedding, 250, include_distances=True)
     
-    columns = ['protein_id', 'similarity', 'short_name', 'protein_name', 'organism', 'taxon_id', 'gene_name', 'pe', 'sv']
+    columns = ['Protein ID', 'Similarity', 'Short Name', 'Protein Name', 'Organism', 'Taxon ID', 'Gene Name', 'pe', 'sv']
     results_df = pd.DataFrame(columns=columns)
     
     for index_id, distance in zip(neighbors, distances):
@@ -47,25 +47,25 @@ def searchSpecificEmbedding(embedding):
             df = runSql("asset/protein_index.db", f"SELECT protein_name, type, os, ox, gn, pe, sv FROM protein_info WHERE protein_id = '{protein_id}'")
             if not df.empty:
                 new_row = {
-                    'protein_id': protein_id,
-                    'similarity': 1 - distance,
-                    'short_name': df.iloc[0]['protein_name'],
-                    'protein_name': df.iloc[0]['type'],
-                    'organism': df.iloc[0]['os'],
-                    'taxon_id': df.iloc[0]['ox'],
-                    'gene_name': df.iloc[0]['gn'],
+                    'Protein ID': protein_id,
+                    'Similarity': 1 - distance,
+                    'Short Name': df.iloc[0]['protein_name'],
+                    'Protein Name': df.iloc[0]['type'],
+                    'Organism': df.iloc[0]['os'],
+                    'Taxon ID': df.iloc[0]['ox'],
+                    'Gene Name': df.iloc[0]['gn'],
                     'pe': df.iloc[0]['pe'],
                     'sv': df.iloc[0]['sv']
                 }
             else :
                 new_row = {
-                    'protein_id': protein_id,
-                    'similarity': 1 - distance,
-                    'protein_name': "",
-                    'type': "",
-                    'os': "",
-                    'ox': "",
-                    'gn': "",
+                    'Protein ID': protein_id,
+                    'Similarity': 1 - distance,
+                    'Short Name': "",
+                    'Protein Name': "",
+                    'Organism': "",
+                    'Taxon ID': "",
+                    'Gene Name': "",
                     'pe': "",
                     'sv': ""
                 }
@@ -270,7 +270,7 @@ with tabs[1]:  # Vector Search Tab
             else:
                 st.success("✅ Similar proteins found!")
                 st.write("Distance Metric: Angular")
-                foundEmbeddings["protein_id"] = foundEmbeddings["protein_id"].apply(
+                foundEmbeddings["Protein ID"] = foundEmbeddings["Protein ID"].apply(
                     lambda pid: f'<a href="https://www.uniprot.org/uniprotkb/{pid}" target="_blank">{pid}</a>'
                 )
                 st.write(foundEmbeddings.to_html(escape=False), unsafe_allow_html=True)
