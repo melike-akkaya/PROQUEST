@@ -3,7 +3,7 @@ import torch
 import numpy as np
 from transformers import T5EncoderModel, T5Tokenizer
 
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:3' if torch.cuda.is_available() else 'cpu')
 print("Using device: {}".format(device))
 
 def getT5Model(model_dir, transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc"):
