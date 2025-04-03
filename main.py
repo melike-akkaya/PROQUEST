@@ -108,8 +108,8 @@ with tabs[0]: # LLM Query Tab
     st.title("🧬 UniProt KB LLM Query Interface v0.24")
     model_choices = [
         "claude-3-7-sonnet-latest", "claude-3-5-sonnet-20240620", 
-        "gemini-2.0-flash", "gemini-2.0", "gemini-pro", "gemini-1.5-flash", 
-        "gpt-4o-mini", "gpt-4o",
+        "gemini-2.0-flash", "gemini-pro", "gemini-1.5-flash", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.0-pro-exp-02-05",
+        "o3-mini", "gpt-4o-mini", "gpt-4o",
         "meta/llama-3.1-405b-instruct",
         "mistral-small", "codestral-latest"
     ]
@@ -178,9 +178,9 @@ with tabs[0]: # LLM Query Tab
                 st.session_state.log_stream.seek(0)
                 st.session_state.log_stream.truncate()
 
-                if llm_type in ["gemini-pro", "gemini-1.5-flash", "gemini-2.0-flash", "gemini-2.0"]:
+                if llm_type in ["gemini-pro", "gemini-1.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.0-pro-exp-02-05"]:
                     llm = GoogleGenerativeAI(model=llm_type, google_api_key=api_key)
-                elif llm_type in ["gpt-4o", "gpt-4o-mini"]:
+                elif llm_type in ["gpt-4o", "gpt-4o-mini", "o3-mini"]:
                     llm = ChatOpenAI(model=llm_type, api_key=api_key)
                 elif llm_type in ["claude-3-5-sonnet-20240620", "claude-3-7-sonnet-latest"]:
                     llm = ChatAnthropic(model=llm_type, anthropic_api_key=api_key)
