@@ -68,4 +68,84 @@ def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile =
     conn.commit()
     conn.close()
 
-createProteinInformationTable()
+#createProteinInformationTable()
+
+def process_obo_file():
+    db_path = "asset/protein_index.db"
+    obo_file_path = "asset/go-basic.obo"
+
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS go_info (
+        go_id TEXT PRIMARY KEY,
+        go_name TEXT,
+        namespace TEXT,
+        alt_id TEXT,
+        def TEXT,
+        comment TEXT,
+        synonym TEXT,
+        is_obsolete TEXT,
+        replaced_by TEXT,
+        consider TEXT,
+        is_a TEXT
+    );
+    ''')
+    conn.commit()
+
+    with open(obo_file_path, 'r') as file:
+        content = file.read()
+
+    terms_section = content.split('[Term]')[1:]
+
+    field_patterns = {
+        'go_id': r'^id: (GO:\d+)',
+        'go_name': r'^name: (.+)',
+        'namespace': r'^namespace: (.+)',
+        'alt_id': r'^alt_id: (GO:\d+)',
+        'def': r'^def: "(.+?)" \[',
+        'comment': r'^comment: (.+)',
+        'synonym': r'^synonym: "(.+?)"',
+        'is_obsolete': r'^is_obsolete: (true|false)',
+        'replaced_by': r'^replaced_by: (GO:\d+)',
+        'consider': r'^consider: (GO:\d+)',
+        'is_a': r'^is_a: (GO:\d+)'
+    }
+
+    for term in terms_section:
+        data = {field: [] for field in field_patterns}
+        
+        for field, pattern in field_patterns.items():
+            matches = re.findall(pattern, term, re.MULTILINE)
+            if matches:
+                data[field] = matches
+        
+        for field, values in data.items():
+            if values:
+                data[field] = ', '.join(values)
+
+        go_id = data['go_id']
+        if go_id:  # skip duplicate go_id
+            cursor.execute('''
+            INSERT OR REPLACE INTO go_info (go_id, go_name, namespace, alt_id, def, comment, synonym, is_obsolete, replaced_by, consider, is_a)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                data['go_id'],
+                data['go_name'] if data['go_name'] else None,
+                data['namespace'] if data['namespace'] else None,
+                data['alt_id'] if data['alt_id'] else None,
+                data['def'] if data['def'] else None,
+                data['comment'] if data['comment'] else None,
+                data['synonym'] if data['synonym'] else None,
+                data['is_obsolete'] if data['is_obsolete'] else None,
+                data['replaced_by'] if data['replaced_by'] else None,
+                data['consider'] if data['consider'] else None,
+                data['is_a'] if data['is_a'] else None
+            ))
+        conn.commit()
+    conn.close()
+    
+
+#process_obo_file()
+#print("Database table 'go_info' created and populated successfully.")
