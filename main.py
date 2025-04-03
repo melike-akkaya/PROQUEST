@@ -4,7 +4,7 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
-from langchain_deepseek import ChatDeepSeek
+# from langchain_deepseek import ChatDeepSeek
 import logging
 from src.prompt import query_uniprot, generate_solr_query
 import io
