@@ -10,7 +10,7 @@ def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index.db'):
 
     # fetching go_ids, concatenated protein_ids, and their counts for the proteins in genesOfInterest
     query = """
-    SELECT go_id, GROUP_CONCAT(protein_id, ';') AS protein_ids, COUNT(protein_id) AS count_in_interest
+    SELECT go_id, GROUP_CONCAT(protein_id, ', ') AS protein_ids, COUNT(protein_id) AS count_in_interest
     FROM protein_go_mapping
     WHERE protein_id IN ({})
     GROUP BY go_id
