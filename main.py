@@ -4,6 +4,7 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
+from langchain_deepseek import ChatDeepSeek
 import logging
 from src.prompt import query_uniprot, generate_solr_query
 import io
@@ -13,6 +14,7 @@ import time
 import pandas as pd
 from datetime import datetime
 from src.prott5Embedder import getEmbeddings
+from src.predictedGOIdFinder import findRelatedGoIds
 from annoy import AnnoyIndex
 import requests
 
@@ -103,10 +105,12 @@ with tabs[0]: # LLM Query Tab
             st.session_state.searchfields = fetch_data_from_db("SELECT * FROM search_fields")
         if 'resultfields' not in st.session_state:
             st.session_state.resultfields = fetch_data_from_db("SELECT * FROM result_fields")
-    st.title("🧬 UniProt KB LLM Query Interface v0.21")
+    st.title("🧬 UniProt KB LLM Query Interface v0.24")
     model_choices = [
-        "gemini-pro", "gemini-1.5-flash", "gpt-4o-mini", "gpt-4o",
-        "claude-3-5-sonnet-20240620", "meta/llama-3.1-405b-instruct",
+        "claude-3-7-sonnet-latest", "claude-3-5-sonnet-20240620", 
+        "gemini-2.0-flash", "gemini-2.0", "gemini-pro", "gemini-1.5-flash", 
+        "gpt-4o-mini", "gpt-4o",
+        "meta/llama-3.1-405b-instruct",
         "mistral-small", "codestral-latest"
     ]
     with st.form("query_form"):
@@ -174,11 +178,11 @@ with tabs[0]: # LLM Query Tab
                 st.session_state.log_stream.seek(0)
                 st.session_state.log_stream.truncate()
 
-                if llm_type in ["gemini-pro", "gemini-1.5-flash"]:
+                if llm_type in ["gemini-pro", "gemini-1.5-flash", "gemini-2.0-flash", "gemini-2.0"]:
                     llm = GoogleGenerativeAI(model=llm_type, google_api_key=api_key)
                 elif llm_type in ["gpt-4o", "gpt-4o-mini"]:
                     llm = ChatOpenAI(model=llm_type, api_key=api_key)
-                elif llm_type == "claude-3-5-sonnet-20240620":
+                elif llm_type in ["claude-3-5-sonnet-20240620", "claude-3-7-sonnet-latest"]:
                     llm = ChatAnthropic(model=llm_type, anthropic_api_key=api_key)
                 elif llm_type == "meta/llama-3.1-405b-instruct":
                     llm = ChatNVIDIA(model=llm_type, api_key=api_key)
