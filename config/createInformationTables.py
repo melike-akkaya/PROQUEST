@@ -149,3 +149,18 @@ def process_obo_file():
 
 #process_obo_file()
 #print("Database table 'go_info' created and populated successfully.")
+
+def createBackgroundDistributionCountMaterializedView(dbPath):
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+    cursor.execute("DROP TABLE IF EXISTS background_distribution_count;")
+    cursor.execute("CREATE TABLE background_distribution_count (go_id TEXT PRIMARY KEY, background_distribution INTEGER);")
+    cursor.execute("""
+        INSERT INTO background_distribution_count (go_id, background_distribution)
+        SELECT go_id, COUNT(DISTINCT protein_id)
+        FROM protein_go_mapping
+        GROUP BY go_id;
+    """)
+    
+    conn.commit()
+    conn.close()

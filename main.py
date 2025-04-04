@@ -4,19 +4,15 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
-# from langchain_deepseek import ChatDeepSeek
 import logging
 from src.prompt import query_uniprot, generate_solr_query
 import io
-from contextlib import redirect_stdout
 import sqlite3
 import time 
-import pandas as pd
 from datetime import datetime
 from src.prott5Embedder import getEmbeddings
-from src.predictedGOIdFinder import findRelatedGoIds
-from annoy import AnnoyIndex
-import requests
+from src.relevantGOIdFinder import findRelatedGoIds
+from src.relevantProteinFinder import searchSpecificEmbedding
 
 def fetch_data_from_db(query, params=None):
     with sqlite3.connect(sqliteDb) as conn:
@@ -24,58 +20,6 @@ def fetch_data_from_db(query, params=None):
         cur.execute(query, params or ())
         data = cur.fetchall()
     return data
-
-def runSql(dbPath, query):
-    conn = sqlite3.connect(dbPath)
-    df = pd.read_sql_query(query, conn)
-    conn.close()
-    return df
-
-def searchSpecificEmbedding(embedding):
-    annoydb = 'asset/protein_embeddings_2.ann'
-    embeddingDimension = 1024
-    annoy_index = AnnoyIndex(embeddingDimension, 'angular')
-    annoy_index.load(annoydb)
-    neighbors, distances = annoy_index.get_nns_by_vector(embedding, 250, include_distances=True)
-    
-    columns = ['Protein ID', 'Similarity', 'Short Name', 'Protein Name', 'Organism', 'Taxon ID', 'Gene Name', 'pe', 'sv']
-    results_df = pd.DataFrame(columns=columns)
-    
-    for index_id, distance in zip(neighbors, distances):
-        protein_id_df = runSql(sqliteDb, f"SELECT protein_id FROM id_map WHERE index_id = {index_id}")
-        if not protein_id_df.empty:
-            protein_id = protein_id_df.iloc[0]['protein_id']
-
-            df = runSql("asset/protein_index.db", f"SELECT protein_name, type, os, ox, gn, pe, sv FROM protein_info WHERE protein_id = '{protein_id}'")
-            if not df.empty:
-                new_row = {
-                    'Protein ID': protein_id,
-                    'Similarity': 1 - distance,
-                    'Short Name': df.iloc[0]['protein_name'],
-                    'Protein Name': df.iloc[0]['type'],
-                    'Organism': df.iloc[0]['os'],
-                    'Taxon ID': df.iloc[0]['ox'],
-                    'Gene Name': df.iloc[0]['gn'],
-                    'pe': df.iloc[0]['pe'],
-                    'sv': df.iloc[0]['sv']
-                }
-            else :
-                new_row = {
-                    'Protein ID': protein_id,
-                    'Similarity': 1 - distance,
-                    'Short Name': "",
-                    'Protein Name': "",
-                    'Organism': "",
-                    'Taxon ID': "",
-                    'Gene Name': "",
-                    'pe': "",
-                    'sv': ""
-                }
-        
-            results_df.loc[len(results_df)] = new_row
-            
-    return results_df
-
 
 if 'log_stream' not in st.session_state:
     st.session_state.log_stream = io.StringIO()

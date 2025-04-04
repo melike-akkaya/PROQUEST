@@ -27,8 +27,7 @@ def main():
         "annoy", 
         "transformers",
         "h5py",
-        "sentencepiece",
-        "langchain_deepseek"
+        "sentencepiece"
     ]
 
     for package in packages:
