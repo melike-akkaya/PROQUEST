@@ -51,6 +51,7 @@ with tabs[0]: # LLM Query Tab
             st.session_state.resultfields = fetch_data_from_db("SELECT * FROM result_fields")
     st.title("🧬 UniProt KB LLM Query Interface v0.24")
     model_choices = [
+        "Select a model...",
         "deepseek/deepseek-r1", "deepseek/deepseek-r1:free",
         "claude-3-7-sonnet-latest", "claude-3-5-sonnet-20240620", 
         "gemini-2.0-flash", "gemini-pro", "gemini-1.5-flash", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.0-pro-exp-02-05",
@@ -177,6 +178,8 @@ with tabs[0]: # LLM Query Tab
                 st.error(f"An error occurred: {str(e)}")
                 if verbose:
                     logger.error(f"Error details: {str(e)}", exc_info=True)
+        elif llm_type == "Select a model...":
+            st.warning("Please select an LLM type.")            
         elif not api_key:
             st.warning("Please enter your API key.")
         elif not question:
@@ -221,9 +224,56 @@ with tabs[1]:  # Vector Search Tab
             else:
                 st.success("✅ Similar proteins found!")
                 st.write("Distance Metric: Angular")
+
+                protein_id_list = foundEmbeddings['Protein ID'].str.extract(r'>(.+)<')[0].fillna(foundEmbeddings['Protein ID']).tolist()
+                go_enrichment_df = findRelatedGoIds(protein_id_list, dbPath=sqliteDb)
+
+                with st.expander("📊 View GO Term Enrichment Table"):
+                    # download GO term table
+                    csv_go = go_enrichment_df.to_csv(index=True)
+                    st.download_button(
+                        label="Download GO Term Enrichment Table as CSV",
+                        data=csv_go,
+                        file_name="go_enrichment_table.csv",
+                        mime="text/csv"
+                    )
+                    go_enrichment_df["GO ID"] = go_enrichment_df["GO ID"].apply(
+                        lambda go: f'<a href="https://www.ebi.ac.uk/QuickGO/term/{go}" target="_blank">{go}</a>'
+                    )
+                    # update to show at most 5 associated proteins
+                    go_enrichment_df.index = range(1, len(go_enrichment_df) + 1)
+                    go_enrichment_df['Associated Protein IDs'] = go_enrichment_df['Associated Protein IDs'].apply(
+                        lambda x: ', '.join(x.split(', ')[:5]) + "..." if len(x.split(', ')) > 5 else x
+                    )
+
+                    html_table = go_enrichment_df.to_html(escape=False, index=True)
+                    html_table = html_table.replace(
+                        "<th>Definition</th>",
+                        "<th style='max-width: 250px; word-wrap: break-word;'>Definition</th>"
+                    )
+                    scrollable_html = f"""
+                    <div style="overflow-x: auto; width: 100%;">
+                        <table style="min-width: 1800px; width: 100%; border-collapse: collapse; font-size: 14px;">
+                            {''.join(html_table.splitlines()[1:])}
+                        </table>
+                    </div>
+                    """
+                    st.markdown(scrollable_html, unsafe_allow_html=True)
+
+                foundEmbeddings_download = foundEmbeddings.copy()
+                csv_found = foundEmbeddings_download.to_csv(index=False)
+                st.download_button(
+                    label="Download Similar Proteins Table as CSV",
+                    data=csv_found,
+                    file_name="similar_proteins_table.csv",
+                    mime="text/csv"
+                )
+                
                 foundEmbeddings["Protein ID"] = foundEmbeddings["Protein ID"].apply(
                     lambda pid: f'<a href="https://www.uniprot.org/uniprotkb/{pid}" target="_blank">{pid}</a>'
                 )
+                foundEmbeddings.index = range(1, len(foundEmbeddings) + 1)
                 st.write(foundEmbeddings.to_html(escape=False), unsafe_allow_html=True)
+                
         else:
             st.warning("Please enter a protein sequence.")

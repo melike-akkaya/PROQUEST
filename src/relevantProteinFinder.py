@@ -1,4 +1,3 @@
-
 import sqlite3
 import pandas as pd
 from annoy import AnnoyIndex
@@ -27,7 +26,7 @@ def searchSpecificEmbedding(embedding):
             if not df.empty:
                 newRow = {
                     'Protein ID': proteinId,
-                    'Similarity': 1 - distance,
+                    'Similarity': round(1 - distance, 4),
                     'Short Name': df.iloc[0]['protein_name'],
                     'Protein Name': df.iloc[0]['type'],
                     'Organism': df.iloc[0]['os'],
@@ -39,7 +38,7 @@ def searchSpecificEmbedding(embedding):
             else :
                 newRow = {
                     'Protein ID': proteinId,
-                    'Similarity': 1 - distance,
+                    'Similarity': round(1 - distance, 4),
                     'Short Name': "",
                     'Protein Name': "",
                     'Organism': "",

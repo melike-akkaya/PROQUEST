@@ -30,7 +30,7 @@ def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index.db'):
         background = cursor.fetchone()
         
         if background and background[0] != 0:
-            enrichmentScore = (countInInterest / len(genesOfInterest)) / (background[0] / distinctProteinCount)
+            enrichmentScore = round((countInInterest / len(genesOfInterest)) / (background[0] / distinctProteinCount), 3)
 
             cursor.execute("""
             SELECT go_name, namespace, def, is_a
