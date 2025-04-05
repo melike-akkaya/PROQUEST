@@ -51,7 +51,7 @@ with tabs[0]: # LLM Query Tab
             st.session_state.resultfields = fetch_data_from_db("SELECT * FROM result_fields")
     st.title("🧬 UniProt KB LLM Query Interface v0.24")
     model_choices = [
-        "deepseek/deepseek-r1", "deepseek/deepseek-r1:free", "deepseek/deepseek-chat",
+        "deepseek/deepseek-r1", "deepseek/deepseek-r1:free",
         "claude-3-7-sonnet-latest", "claude-3-5-sonnet-20240620", 
         "gemini-2.0-flash", "gemini-pro", "gemini-1.5-flash", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.0-pro-exp-02-05",
         "o3-mini", "gpt-4o-mini", "gpt-4o",
@@ -131,7 +131,7 @@ with tabs[0]: # LLM Query Tab
                     llm = ChatAnthropic(model=llm_type, anthropic_api_key=api_key)
                 elif llm_type == "meta/llama-3.1-405b-instruct":
                     llm = ChatNVIDIA(model=llm_type, api_key=api_key)
-                elif llm_type in ["deepseek/deepseek-r1", "deepseek/deepseek-r1:free", "deepseek/deepseek-chat"]:
+                elif llm_type in ["deepseek/deepseek-r1", "deepseek/deepseek-r1:free"]:
                     llm = ChatOpenAI(model=llm_type, api_key=api_key, base_url= "https://openrouter.ai/api/v1")
                 elif llm_type in ["mistral-small", "codestral-latest"]:
                     llm = ChatMistralAI(model=llm_type, api_key=api_key)
