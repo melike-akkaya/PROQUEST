@@ -237,6 +237,7 @@ with tabs[1]:  # Vector Search Tab
                         file_name="go_enrichment_table.csv",
                         mime="text/csv"
                     )
+                    st.caption("Download operation will reset the page!") 
                     go_enrichment_df["GO ID"] = go_enrichment_df["GO ID"].apply(
                         lambda go: f'<a href="https://www.ebi.ac.uk/QuickGO/term/{go}" target="_blank">{go}</a>'
                     )
@@ -268,7 +269,7 @@ with tabs[1]:  # Vector Search Tab
                     file_name="similar_proteins_table.csv",
                     mime="text/csv"
                 )
-                
+                st.caption("Download operation will reset the page!") 
                 foundEmbeddings["Protein ID"] = foundEmbeddings["Protein ID"].apply(
                     lambda pid: f'<a href="https://www.uniprot.org/uniprotkb/{pid}" target="_blank">{pid}</a>'
                 )
