@@ -212,6 +212,10 @@ with tabs[1]:  # Vector Search Tab
             foundEmbeddings = searchSpecificEmbedding(query_embedding)
             endTimeToFindByEmbedding = datetime.now()
 
+            # distance should be in the range: 0 <= distance <= 0.7765
+            # therefore similarity should be in the range: 1 >= similarity >= 0.2235
+            foundEmbeddings = foundEmbeddings[(foundEmbeddings['Similarity'] >= 0.2235) & (foundEmbeddings['Similarity'] <= 1.0)]
+
             embeddingTime = endTimeToCreateEmbedding - startTimeToCreateEmbedding
             searchTime = endTimeToFindByEmbedding - startTimeToFindByEmbedding
 
@@ -225,8 +229,11 @@ with tabs[1]:  # Vector Search Tab
                 st.success("✅ Similar proteins found!")
                 st.write("Distance Metric: Angular")
 
-                protein_id_list = foundEmbeddings['Protein ID'].str.extract(r'>(.+)<')[0].fillna(foundEmbeddings['Protein ID']).tolist()
-                go_enrichment_df = findRelatedGoIds(protein_id_list, dbPath=sqliteDb)
+                # distance should be in the range: 0 <= distance <= 0.65
+                # therefore similarity should be in the range: 1 >= similarity >= 0.35
+                foundEmbeddings = foundEmbeddings[(foundEmbeddings['Similarity'] >= 0.35)]
+                proteinIdList = foundEmbeddings['Protein ID'].str.extract(r'>(.+)<')[0].fillna(foundEmbeddings['Protein ID']).tolist()
+                go_enrichment_df = findRelatedGoIds(proteinIdList, dbPath=sqliteDb)
 
                 with st.expander("📊 View GO Term Enrichment Table"):
                     # download GO term table
