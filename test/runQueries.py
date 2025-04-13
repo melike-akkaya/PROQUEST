@@ -6,6 +6,7 @@ from openpyxl import Workbook
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
+from langchain_openai import ChatOpenAI
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from main import fetch_data_from_db
@@ -17,7 +18,9 @@ models = {
     "gemini-1.5-flash": "api-key",
     "meta/llama-3.1-405b-instruct": "api-key",
     "mistral-small": "api-key",
-    "codestral-latest": "api-key"
+    "codestral-latest": "api-key",
+    "deepseek/deepseek-r1": "api-key",
+    "deepseek/deepseek-r1:free": "api-key"
 }
 
 with open('test/queries.txt', 'r') as file:
@@ -39,6 +42,8 @@ for model_name, api_key in models.items():
         llm = ChatNVIDIA(model=model_name, api_key=api_key)
     elif model_name in ["codestral-latest", "mistral-small"]:
         llm = ChatMistralAI(model=model_name, api_key=api_key)
+    elif model_name == ["deepseek/deepseek-r1", "deepseek/deepseek-r1:free"]:
+        llm = ChatOpenAI(model=model_name, api_key=api_key, base_url= "https://openrouter.ai/api/v1")
 
     data = []
 
@@ -83,4 +88,4 @@ for model_name, api_key in models.items():
     for row in data:
         ws.append(row)
 
-wb.save('Prompt_Eng_Performance - Semantic search query examples - SOLR indexing_v0.21.xlsx')
+wb.save('Prompt_Eng_Performance - Semantic search query examples - SOLR indexing_v0.24.xlsx')
