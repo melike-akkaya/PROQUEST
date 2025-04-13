@@ -2,34 +2,39 @@
 
 import matplotlib.pyplot as plt
 
-models = ["gemini-pro", "gemini-1.5-flash", "meta-llama-3.1-405b-instruct", "mistrall-small", "codestral-latest"]
+models = ["gemini-pro", "gemini-1.5-flash", "meta-llama-3.1-405b-instruct", "mistrall-small", "codestral-latest", "deepseek-r1"]
 query_types = ["simple queries", "complex queries", "curator-written queries"]
 
 results = {
     "gemini-pro": {
-        "simple": [5, 0, 46],
-        "complex": [11, 0, 39],
-        "curator-written": [4, 0, 15]
+        "simple": [9, 0, 42],
+        "complex": [14, 0, 36],
+        "curator-written": [6, 0, 13]
     },
     "gemini-1.5-flash": {
-        "simple": [10, 0, 41],
-        "complex": [18, 0, 32],
-        "curator-written": [9, 0, 10]
+        "simple": [11, 0, 40],
+        "complex": [14, 0, 36],
+        "curator-written": [7, 0, 12]
     },
     "meta-llama-3.1-405b-instruct": {
-        "simple": [12, 0, 39],
-        "complex": [9, 0, 41],
-        "curator-written": [4, 0, 15]
-    },
-    "mistrall-small": {
-        "simple": [22, 0, 29],
-        "complex": [21, 0, 29],
-        "curator-written": [12, 0, 7]
-    },
-    "codestral-latest": {
-        "simple": [14, 0, 37],
+        "simple": [9, 0, 42],
         "complex": [7, 0, 43],
         "curator-written": [6, 0, 13]
+    },
+    "mistrall-small": {
+        "simple": [16, 0, 35],
+        "complex": [19, 0, 31],
+        "curator-written": [10, 0, 9]
+    },
+    "codestral-latest": {
+        "simple": [5, 0, 46],
+        "complex": [4, 0, 46],
+        "curator-written": [4, 0, 15]
+    },
+    "deepseek-r1": {
+        "simple": [4, 0, 47],
+        "complex": [6, 0, 44],
+        "curator-written": [1, 0, 18]
     }
 }
 
@@ -39,7 +44,7 @@ total_queries = {
     "curator-written": 19
 }
 
-fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(15, 10), sharex='col',
+fig, axs = plt.subplots(nrows=3, ncols=6, figsize=(18, 10), sharex='col',
                         gridspec_kw={'hspace': 0.5, 'wspace': 0.3})
 
 categories = ['NULL', 'Correct Result']
