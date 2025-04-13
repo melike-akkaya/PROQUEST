@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 
-file_path = 'Prompt_Eng_Performance - Semantic search query examples - SOLR indexing_v0.21.xlsx'
+file_path = 'Prompt_Eng_Performance___Semantic_search_query_examples___SOLR_indexing_v0_24.xlsx'
 sheets = pd.read_excel(file_path, sheet_name=None)
 
 num_sheets = len(sheets)
@@ -24,6 +24,7 @@ for i, (sheet_name, data) in enumerate(sheets.items()):
         ax.set_title(f'{sheet_name}')
         ax.set_xlabel('xth Try')
         ax.set_ylabel('Frequency')
+        ax.set_xticks(range(10)) 
         ax.set_xticklabels(range(1, 11), rotation=0)
         ax.grid(True, linestyle='--', alpha=0.6)
     else:
@@ -33,4 +34,5 @@ for j in range(i + 1, len(axes)):
     fig.delaxes(axes[j])
 
 plt.tight_layout()
+plt.subplots_adjust(hspace=0.4) 
 plt.show()
