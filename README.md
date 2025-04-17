@@ -1,8 +1,9 @@
-# Application Setup and Run Instructions
+# Omniscient Retrieval and Inference for Ontological Navigation
+## Application Setup and Run Instructions
 
 Follow these steps to set up and run the application on **Windows** and **macOS** systems.
 
-## Table of Contents
+### Table of Contents
 
 1. [Prerequisites](#prerequisites)
 2. [Requirements](#requirements)
@@ -15,7 +16,7 @@ Follow these steps to set up and run the application on **Windows** and **macOS*
 
 ---
 
-## Prerequisites
+### Prerequisites
 
 - **Python 3.x** installed on your system.
 - **Streamlit** library installed.
@@ -24,7 +25,7 @@ Ensure you have the necessary permissions to run scripts and install packages on
 
 ---
 
-## Requirements
+### Requirements
 
 Before installing and running the application, ensure you have the following databases:
 
@@ -35,9 +36,9 @@ NOTE: protein_embeddings.ann also can be downloaded from: https://drive.google.c
 
 ---
 
-## Installation
+### Installation
 
-### 1. Create the Asset Database
+#### 1. Create the Asset Database
 
 Open your terminal or command prompt and execute the following commands:
 
@@ -55,7 +56,7 @@ python ./config/setupdatabase.py
 
 ---
 
-### 2. Create the Working Environment
+#### 2. Create the Working Environment
 
 Install the required packages by running:
 
@@ -73,7 +74,7 @@ python ./config/installpackages.py
 
 ---
 
-### 3. (Optional) Delete Previously Installed Libraries
+#### 3. (Optional) Delete Previously Installed Libraries
 
 If you encounter issues and need to uninstall all previously installed libraries, use the following commands:
 
@@ -118,7 +119,7 @@ pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
    ```
 
 
-## Running the Program
+### Running the Program
 
 Start the application by executing:
 
@@ -130,7 +131,7 @@ python -m streamlit run main.py
 
 ---
 
-## Obtaining Free API Keys
+### Obtaining Free API Keys
 
 To utilize all features of the application, obtain free API keys from the following providers:
 
