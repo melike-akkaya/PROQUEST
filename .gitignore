@@ -13,7 +13,8 @@ uniprot_sprot.fasta.gz
 uniprot_sprot.fasta
 protein_analysis_results.xlsx
 gpu_memory_usage_log.txt
-selected_proteins.fasta
+selected_proteins_10000.fasta
+selected_proteins_1000.fasta
 protein_index.zip
 protein_index.db
 protein_index_1.db

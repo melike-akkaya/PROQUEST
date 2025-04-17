@@ -40,6 +40,14 @@ st.sidebar.info(
     "It converts your question into a Solr query using a Language Model and fetches relevant protein information."
 )
 
+st.sidebar.info(
+    "The Vector Search feature enables you to find proteins with similar sequences using advanced sequence embeddings. "
+    "By utilizing the ProtT5 model for embedding generation, the system performs fast, approximate nearest-neighbor searches, "
+    "offering an efficient alternative to traditional tools like BLAST. This allows you to discover functionally similar proteins "
+    "and their related Gene Ontology terms, accelerating protein-related research and analysis."
+)
+
+
 with tabs[0]: # LLM Query Tab
     with st.spinner("Loading required fields..."):
         if 'queryfields' not in st.session_state:
