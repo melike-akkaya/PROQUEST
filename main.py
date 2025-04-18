@@ -28,7 +28,7 @@ logging.basicConfig(stream=st.session_state.log_stream, level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-st.set_page_config(page_title="UniProt KB Query Interface", layout="wide")
+st.set_page_config(page_title="ProQuest", layout="wide")
 
 tabs = st.tabs(["LLM Query", "Vector Search"]) # two modes
 
@@ -57,7 +57,7 @@ with tabs[0]: # LLM Query Tab
             st.session_state.searchfields = fetch_data_from_db("SELECT * FROM search_fields")
         if 'resultfields' not in st.session_state:
             st.session_state.resultfields = fetch_data_from_db("SELECT * FROM result_fields")
-    st.title("🧬 UniProt KB LLM Query Interface v0.24")
+    st.title("🧬 ProQuest: UniProtKB LLM Query Interface v0.3")
     model_choices = [
         "Select a model...",
         "deepseek/deepseek-r1", "deepseek/deepseek-r1:free",
@@ -194,7 +194,7 @@ with tabs[0]: # LLM Query Tab
             st.warning("Please enter a question.")
 
 with tabs[1]:  # Vector Search Tab
-    st.title("🔎 Vector Search")
+    st.title("🔎 ProQuest: Vector Search v0.2")
 
     with st.form("vector_search_form"):
         sequence_input = st.text_area(
