@@ -215,12 +215,9 @@ with tabs[0]: # LLM Query Tab
 with tabs[1]:  # Vector Search Tab
     st.title("🔎 ProQuest: Vector Search v0.2")
 
-    EXAMPLE_SEQUENCE = """MDKKNEQQEVREENDTSINQESETQVELEEEVVNEECETSSEKTDEKEVDDENVTDINSK
-LAEKKLQDELDELNDKYQRLQAEYANYRRRTQQEKETIGVFANEKIITELIPVIDSMERA
-LDACEDKEDTMYKGISLVHKQLIDTLVKFGVEEIEAESKEFDPNLHLAVMQESVDGVEAN
-QIVMVLQKGYKLGTKVVRPSMVKVSC"""
+    EXAMPLE_SEQUENCE = """MTAIIKEIVSRNKRRYQEDGFDLDLTYIYPNIIAMGFPAERLEGVYRNNIDDVVRFLDSK\nHKNHYKIYNLCAERHYDTAKFNCRVAQYPFEDHNPPQLELIKPFCEDLDQWLSEDDNHVA\nAIHCKAGKGRTGVMICAYLLHRGKFLKAQEALDFYGEVRTRDKKGVTIPSQRRYVYYYSY\nLLKNHLDYRPVALLFHKMMFETIPMFSGGTCNPQFVVCQLKVKIYSSNSGPTRREDKFMY\nFEFPQPLPVCGDIKVEFFHKQNKMLKKDKMFHFWVNTFFIPGPEETSEKVENGSLCDQEI\nDSICSIERADNDKEYLVLTLTKNDLDKANKDKANRYFSPNFKVKLYFTKTVEEPSNPEAS\nSSTSVTPDVSDNEPDHYRYSDTTDSDPENEPFDEDQHTQITKV"""
 
-    # Örnek sekans butonu
+    # example sequence
     col1, col2 = st.columns([3, 2])
     with col1:
         if st.button("🔬 Search by Sample Sequence"):
@@ -238,7 +235,6 @@ QIVMVLQKGYKLGTKVVRPSMVKVSC"""
 
         search_button = st.form_submit_button("Search")
 
-    # Örnek sekans tetiklenmişse aramayı başlat
     if st.session_state.trigger_example_search:
         search_button = True
         st.session_state.trigger_example_search = False  
@@ -260,9 +256,9 @@ QIVMVLQKGYKLGTKVVRPSMVKVSC"""
             foundEmbeddings = searchSpecificEmbedding(query_embedding)
             endTimeToFindByEmbedding = datetime.now()
 
-            # distance should be in the range: 0 <= distance <= 0.7765
-            # therefore similarity should be in the range: 1 >= similarity >= 0.2235
-            foundEmbeddings = foundEmbeddings[(foundEmbeddings['Similarity'] >= 0.2235) & (foundEmbeddings['Similarity'] <= 1.0)]
+            # distance should be in the range: 0 <= distance <= 0.40
+            # therefore similarity should be in the range: 1 >= similarity >= 0.60
+            foundEmbeddings = foundEmbeddings[(foundEmbeddings['Similarity'] >= 0.60) & (foundEmbeddings['Similarity'] <= 1.0)]
 
             embeddingTime = endTimeToCreateEmbedding - startTimeToCreateEmbedding
             searchTime = endTimeToFindByEmbedding - startTimeToFindByEmbedding
@@ -277,9 +273,9 @@ QIVMVLQKGYKLGTKVVRPSMVKVSC"""
                 st.success("✅ Similar proteins found!")
                 st.write("Distance Metric: Angular")
 
-                # distance should be in the range: 0 <= distance <= 0.65
-                # therefore similarity should be in the range: 1 >= similarity >= 0.35
-                foundEmbeddings = foundEmbeddings[(foundEmbeddings['Similarity'] >= 0.35)]
+                # distance should be in the range: 0 <= distance <= 0.25
+                # therefore similarity should be in the range: 1 >= similarity >= 0.75
+                foundEmbeddings = foundEmbeddings[(foundEmbeddings['Similarity'] >= 0.75)]
                 proteinIdList = foundEmbeddings['Protein ID'].str.extract(r'>(.+)<')[0].fillna(foundEmbeddings['Protein ID']).tolist()
                 go_enrichment_df = findRelatedGoIds(proteinIdList, dbPath=sqliteDb)
 
