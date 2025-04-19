@@ -47,6 +47,15 @@ st.sidebar.info(
     "and their related Gene Ontology terms, accelerating protein-related research and analysis."
 )
 
+st.sidebar.title("Team Members")
+with st.sidebar:
+    st.markdown("""<div style="background-color:#FAEBD7; padding:10px; border-radius:5px;">
+                    <p style="margin-bottom: 0;">- Sezin Yavuz</p>
+                    <p style="margin-bottom: 0;">- Rauf Yanmaz</p>
+                    <p style="margin-bottom: 0;">- Melike Akkaya</p>
+                    <p style="margin-bottom: 0;">- Tunca Doğan</p>
+                    <p style="margin-bottom: 0;">Hacettepe University, Department of Computer Science</p>
+                    </div>""", unsafe_allow_html=True)
 
 with tabs[0]: # LLM Query Tab
     with st.spinner("Loading required fields..."):
