@@ -58,14 +58,15 @@ st.sidebar.info(
 )
 
 st.sidebar.title("Team Members")
+st.sidebar.title("Team Members")
 with st.sidebar:
     st.markdown("""<div style="background-color:#FAEBD7; padding:10px; border-radius:5px;">
-                    <p style="margin-bottom: 0;">- Sezin Yavuz</p>
-                    <p style="margin-bottom: 0;">- Rauf Yanmaz</p>
-                    <p style="margin-bottom: 0;">- Melike Akkaya</p>
-                    <p style="margin-bottom: 0;">- Tunca Doğan</p>
-                    <p style="margin-bottom: 0;">Hacettepe University, Department of Computer Science</p>
-                    </div>""", unsafe_allow_html=True)
+                    <p style="margin-bottom: 0; color: black;">- Sezin Yavuz</p>
+                    <p style="margin-bottom: 0; color: black;">- Rauf Yanmaz</p>
+                    <p style="margin-bottom: 0; color: black;">- Melike Akkaya</p>
+                    <p style="margin-bottom: 0; color: black;">- Tunca Doğan</p>
+                    <p style="margin-bottom: 0; color: black;">Hacettepe University, Department of Computer Science</p>
+                  </div>""", unsafe_allow_html=True)
 
 with tabs[0]: # LLM Query Tab
     with st.spinner("Loading required fields..."):
@@ -220,7 +221,7 @@ with tabs[1]:  # Vector Search Tab
     # example sequence
     col1, col2 = st.columns([3, 2])
     with col1:
-        if st.button("🔬 Search by Sample Sequence"):
+        if st.button("🔬 Load an example sequence"):
             st.session_state.sequence_input = EXAMPLE_SEQUENCE
             st.session_state.trigger_example_search = True
 
