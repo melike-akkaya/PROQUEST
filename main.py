@@ -58,14 +58,13 @@ st.sidebar.info(
 )
 
 st.sidebar.title("Team Members")
-st.sidebar.title("Team Members")
 with st.sidebar:
     st.markdown("""<div style="background-color:#FAEBD7; padding:10px; border-radius:5px;">
                     <p style="margin-bottom: 0; color: black;">- Sezin Yavuz</p>
                     <p style="margin-bottom: 0; color: black;">- Rauf Yanmaz</p>
                     <p style="margin-bottom: 0; color: black;">- Melike Akkaya</p>
                     <p style="margin-bottom: 0; color: black;">- Tunca Doğan</p>
-                    <p style="margin-bottom: 0; color: black;">Hacettepe University, Department of Computer Science</p>
+                    <p style="margin-bottom: 0; color: black;">  <strong>Hacettepe University, Department of Computer Science</strong></p>
                   </div>""", unsafe_allow_html=True)
 
 with tabs[0]: # LLM Query Tab
@@ -243,6 +242,18 @@ with tabs[1]:  # Vector Search Tab
 
     if search_button:
         if sequence_input:
+            # ───  PREPROCESS FASTA ────────────────────────────────────────
+            raw = sequence_input.strip()
+            if raw.startswith(">"):
+                seq = "".join(
+                    line.strip()
+                    for line in raw.splitlines()
+                    if line and not line.startswith(">")
+                )
+                st.info("Detected FASTA header – stripping it out.")
+            else:
+                seq = raw.replace("\n", "").strip()
+
             st.subheader("Search Results:")
             st.write("🔄 Searching for similar protein sequences...")
 
@@ -290,6 +301,36 @@ with tabs[1]:  # Vector Search Tab
                         mime="text/csv"
                     )
                     st.caption("Download operation will reset the page!") 
+
+                    for namespace in go_enrichment_df['Namespace'].unique():
+                        st.markdown(f"#### Namespace: {namespace}")
+                        df_ns = go_enrichment_df[go_enrichment_df['Namespace'] == namespace].head(5).copy()
+
+                        df_ns['Associated Protein IDs'] = df_ns['Associated Protein IDs'].apply(
+                            lambda x: ', '.join(x.split(', ')[:5]) + "..." 
+                                      if len(x.split(', ')) > 5 else x
+                        )
+
+                        df_ns["GO ID"] = go_enrichment_df["GO ID"].apply(
+                            lambda go: f'<a href="https://www.ebi.ac.uk/QuickGO/term/{go}" target="_blank">{go}</a>'
+                        )
+
+                        df_ns.index = range(1, len(df_ns) + 1)
+
+                        html_table = df_ns.to_html(escape=False, index=True)
+                        html_table = html_table.replace(
+                            "<th>Definition</th>",
+                            "<th style='max-width: 250px; word-wrap: break-word;'>Definition</th>"
+                        )
+                        scrollable = f"""
+                        <div style="overflow-x: auto; width: 100%; margin-bottom: 1em;">
+                          <table style="min-width: 1800px; width: 100%; border-collapse: collapse; font-size: 14px;">
+                            {''.join(html_table.splitlines()[1:])}
+                          </table>
+                        </div>
+                        """
+                        st.markdown(scrollable, unsafe_allow_html=True)
+
                     go_enrichment_df["GO ID"] = go_enrichment_df["GO ID"].apply(
                         lambda go: f'<a href="https://www.ebi.ac.uk/QuickGO/term/{go}" target="_blank">{go}</a>'
                     )
