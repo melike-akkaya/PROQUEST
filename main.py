@@ -30,6 +30,16 @@ logger = logging.getLogger(__name__)
 
 st.set_page_config(page_title="ProQuest", layout="wide")
 
+# Session state başlatmaları
+if 'log_stream' not in st.session_state:
+    st.session_state.log_stream = io.StringIO()
+
+# VECTOR SEARCH için session state
+if 'sequence_input' not in st.session_state:
+    st.session_state.sequence_input = ""
+if 'trigger_example_search' not in st.session_state:
+    st.session_state.trigger_example_search = False
+
 tabs = st.tabs(["LLM Query", "Vector Search"]) # two modes
 
 sqliteDb = "asset/protein_index.db"
@@ -205,13 +215,34 @@ with tabs[0]: # LLM Query Tab
 with tabs[1]:  # Vector Search Tab
     st.title("🔎 ProQuest: Vector Search v0.2")
 
+    EXAMPLE_SEQUENCE = """MDKKNEQQEVREENDTSINQESETQVELEEEVVNEECETSSEKTDEKEVDDENVTDINSK
+LAEKKLQDELDELNDKYQRLQAEYANYRRRTQQEKETIGVFANEKIITELIPVIDSMERA
+LDACEDKEDTMYKGISLVHKQLIDTLVKFGVEEIEAESKEFDPNLHLAVMQESVDGVEAN
+QIVMVLQKGYKLGTKVVRPSMVKVSC"""
+
+    # Örnek sekans butonu
+    col1, col2 = st.columns([3, 2])
+    with col1:
+        if st.button("🔬 Search by Sample Sequence"):
+            st.session_state.sequence_input = EXAMPLE_SEQUENCE
+            st.session_state.trigger_example_search = True
+
+
     with st.form("vector_search_form"):
         sequence_input = st.text_area(
             "Enter your protein sequence:",
-            placeholder="e.g., MKTFFVAGVLAALATA..."
+            placeholder="e.g., MKTFFVAGVLAALATA...",
+            #added
+            key="sequence_input"
         )
 
         search_button = st.form_submit_button("Search")
+
+    # Örnek sekans tetiklenmişse aramayı başlat
+    if st.session_state.trigger_example_search:
+        search_button = True
+        st.session_state.trigger_example_search = False  
+    
 
     if search_button:
         if sequence_input:
