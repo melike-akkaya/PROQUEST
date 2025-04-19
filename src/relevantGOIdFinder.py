@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+from scipy.stats import hypergeom
 
 def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index.db'):
     conn = sqlite3.connect(dbPath)
@@ -31,6 +32,16 @@ def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index.db'):
         
         if background and background[0] != 0:
             enrichmentScore = round((countInInterest / len(genesOfInterest)) / (background[0] / distinctProteinCount), 3)
+            
+            # constant values to calculate pValue
+            # N = distinctProteinCount
+            # M = background[0]               -> proteins annotated to this GO term
+            # n = len(genesOfInterest)
+            # m = countInInterest
+            
+            # scipy hypergeom.sf(m-1, N, M, n) = sum_{k=m}^... P(X=k)
+            pValue = hypergeom.sf(countInInterest - 1, distinctProteinCount, background[0], len(genesOfInterest))
+            pValue = round(pValue, 5)
 
             cursor.execute("""
             SELECT go_name, namespace, def, is_a
@@ -46,6 +57,7 @@ def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index.db'):
             records.append({
                 'GO ID': goId,
                 'Enrichment Score': enrichmentScore,
+                'P‑value': pValue,
                 'GO Name': goName,
                 'Namespace': namespace,
                 'Definition': goDef,
