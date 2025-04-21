@@ -59,11 +59,16 @@ st.sidebar.info(
 
 st.sidebar.title("Team Members")
 with st.sidebar:
-    st.markdown("""<div style="background-color:#FAEBD7; padding:10px; border-radius:5px;">
-                    <p style="margin-bottom: 0; color: black;">- Sezin Yavuz</p>
-                    <p style="margin-bottom: 0; color: black;">- Rauf Yanmaz</p>
-                    <p style="margin-bottom: 0; color: black;">- Melike Akkaya</p>
-                    <p style="margin-bottom: 0; color: black;">- Tunca Doğan</p>
+    st.markdown("""<div style="background-color:#dde3ed; padding:10px; border-radius:5px;">
+                    <p style="margin-bottom: 0; color: black;"><strong>· Sezin Yavuz<strong></p>
+                    <p style="margin-bottom: 0; color: black;"><strong>· Rauf Yanmaz<strong></p>
+                    <p style="margin-bottom: 0; color: black;"><strong>· Melike Akkaya<strong></p>
+                    <p style="margin-bottom: 0; color: black;"><strong>· Tunca Doğan<strong></p>
+                  </div>""", unsafe_allow_html=True)
+
+st.sidebar.title("Organization")
+with st.sidebar:
+    st.markdown("""<div style="background-color:#dde3ed; padding:10px; border-radius:5px;">
                     <p style="margin-bottom: 0; color: black;">  <strong>Hacettepe University, Department of Computer Science</strong></p>
                   </div>""", unsafe_allow_html=True)
 
