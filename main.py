@@ -292,19 +292,9 @@ with tabs[1]:  # Vector Search Tab
                 go_enrichment_df = findRelatedGoIds(proteinIdList, dbPath=sqliteDb)
 
                 with st.expander("📊 View GO Term Enrichment Table"):
-                    # download GO term table
-                    csv_go = go_enrichment_df.to_csv(index=True)
-                    st.download_button(
-                        label="Download GO Term Enrichment Table as CSV",
-                        data=csv_go,
-                        file_name="go_enrichment_table.csv",
-                        mime="text/csv"
-                    )
-                    st.caption("Download operation will reset the page!") 
-
                     for namespace in go_enrichment_df['Namespace'].unique():
-                        st.markdown(f"#### Namespace: {namespace}")
-                        df_ns = go_enrichment_df[go_enrichment_df['Namespace'] == namespace].head(5).copy()
+                        st.markdown(f"#### Namespace: {namespace} (Selected enriched terms)")
+                        df_ns = go_enrichment_df[go_enrichment_df['Namespace'] == namespace].head(10).copy()
 
                         df_ns['Associated Protein IDs'] = df_ns['Associated Protein IDs'].apply(
                             lambda x: ', '.join(x.split(', ')[:5]) + "..." 
@@ -330,34 +320,21 @@ with tabs[1]:  # Vector Search Tab
                         </div>
                         """
                         st.markdown(scrollable, unsafe_allow_html=True)
-
-                    go_enrichment_df["GO ID"] = go_enrichment_df["GO ID"].apply(
-                        lambda go: f'<a href="https://www.ebi.ac.uk/QuickGO/term/{go}" target="_blank">{go}</a>'
+                    
+                    # download GO term table
+                    csv_go = go_enrichment_df.to_csv(index=True)
+                    st.download_button(
+                        label="Download the Whole GO Term Enrichment Table as CSV",
+                        data=csv_go,
+                        file_name="go_enrichment_table.csv",
+                        mime="text/csv"
                     )
-                    # update to show at most 5 associated proteins
-                    go_enrichment_df.index = range(1, len(go_enrichment_df) + 1)
-                    go_enrichment_df['Associated Protein IDs'] = go_enrichment_df['Associated Protein IDs'].apply(
-                        lambda x: ', '.join(x.split(', ')[:5]) + "..." if len(x.split(', ')) > 5 else x
-                    )
-
-                    html_table = go_enrichment_df.to_html(escape=False, index=True)
-                    html_table = html_table.replace(
-                        "<th>Definition</th>",
-                        "<th style='max-width: 250px; word-wrap: break-word;'>Definition</th>"
-                    )
-                    scrollable_html = f"""
-                    <div style="overflow-x: auto; width: 100%;">
-                        <table style="min-width: 1800px; width: 100%; border-collapse: collapse; font-size: 14px;">
-                            {''.join(html_table.splitlines()[1:])}
-                        </table>
-                    </div>
-                    """
-                    st.markdown(scrollable_html, unsafe_allow_html=True)
+                    st.caption("Download operation will reset the page!") 
 
                 foundEmbeddings_download = foundEmbeddings.copy()
                 csv_found = foundEmbeddings_download.to_csv(index=False)
                 st.download_button(
-                    label="Download Similar Proteins Table as CSV",
+                    label="Download Protein Hits Table as CSV",
                     data=csv_found,
                     file_name="similar_proteins_table.csv",
                     mime="text/csv"
