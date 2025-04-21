@@ -121,6 +121,20 @@ pip freeze | awk -F'==' '{print $1}' | xargs pip uninstall -y
 
 ### Running the Program
 
+#### Start the FastAPI Backend Server
+From the backend/ directory:
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+Exposes two endpoints:
+(1) POST /llm_query
+(2) POST /vector_search
+
+CORS is enabled for the frontend.
+
+#### Start the Streamlit Frontend
 Start the application by executing:
 
 **Windows, macOS and Linux:**
