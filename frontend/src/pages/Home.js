@@ -38,7 +38,7 @@ function Hero({ onGetStarted }) {
             </Fade>
             <Fade in timeout={1200}>
               <Typography variant="h5" color="text.secondary" mb={4}>
-                We developed a user-friendly interface that translates natural-language queries into precise Solr searches on UniProtKB. Using ProtT5 embeddings and Annoy, our system enables fast protein similarity searches—up to 10x faster than BLAST—enriched with Gene Ontology insights for functional context.
+                We developed a user-friendly interface that translates natural-language queries into precise Solr searches on UniProtKB-SwissProt database. Using ProtT5 embeddings and Annoy, our system enables fast protein similarity searches—up to 10x faster than BLAST—enriched with Gene Ontology insights for functional context.
               </Typography>
             </Fade>
             <Fade in timeout={1400}>
