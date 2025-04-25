@@ -151,9 +151,10 @@ def vector_search(req: VectorRequest):
     df = searchSpecificEmbedding(query_embedding)
     search_time = (datetime.now() - t1).total_seconds()
 
-    # list proteins with similarity up to 0.6
-    df = df[(df["Similarity"] >= 0.60) & (df["Similarity"] <= 1.0)]
-    df_final = df[df["Similarity"] >= 0.75]
+    # list proteins with similarity up to 0.8
+    df = df[(df["Similarity"] >= 0.80) & (df["Similarity"] <= 1.0)]
+    # list proteins with similarity up to 0.9
+    df_final = df[df["Similarity"] >= 0.90]
     found = df_final.to_dict(orient="records")
 
     proteins = [
