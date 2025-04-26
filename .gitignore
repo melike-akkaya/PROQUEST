@@ -26,3 +26,5 @@ goa_uniprot_all.gpa
 goa_uniprot_updated.gpa
 go-basic.obo
 protein_embeddings_2.zip
+uniprot_sprot.dat.gz
+uniprot_sprot.dat
