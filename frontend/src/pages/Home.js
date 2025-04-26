@@ -4,8 +4,10 @@ import { Box, Container, Typography, Button, Fade, useTheme, alpha } from '@mui/
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HeroLogos from '../components/HeroLogos';
 
-function Hero({ onGetStarted }) {
+function Hero() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -38,7 +40,7 @@ function Hero({ onGetStarted }) {
             </Fade>
             <Fade in timeout={1200}>
               <Typography variant="h5" color="text.secondary" mb={4}>
-                We developed a user-friendly interface that translates natural-language queries into precise Solr searches on UniProtKB-SwissProt database. Using ProtT5 embeddings and Annoy, our system enables fast protein similarity searches—up to 10x faster than BLAST—enriched with Gene Ontology insights for functional context.
+                We developed a user-friendly interface that translates natural-language queries into precise Solr searches on UniProtKB-SwissProt database...
               </Typography>
             </Fade>
             <Fade in timeout={1400}>
@@ -46,7 +48,7 @@ function Hero({ onGetStarted }) {
                 <Button
                   variant="contained"
                   size="large"
-                  onClick={onGetStarted}
+                  onClick={() => navigate('/query/llm')}
                   endIcon={<ArrowForwardIcon />}
                   sx={{
                     px: 4,
@@ -59,17 +61,31 @@ function Hero({ onGetStarted }) {
                     transition: 'all 0.7s ease'
                   }}
                 >
-                  Start Querying
+                  Start LLM Query
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => navigate('/query/vector')}
+                  sx={{
+                    px: 4,
+                    borderRadius: '12px',
+                    color: theme.palette.text.primary,
+                    borderColor: alpha(theme.palette.primary.main, 0.5),
+                    '&:hover': {
+                      borderColor: theme.palette.primary.main,
+                      backgroundColor: alpha(theme.palette.primary.main, 0.05)
+                    },
+                    transition: 'all 0.7s ease'
+                  }}
+                >
+                  Start Vector Search
                 </Button>
               </Box>
             </Fade>
           </Box>
-          <Box
-            flex="1"
-            display={{ xs: 'none', md: 'block' }}
-            position="relative"
-            height="300px"
-          >
+
+          <Box flex="1" display={{ xs: 'none', md: 'block' }} position="relative" height="300px">
             <HeroLogos />
           </Box>
         </Box>
@@ -80,9 +96,11 @@ function Hero({ onGetStarted }) {
 
 function Features() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
   const features = [
-    { title: 'Vector Search', icon: '🔍' },
-    { title: 'Multiple LLMs', icon: '🧠' },
+    { title: 'Vector Search', icon: '🔍', path: '/query/vector' },
+    { title: 'LLM Search', icon: '🧠', path: '/query/llm' },
   ];
 
   return (
@@ -94,6 +112,7 @@ function Features() {
         {features.map((f, i) => (
           <Fade in timeout={1000 + i * 200} key={f.title}>
             <Box
+              onClick={() => navigate(f.path)}
               textAlign="center"
               p={3}
               borderRadius="20px"
@@ -119,10 +138,9 @@ function Features() {
 }
 
 export default function Home() {
-  const navigate = useNavigate();
   return (
     <>
-      <Hero onGetStarted={() => navigate('/query')} />
+      <Hero />
       <Features />
     </>
   );
