@@ -45,9 +45,7 @@ export default function LLMQuery() {
   const [results, setResults] = useState([]);
   const [logs, setLogs] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
-  const [highlightSettings, setHighlightSettings] = useState(false);
 
-  // For dropdown menu
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
