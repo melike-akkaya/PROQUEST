@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { vectorSearch } from '../services/VectorSearchService';
 import {
   Box, TextField, Button, Typography, Paper, Accordion, AccordionSummary,
   AccordionDetails, Table, TableHead, TableBody, TableRow, TableCell, Alert, Divider, Stack
@@ -16,8 +16,6 @@ LLKNHLDYRPVALLFHKMMFETIPMFSGGTCNPQFVVCQLKVKIYSSNSGPTRREDKFMY
 FEFPQPLPVCGDIKVEFFHKQNKMLKKDKMFHFWVNTFFIPGPEETSEKVENGSLCDQEI
 DSICSIERADNDKEYLVLTLTKNDLDKANKDKANRYFSPNFKVKLYFTKTVEEPSNPEAS
 SSTSVTPDVSDNEPDHYRYSDTTDSDPENEPFDEDQHTQITKV`;
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
 function downloadCSV(filename, rows) {
   if (!rows || !rows.length) return;
@@ -54,11 +52,17 @@ export default function VectorSearch() {
     }
     setLoading(true);
     try {
-      const { data } = await axios.post(`${BACKEND_URL}/vector_search`, { sequence: seq });
-      setEmbedTime(data.embedding_time);
-      setSearchTime(data.search_time);
-      setGoEnrichment(data.go_enrichment || []);
-      setHits(data.found_embeddings || []);
+      const {
+              embedding_time,
+              search_time,
+              go_enrichment = [],
+              found_embeddings = []
+            } = await vectorSearch(seq);
+        
+            setEmbedTime(embedding_time);
+            setSearchTime(search_time);
+            setGoEnrichment(go_enrichment);
+            setHits(found_embeddings);
     } catch (e) {
       setError(e.response?.data || e.message);
     } finally {

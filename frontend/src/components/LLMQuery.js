@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { queryLLM } from '../services/LLMService';
 import {
   Box, TextField, Button, FormControl, InputLabel, Select, MenuItem,
   FormControlLabel, Typography, Paper, Accordion, AccordionSummary,
@@ -27,8 +27,6 @@ const EXAMPLE_QUERIES = [
   "What is the UniProt ID for insulin?",
   "Retrieve all proteins in Homo sapiens with a known 3D structure."
 ];
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
 export default function LLMQuery() {
   const [llmType, setLlmType] = useState('');
@@ -65,11 +63,17 @@ export default function LLMQuery() {
 
     setLoading(true);
     try {
-      const payload = { model: llmType, api_key: apiKey, verbose, limit, retry_count: retryCount, question };
-      const { data } = await axios.post(`${BACKEND_URL}/llm_query`, payload);
-      setSolrQuery(data.solr_query);
-      setResults(data.results.results || []);
-      setLogs(data.logs || null);
+      const { solr_query, results, logs } = await queryLLM({
+              model: llmType,
+              apiKey,
+              verbose,
+              limit,
+              retryCount,
+              question
+            });
+            setSolrQuery(solr_query);
+            setResults(results);
+            setLogs(logs);
     } catch (e) {
       setError(e.response?.data || e.message);
     } finally {
@@ -101,6 +105,28 @@ export default function LLMQuery() {
 
         {warning && <Alert severity="warning" sx={{ mb: 2 }}>{warning}</Alert>}
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        
+        <TextField
+          label="Question"
+          fullWidth
+          multiline
+          minRows={2}
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="e.g., What proteins are related to Alzheimer's disease?"
+          sx={{
+            mb: 3,
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '16px',
+              fontSize: '1rem',
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark' 
+                  ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
+                  : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
+            }
+          }}
+        
+        />
 
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 2 }}>
           <FormControl fullWidth variant="outlined" size="small" >
@@ -179,28 +205,6 @@ export default function LLMQuery() {
             onChange={e => setApiKey(e.target.value)}
           />
         </Box>
-
-        <TextField
-          label="Question"
-          fullWidth
-          multiline
-          minRows={2}
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="e.g., What proteins are related to Alzheimer's disease?"
-          sx={{
-            mb: 3,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '16px',
-              fontSize: '1rem',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' 
-                  ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
-                  : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
-            }
-          }}
-        
-        />
 
 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 1 }}>
           <Tooltip title="Example Questions">
