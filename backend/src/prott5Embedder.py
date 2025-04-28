@@ -4,9 +4,24 @@ import numpy as np
 from transformers import T5EncoderModel, T5Tokenizer
 import os
 import streamlit as st 
+from functools import lru_cache
 
 device = torch.device('cuda:3' if torch.cuda.is_available() else 'cpu')
 print("Using device: {}".format(device))
+
+@lru_cache(maxsize=1)
+def _load_t5(transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc",
+            model_dir="modeldir"):
+    os.makedirs(model_dir, exist_ok=True)
+    model = T5EncoderModel.from_pretrained(transformer_link, cache_dir=model_dir)
+    tokenizer = T5Tokenizer.from_pretrained(transformer_link,
+                                            do_lower_case=False,
+                                            legacy=False,
+                                            cache_dir=model_dir)
+    if device.type == "cpu":
+        model.to(torch.float32)
+    model.to(device).eval()
+    return model, tokenizer
 
 def getT5Model(visualize, transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc"):
     if visualize:
@@ -35,7 +50,7 @@ def getT5Model(visualize, transformer_link="Rostlab/prot_t5_xl_half_uniref50-enc
     return model, vocab
 
 def getEmbeddings(seq_dict, per_protein, visualize, max_residues=4000, max_seq_len=1000, max_batch=100):
-    model, vocab = getT5Model(visualize)
+    model, vocab = _load_t5()
 
     seq_dict = sorted(seq_dict.items(), key=lambda kv: len(seq_dict[kv[0]]), reverse=True)
 
