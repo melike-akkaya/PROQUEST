@@ -445,7 +445,7 @@ export default function LLMQuery() {
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography sx={{ fontWeight: 500 }}>
-                  {item.entryType}: {item.primaryAccession}
+                  UniProtKB-SwissProt (reviewed) protein: {item.primaryAccession}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>

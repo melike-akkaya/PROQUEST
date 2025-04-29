@@ -6,7 +6,7 @@ import os
 import streamlit as st 
 from functools import lru_cache
 
-device = torch.device('cuda:3' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 print("Using device: {}".format(device))
 
 @lru_cache(maxsize=1)
