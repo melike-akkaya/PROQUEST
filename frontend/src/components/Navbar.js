@@ -2,7 +2,6 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Tabs,
   Tab,
   IconButton,
@@ -12,6 +11,7 @@ import {
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import logo from '../assets/logo.png';  
 
 export default function Navbar({ mode, toggleMode }) {
   const theme = useTheme();
@@ -43,19 +43,25 @@ export default function Navbar({ mode, toggleMode }) {
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {/* Logo */}
-        <Typography
-          variant="h6"
+        <Box
           component={Link}
           to="/"
           sx={{
+            display: 'block',
+            width: 200, 
+            height: 'auto',
             textDecoration: 'none',
             color: 'inherit',
-            fontWeight: 700,
-            fontFamily: '"Poppins", "Inter", "Rubik", sans-serif',
+            my: 2,
           }}
         >
-          ProQuest
-        </Typography>
+          <Box
+            component="img"
+            src={logo}
+            alt="logo"
+            sx={{ width: '100%', height: 'auto' }}
+          />
+        </Box>
 
         {/* Ortalanmış Tabs */}
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
