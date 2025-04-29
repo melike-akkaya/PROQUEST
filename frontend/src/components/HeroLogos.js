@@ -1,6 +1,8 @@
 import { Box, Fade, useTheme } from '@mui/material';
 import UniProtLogo from '../assets/uniprot.png';
 import GOLogo from '../assets/go.png';
+import HULogo from '../assets/hu.png';
+import EMBLogo from '../assets/embl.png';
 
 function HeroLogos() {
   const theme = useTheme();
@@ -16,6 +18,16 @@ function HeroLogos() {
       alt: 'Gene Ontology',
       href: 'https://geneontology.org/',
     },
+    {
+      src: HULogo,
+      alt: 'Hacettepe University',
+      href: 'https://hacettepe.edu.tr/',
+    },
+    {
+      src: EMBLogo,
+      alt: 'EMBL',
+      href: 'https://www.embl.org/',
+    }
   ];
 
   return (
@@ -23,14 +35,15 @@ function HeroLogos() {
       <Box
         component="ul"
         sx={{
-          display: { xs: 'none', md: 'flex' },
+          display: { xs: 'flex', md: 'flex' },
+          flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: 8,
+          gap: { xs: 4, md: 8 },
           listStyle: 'none',
           p: 0,
           m: 0,
-          mt: 8, 
+          mt: 6,
         }}
       >
         {logos.map((logo, idx) => (
@@ -38,11 +51,14 @@ function HeroLogos() {
             component="li"
             key={idx}
             sx={{
-              width: 180,
+              flex: '0 1 160px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               transition: 'transform 0.3s, box-shadow 0.3s',
               '&:hover': {
-                transform: 'scale(1.1)',
-                boxShadow: `0 4px 20px ${theme.palette.primary.main}33`,
+                transform: 'scale(1.05)',
+                boxShadow: `0 6px 18px ${theme.palette.primary.main}44`,
               },
             }}
           >
@@ -51,15 +67,22 @@ function HeroLogos() {
               href={logo.href}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ display: 'block', width: '100%' }}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: 100,
+              }}
             >
               <Box
                 component="img"
                 src={logo.src}
                 alt={logo.alt}
                 sx={{
-                  width: '100%',
-                  height: 'auto',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
                   filter:
                     theme.palette.mode === 'dark'
                       ? 'brightness(0) invert(1)'

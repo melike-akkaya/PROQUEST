@@ -40,7 +40,7 @@ function Hero() {
             </Fade>
             <Fade in timeout={1200}>
               <Typography variant="h5" color="text.secondary" mb={4}>
-                We developed a user-friendly interface that translates natural-language queries into precise Solr searches on UniProtKB-SwissProt database...
+                A user-friendly service designed to facilitate protein searches within UniProtKB. It (i) translates users' natural-language queries into precise Solr searches and executes them on UniProtKB-SwissProt to retrieve relevant proteins, and (ii) utilises fast, vector-based semantic search to identify and list protein sequences similar to the query sequence.
               </Typography>
             </Fade>
             <Fade in timeout={1400}>
