@@ -3,31 +3,17 @@ import UniProtLogo from '../assets/uniprot.png';
 import GOLogo from '../assets/go.png';
 import HULogo from '../assets/hu.png';
 import EMBLogo from '../assets/embl.png';
+import BioDataLabLogo from '../assets/biodatalab.png';
 
 function HeroLogos() {
   const theme = useTheme();
 
   const logos = [
-    {
-      src: UniProtLogo,
-      alt: 'UniProt',
-      href: 'https://www.uniprot.org/',
-    },
-    {
-      src: GOLogo,
-      alt: 'Gene Ontology',
-      href: 'https://geneontology.org/',
-    },
-    {
-      src: HULogo,
-      alt: 'Hacettepe University',
-      href: 'https://hacettepe.edu.tr/',
-    },
-    {
-      src: EMBLogo,
-      alt: 'EMBL',
-      href: 'https://www.embl.org/',
-    }
+    { src: UniProtLogo, alt: 'UniProt', href: 'https://www.uniprot.org/' },
+    { src: GOLogo, alt: 'Gene Ontology', href: 'https://geneontology.org/' },
+    { src: EMBLogo, alt: 'EMBL', href: 'https://www.embl.org/' },
+    { src: HULogo, alt: 'Hacettepe University', href: 'https://hacettepe.edu.tr/' },
+    { src: BioDataLabLogo, alt: 'BioDataLab', href: 'https://github.com/HUBioDataLab/' }
   ];
 
   return (
@@ -35,12 +21,12 @@ function HeroLogos() {
       <Box
         component="ul"
         sx={{
-          display: { xs: 'flex', md: 'flex' },
+          display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: { xs: 4, md: 8 },
           listStyle: 'none',
+          gap: { xs: 4, md: 6 },
           p: 0,
           m: 0,
           mt: 6,
@@ -51,7 +37,8 @@ function HeroLogos() {
             component="li"
             key={idx}
             sx={{
-              flex: '0 1 160px',
+              width: { xs: 120, md: 160 },
+              height: 100,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -72,7 +59,8 @@ function HeroLogos() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
-                height: 100,
+                height: '100%',
+                p: 1,
               }}
             >
               <Box
