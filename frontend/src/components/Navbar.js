@@ -48,7 +48,7 @@ export default function Navbar({ mode, toggleMode }) {
           to="/"
           sx={{
             display: 'block',
-            width: 200, 
+            width: 170,
             height: 'auto',
             textDecoration: 'none',
             color: 'inherit',
