@@ -11,7 +11,7 @@ import {
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import logo from '../assets/logo.png';  
+import logo from '../assets/logo.png';
 
 export default function Navbar({ mode, toggleMode }) {
   const theme = useTheme();
@@ -35,7 +35,7 @@ export default function Navbar({ mode, toggleMode }) {
         backgroundColor: theme.palette.mode === 'dark'
           ? 'rgba(15,15,15,0.9)'
           : '#f9f9f9',
-        borderBottom: theme => `1px solid ${theme.palette.divider}`, // <<< BU ÇİZGİ
+        borderBottom: theme => `1px solid ${theme.palette.divider}`,
         backdropFilter: 'blur(10px)',
         color: theme.palette.mode === 'dark' ? '#fff' : '#111',
         fontFamily: '"Poppins", "Inter", "Rubik", sans-serif',
@@ -53,17 +53,29 @@ export default function Navbar({ mode, toggleMode }) {
             textDecoration: 'none',
             color: 'inherit',
             my: 2,
+            transition: 'transform 0.2s ease',
+            '&:active': {
+              transform: 'scale(0.95)',
+            },
           }}
         >
+
           <Box
             component="img"
             src={logo}
             alt="logo"
-            sx={{ width: '100%', height: 'auto' }}
+            sx={{
+              width: '100%',
+              height: 'auto',
+              filter: theme.palette.mode === 'dark'
+                ? 'brightness(0) saturate(100%) invert(100%) sepia(0%) hue-rotate(180deg)'
+                : 'none',
+            }}
           />
+
         </Box>
 
-        {/* Ortalanmış Tabs */}
+        {/* Centered Tabs */}
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
           <Tabs
             value={currentTab}
