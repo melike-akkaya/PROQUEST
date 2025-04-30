@@ -76,43 +76,51 @@ export default function Navbar({ mode, toggleMode }) {
         </Box>
 
         {/* Centered Tabs */}
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 8 }}>
-          <Tabs
-            value={currentTab}
-            onChange={handleTabChange}
-            TabIndicatorProps={{ style: { display: 'none' } }}
-            sx={{
-              minHeight: 48,
-              '& .MuiTab-root': {
-                textTransform: 'none',
-                fontWeight: 600,
-                fontSize: '1rem',
-                fontFamily: '"Poppins", "Inter", "Rubik", sans-serif',
-                px: 3,
-                py: 1,
-                minWidth: 130,
-                transition: 'color 0.3s ease',
-              },
-              '& .MuiTab-root.Mui-selected': {
-                backgroundClip: 'text',
-                textFillColor: 'transparent',
-                backgroundImage: currentTab === 0
-                  ? (theme.palette.mode === 'dark'
-                      ? 'linear-gradient(90deg,rgb(191, 122, 255), #5aa5f5)'
-                      : 'linear-gradient(90deg,rgb(166, 74, 247), #3698e3)')
-                  : (theme.palette.mode === 'dark'
-                      ? 'linear-gradient(90deg,rgb(92, 81, 245),rgb(96, 255, 242))'
-                      : 'linear-gradient(90deg,rgb(69, 84, 245),rgb(91, 255, 219))'),
-                fontWeight: 700,
-              },
-              '& .MuiTab-root:hover': {
-                color: theme.palette.mode === 'dark' ? '#ccc' : '#444',
-              },
-            }}
-          >
-            <Tab label="LLM Query" />
-            <Tab label="Vector Search" />
-          </Tabs>
+        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 13 }}>
+        <Tabs
+          value={currentTab}
+          onChange={handleTabChange}
+          TabIndicatorProps={{ style: { display: 'none' } }}
+          sx={{
+            minHeight: 48,
+            '& .MuiTab-root': {
+              textTransform: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              fontFamily: '"Poppins", "Inter", "Rubik", sans-serif',
+              px: 3,
+              py: 1,
+              minWidth: 130,
+              transition: 'color 0.3s ease',
+              opacity: 1,
+            },
+            '& .MuiTab-root.Mui-selected': {
+              backgroundClip: 'text',
+              textFillColor: 'transparent',
+              backgroundImage: currentTab === 0
+                ? (theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg,rgb(191, 122, 255), #5aa5f5)'
+                    : 'linear-gradient(90deg,rgb(166, 74, 247), #3698e3)')
+                : (theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg,rgb(92, 81, 245),rgb(96, 255, 242))'
+                    : 'linear-gradient(90deg,rgb(69, 84, 245),rgb(91, 255, 219))'),
+              fontWeight: 700,
+            },
+            '& .MuiTab-root:hover': {
+              color: theme.palette.mode === 'dark' ? '#ccc' : '#444',
+            },
+            '& .Mui-disabled': {
+              color: theme.palette.mode === 'dark' ? '#666' : '#aaa',
+              cursor: 'default',
+              pointerEvents: 'none',
+              opacity: 0.6,
+            },
+          }}
+        >
+          <Tab label="LLM Query" />
+          <Tab label="Vector Search" />
+          <Tab label="RAG" disabled />
+        </Tabs>
         </Box>
 
         {/* Sağda mod değiştirme butonu */}
