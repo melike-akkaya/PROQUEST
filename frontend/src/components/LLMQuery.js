@@ -21,11 +21,10 @@ const MODEL_CHOICES = [
 
 const EXAMPLE_QUERIES = [
   "What proteins are related to Alzheimer's disease?",
-  "What is the function of protein P53?",
-  "What is the structure of human hemoglobin?",
-  "List all proteins involved in glycolysis.",
   "What is the UniProt ID for insulin?",
-  "Retrieve all proteins in Homo sapiens with a known 3D structure."
+  "List all proteins in Homo sapiens that are annotated with a GO term related to apoptosis.",
+  "Retrieve proteins from rabbit proteome that are 200-500 amino acids long and contain transmembrane helixes.",
+  "Retrieve all proteins in Homo sapiens with a known 3D structure"
 ];
 
 export default function LLMQuery() {
@@ -313,18 +312,19 @@ export default function LLMQuery() {
             }}
           >
 
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={verbose}
-                    onChange={(e) => setVerbose(e.target.checked)}
-                    color="secondary"
-                  />
-                }
-                label="Verbose Mode"
-              />
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={verbose}
+                  onChange={(e) => setVerbose(e.target.checked)}
+                  color="secondary"
+                />
+              }
+              label="Verbose Mode"
+            />
 
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField
                 size="small"
                 label="Limit"
@@ -352,7 +352,12 @@ export default function LLMQuery() {
                   },
                 }}
               />
+              <Tooltip title="Limit represents the maximum number of proteins that will be returned as the output of the query." arrow>
+                <InfoOutlinedIcon sx={{ ml: 1, color: 'text.secondary', cursor: 'help' }} fontSize="small" />
+              </Tooltip>
+            </Box>
 
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField
                 size="small"
                 label="Retry Count"
@@ -380,7 +385,11 @@ export default function LLMQuery() {
                   },
                 }}
               />
+              <Tooltip title="LLMs can produce inconsistent answers. If a valid query is not generated, the system re-submits the same request until either a correct query is produced or the retry limit is reached. Increasing the retry count lengthens response time; although it does not guarantee a correct result, it improves the likelihood of obtaining one." arrow>
+                <InfoOutlinedIcon sx={{ ml: 1, color: 'text.secondary', cursor: 'help' }} fontSize="small" />
+              </Tooltip>
             </Box>
+          </Box>
           </Paper>
         </Collapse>
 
