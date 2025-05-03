@@ -76,7 +76,7 @@ export default function Navbar({ mode, toggleMode }) {
         </Box>
 
         {/* Centered Tabs */}
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 13 }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 12 }}>
         <Tabs
           value={currentTab}
           onChange={handleTabChange}
