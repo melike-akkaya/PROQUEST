@@ -171,5 +171,4 @@ def createVectorDb(
     print("Done! Chroma vector database written to:", persistDirectory)
 
 
-if __name__ == "__main__":
-    createVectorDb()
+createVectorDb()
