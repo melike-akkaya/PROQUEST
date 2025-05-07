@@ -164,3 +164,36 @@ def createBackgroundDistributionCountMaterializedView(dbPath):
     
     conn.commit()
     conn.close()
+
+
+def createFlatFileMappingTable(dbPath):
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS flat_files_mapping (
+            protein_id TEXT PRIMARY KEY,
+            file_id INTEGER,
+            FOREIGN KEY (file_id) REFERENCES flat_files(file_id)
+        )
+    ''')
+
+    cursor.execute('SELECT file_id, content FROM flat_files')
+    records = cursor.fetchall()
+
+    for fileId, content in records:
+        match = re.search(r'^AC\s+(\w+);', content, re.MULTILINE)
+        if match:
+            protein_id = match.group(1)
+            try:
+                cursor.execute('''
+                    INSERT OR IGNORE INTO flat_files_mapping (protein_id, file_id)
+                    VALUES (?, ?)
+                ''', (protein_id, fileId))
+            except sqlite3.IntegrityError as e:
+                print(f"Error inserting for file_id {fileId}: {e}")
+        else:
+            print(f"No protein ID found for file_id {fileId}")
+
+    conn.commit()
+    conn.close()
