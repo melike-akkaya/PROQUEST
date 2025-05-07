@@ -35,7 +35,7 @@ def initSqlite(path: str = sqlitePath):
     with conn:
         conn.execute(
             f"""CREATE TABLE IF NOT EXISTS {tableName} (
-                   protein_id TEXT PRIMARY KEY, 
+                   file_id TEXT PRIMARY KEY, 
                    content    TEXT    NOT NULL
                )"""
         )
@@ -46,7 +46,7 @@ def storeRecordsSqlite(conn: sqlite3.Connection, recordList):
     cursor = conn.cursor()
     for recordIndex, recordContent in enumerate(recordList):
         cursor.execute(
-            f"INSERT OR IGNORE INTO {tableName} (protein_id, content) VALUES (?, ?);",
+            f"INSERT OR IGNORE INTO {tableName} (file_id, content) VALUES (?, ?);",
             (recordIndex, recordContent)
         )
     conn.commit()
@@ -92,7 +92,7 @@ def loadRecords(filePath, delimiter=r"^//[ \t]*\r?\n(?=ID)"):
 def chunkRecords(recordsList):
     """
     Slice each record into chunkTokens windows (with overlapTokens overlap).
-    Each chunk stores only (protein_id, chunk_id) as metadata.
+    Each chunk stores only (file_id, chunk_id) as metadata.
     """
     print("Token-based splitting of records…")
     chunkList = []
@@ -120,7 +120,7 @@ def chunkRecords(recordsList):
             chunkList.append(
                 Document(
                     page_content=chunkText,
-                    metadata={"protein_id": recordIndex, "chunk_id": chunkId},
+                    metadata={"file_id": recordIndex, "chunk_id": chunkId},
                 )
             )
             start += chunkTokens - overlapTokens
@@ -144,7 +144,7 @@ def createVectorDb(
     # 1. Parse & clean
     recordsList = loadRecords(filePath)
 
-    # 2. Store full records once in SQLite (protein_id is PK)
+    # 2. Store full records once in SQLite (file_id is PK)
     conn = initSqlite(sqlitePath)
     storeRecordsSqlite(conn, recordsList)
     print(f"Inserted {len(recordsList)} rows into {sqlitePath}.")
