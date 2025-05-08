@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function queryLLM({ model, apiKey, verbose, limit, retryCount, question }) {
+export async function queryLLM({ model, apiKey, verbose, limit, retryCount, question , temperature}) {
   const payload = {
     model,
     api_key: apiKey,
