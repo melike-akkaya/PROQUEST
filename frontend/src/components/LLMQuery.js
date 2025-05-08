@@ -10,14 +10,14 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LightbulbOutlineIcon from '@mui/icons-material/LightbulbOutline';
 import TuneIcon from '@mui/icons-material/Tune';
 
-const MODEL_CHOICES = [
-  'deepseek/deepseek-r1', 'deepseek/deepseek-r1:free',
-  'claude-3-7-sonnet-latest', 'claude-3-5-sonnet-20240620',
-  'gemini-2.0-flash', 'gemini-1.5-flash',
-  'gemini-2.0-flash-thinking-exp-01-21', 'gemini-2.0-pro-exp-02-05',
-  'o3-mini', 'gpt-4o-mini', 'gpt-4o',
-  'meta/llama-3.1-405b-instruct', 'mistral-small', 'codestral-latest'
-];
+const PROVIDER_MODELS = {
+  OpenAI: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
+  Google: ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-thinking-exp-01-21', 'gemini-2.0-pro-exp-02-05'],
+  Anthropic: ['claude-3-7-sonnet-latest', 'claude-3-5-sonnet-20240620'],
+  Nvidia: ['meta/llama-3.1-405b-instruct'],
+  Mistral: ['mistral-small', 'codestral-latest'],
+  OpenRouter: ['deepseek/deepseek-r1', 'deepseek/deepseek-r1:free'], 
+};
 
 const EXAMPLE_QUERIES = [
   "What proteins are related to Alzheimer's disease?",
@@ -27,6 +27,15 @@ const EXAMPLE_QUERIES = [
   "Retrieve all proteins in Homo sapiens with a known 3D structure"
 ];
 
+const TEMPERATURE_RANGES = {
+  OpenAI: { min: 0.0, max: 2.0, default: 1.0 },
+  Google: { min: 0.0, max: 2.0, default: 1.0 },
+  Anthropic: { min: 0.0, max: 1.0, default: 1.0 },
+  Nvidia: { min: 0.0, max: 2.0, default: 1.0 },
+  Mistral: { min: 0.0, max: 2.0, default: 0.7 },
+  OpenRouter: { min: 0.0, max: 2.0, default: 1.0 },
+};
+
 export default function LLMQuery() {
   const [llmType, setLlmType] = useState('');
   const [apiKey, setApiKey] = useState('');
@@ -34,6 +43,8 @@ export default function LLMQuery() {
   const [limit, setLimit] = useState(5);
   const [retryCount, setRetryCount] = useState(10);
   const [question, setQuestion] = useState('');
+  const [provider, setProvider] = useState('');
+  const [temperature, setTemperature] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState('');
@@ -42,6 +53,8 @@ export default function LLMQuery() {
   const [results, setResults] = useState([]);
   const [logs, setLogs] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
+  const filteredModels = provider ? PROVIDER_MODELS[provider] || [] : [];
+  const [lastAttempt, setLastAttempt] = useState(null);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
@@ -56,9 +69,19 @@ export default function LLMQuery() {
     setWarning('');
     setError('');
 
+    if (!provider) return setWarning('Please select a provider.');
     if (!llmType) return setWarning('Please select an LLM type.');
     if (!apiKey) return setWarning('Please enter your API key.');
     if (!question.trim()) return setWarning('Please enter a question.');
+
+    if (temperature !== null && temperature !== undefined) {
+      const { min, max } = TEMPERATURE_RANGES[provider] || {};
+      if (min !== undefined && max !== undefined) {
+        if (temperature < min || temperature > max) {
+          return setWarning(`Temperature must be between ${min} and ${max} for ${provider}.`);
+        }
+      }
+    }
 
     setLoading(true);
     try {
@@ -68,7 +91,8 @@ export default function LLMQuery() {
               verbose,
               limit,
               retryCount,
-              question
+              question,
+              temperature: temperature ?? undefined
             });
             setSolrQuery(solr_query);
             setResults(results);
@@ -128,52 +152,102 @@ export default function LLMQuery() {
         />
 
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 2 }}>
-          <FormControl fullWidth variant="outlined" size="small" >
-            <InputLabel sx={{
-                '&.Mui-focused': {
-                  color: '#904af7', 
-                },
-              }}
-            >Model</InputLabel>
-            <Select
-              sx={{
-                borderRadius: '16px', // 👈 kenar yumuşaklığı burada
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'dark'
-                    ? alpha(theme.palette.background.paper, 0.3)
-                    : alpha(theme.palette.grey[100], 0.5),
-                backdropFilter: 'blur(4px)', // ekstra şıklık için
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: (theme) => theme.palette.mode === 'dark'
-                      ? alpha('#9351f5', 0.8) // koyu mor
-                      : '#bf9af5', // açık tema için mor
-                },
-              }}
-              value={llmType}
-              label="Model"
-              onChange={e => setLlmType(e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  sx: {
-                    borderRadius: '16px',
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === 'dark'
-                        ? alpha(theme.palette.background.paper, 0.9)
-                        : alpha(theme.palette.common.white, 0.9),
-                    backdropFilter: 'blur(6px)',
-                    boxShadow: (theme) =>
-                      theme.palette.mode === 'dark'
-                        ? '0 4px 20px rgba(156, 39, 176, 0.3)' 
-                        : '0 4px 20px rgba(156, 39, 176, 0.15)',
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, mb: 2, flexWrap: 'nowrap', alignItems: 'center', width: '100%'}}>
+            <FormControl sx={{ width: '50%', minWidth: '200px' }} variant="outlined" size="small">
+              <InputLabel sx={{
+                  '&.Mui-focused': {
+                    color: '#904af7', 
                   },
-                },
-              }}
-            >
-              {MODEL_CHOICES.map(m => (
-                <MenuItem key={m} value={m}>{m}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+                }}>Provider</InputLabel>
+              <Select
+                value={provider}
+                onChange={(e) => {
+                  setProvider(e.target.value);
+                  setLlmType(''); // provider değişince model sıfırlansın
+                }}
+                label="Provider"
+                sx={{
+                  borderRadius: '16px', // 👈 kenar yumuşaklığı burada
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha(theme.palette.background.paper, 0.3)
+                      : alpha(theme.palette.grey[100], 0.5),
+                  backdropFilter: 'blur(4px)', // ekstra şıklık için
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: (theme) => theme.palette.mode === 'dark'
+                        ? alpha('#9351f5', 0.8) // koyu mor
+                        : '#bf9af5', // açık tema için mor
+                  },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      borderRadius: '16px',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? alpha(theme.palette.background.paper, 0.9)
+                          : alpha(theme.palette.common.white, 0.9),
+                      backdropFilter: 'blur(6px)',
+                      boxShadow: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? '0 4px 20px rgba(156, 39, 176, 0.3)' 
+                          : '0 4px 20px rgba(156, 39, 176, 0.15)',
+                    },
+                  },
+                }}
+              >
+                {Object.keys(PROVIDER_MODELS).map((prov) => (
+                  <MenuItem key={prov} value={prov}>{prov}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ width: '50%', minWidth: '200px' }} variant="outlined" size="small" disabled={!provider}>
+              <InputLabel sx={{
+                  '&.Mui-focused': {
+                    color: '#904af7', 
+                  },
+                }}>Model</InputLabel>
+              <Select
+                value={llmType}
+                onChange={(e) => setLlmType(e.target.value)}
+                label="Model"
+                sx={{
+                  borderRadius: '16px', // 👈 kenar yumuşaklığı burada
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha(theme.palette.background.paper, 0.3)
+                      : alpha(theme.palette.grey[100], 0.5),
+                  backdropFilter: 'blur(4px)', // ekstra şıklık için
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: (theme) => theme.palette.mode === 'dark'
+                        ? alpha('#9351f5', 0.8) // koyu mor
+                        : '#bf9af5', // açık tema için mor
+                  },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      borderRadius: '16px',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? alpha(theme.palette.background.paper, 0.9)
+                          : alpha(theme.palette.common.white, 0.9),
+                      backdropFilter: 'blur(6px)',
+                      boxShadow: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? '0 4px 20px rgba(156, 39, 176, 0.3)' 
+                          : '0 4px 20px rgba(156, 39, 176, 0.15)',
+                    },
+                  },
+                }}
+              >
+                {filteredModels.map((model) => (
+                  <MenuItem key={model} value={model}>{model}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
 
           <TextField
             label="API Key"
@@ -323,6 +397,57 @@ export default function LLMQuery() {
               }
               label="Verbose Mode"
             />
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <TextField
+                size="small"
+                label="Temperature"
+                type="number"
+                value={temperature ?? ''}
+                inputProps={{
+                  min: provider && llmType ? TEMPERATURE_RANGES[provider]?.min : undefined,
+                  max: provider && llmType ? TEMPERATURE_RANGES[provider]?.max : undefined,
+                  step: 0.1,
+                  disabled: !provider || !llmType,
+                  style: {
+                    opacity: !provider || !llmType ? 0.5 : 1,
+                    pointerEvents: !provider || !llmType ? 'none' : 'auto'
+                  }
+                }}
+                onChange={(e) => {
+                  const value = parseFloat(e.target.value);
+                  const min = TEMPERATURE_RANGES[provider]?.min;
+                  const max = TEMPERATURE_RANGES[provider]?.max;
+                  if (!isNaN(value) && value >= min && value <= max) {
+                    setTemperature(value);
+                  }
+                }}
+                sx={{
+                  width: 140,
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '16px',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'dark'
+                        ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
+                        : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
+                  },
+                  '& label.Mui-focused': { color: '#904af7' },
+                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: (theme) =>
+                      theme.palette.mode === 'dark' ? alpha('#9351f5', 0.8) : '#bf9af5',
+                  },
+                }}
+              />
+              {llmType && (
+                <Tooltip
+                  title={`Range: ${TEMPERATURE_RANGES[provider].min} – ${TEMPERATURE_RANGES[provider].max}. Default: ${TEMPERATURE_RANGES[provider].default}`}
+                  arrow
+                >
+                  <InfoOutlinedIcon sx={{ ml: 1, color: 'text.secondary', cursor: 'help' }} fontSize="small" />
+                </Tooltip>
+              )}
+            </Box>  
+                   
 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField

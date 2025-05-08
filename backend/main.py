@@ -34,6 +34,7 @@ class LLMRequest(BaseModel):
     limit: int
     retry_count: int
     question: str
+    temperature: float | None = None 
 
 
 class LLMResponse(BaseModel):
@@ -61,19 +62,24 @@ def llm_query(req: LLMRequest):
 
     try:
         m = req.model
+
+        kwargs = {}  
+        if req.temperature is not None:
+            kwargs["temperature"] = req.temperature
+
         if m.startswith("gemini"):
-            llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key)
+            llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key, **kwargs)
         elif m in ("gpt-4o", "gpt-4o-mini", "o3-mini"):
-            llm = ChatOpenAI(model=m, api_key=req.api_key)
+            llm = ChatOpenAI(model=m, api_key=req.api_key, **kwargs)
         elif m.startswith("claude"):
-            llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key)
+            llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key, **kwargs)
         elif m.startswith("meta/llama"):
-            llm = ChatNVIDIA(model=m, api_key=req.api_key)
+            llm = ChatNVIDIA(model=m, api_key=req.api_key, **kwargs)
         elif m.startswith("deepseek"):
             llm = ChatOpenAI(model=m, api_key=req.api_key,
-                             base_url="https://openrouter.ai/api/v1")
+                             base_url="https://openrouter.ai/api/v1", **kwargs)
         elif m in ("mistral-small", "codestral-latest"):
-            llm = ChatMistralAI(model=m, api_key=req.api_key)
+            llm = ChatMistralAI(model=m, api_key=req.api_key, **kwargs)
         else:
             raise ValueError(f"Unsupported model {m}")
 

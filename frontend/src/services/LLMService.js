@@ -9,6 +9,10 @@ export async function queryLLM({ model, apiKey, verbose, limit, retryCount, ques
     retry_count: retryCount,
     question
   };
+  
+  if (temperature !== null && temperature !== undefined) {
+    payload.temperature = temperature;
+  }
 
   const { data } = await axios.post(`/llm_query`, payload);
   return {
