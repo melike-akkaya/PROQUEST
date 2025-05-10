@@ -29,3 +29,7 @@ protein_embeddings_2.zip
 uniprot_sprot.dat.gz
 uniprot_sprot.dat
 chroma_uniprot_nomic/
+bm25_model_fromflatfiles.pkl
+bm25_model.pkl
+docs_sp.joblib
+flat_files_content.pkl
