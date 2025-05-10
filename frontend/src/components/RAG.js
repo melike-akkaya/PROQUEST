@@ -51,7 +51,7 @@ export default function LLMQuery() {
   const [results, setResults] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
   const filteredModels = provider ? PROVIDER_MODELS[provider] || [] : [];
-
+  const [successMessage, setSuccessMessage] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
@@ -64,12 +64,13 @@ export default function LLMQuery() {
   const handleSubmit = async () => {
     setWarning('');
     setError('');
-
+    setResults([]);
+  
     if (!provider) return setWarning('Please select a provider.');
     if (!llmType) return setWarning('Please select an LLM type.');
     if (!apiKey) return setWarning('Please enter your API key.');
     if (!question.trim()) return setWarning('Please enter a question.');
-
+  
     if (temperature !== null && temperature !== undefined) {
       const { min, max } = TEMPERATURE_RANGES[provider] || {};
       if (min !== undefined && max !== undefined) {
@@ -78,25 +79,54 @@ export default function LLMQuery() {
         }
       }
     }
-
+  
     setLoading(true);
+    let attempt = 0;
+    let success = false;
+  
     try {
-      const { proteinIds } = await queryRAG({
-        model: llmType,
-        apiKey,
-        question,
-        sequence: sequence,
-        topK: topK * 2,
-        temperature
-      });
-      setResults(proteinIds);
-      console.log(results)
+      while (attempt < 3 && !success) {
+        attempt++;
+  
+        const { proteinIds } = await queryRAG({
+          model: llmType,
+          apiKey,
+          question,
+          sequence: sequence,
+          topK: topK * 2,
+          temperature
+        });
+  
+        const validFormat = /^'(?:[A-Za-z0-9]+)'(?:,\s*'(?:[A-Za-z0-9]+)')*$/.test(proteinIds);
+  
+        if (validFormat) {
+          const parsed = proteinIds.split(',').map(id => id.trim().replace(/^'|'$/g, ''));
+          setResults(parsed);
+          console.log(results)
+          setWarning('');
+          setError('');
+          setSuccessMessage(`Results are retrieved in attempt ${attempt}.`);
+          success = true;
+        } else {
+          if (attempt < 3) {
+            setWarning(`Results could not be retrieved. System tries again (attempt ${attempt}).`);
+          }
+        }
+      }
+  
+      if (!success) {
+        setWarning('');
+        setError('System cannot produce a valid answer for this query in 3 tries.');
+      }
+  
     } catch (e) {
+      setWarning('');
       setError(e.response?.data || e.message);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Box sx={{ maxWidth: 1000, mx: 'auto', mt: 10, p: { xs: 2, md: 4 } }}>
