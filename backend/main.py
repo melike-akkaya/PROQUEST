@@ -9,6 +9,7 @@ from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
 from src.prompt import query_uniprot, generate_solr_query
+from src.promptForRag import retriveProteins
 from src.prott5Embedder import getEmbeddings
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
@@ -174,3 +175,54 @@ def vector_search(req: VectorRequest):
         found_embeddings=found,
         go_enrichment=go_records
     )
+
+class RAGRequest(BaseModel):
+    model: str
+    api_key: str
+    question: str
+    sequence: str
+    top_k: int
+    temperature: float | None = None
+
+class RAGResponse(BaseModel):
+    protein_ids: str
+
+
+@app.post("/rag_order", response_model=RAGResponse)
+def rag_order(req: RAGRequest):
+    try:
+        m = req.model
+        kwargs = {}
+        if req.temperature is not None:
+            kwargs["temperature"] = req.temperature
+
+        if m.startswith("gemini"):
+            llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key, **kwargs)
+        elif m in ("gpt-4o", "gpt-4o-mini", "o3-mini"):
+            llm = ChatOpenAI(model=m, api_key=req.api_key, **kwargs)
+        elif m.startswith("claude"):
+            llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key, **kwargs)
+        elif m.startswith("meta/llama"):
+            llm = ChatNVIDIA(model=m, api_key=req.api_key, **kwargs)
+        elif m.startswith("deepseek"):
+            llm = ChatOpenAI(
+                model=m,
+                api_key=req.api_key,
+                base_url="https://openrouter.ai/api/v1",
+                **kwargs
+            )
+        elif m in ("mistral-small", "codestral-latest"):
+            llm = ChatMistralAI(model=m, api_key=req.api_key, **kwargs)
+        else:
+            raise ValueError(f"Unsupported model {m}")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Model init error: {e}")
+
+    try:
+        proteinIds = retriveProteins(llm, req.question, req.sequence, req.top_k)
+        if proteinIds is None:
+            proteinIds = ""
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"RAG ranking error: {e}")
+
+    return RAGResponse(protein_ids=proteinIds)

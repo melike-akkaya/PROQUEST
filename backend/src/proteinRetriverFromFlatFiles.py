@@ -3,7 +3,7 @@ import pandas as pd
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
-def retrieveRelatedProteins(query, top_k, chroma_dir = "chroma_uniprot_nomic", db_path = "backend/asset/protein_index.db"):
+def retrieveRelatedProteins(query, top_k, chroma_dir = "asset/chroma_uniprot_nomic", db_path = "asset/protein_index.db"):
     embedder = HuggingFaceEmbeddings(
         model_name="nomic-ai/nomic-embed-text-v1",
         model_kwargs={"trust_remote_code": True},
@@ -52,9 +52,3 @@ def retrieveRelatedProteins(query, top_k, chroma_dir = "chroma_uniprot_nomic", d
     )
 
     return df
-
-df = retrieveRelatedProteins(
-    "What proteins are related to Alzheimer's disease?",
-    top_k=10
-)
-print(df)
