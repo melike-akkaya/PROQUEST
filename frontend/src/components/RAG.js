@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { queryRAG } from '../services/RAGService';
+import { queryRAG, fetchRAGProteinInfo } from '../services/RAGService';
 import {
   Box, TextField, Button, FormControl, InputLabel, Select, MenuItem,
-  FormControlLabel, Typography, Paper, Accordion, AccordionSummary,
-  AccordionDetails, Alert, CircularProgress, Tooltip, Switch, Menu, alpha, Collapse
+  Typography, Paper, Alert, CircularProgress, Tooltip, Switch, Menu, alpha, Collapse,
+  Divider, Table, TableHead, TableBody, TableRow, TableCell
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LightbulbOutlineIcon from '@mui/icons-material/LightbulbOutline';
 import TuneIcon from '@mui/icons-material/Tune';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const PROVIDER_MODELS = {
   OpenAI: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
@@ -36,6 +36,23 @@ const TEMPERATURE_RANGES = {
   OpenRouter: { min: 0.0, max: 2.0, default: 1.0 },
 };
 
+function downloadCSV(filename, rows) {
+  if (!rows || !rows.length) return;
+  const headers = Object.keys(rows[0]);
+  const csv = [
+    headers.join(','),
+    ...rows.map(r =>
+      headers.map(h => `"${(r[h] || '').toString().replace(/"/g, '""')}"`).join(',')
+    )
+  ].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+
 export default function LLMQuery() {
   const [llmType, setLlmType] = useState('');
   const [apiKey, setApiKey] = useState('');
@@ -49,6 +66,7 @@ export default function LLMQuery() {
   const [warning, setWarning] = useState('');
   const [error, setError] = useState('');
   const [results, setResults] = useState([]);
+  const [proteinInfo, setProteinInfo] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
   const filteredModels = provider ? PROVIDER_MODELS[provider] || [] : [];
   const [successMessage, setSuccessMessage] = useState('');
@@ -102,7 +120,10 @@ export default function LLMQuery() {
         if (validFormat) {
           const parsed = proteinIds.split(',').map(id => id.trim().replace(/^'|'$/g, ''));
           setResults(parsed);
-          console.log(results)
+
+          const detailedInfo = await fetchRAGProteinInfo(parsed);
+          setProteinInfo(detailedInfo);
+
           setWarning('');
           setError('');
           setSuccessMessage(`Results are retrieved in attempt ${attempt}.`);
@@ -546,6 +567,85 @@ export default function LLMQuery() {
         </Button>
         </Box>
       </Paper>
+      {proteinInfo.length > 0 && (
+        <Box sx={{ mt: 5 }}>
+          <Divider sx={{
+            mb: 4,
+            fontSize: '1.25rem',
+            fontWeight: 600,
+            color: 'text.primary',
+            textAlign: 'center',
+            '&::before, &::after': {
+              borderColor: theme => theme.palette.divider,
+            },
+          }}>
+            Retrieved Proteins
+          </Divider>
+
+          <Button
+            startIcon={<DownloadIcon fontSize="small" />}
+            onClick={() => downloadCSV('retrieved_proteins.csv', proteinInfo)}
+            variant="text"
+            size="small"
+            sx={{
+              mb: 2,
+              px: 2,
+              py: 0.75,
+              borderRadius: '16px',
+              fontWeight: 500,
+              fontSize: '0.85rem',
+              textTransform: 'none',
+              color: theme => theme.palette.text.secondary,
+              backgroundColor: theme => theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.05)'
+                : 'rgba(0, 0, 0, 0.04)',
+              '&:hover': {
+                backgroundColor: theme => theme.palette.mode === 'dark'
+                  ? 'rgba(255, 255, 255, 0.1)'
+                  : 'rgba(0, 0, 0, 0.08)',
+              },
+              transition: 'all 0.3s ease',
+            }}
+          >
+            Download Protein Info CSV
+          </Button>
+
+          <Table size="small" sx={{
+            borderRadius: '16px',
+            overflow: 'hidden',
+            border: theme => `1px solid ${theme.palette.divider}`,
+            backgroundColor: theme => theme.palette.mode === 'dark'
+              ? theme.palette.background.paper
+              : theme.palette.background.default,
+            boxShadow: theme => theme.palette.mode === 'dark'
+              ? '0 4px 12px rgba(0,0,0,0.3)'
+              : '0 4px 12px rgba(0,0,0,0.05)'
+          }}>
+            <TableHead>
+              <TableRow>
+                {Object.keys(proteinInfo[0]).map(col => (
+                  <TableCell key={col}>{col}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {proteinInfo.map((row, i) => (
+                <TableRow key={i}>
+                  {Object.entries(row).map(([col, val]) => (
+                    <TableCell key={col}>
+                      {col === 'Protein ID'
+                        ? <a href={`https://www.uniprot.org/uniprotkb/${val}`} target="_blank" rel="noreferrer">{val}</a>
+                        : val
+                      }
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      )}
+
     </Box>
   );
 }

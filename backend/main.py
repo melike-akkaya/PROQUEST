@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging, io, time, sqlite3
@@ -13,6 +13,8 @@ from src.promptForRag import retriveProteins
 from src.prott5Embedder import getEmbeddings
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
+from typing import List
+import pandas as pd
 
 app = FastAPI()
 app.add_middleware(
@@ -226,3 +228,46 @@ def rag_order(req: RAGRequest):
         raise HTTPException(status_code=500, detail=f"RAG ranking error: {e}")
 
     return RAGResponse(protein_ids=proteinIds)
+
+
+class RAGProteinListRequest(BaseModel):
+    protein_ids: List[str]
+
+class RAGProteinInfoResponse(BaseModel):
+    found_info: list[dict]
+
+@app.post("/rag_order/protein_info", response_model=RAGProteinInfoResponse)
+def rag_order_with_protein_info(req: RAGProteinListRequest):
+    protein_ids = req.protein_ids
+    columns = ['Protein ID', 'Short Name', 'Protein Name', 'Organism', 'Taxon ID', 'Gene Name', 'pe', 'sv']
+    results = pd.DataFrame(columns=columns)
+
+    conn = sqlite3.connect(sqliteDb)
+
+    for pid in protein_ids:
+        infoDf = pd.read_sql_query(
+            "SELECT protein_name, type, os, ox, gn, pe, sv FROM protein_info WHERE protein_id = ?", conn, params=(pid,)
+        )
+
+        if not infoDf.empty:
+            row = {
+                'Protein ID': pid,
+                'Short Name': infoDf.iloc[0]['protein_name'],
+                'Protein Name': infoDf.iloc[0]['type'],
+                'Organism': infoDf.iloc[0]['os'],
+                'Taxon ID': infoDf.iloc[0]['ox'],
+                'Gene Name': infoDf.iloc[0]['gn'],
+                'pe': infoDf.iloc[0]['pe'],
+                'sv': infoDf.iloc[0]['sv']
+            }
+        else:
+            row = dict.fromkeys(columns, "")
+            row['Protein ID'] = pid
+
+        results.loc[len(results)] = row
+
+    conn.close()
+
+    return RAGProteinInfoResponse(
+        found_info=results.to_dict(orient="records")
+    )
