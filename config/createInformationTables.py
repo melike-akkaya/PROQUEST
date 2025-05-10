@@ -172,8 +172,8 @@ def createFlatFileMappingTable(dbPath):
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS flat_files_mapping (
-            protein_id TEXT PRIMARY KEY,
-            file_id INTEGER,
+            protein_id TEXT,
+            file_id INTEGER PRIMARY KEY,
             FOREIGN KEY (file_id) REFERENCES flat_files(file_id)
         )
     ''')
@@ -197,3 +197,33 @@ def createFlatFileMappingTable(dbPath):
 
     conn.commit()
     conn.close()
+
+def createVirtualFlatFileTable(dbPath):
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("DROP TABLE IF EXISTS flat_files_fts;")
+        print("old flat_files_fts table is deleted.")
+
+        cursor.execute("""
+            CREATE VIRTUAL TABLE flat_files_fts
+            USING fts5(
+                content,
+                tokenize = 'trigram'
+            );
+        """)
+        print("flat_files_fts table is created.")
+
+        cursor.execute("""
+            INSERT INTO flat_files_fts(content)
+            SELECT content FROM flat_files;
+        """)
+        print("flat_files table is filled")
+
+
+    except sqlite3.Error as e:
+        print(f"SQLite ERROR: {e}")
+
+    finally:
+        conn.close()
