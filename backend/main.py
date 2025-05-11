@@ -13,6 +13,7 @@ from src.promptForRag import retriveProteins
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
 from src.prott5Embedder import load_t5, getEmbeddings
+from src.proteinRetriverFromFlatFiles import load_vectorstore
 from typing import List
 import pandas as pd
 
@@ -32,6 +33,8 @@ logger = logging.getLogger("backend")
 @app.on_event("startup")
 def on_startup():
     # this will download/cache & move to GPU/CPU exactly once
+    load_vectorstore()
+    print("[FastAPI] Chromadb (chroma_uniprot_nomic) & embedder (nomic-ai/nomic-embed-text-v1) loaded on startup.")
     load_t5()
     print("[FastAPI] ProtT5 model loaded on startup.")
 
