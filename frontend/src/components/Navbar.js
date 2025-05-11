@@ -18,13 +18,15 @@ export default function Navbar({ mode, toggleMode }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const currentTab = location.pathname.includes('/query/vector') ? 1
-    : location.pathname.includes('/query/llm') ? 0
+  const currentTab = location.pathname.includes('/query/llm') ? 0
+    : location.pathname.includes('/query/vector') ? 1
+    : location.pathname.includes('/query/rag') ? 2
     : false;
 
   const handleTabChange = (_, newValue) => {
     if (newValue === 0) navigate('/query/llm');
     if (newValue === 1) navigate('/query/vector');
+    if (newValue === 2) navigate('/query/rag');
   };
 
   return (
@@ -77,50 +79,54 @@ export default function Navbar({ mode, toggleMode }) {
 
         {/* Centered Tabs */}
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 12 }}>
-        <Tabs
-          value={currentTab}
-          onChange={handleTabChange}
-          TabIndicatorProps={{ style: { display: 'none' } }}
-          sx={{
-            minHeight: 48,
-            '& .MuiTab-root': {
-              textTransform: 'none',
-              fontWeight: 600,
-              fontSize: '1rem',
-              fontFamily: '"Poppins", "Inter", "Rubik", sans-serif',
-              px: 3,
-              py: 1,
-              minWidth: 130,
-              transition: 'color 0.3s ease',
-              opacity: 1,
-            },
-            '& .MuiTab-root.Mui-selected': {
-              backgroundClip: 'text',
-              textFillColor: 'transparent',
-              backgroundImage: currentTab === 0
-                ? (theme.palette.mode === 'dark'
-                    ? 'linear-gradient(90deg,rgb(191, 122, 255), #5aa5f5)'
-                    : 'linear-gradient(90deg,rgb(166, 74, 247), #3698e3)')
-                : (theme.palette.mode === 'dark'
-                    ? 'linear-gradient(90deg,rgb(92, 81, 245),rgb(96, 255, 242))'
-                    : 'linear-gradient(90deg,rgb(69, 84, 245),rgb(91, 255, 219))'),
-              fontWeight: 700,
-            },
-            '& .MuiTab-root:hover': {
-              color: theme.palette.mode === 'dark' ? '#ccc' : '#444',
-            },
-            '& .Mui-disabled': {
-              color: theme.palette.mode === 'dark' ? '#666' : '#aaa',
-              cursor: 'default',
-              pointerEvents: 'none',
-              opacity: 0.6,
-            },
-          }}
-        >
-          <Tab label="LLM Query" />
-          <Tab label="Vector Search" />
-          <Tab label="RAG" disabled />
-        </Tabs>
+          <Tabs
+            value={currentTab}
+            onChange={handleTabChange}
+            TabIndicatorProps={{ style: { display: 'none' } }}
+            sx={{
+              minHeight: 48,
+              '& .MuiTab-root': {
+                textTransform: 'none',
+                fontWeight: 600,
+                fontSize: '1rem',
+                fontFamily: '"Poppins", "Inter", "Rubik", sans-serif',
+                px: 3,
+                py: 1,
+                minWidth: 130,
+                transition: 'color 0.3s ease',
+                opacity: 1,
+              },
+              '& .MuiTab-root.Mui-selected': {
+                backgroundClip: 'text',
+                textFillColor: 'transparent',
+                backgroundImage: currentTab === 0
+                  ? (theme.palette.mode === 'dark'
+                      ? 'linear-gradient(90deg,rgb(191, 122, 255), #5aa5f5)'
+                      : 'linear-gradient(90deg,rgb(166, 74, 247), #3698e3)')
+                  : currentTab === 1
+                    ? (theme.palette.mode === 'dark'
+                        ? 'linear-gradient(90deg,rgb(92, 81, 245),rgb(96, 255, 242))'
+                        : 'linear-gradient(90deg,rgb(69, 84, 245),rgb(91, 255, 219))')
+                    : (theme.palette.mode === 'dark'
+                        ? 'linear-gradient(90deg,rgb(255, 176, 69),rgb(245, 96, 96))'
+                        : 'linear-gradient(90deg,rgb(255, 140, 0),rgb(245, 69, 69))'),
+                fontWeight: 700,
+              },
+              '& .MuiTab-root:hover': {
+                color: theme.palette.mode === 'dark' ? '#ccc' : '#444',
+              },
+              '& .Mui-disabled': {
+                color: theme.palette.mode === 'dark' ? '#666' : '#aaa',
+                cursor: 'default',
+                pointerEvents: 'none',
+                opacity: 0.6,
+              },
+            }}
+          >
+            <Tab label="LLM Query" />
+            <Tab label="Vector Search" />
+            <Tab label="RAG" />
+          </Tabs>
         </Box>
 
         {/* Sağda mod değiştirme butonu */}

@@ -1,11 +1,16 @@
 from langchain import PromptTemplate, LLMChain
 from src.proteinRetriverFromFlatFiles import retrieveRelatedProteins
+from src.proteinRetriverFromBM25 import retrieveRelatedProteinsFromBM25
 from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences
+import pandas as pd
 
 
 def retriveProteins(llm, query, sequence, top_k) :
     if (sequence == ''):
-        documents = retrieveRelatedProteins(query, top_k)
+        half_top_k = top_k // 2
+        documents1 = retrieveRelatedProteins(query, half_top_k )
+        documents2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
+        documents = pd.concat([documents1, documents2], ignore_index=True)
     else:
         documents = retrieveRelatedProteinsFromSequences(sequence, top_k)
 

@@ -14,6 +14,7 @@ from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
 from src.prott5Embedder import load_t5, getEmbeddings
 from src.proteinRetriverFromFlatFiles import load_vectorstore
+from src.proteinRetriverFromBM25 import (bm25_initialize)
 from typing import List
 import pandas as pd
 
@@ -37,6 +38,8 @@ def on_startup():
     print("[FastAPI] Chromadb (chroma_uniprot_nomic) & embedder (nomic-ai/nomic-embed-text-v1) loaded on startup.")
     load_t5()
     print("[FastAPI] ProtT5 model loaded on startup.")
+    bm25_initialize()
+    print("[FastAPI] Documentes related to BM25 loaded on startup.")
 
 
 class LLMRequest(BaseModel):
