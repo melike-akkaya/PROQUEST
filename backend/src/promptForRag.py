@@ -7,7 +7,7 @@ def retriveProteins(llm, query, sequence, top_k) :
     if (sequence == ''):
         documents = retrieveRelatedProteins(query, top_k)
     else:
-        documents = retrieveRelatedProteinsFromSequences(sequence)
+        documents = retrieveRelatedProteinsFromSequences(sequence, top_k)
 
     prompt = PromptTemplate(    
         template="""
