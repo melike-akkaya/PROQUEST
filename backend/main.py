@@ -10,9 +10,9 @@ from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
 from src.prompt import query_uniprot, generate_solr_query
 from src.promptForRag import retriveProteins
-from src.prott5Embedder import getEmbeddings
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
+from src.prott5Embedder import load_t5, getEmbeddings
 from typing import List
 import pandas as pd
 
@@ -28,6 +28,12 @@ log_stream = io.StringIO()
 logging.basicConfig(stream=log_stream, level=logging.INFO,
                     format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("backend")
+
+@app.on_event("startup")
+def on_startup():
+    # this will download/cache & move to GPU/CPU exactly once
+    load_t5()
+    print("[FastAPI] ProtT5 model loaded on startup.")
 
 
 class LLMRequest(BaseModel):
@@ -142,7 +148,7 @@ def vector_search(req: VectorRequest):
     t0 = datetime.now()
     embDict, _ = getEmbeddings(
         seq_dict={"query_protein": seq},
-        visualize=True,
+        visualize=False,
         per_protein=True
     )
     embedding_time = (datetime.now() - t0).total_seconds()
