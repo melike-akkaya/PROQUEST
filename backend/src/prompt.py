@@ -22,6 +22,32 @@ Instructions:
 - Do not use any search fields or terms that are not provided in the UniProt documentation. 
 - Ensure the syntax of the generated Solr query is correct and compatible with UniProt's search system. 
 - Use the appropriate search field prefixes and syntax as specified in the UniProt documentation. 
+- Always use the "term" field from the search field definition as the Solr field name.
+- Do NOT use the "id" field directly in the query; it is only a label and not a valid Solr field.
+- For any cross-reference fields that start with "xref_", such as "xref_pfam", "xref_orthodb", "xref_dbsnp", "xref_interpro", etc., do NOT use the full "xref_*" field name in the Solr query.
+- Instead, always use the Solr field name "xref", and construct the value by prepending the appropriate prefix.
+- Use the part after "xref_" as the prefix and combine it with the value using a hyphen ("-").
+
+  Examples:
+  - "xref_pfam:PF00059"      → "xref:pfam-PF00059"
+  - "xref_orthodb:P53_HUMAN" → "xref:orthodb-P53_HUMAN"
+  - "xref_dbsnp:rs63750001"  → "xref:dbsnp-rs63750001"
+  - "xref_interpro:IPR002413"→ "xref:interpro-IPR002413"
+ 
+   Examples:
+
+    Input: Find proteins with Pfam domain PF00059  
+    Output: (xref:pfam-PF00059)
+
+    Input: Search for entries linked to dbSNP rs63750001  
+    Output: (xref:dbsnp-rs63750001)
+
+    Input: Get proteins with InterPro domain IPR002413  
+    Output: (xref:interpro-IPR002413)
+
+- This transformation must be applied consistently to all such cross-reference fields.
+- Do not use field names like "xref_pfam" or "xref_orthodb" directly in the query. They are not valid Solr fields.
+
 
 Search Fields:
 {searchfields}
