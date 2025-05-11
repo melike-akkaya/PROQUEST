@@ -101,6 +101,7 @@ function Features() {
   const features = [
     { title: 'Vector Search', icon: '🔍', path: '/query/vector' },
     { title: 'LLM Search', icon: '🧠', path: '/query/llm' },
+    { title: 'RAG',          icon: '📚', path: '/query/rag' },
   ];
 
   return (
