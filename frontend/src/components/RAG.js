@@ -115,7 +115,7 @@ export default function LLMQuery() {
           temperature
         });
   
-        const validFormat = /^'(?:[A-Za-z0-9]+)'(?:,\s*'(?:[A-Za-z0-9]+)')*$/.test(proteinIds);
+        const validFormat = /^'?([A-Za-z0-9]+)'?(?:,\s*'?([A-Za-z0-9]+)'?)*$/.test(proteinIds);
   
         if (validFormat) {
           const parsed = proteinIds.split(',').map(id => id.trim().replace(/^'|'$/g, ''));

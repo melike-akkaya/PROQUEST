@@ -1,13 +1,16 @@
 from langchain import PromptTemplate, LLMChain
 from src.proteinRetriverFromFlatFiles import retrieveRelatedProteins
+from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences
 
 
 def retriveProteins(llm, query, sequence, top_k) :
     if (sequence == ''):
         documents = retrieveRelatedProteins(query, top_k)
+    else:
+        documents = retrieveRelatedProteinsFromSequences(sequence)
 
-        prompt = PromptTemplate(    
-            template="""
+    prompt = PromptTemplate(    
+        template="""
 You are a document-ranking assistant.  
 Given a user question and a list of retrieved documents (each with a File ID and Content), do the following:
 
@@ -29,7 +32,7 @@ Question:
 Documents:
 {documents}
     """
-        )
-        chain = LLMChain(llm=llm, prompt=prompt)
-        orderedFileIds = chain.run(query=query, documents=documents)
-        return orderedFileIds
+    )
+    chain = LLMChain(llm=llm, prompt=prompt)
+    orderedFileIds = chain.run(query=query, documents=documents)
+    return orderedFileIds
