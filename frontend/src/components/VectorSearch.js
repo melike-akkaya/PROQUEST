@@ -197,7 +197,7 @@ export default function VectorSearch() {
       )}
 
       {embedTime != null && goEnrichment.length === 0 && (
-        <Alert severity="info" sx={{ mt: 3 }}>No similar proteins found.</Alert>
+        <Alert severity="info" sx={{ mt: 3 }}>No GO terms were found for this sequence.</Alert>
       )}
 
       {/* GO Enrichment */}

@@ -17,6 +17,14 @@ from src.proteinRetriverFromFlatFiles import load_vectorstore
 from src.proteinRetriverFromBM25 import (bm25_initialize)
 from typing import List
 import pandas as pd
+from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+
 
 app = FastAPI()
 app.add_middleware(
@@ -30,6 +38,18 @@ log_stream = io.StringIO()
 logging.basicConfig(stream=log_stream, level=logging.INFO,
                     format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("backend")
+
+
+@app.get("/available_api_keys")
+def get_available_api_keys():
+    keys = {
+        "Google": os.getenv("GOOGLE_API_KEY"),
+        "Mistral": os.getenv("MISTRAL_API_KEY")
+    }
+    keys = {k: v for k, v in keys.items() if v}  # boş olmayanları filtrele
+    if not keys:
+        return JSONResponse(content={"detail": "No keys found."}, status_code=404)
+    return keys
 
 @app.on_event("startup")
 def on_startup():

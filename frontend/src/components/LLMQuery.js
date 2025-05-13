@@ -9,6 +9,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LightbulbOutlineIcon from '@mui/icons-material/LightbulbOutline';
 import TuneIcon from '@mui/icons-material/Tune';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { Checkbox } from '@mui/material';
+import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
+
 
 const PROVIDER_MODELS = {
   OpenAI: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
@@ -55,6 +60,35 @@ export default function LLMQuery() {
   const [showSettings, setShowSettings] = useState(false);
   const filteredModels = provider ? PROVIDER_MODELS[provider] || [] : [];
   const [lastAttempt, setLastAttempt] = useState(null);
+
+  
+  const [useEnvKey, setUseEnvKey] = useState(false); 
+  const [hasStoredKey, setHasStoredKey] = useState(false);
+  const [customKeyMode, setCustomKeyMode] = useState(false);
+  useEffect(() => {
+    if (provider) {
+      axios.get('/available_api_keys')
+        .then(res => {
+          const keys = res.data;
+          const matchedKey = keys[provider];
+  
+          if (matchedKey) {
+            setApiKey(matchedKey);
+            setHasStoredKey(true);
+            setCustomKeyMode(false);
+          } else {
+            setApiKey('');
+            setHasStoredKey(false);
+            setCustomKeyMode(true);
+          }
+        })
+        .catch(() => {
+          setApiKey('');
+          setHasStoredKey(false);
+          setCustomKeyMode(true);
+        });
+    }
+  }, [provider]);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
@@ -249,34 +283,125 @@ export default function LLMQuery() {
             </FormControl>
           </Box>
 
-          <TextField
-            label="API Key"
-            type="password"
-            fullWidth
-            size="small"
-            sx={{
-              borderRadius: '16px',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark'
-                  ? alpha(theme.palette.background.paper, 0.3)
-                  : alpha(theme.palette.grey[100], 0.5),
-              backdropFilter: 'blur(4px)',
-              '& .MuiOutlinedInput-root': {
+          {hasStoredKey ? (
+            <Box sx={{ width: '100%' }}>
+              <Box
+                sx={{
+                  px: 2,
+                  minHeight: 40,
+                  borderRadius: '16px',
+                  border: '1px solid',
+                  borderColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha(theme.palette.grey[500], 0.3)
+                      : theme.palette.grey[400],
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha(theme.palette.background.paper, 0.3)
+                      : alpha(theme.palette.grey[100], 0.5),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  backdropFilter: 'blur(4px)',
+                  fontSize: '0.95rem',
+                  mb: customKeyMode ? 1.5 : 0 // custom aktifse kutuyla arasına boşluk
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <DoneOutlinedIcon sx={{ color: '#4caf50', fontSize: 18 }} />
+                  <Typography variant="body2">
+                    Using API key from <code>.env</code> file
+                  </Typography>
+                </Box>
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={customKeyMode}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        setCustomKeyMode(checked);
+                        if (checked) {
+                          setApiKey('');
+                        } else {
+                          axios.get('/available_api_keys').then(res => {
+                            const matchedKey = res.data[provider];
+                            if (matchedKey) {
+                              setApiKey(matchedKey);
+                            }
+                          });
+                        }
+                      }}
+                    />
+                  }
+                  label="Use custom"
+                  sx={{ m: 0, mr: 1 }}
+                />
+              </Box>
+
+              {customKeyMode && (
+                <TextField
+                  type="password"
+                  placeholder="Enter your API key"
+                  size="small"
+                  fullWidth
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  sx={{
+                    borderRadius: '16px',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'dark'
+                        ? alpha(theme.palette.background.paper, 0.3)
+                        : alpha(theme.palette.grey[100], 0.5),
+                    backdropFilter: 'blur(4px)',
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '16px',
+                    },
+                    '& label.Mui-focused': {
+                      color: '#904af7',
+                    },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? alpha('#9351f5', 0.8)
+                          : '#bf9af5',
+                    },
+                  }}
+                />
+              )}
+            </Box>
+          ) : (
+            <TextField
+              label="API Key"
+              type="password"
+              fullWidth
+              size="small"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              sx={{
+                
                 borderRadius: '16px',
-              },
-              '& label.Mui-focused': {
-                color: '#904af7',
-              },
-              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: (theme) =>
+                backgroundColor: (theme) =>
                   theme.palette.mode === 'dark'
-                    ? alpha('#9351f5', 0.8)
-                    : '#bf9af5',
-              },
-            }}
-            value={apiKey}
-            onChange={e => setApiKey(e.target.value)}
-          />
+                    ? alpha(theme.palette.background.paper, 0.3)
+                    : alpha(theme.palette.grey[100], 0.5),
+                backdropFilter: 'blur(4px)',
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '16px',
+                },
+                '& label.Mui-focused': {
+                  color: '#904af7',
+                },
+                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha('#9351f5', 0.8)
+                      : '#bf9af5',
+                },
+              }}
+            />
+          )}
+
         </Box>
 
 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 1 }}>
