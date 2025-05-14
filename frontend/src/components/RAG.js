@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import TypewriterEffect from './TypewriterEffect';
 import { queryRAG, fetchRAGProteinInfo } from '../services/RAGService';
 import {
   Box, TextField, Button, FormControl, InputLabel, Select, MenuItem,
@@ -22,12 +23,29 @@ const PROVIDER_MODELS = {
 };
 
 const EXAMPLE_QUERIES = [
-  "What proteins are related to Alzheimer's disease?",
-  "What is the UniProt ID for insulin?",
-  "List all proteins in Homo sapiens that are annotated with a GO term related to apoptosis.",
-  "Retrieve proteins from rabbit proteome that are 200-500 amino acids long and contain transmembrane helixes.",
-  "Retrieve all proteins in Homo sapiens with a known 3D structure"
+  "What is the catalytic activity, cofactor requirement and pathway context of human CYP2E1?",
+  "What is the function of human albumin?",
+  "What information is there on variant dbSNP rs63750001 in human Presenilin-1?",
+  "Find genes that are causally connected to xeroderma pigmentosum",
+  "Retrieve multidrug antibiotic resistance-related proteins in reference proteome for Klebsiella pneumoniae"
 ];
+
+const EXAMPLE_CASE = {
+  question: "What does the Amyloid-beta precursor protein do in the brain, and what proteins does it interact with?",
+  sequence: `MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTK
+TCIDTKEGILQYCQEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVG
+EFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFR
+GVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEE
+EADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREVCSEQAETGPC
+RAMISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARD
+PVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQA
+KNLPKADKKAVIQHFQEKVESLEQEAANERQQLVETHMARVEAMLNDRRRLALENYITAL
+QAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYER
+MNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLANMISEPRISYGNDALMPSLTET
+KTTVELLPVNGEFSLDDLQPWHSFGADSVPANTENEVEPVDARPAADRGLTTRPGSGLTN
+IKTEEISEVKMDAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIATVIVITL
+VMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN`
+};
 
 const TEMPERATURE_RANGES = {
   OpenAI: { min: 0.0, max: 2.0, default: 1.0 },
@@ -513,29 +531,57 @@ export default function LLMQuery() {
           </Menu>
         </Box>
 
-        <Button
-          onClick={() => setShowSettings(!showSettings)}
-          startIcon={<TuneIcon />}
-          variant="text"
-          size="small"
-          sx={{
-            borderRadius: '12px',
-            px: 1.5,
-            py: 1,
-            textTransform: 'none', // 👈 Tüm harfler küçük kalır
-            fontWeight: 600,
-            fontSize: '0.95rem',
-            color: showSettings ? '#9351f5' : 'text.primary', // 👈 Açıldığında mor
-            transition: 'color 0.3s ease',
-            backgroundColor: 'transparent',
-            '&:hover': {
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, mt: 1 }}>
+          {/* Sol: Ayarları aç/kapat */}
+          <Button
+            onClick={() => setShowSettings(!showSettings)}
+            startIcon={<TuneIcon />}
+            variant="text"
+            size="small"
+            sx={{
+              borderRadius: '12px',
+              px: 1.5,
+              py: 1,
+              textTransform: 'none',
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              color: showSettings ? '#9351f5' : 'text.primary',
+              transition: 'color 0.3s ease',
               backgroundColor: 'transparent',
-              color: '#9351f5', // 👈 Üzerine gelince mor
-            },
-          }}
-        >
-          Configure Advanced Settings
-        </Button>
+              '&:hover': {
+                backgroundColor: 'transparent',
+                color: '#9351f5',
+              },
+            }}
+          >
+            Configure Advanced Settings
+          </Button>
+
+          {/* Sağ: Örnek yükle */}
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setQuestion(EXAMPLE_CASE.question);
+              setSequence(EXAMPLE_CASE.sequence);
+            }}
+            sx={{
+              borderRadius: '12px',
+              fontWeight: 500,
+              textTransform: 'none',
+              fontSize: '0.9rem',
+              color: '#9351f5',
+              borderColor: '#9351f5',
+              '&:hover': {
+                backgroundColor: (theme) =>
+                  alpha('#9351f5', theme.palette.mode === 'dark' ? 0.2 : 0.05),
+                borderColor: '#9351f5',
+              },
+            }}
+          >
+            Load Example Case
+          </Button>
+        </Box>
+
 
         <Collapse in={showSettings} timeout="auto" unmountOnExit>
           <Paper
@@ -666,19 +712,47 @@ export default function LLMQuery() {
         </Box>
 
         {/* ── NEW: Show the LLM’s answer in a read‐only textbox ──────────────────── */}
-        {answer && (
-          <TextField
-            label="Answer"
-            fullWidth
-            multiline
-            minRows={3}
-            value={answer}
-            InputProps={{ readOnly: true }}
-            sx={{ mt: 4, mb: 4 }}
-          />
-        )}
 
       </Paper>
+      {answer && (
+        <Box sx={{ mt: 5 }}>
+          <Divider
+            sx={{
+              mb: 4,
+              fontSize: '1.25rem',
+              fontWeight: 600,
+              color: 'text.primary',
+              textAlign: 'center',
+              '&::before, &::after': {
+                borderColor: (theme) => theme.palette.divider,
+              },
+            }}
+          >
+            Model Output
+          </Divider>
+
+          <Box
+            sx={{
+              p: 3,
+              borderRadius: '16px',
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? 'rgba(255, 255, 255, 0.04)'
+                  : 'rgba(0, 0, 0, 0.03)',
+              fontFamily: 'ui-monospace, SFMono-Regular, monospace',
+              whiteSpace: 'pre-wrap',
+              fontSize: '0.95rem',
+              color: 'text.primary',
+              lineHeight: 1.6,
+              position: 'relative',
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              minHeight: 80
+            }}
+          >
+            <TypewriterEffect text={answer} speed={15} />
+          </Box>
+        </Box>
+      )}
       {proteinInfo.length > 0 && (
         <Box sx={{ mt: 5 }}>
           <Divider sx={{
