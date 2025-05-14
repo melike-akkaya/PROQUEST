@@ -33,3 +33,4 @@ bm25_model_fromflatfiles.pkl
 bm25_model.pkl
 docs_sp.joblib
 flat_files_content.pkl
+.env

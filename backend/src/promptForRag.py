@@ -4,40 +4,40 @@ from src.proteinRetriverFromBM25 import retrieveRelatedProteinsFromBM25
 from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences
 import pandas as pd
 
-
-def retriveProteins(llm, query, sequence, top_k) :
-    if (sequence == ''):
+def answerWithProteins(llm, query, sequence, top_k):
+    if sequence == '':
         half_top_k = top_k // 2
-        documents1 = retrieveRelatedProteins(query, half_top_k )
-        documents2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
-        documents = pd.concat([documents1, documents2], ignore_index=True)
+        docs1 = retrieveRelatedProteins(query, half_top_k)
+        docs2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
+        documents = pd.concat([docs1, docs2], ignore_index=True)
     else:
         documents = retrieveRelatedProteinsFromSequences(sequence, top_k)
 
-    prompt = PromptTemplate(    
+    prompt = PromptTemplate(
         template="""
-You are a document-ranking assistant.  
-Given a user question and a list of retrieved documents (each with a File ID and Content), do the following:
+You are a knowledgeable assistant with access to a set of protein documents.
+Each document consists of a File ID and its Content.
 
-1. Assess relevance of each document to the question.
-2. Rank the relevant documents from most to least relevant.
-3. Output only the Protein IDs of the relevant documents, in descending order of relevance, as a comma-separated list.
-4. Exclude any document that is not relevant.
-5. Return at most half of the given data.
+Your task is to:
+1. Read the user’s question.
+2. Use **only** the information contained in the provided documents to compose a clear, concise answer.
+3. Wherever you draw on a specific document, include a citation in the form [File ID].
+4. If the documents are insufficient to answer fully, say “I don’t have enough information to answer that based on the provided records.”
+5. Do not mention any documents that you did not use.
 
-For example, if the proteins have IDs [Q6GZX4, Q6GZX3, Q197F8, Q197F7] and files Q6GZX4 and Q197F8 are irrelevant to the question, and file Q197F7 is more relevant than Q6GZX3, you would return:
-
-'Q197F7','Q6GZX3'
-
-Important Note : You should NOT return ANY additional information. You should only return the ids as given in the example.
----
+---  
 Question:
 {query}
 
-Documents:
+Protein Documents:
 {documents}
-    """
+
+Your answer:
+"""
     )
+
     chain = LLMChain(llm=llm, prompt=prompt)
-    orderedFileIds = chain.run(query=query, documents=documents)
-    return orderedFileIds
+    answer = chain.run(query=query, documents=documents)
+
+    protein_ids = documents["Protein ID"].tolist()
+    return answer, protein_ids

@@ -22,6 +22,7 @@ export async function queryRAG({
 
   const { data } = await axios.post('/rag_order', payload);
   return {
+    answer: data.answer,
     proteinIds: data.protein_ids
   };
 }

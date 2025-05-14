@@ -9,7 +9,7 @@ from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
 from src.prompt import query_uniprot, generate_solr_query
-from src.promptForRag import retriveProteins
+from src.promptForRag import answerWithProteins
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
 from src.prott5Embedder import load_t5, getEmbeddings
@@ -219,7 +219,8 @@ class RAGRequest(BaseModel):
     temperature: float | None = None
 
 class RAGResponse(BaseModel):
-    protein_ids: str
+    answer: str
+    protein_ids: List[str]
 
 
 @app.post("/rag_order", response_model=RAGResponse)
@@ -253,13 +254,13 @@ def rag_order(req: RAGRequest):
         raise HTTPException(status_code=400, detail=f"Model init error: {e}")
 
     try:
-        proteinIds = retriveProteins(llm, req.question, req.sequence, req.top_k)
-        if proteinIds is None:
-            proteinIds = ""
+        answer, protein_ids = answerWithProteins(llm, req.question, req.sequence, req.top_k)
+        if answer is None:
+            answer = ""
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"RAG ranking error: {e}")
 
-    return RAGResponse(protein_ids=proteinIds)
+    return RAGResponse(answer=answer, protein_ids = protein_ids)
 
 
 class RAGProteinListRequest(BaseModel):

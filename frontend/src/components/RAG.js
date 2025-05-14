@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { queryRAG, fetchRAGProteinInfo } from '../services/RAGService';
 import {
   Box, TextField, Button, FormControl, InputLabel, Select, MenuItem,
-  Typography, Paper, Alert, CircularProgress, Tooltip, Switch, Menu, alpha, Collapse,
+  Typography, Paper, Alert, CircularProgress, Tooltip, Checkbox, Menu, alpha, Collapse,
   Divider, Table, TableHead, TableBody, TableRow, TableCell, FormControlLabel
 } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LightbulbOutlineIcon from '@mui/icons-material/LightbulbOutline';
 import TuneIcon from '@mui/icons-material/Tune';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useEffect } from 'react';
 import axios from 'axios';
-import { Checkbox } from '@mui/material';
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
-
-
-
 
 const PROVIDER_MODELS = {
   OpenAI: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
@@ -72,6 +67,7 @@ export default function LLMQuery() {
   const [useEnvKey, setUseEnvKey] = useState(false); 
   const [hasStoredKey, setHasStoredKey] = useState(false);
   const [customKeyMode, setCustomKeyMode] = useState(false);
+  const [answer, setAnswer] = useState('');
 
   useEffect(() => {
     if (provider) {
@@ -119,7 +115,9 @@ export default function LLMQuery() {
   const handleSubmit = async () => {
     setWarning('');
     setError('');
+    setAnswer('');
     setResults([]);
+    setProteinInfo([]);
   
     if (!provider) return setWarning('Please select a provider.');
     if (!llmType) return setWarning('Please select an LLM type.');
@@ -136,55 +134,28 @@ export default function LLMQuery() {
     }
   
     setLoading(true);
-    let attempt = 0;
-    let success = false;
-  
     try {
-      while (attempt < 3 && !success) {
-        attempt++;
-  
-        const { proteinIds } = await queryRAG({
-          model: llmType,
-          apiKey,
-          question,
-          sequence: sequence,
-          topK: topK * 2,
-          temperature
-        });
-  
-        const validFormat = /^'?([A-Za-z0-9]+)'?(?:,\s*'?([A-Za-z0-9]+)'?)*$/.test(proteinIds);
-  
-        if (validFormat) {
-          const parsed = proteinIds.split(',').map(id => id.trim().replace(/^'|'$/g, ''));
-          setResults(parsed);
+      const { answer: llmAnswer, proteinIds } = await queryRAG({
+        model:       llmType,
+        apiKey,
+        question,
+        sequence,
+        topK: topK,
+        temperature
+      });
 
-          const detailedInfo = await fetchRAGProteinInfo(parsed);
-          setProteinInfo(detailedInfo);
+      setAnswer(llmAnswer);
 
-          setWarning('');
-          setError('');
-          setSuccessMessage(`Results are retrieved in attempt ${attempt}.`);
-          success = true;
-        } else {
-          if (attempt < 3) {
-            setWarning(`Results could not be retrieved. System tries again (attempt ${attempt}).`);
-          }
-        }
-      }
-  
-      if (!success) {
-        setWarning('');
-        setError('System cannot produce a valid answer for this query in 3 tries.');
-      }
-  
+      setResults(proteinIds);
+
+      const detailed = await fetchRAGProteinInfo(proteinIds);
+      setProteinInfo(detailed);
     } catch (e) {
-      setWarning('');
-      setError(e.response?.data || e.message);
+      setError(e.response?.data || e.message || 'Unknown error');
     } finally {
       setLoading(false);
     }
-  };
-  
+  };  
 
   return (
     <Box sx={{ maxWidth: 1000, mx: 'auto', mt: 10, p: { xs: 2, md: 4 } }}>
@@ -234,7 +205,7 @@ export default function LLMQuery() {
         />
 
         <TextField
-          label="Sequence"
+          label="Sequence (Optional)"
           fullWidth
           multiline
           minRows={2}
@@ -693,6 +664,20 @@ export default function LLMQuery() {
           {loading ? 'Searching…' : 'Search'}
         </Button>
         </Box>
+
+        {/* ── NEW: Show the LLM’s answer in a read‐only textbox ──────────────────── */}
+        {answer && (
+          <TextField
+            label="Answer"
+            fullWidth
+            multiline
+            minRows={3}
+            value={answer}
+            InputProps={{ readOnly: true }}
+            sx={{ mt: 4, mb: 4 }}
+          />
+        )}
+
       </Paper>
       {proteinInfo.length > 0 && (
         <Box sx={{ mt: 5 }}>
