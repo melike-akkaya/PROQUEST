@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const model = 'gemini-2.0-flash-thinking-exp-01-21';
-const apiKey = 'AIzaSyAOpbWpEx8g_an8Eh13fNJjQhOLC7LKS1A';
+const apiKey = '';
 
 async function runBatchTests() {
   const inputPath = path.join(__dirname, 'testRAG_inputs.json');
