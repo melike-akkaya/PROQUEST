@@ -17,7 +17,7 @@ import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 
 const PROVIDER_MODELS = {
   OpenAI: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
-  Google: ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-thinking-exp-01-21', 'gemini-2.0-pro-exp-02-05'],
+  Google: ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-thinking-exp-01-21', 'gemini-2.0-pro-exp-02-05', 'gemini-2.5-flash-preview-04-17'],
   Anthropic: ['claude-3-7-sonnet-latest', 'claude-3-5-sonnet-20240620'],
   Nvidia: ['meta/llama-3.1-405b-instruct'],
   Mistral: ['mistral-small', 'codestral-latest'],

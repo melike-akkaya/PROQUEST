@@ -1,0 +1,48 @@
+[
+  {
+    "question": "What is the catalytic activity, cofactor requirement and pathway context of human CYP2E1?"
+  },
+  {
+    "question": "List all human protein kinases that (i) possess the DFG-in motif and (ii) have been linked to breast cancer."
+  },
+  {
+    "question": "Which E. coli K-12 proteins are periplasmic manganese binders with reviewed UniProt status?"
+  },
+  {
+    "question": "Retrieve all coronavirus proteins that have proven glycosyltransferase activity and are present in SARS-CoV-2."
+  },
+  {
+    "question": "Give me the UniProt entries of human proteins that interact with BRCA1 according to BioGRID and briefly summarise their DNA-repair roles."
+  },
+  {
+    "question": "Which proteins in any organism contain a Rossmann-like fold and are implicated in rare (‘orphan’) diseases listed in OMIM?”"
+  },
+  {
+    "question": "Summarise all experimentally verified post-translational modifications of tau (MAPT) that are associated with Alzheimer’s disease."
+  },
+  {
+    "question": "Identify zebrafish zinc-finger transcription factors expressed in hindbrain development, including ZFIN expression evidence."
+  },
+  {
+    "question": "Compare the canonical sequences and active-site residues of human ACE2 and classical ACE; highlight any residue changes affecting substrate specificity."
+  },
+  {
+    "question": "Provide UniProt IDs for mitochondrial ribosomal proteins of Arabidopsis thaliana that also have 3D structures deposited in the PDB and a STRING interaction network"
+  },
+  {
+    "question": "A mouse protein is given below. Identify human proteins that are similar to this protein and list their annotated subcellular localisations",
+    "sequence": "MNDVAIVKEGWLHKRGEYIKTWRPRYFLLKNDGTFIGYKERPQDVDQRESPLNNFSVAQCQLMKTERPRPNTFIIRCLQWTTVIERTFHVETPEEREEWATAIQTVADGLKRQEEETMDFRSGSPSDNSGAEEMEVSLAKPKHRVTMNEFEYLKLLGKGTFGKVILVKEKATGRYYAMKILKKEVIVAKDEVAHTLTENRVLQNSRHPFLTALKYSFQTHDRLCFVMEYANGGELFFHLSRERVFSEDRARFYGAEIVSALDYLHSEKNVVYRDLKLENLMLDKDGHIKITDFGLCKEGIKDGATMKTFCGTPEYLAPEVLEDNDYGRAVDWWGLGVVMYEMMCGRLPFYNQDHEKLFELILMEEIRFPRTLGPEAKSLLSGLLKKDPTQRLGGGSEDAKEIMQHRFFANIVWQDVYEKKLSPPFKPQVTSETDTRYFDEEFTAQMITITPPDQDDSMECVDSERRPHFPQFSYSASGTA"
+  },
+  {
+    "question": "Using the sequence below, list UniProt entries from plants or bacteria that share ≥40 % identity with human insulin and briefly describe any evidence that their peptides regulate glucose or carbon metabolism",
+    "sequence": "MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVE"
+  },
+  {
+    "question": "List all human cell-surface proteins experimentally shown to interact with the protein given below, and provide links to the supporting PDB structures nd PubMed IDs",
+    "sequence": "MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFSNVTWFHAIHVSGTNGTKRFDNPV"
+  },
+  {
+    "question": "Part of the human GAPDH sequence is given below. Identify human paralogues that keep the Rossmann NAD-binding motif but lack the catalytic cysteine, and list their annotated GO biological process annotations",
+    "sequence": "MGKVKVGVNGFGRIGRLVTRAAFNSGKVDIVAINDPFIDLNYMVYMFQYDSTHGKFHG"
+  }
+]

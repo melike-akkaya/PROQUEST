@@ -261,6 +261,32 @@ def rag_order(req: RAGRequest):
         raise HTTPException(status_code=500, detail=f"RAG ranking error: {e}")
 
     return RAGResponse(answer=answer, protein_ids = protein_ids)
+        #     raw_answer, protein_ids = answerWithProteins(llm, req.question, req.sequence, req.top_k)
+
+    #     rethink_prompts = [
+    #         "OK, I need to figure out ",
+    #         "I think ",
+    #         "Wait, maybe ",
+    #         "Let me check if ",
+    #         "Another thing to note is that ",
+    #         "Now, using all the above information, I can answer the question:",
+    #         f"{req.question}",
+    #         "**ANSWER**\n"
+    #     ]
+
+    #     reasoning_text = "\n\n".join(rethink_prompts) + "\n" + raw_answer
+
+    #     improved_answer = llm(reasoning_text)
+
+    #     if "**ANSWER**" in improved_answer:
+    #         final_answer = improved_answer.split("**ANSWER**")[-1].strip()
+    #     else:
+    #         final_answer = improved_answer.strip()
+
+    #     return RAGResponse(answer=final_answer, protein_ids=protein_ids)
+
+    # except Exception as e:
+    #     raise HTTPException(status_code=500, detail=f"RAG reasoning error: {e}")
 
 
 class RAGProteinListRequest(BaseModel):
