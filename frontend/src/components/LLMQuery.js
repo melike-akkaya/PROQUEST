@@ -49,7 +49,6 @@ const PROVIDER_MODELS = {
     'gemini-pro',
     'gemini-1.5-pro-latest',
     'gemini-1.5-flash-latest',
-    'gemini-2.5-pro-preview-03-25'
   ],
   Anthropic: [
     'claude-3-7-sonnet-latest',
