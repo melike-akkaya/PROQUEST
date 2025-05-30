@@ -104,19 +104,30 @@ def llm_query(req: LLMRequest):
 
         if m.startswith("gemini"):
             llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key, **kwargs)
-        elif m in ("gpt-4o", "gpt-4o-mini", "o3-mini"):
+
+        elif m.startswith(("gpt", "o4", "o3", "o1")):
             llm = ChatOpenAI(model=m, api_key=req.api_key, **kwargs)
+
         elif m.startswith("claude"):
             llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key, **kwargs)
-        elif m.startswith("meta/llama"):
+
+        elif m.startswith(("meta", "mistralai", "nv-mistralai", "nvidia")):
             llm = ChatNVIDIA(model=m, api_key=req.api_key, **kwargs)
+
         elif m.startswith("deepseek"):
-            llm = ChatOpenAI(model=m, api_key=req.api_key,
-                             base_url="https://openrouter.ai/api/v1", **kwargs)
+            llm = ChatOpenAI(
+                model=m,
+                api_key=req.api_key,
+                base_url="https://openrouter.ai/api/v1",
+                **kwargs
+            )
+
         elif m in ("mistral-small", "codestral-latest"):
             llm = ChatMistralAI(model=m, api_key=req.api_key, **kwargs)
+
         else:
             raise ValueError(f"Unsupported model {m}")
+
 
         if req.verbose:
             logger.info(f"Using model={m}, question={req.question}, limit={req.limit}, retries={req.retry_count}")
@@ -233,12 +244,16 @@ def rag_order(req: RAGRequest):
 
         if m.startswith("gemini"):
             llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key, **kwargs)
-        elif m in ("gpt-4o", "gpt-4o-mini", "o3-mini"):
+
+        elif m.startswith(("gpt", "o4", "o3", "o1")):
             llm = ChatOpenAI(model=m, api_key=req.api_key, **kwargs)
+
         elif m.startswith("claude"):
             llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key, **kwargs)
-        elif m.startswith("meta/llama"):
+
+        elif m.startswith(("meta", "mistralai", "nv-mistralai", "nvidia")):
             llm = ChatNVIDIA(model=m, api_key=req.api_key, **kwargs)
+
         elif m.startswith("deepseek"):
             llm = ChatOpenAI(
                 model=m,
@@ -246,8 +261,10 @@ def rag_order(req: RAGRequest):
                 base_url="https://openrouter.ai/api/v1",
                 **kwargs
             )
+
         elif m in ("mistral-small", "codestral-latest"):
             llm = ChatMistralAI(model=m, api_key=req.api_key, **kwargs)
+
         else:
             raise ValueError(f"Unsupported model {m}")
     except Exception as e:
