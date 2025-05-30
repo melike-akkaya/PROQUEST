@@ -14,12 +14,72 @@ import axios from 'axios';
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 
 const PROVIDER_MODELS = {
-  OpenAI: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
-  Google: ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-thinking-exp-01-21', 'gemini-2.0-pro-exp-02-05', 'gemini-2.5-flash-preview-04-17'],
-  Anthropic: ['claude-3-7-sonnet-latest', 'claude-3-5-sonnet-20240620'],
-  Nvidia: ['meta/llama-3.1-405b-instruct'],
-  Mistral: ['mistral-small', 'codestral-latest'],
-  OpenRouter: ['deepseek/deepseek-r1', 'deepseek/deepseek-r1:free'], 
+  OpenAI: [
+    'gpt-4o',
+    'gpt-4o-mini',
+    'o3-mini',
+    'gpt-4.1-2025-04-14',
+    'o4-mini-2025-04-16',
+    'o3-2025-04-16',
+    'o3-mini-2025-01-31',
+    'o1-2024-12-17',
+    'o1-mini-2024-09-12',
+    'o1-pro-2025-03-19',
+    'gpt-3.5-turbo-instruct',
+    'gpt-3.5-turbo-1106',
+    'gpt-3.5-turbo',
+    'gpt-3.5-turbo-0125',
+    'gpt-4-0125-preview',
+    'gpt-4-turbo',
+    'gpt-4-turbo-preview',
+    'gpt-4-1106-preview',
+    'gpt-4-32k-0613',
+    'gpt-4-0613',
+    'gpt-3.5-turbo-16k'
+  ],
+  Google: [
+    'gemini-2.0-flash',
+    'gemini-1.5-flash',
+    'gemini-2.0-flash-thinking-exp-01-21',
+    'gemini-2.0-pro-exp-02-05',
+    'gemini-2.5-flash-preview-04-17',
+    'gemini-2.0-flash-lite',
+    'gemini-pro',
+    'gemini-1.5-pro-latest',
+    'gemini-1.5-flash-latest',
+    'gemini-2.5-pro-preview-03-25'
+  ],
+  Anthropic: [
+    'claude-3-7-sonnet-latest',
+    'claude-3-5-sonnet-20240620',
+    'claude-3-opus-20240229',
+    'claude-3-sonnet-20240229',
+    'claude-3-haiku-20240307',
+    'claude-3-5-sonnet-latest',
+    'claude-2.1',
+    'claude-2.0',
+    'claude-instant-1.2'
+  ],
+  Nvidia: [
+    'meta/llama-3.1-405b-instruct',
+    'meta/llama-3.1-70b-instruct',
+    'meta/llama-3.1-8b-instruct',
+    'nv-mistralai/mistral-nemo-12b-instruct',
+    'mistralai/mixtral-8x22b-instruct-v0.1',
+    'mistralai/mistral-large-2-instruct',
+    'nvidia/nemotron-4-340b-instruct'
+  ],
+  Mistral: [
+    'mistral-small',
+    'codestral-latest'
+  ],
+  OpenRouter: [
+    'deepseek/deepseek-r1',
+    'deepseek/deepseek-r1:free',
+    'deepseek/deepseek-r1-distill-llama-70b',
+    'deepseek/deepseek-r1:nitro',
+    'deepseek/deepseek-chat'
+  ]
 };
 
 const EXAMPLE_QUERIES = [
