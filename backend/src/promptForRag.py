@@ -7,7 +7,7 @@ import pandas as pd
 def answerWithProteins(llm, query, sequence, top_k):
     if sequence == '':
         half_top_k = top_k // 2
-        docs1 = retrieveRelatedProteins(query, half_top_k)
+        docs1 = retrieveRelatedProteins(query, top_k)
         docs2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
         documents = pd.concat([docs1, docs2], ignore_index=True)
     
@@ -20,13 +20,12 @@ Your task is to:
 1. Carefully read the user’s **Question**.
 2. Formulate a clear and concise answer **using only the content from the provided documents**.
 3. When referencing specific information, include a citation in the format: **[Protein ID]**.
-4. If the documents do not contain sufficient information to answer the question, respond with:  
-   **“I don’t have enough information to answer that based on the provided records.”**
+4. If the documents do not contain sufficient information to answer the question, respond your internal knowledge and add a warning:  
+   **“I don’t have enough information to answer this question based on the flat files. But here is an answer using my internal knowledge:”**
 
 Style & Reasoning:
 Use clear, concise language.
 Weave in your reasoning explicitly with phrases like “Let me check if…,” “Another thing to note is…,” or “I should verify whether….”
-Do not introduce facts or assumptions beyond what’s in the documents.
 
 ---
 **Question:**  
@@ -53,13 +52,12 @@ Your task is to:
 1. Read the user’s **Question** carefully.
 2. Generate a clear, concise, and accurate answer **using only the content from the provided documents**.
 3. When referencing information from the documents, cite the relevant **Protein ID** in this format: **[Protein ID]**.
-4. If there is not enough information in the documents to answer the question, respond with:  
-   **“I don’t have enough information to answer that based on the provided records.”**
+4. If the documents do not contain sufficient information to answer the question, respond your internal knowledge and add a warning:  
+   **“I don’t have enough information to answer this question based on the flat files. But here is an answer using my internal knowledge:”**
 
 Style & Reasoning:
 Use clear, concise language.
 Weave in your reasoning explicitly with phrases like “Let me check if…,” “Another thing to note is…,” or “I should verify whether….”
-Do not introduce facts or assumptions beyond what’s in the documents.
 
 ---
 **Question:**  
