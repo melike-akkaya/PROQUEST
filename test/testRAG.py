@@ -1,12 +1,11 @@
 import os
 import json
 import requests
+import time
 import pandas as pd
 from requests.exceptions import RequestException
 
 BASE_URL = 'http://localhost:8000'
-FALLBACK_MESSAGE = "I don’t have enough information to answer that based on the provided records."
-MAX_RETRIES = 5
 
 MODEL_API_KEYS = {
 
@@ -37,7 +36,7 @@ def query_rag(model, api_key, question, sequence, top_k, temperature=None):
 
 def run_batch_tests():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    input_path = os.path.join(current_dir, 'testRAG_inputs.json')
+    input_path = os.path.join(current_dir, 'testRAG_sequenceInputs.json')
     inputs = load_inputs(input_path)
 
     output_file = os.path.join(current_dir, 'Sequence Search Analysis.xlsx')
@@ -49,29 +48,23 @@ def run_batch_tests():
             for item in inputs:
                 question   = item.get('question')
                 sequence   = item.get('sequence', '')
-                top_k      = item.get('topK',    10)
-                temperature= item.get('temperature', 1.0)
+                top_k      = item.get('topK',    50)
+                temperature= item.get('temperature', None)
 
                 if not question:
                     continue
 
-                attempt = 0
-                result = {'answer': FALLBACK_MESSAGE, 'proteinIds': []}
+                result = {}
 
-                while attempt < MAX_RETRIES:
-                    attempt += 1
-                    try:
-                        resp = query_rag(model, api_key, question, sequence, top_k, temperature)
-                    except RequestException as e:
-                        result = {
-                            'answer': f"Error: {e}",
-                            'proteinIds': []
-                        }
-                        break
-                    else:
-                        result = resp
-                        if resp['answer'] != FALLBACK_MESSAGE:
-                            break
+                try:
+                    resp = query_rag(model, api_key, question, sequence, top_k, temperature)
+                except RequestException as e:
+                    result = {
+                        'answer': f"Error: {e}",
+                        'proteinIds': []
+                    }
+                else:
+                    result = resp
 
                 rows.append({
                     'question':   question,
@@ -80,12 +73,13 @@ def run_batch_tests():
                         if isinstance(result['proteinIds'], list)
                         else result['proteinIds']
                     ),
-                    'answer':     result['answer'],
-                    'attemptNo':  attempt
+                    'answer':     result['answer']
                 })
 
+                time.sleep(5)
+
             sheet_name = model.replace('/', '_')[:31]
-            df = pd.DataFrame(rows, columns=['question', 'proteinIds', 'answer', 'attemptNo'])
+            df = pd.DataFrame(rows, columns=['question', 'proteinIds', 'answer'])
             df.to_excel(writer, sheet_name=sheet_name, index=False)
 
     print(f"Results written to {output_file}")
