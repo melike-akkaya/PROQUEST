@@ -14,7 +14,7 @@ def searchSpecificEmbedding(embedding, topK, annoydb="asset/protein_embeddings_2
     annoyIndex.load(annoydb)
 
     # get the topK nearest neighbor index IDs
-    neighbor_ids = annoyIndex.get_nns_by_vector(embedding, topK, include_distances=False) # this result should be ordered by distances (angular in this case)
+    neighbor_ids, distances = annoyIndex.get_nns_by_vector(embedding, topK, include_distances=True) # this result should be ordered by distances (angular in this case)
 
     columns = [
         'Protein ID','Short Name','Protein Name',
