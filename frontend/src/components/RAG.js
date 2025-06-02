@@ -141,7 +141,6 @@ export default function LLMQuery() {
   const [provider, setProvider] = useState('');
   const [temperature, setTemperature] = useState(null);
 
-  const [useEnvKey, setUseEnvKey] = useState(false); 
   const [hasStoredKey, setHasStoredKey] = useState(false);
   const [customKeyMode, setCustomKeyMode] = useState(false);
   const [answer, setAnswer] = useState('');
@@ -179,7 +178,6 @@ export default function LLMQuery() {
   const [proteinInfo, setProteinInfo] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
   const filteredModels = provider ? PROVIDER_MODELS[provider] || [] : [];
-  const [successMessage, setSuccessMessage] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const handleMenuClick = (event) => setAnchorEl(event.currentTarget);

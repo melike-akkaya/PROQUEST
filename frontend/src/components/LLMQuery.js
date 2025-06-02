@@ -118,10 +118,8 @@ export default function LLMQuery() {
   const [logs, setLogs] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
   const filteredModels = provider ? PROVIDER_MODELS[provider] || [] : [];
-  const [lastAttempt, setLastAttempt] = useState(null);
 
   
-  const [useEnvKey, setUseEnvKey] = useState(false); 
   const [hasStoredKey, setHasStoredKey] = useState(false);
   const [customKeyMode, setCustomKeyMode] = useState(false);
   useEffect(() => {
