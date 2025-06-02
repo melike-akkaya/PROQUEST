@@ -36,7 +36,7 @@ def query_rag(model, api_key, question, sequence, top_k, temperature=None):
 
 def run_batch_tests():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    input_path = os.path.join(current_dir, 'testRAG_sequenceInputs.json')
+    input_path = os.path.join(current_dir, 'testRAG_inputswithanswer.json')
     inputs = load_inputs(input_path)
 
     output_file = os.path.join(current_dir, 'Sequence Search Analysis.xlsx')
@@ -46,16 +46,17 @@ def run_batch_tests():
             rows = []
 
             for item in inputs:
-                question   = item.get('question')
-                sequence   = item.get('sequence', '')
-                top_k      = item.get('topK',    50)
-                temperature= item.get('temperature', None)
+                question      = item.get('question')
+                sequence      = item.get('sequence', '')
+                top_k         = item.get('topK', 50)
+                temperature   = item.get('temperature')
+                correct_answer = item.get('answer', '')
+                source         = item.get('source', '')
 
                 if not question:
                     continue
 
                 result = {}
-
                 try:
                     resp = query_rag(model, api_key, question, sequence, top_k, temperature)
                 except RequestException as e:
@@ -67,19 +68,21 @@ def run_batch_tests():
                     result = resp
 
                 rows.append({
-                    'question':   question,
-                    'proteinIds': (
-                        ','.join(result['proteinIds'])
-                        if isinstance(result['proteinIds'], list)
+                    'question':       question,
+                    'proteinIds':     (
+                        ','.join(result['proteinIds']) 
+                        if isinstance(result['proteinIds'], list) 
                         else result['proteinIds']
                     ),
-                    'answer':     result['answer']
+                    'answer':         result['answer'],
+                    'correctAnswer':  correct_answer,
+                    'source':         source
                 })
 
                 time.sleep(5)
 
             sheet_name = model.replace('/', '_')[:31]
-            df = pd.DataFrame(rows, columns=['question', 'proteinIds', 'answer'])
+            df = pd.DataFrame(rows, columns=['question', 'proteinIds', 'answer', 'correctAnswer', 'source'])
             df.to_excel(writer, sheet_name=sheet_name, index=False)
 
     print(f"Results written to {output_file}")
