@@ -13,19 +13,20 @@ def searchSpecificEmbedding(embedding, topK, annoydb="asset/protein_embeddings_2
     annoyIndex = AnnoyIndex(embeddingDimension, 'angular')
     annoyIndex.load(annoydb)
 
-    # get the topK nearest neighbor index IDs
-    neighbor_ids, distances = annoyIndex.get_nns_by_vector(embedding, topK, include_distances=True) # this result should be ordered by distances (angular in this case)
+    # get the topK nearest neighbor index IDs and their distances
+    neighbor_ids, distances = annoyIndex.get_nns_by_vector(embedding, topK, include_distances=True)
 
     columns = [
-        'Protein ID','Short Name','Protein Name',
-        'Organism','Taxon ID','Gene Name','pe','sv'
+        'Protein ID', 'Short Name', 'Protein Name',
+        'Organism', 'Taxon ID', 'Gene Name', 'pe', 'sv', 'Distance'
     ]
     records = []
 
     # look up each hit in the SQLite tables
-    for idx in neighbor_ids:
-        # map Annoy index -> protein_id
+    for idx, dist in zip(neighbor_ids, distances):
         conn = sqlite3.connect(db_path)
+
+        # map Annoy index -> protein_id
         pid_df = pd.read_sql_query(
             f"SELECT protein_id FROM id_map WHERE index_id = {idx}", conn
         )
@@ -56,17 +57,20 @@ def searchSpecificEmbedding(embedding, topK, annoydb="asset/protein_embeddings_2
                 'Taxon ID': info['ox'],
                 'Gene Name': info['gn'],
                 'pe': info['pe'],
-                'sv': info['sv']
+                'sv': info['sv'],
+                'Distance': dist
             }
         else:
             row = dict.fromkeys(columns, "")
             row['Protein ID'] = pid
+            row['Distance'] = dist
 
         records.append(row)
 
     result_df = pd.DataFrame(records, columns=columns)
     result_df = (
         result_df
+        .sort_values(by="Distance", ascending=True)
         .head(topK)
         .reset_index(drop=True)
     )
