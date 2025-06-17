@@ -266,16 +266,27 @@ export default function LLMQuery() {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="e.g., What proteins are related to Alzheimer's disease?"
           sx={{
-            mb: 3,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '16px',
-              fontSize: '1rem',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' 
-                  ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
-                  : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
-            }
-          }}
+                mb: 3,
+                fontSize: '1rem',
+                borderRadius: '16px',
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'dark'
+                    ? alpha(theme.palette.background.paper, 0.3)
+                    : alpha(theme.palette.grey[100], 0.5),
+                backdropFilter: 'blur(4px)',
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '16px',
+                },
+                '& label.Mui-focused': {
+                  color: '#16a5a5',
+                },
+                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha('#16a5a5', 0.8)
+                      : '#16a5a5',
+                },
+              }}
         
         />
 
@@ -288,16 +299,27 @@ export default function LLMQuery() {
           onChange={(e) => setSequence(e.target.value)}
           placeholder="e.g., MKTFFVAGVLAALATA..."
           sx={{
-            mb: 3,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '16px',
-              fontSize: '1rem',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' 
-                  ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
-                  : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
-            }
-          }}
+                mb: 3,
+                fontSize: '1rem',
+                borderRadius: '16px',
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'dark'
+                    ? alpha(theme.palette.background.paper, 0.3)
+                    : alpha(theme.palette.grey[100], 0.5),
+                backdropFilter: 'blur(4px)',
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '16px',
+                },
+                '& label.Mui-focused': {
+                  color: '#16a5a5',
+                },
+                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? alpha('#16a5a5', 0.8)
+                      : '#16a5a5',
+                },
+              }}
         
         />
 
@@ -306,7 +328,7 @@ export default function LLMQuery() {
             <FormControl sx={{ width: '50%', minWidth: '200px' }} variant="outlined" size="small">
               <InputLabel sx={{
                   '&.Mui-focused': {
-                    color: '#904af7', 
+                    color: '#16a5a5', 
                   },
                 }}>Provider</InputLabel>
               <Select
@@ -325,8 +347,8 @@ export default function LLMQuery() {
                   backdropFilter: 'blur(4px)', // ekstra şıklık için
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                       borderColor: (theme) => theme.palette.mode === 'dark'
-                        ? alpha('#9351f5', 0.8) // koyu mor
-                        : '#bf9af5', // açık tema için mor
+                        ? alpha('#16a5a5', 0.8) // koyu mor
+                        : '#16a5a5', // açık tema için mor
                   },
                 }}
                 MenuProps={{
@@ -340,8 +362,8 @@ export default function LLMQuery() {
                       backdropFilter: 'blur(6px)',
                       boxShadow: (theme) =>
                         theme.palette.mode === 'dark'
-                          ? '0 4px 20px rgba(156, 39, 176, 0.3)' 
-                          : '0 4px 20px rgba(156, 39, 176, 0.15)',
+                          ? '0 4px 20px rgba(39, 176, 165, 0.3)' 
+                          : '0 4px 20px rgba(39, 176, 149, 0.15)',
                     },
                   },
                 }}
@@ -355,7 +377,7 @@ export default function LLMQuery() {
             <FormControl sx={{ width: '50%', minWidth: '200px' }} variant="outlined" size="small" disabled={!provider}>
               <InputLabel sx={{
                   '&.Mui-focused': {
-                    color: '#904af7', 
+                    color: '#16a5a5', 
                   },
                 }}>Model</InputLabel>
               <Select
@@ -371,8 +393,8 @@ export default function LLMQuery() {
                   backdropFilter: 'blur(4px)', // ekstra şıklık için
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                       borderColor: (theme) => theme.palette.mode === 'dark'
-                        ? alpha('#9351f5', 0.8) // koyu mor
-                        : '#bf9af5', // açık tema için mor
+                        ? alpha('#16a5a5', 0.8) // koyu mor
+                        : '#16a5a5', // açık tema için mor
                   },
                 }}
                 MenuProps={{
@@ -386,8 +408,8 @@ export default function LLMQuery() {
                       backdropFilter: 'blur(6px)',
                       boxShadow: (theme) =>
                         theme.palette.mode === 'dark'
-                          ? '0 4px 20px rgba(156, 39, 176, 0.3)' 
-                          : '0 4px 20px rgba(156, 39, 176, 0.15)',
+                          ? '0 4px 20px rgba(39, 176, 151, 0.3)' 
+                          : '0 4px 20px rgba(39, 176, 133, 0.15)',
                     },
                   },
                 }}
@@ -474,13 +496,13 @@ export default function LLMQuery() {
                       borderRadius: '16px',
                     },
                     '& label.Mui-focused': {
-                      color: '#904af7',
+                      color: '#16a5a5',
                     },
                     '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                       borderColor: (theme) =>
                         theme.palette.mode === 'dark'
-                          ? alpha('#9351f5', 0.8)
-                          : '#bf9af5',
+                          ? alpha('#16a5a5', 0.8)
+                          : '#16a5a5',
                     },
                   }}
                 />
@@ -506,13 +528,13 @@ export default function LLMQuery() {
                   borderRadius: '16px',
                 },
                 '& label.Mui-focused': {
-                  color: '#904af7',
+                  color: '#16a5a5',
                 },
                 '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                   borderColor: (theme) =>
                     theme.palette.mode === 'dark'
-                      ? alpha('#9351f5', 0.8)
-                      : '#bf9af5',
+                      ? alpha('#16a5a5', 0.8)
+                      : '#16a5a5',
                 },
               }}
             />
@@ -577,8 +599,8 @@ export default function LLMQuery() {
                   '&:hover': {
                     backgroundColor: (theme) =>
                       theme.palette.mode === 'dark'
-                        ? alpha('#9351f5', 0.1)
-                        : alpha('#9351f5', 0.07),
+                        ? alpha('#16a5a5', 0.1)
+                        : alpha('#16a5a5', 0.07),
                   },
                 }}
               >
@@ -602,12 +624,12 @@ export default function LLMQuery() {
               textTransform: 'none',
               fontWeight: 600,
               fontSize: '0.95rem',
-              color: showSettings ? '#9351f5' : 'text.primary',
+              color: showSettings ? '#16a5a5' : 'text.primary',
               transition: 'color 0.3s ease',
               backgroundColor: 'transparent',
               '&:hover': {
                 backgroundColor: 'transparent',
-                color: '#9351f5',
+                color: '#16a5a5',
               },
             }}
           >
@@ -626,12 +648,12 @@ export default function LLMQuery() {
               fontWeight: 500,
               textTransform: 'none',
               fontSize: '0.9rem',
-              color: '#9351f5',
-              borderColor: '#9351f5',
+              color: '#16a5a5',
+              borderColor: '#16a5a5',
               '&:hover': {
                 backgroundColor: (theme) =>
-                  alpha('#9351f5', theme.palette.mode === 'dark' ? 0.2 : 0.05),
-                borderColor: '#9351f5',
+                  alpha('#16a5a5', theme.palette.mode === 'dark' ? 0.2 : 0.05),
+                borderColor: '#16a5a5',
               },
             }}
           >
@@ -689,7 +711,7 @@ export default function LLMQuery() {
                         ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
                         : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
                   },
-                  '& label.Mui-focused': { color: '#904af7' },
+                  '& label.Mui-focused': { color: '#03d8c3' },
                   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     borderColor: (theme) =>
                       theme.palette.mode === 'dark' ? alpha('#9351f5', 0.8) : '#bf9af5',
@@ -757,10 +779,10 @@ export default function LLMQuery() {
             fontSize: '1rem',
             fontFamily: 'inherit',
             textTransform: 'none',
-            backgroundColor: '#904af7', // 💜 mor ana rengi burada
+            backgroundColor: '#03d8c3', // 💜 mor ana rengi burada
             '&:hover': {
               backgroundColor: (theme) =>
-                alpha('#904af7', theme.palette.mode === 'dark' ? 0.5 : 0.85), // hover için şeffaflık
+                alpha('#03d8c3', theme.palette.mode === 'dark' ? 0.5 : 0.85), // hover için şeffaflık
             },
           }}
         >

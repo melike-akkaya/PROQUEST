@@ -4,13 +4,19 @@ from src.proteinRetriverFromBM25 import retrieveRelatedProteinsFromBM25
 from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences
 import pandas as pd
 
+def formatDocuments(df):
+    return "\n\n".join(
+        f"Protein ID: {row['Protein ID']}\nContent: {row['Content']}"
+        for _, row in df.iterrows()
+    )
+
 def answerWithProteins(llm, query, sequence, top_k):
     if sequence == '':
         half_top_k = top_k // 2
         docs1 = retrieveRelatedProteins(query, top_k)
         docs2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
-        documents = pd.concat([docs1, docs2], ignore_index=True)
-    
+        documentsDf = pd.concat([docs1, docs2], ignore_index=True)
+        formattedDocuments = formatDocuments(documentsDf)
 
         prompt = PromptTemplate(
             template="""
@@ -32,14 +38,17 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
 {query}
 
 **Protein Documents:**  
-{documents}
+{formattedDocuments}
 
 ---
 **Your Answer:**
 """
-    )
+        )
+
     else:
-        documents = retrieveRelatedProteinsFromSequences(sequence, top_k)
+        documentsDf = retrieveRelatedProteinsFromSequences(sequence, top_k)
+        formattedDocuments = formatDocuments(documentsDf)
+
         prompt = PromptTemplate(
             template="""
 You are a domain-aware assistant with access to a collection of protein-related documents. Each document contains a **Protein ID** and its associated **Content**.
@@ -64,15 +73,15 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
 {query}
 
 **Protein Documents (retrieved based on similarity to the input protein sequence):**  
-{documents}
+{formattedDocuments}
 
 ---
 **Your Answer:**
 """
-    )
+        )
 
     chain = LLMChain(llm=llm, prompt=prompt)
-    answer = chain.run(query=query, documents=documents)
+    answer = chain.run(query=query, documents=formatted_documents)
 
-    protein_ids = documents["Protein ID"].tolist()
+    protein_ids = documents_df["Protein ID"].tolist()
     return answer, protein_ids

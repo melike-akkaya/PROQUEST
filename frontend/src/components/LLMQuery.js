@@ -229,16 +229,27 @@ export default function LLMQuery() {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="e.g., What proteins are related to Alzheimer's disease?"
           sx={{
-            mb: 3,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '16px',
-              fontSize: '1rem',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' 
-                  ? alpha(theme.palette.background.subtle || theme.palette.background.paper, 0.3)
-                  : alpha(theme.palette.background.subtle || theme.palette.grey[100], 0.3),
-            }
-          }}
+                          mb: 3,
+                          fontSize: '1rem',
+                          borderRadius: '16px',
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === 'dark'
+                              ? alpha(theme.palette.background.paper, 0.3)
+                              : alpha(theme.palette.grey[100], 0.5),
+                          backdropFilter: 'blur(4px)',
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: '16px',
+                          },
+                          '& label.Mui-focused': {
+                            color: '#904af7',
+                          },
+                          '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: (theme) =>
+                              theme.palette.mode === 'dark'
+                                ? alpha('#904af7', 0.8)
+                                : '#904af7',
+                          },
+            }}
         
         />
 
