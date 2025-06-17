@@ -38,7 +38,7 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
 {query}
 
 **Protein Documents:**  
-{formattedDocuments}
+{documents}
 
 ---
 **Your Answer:**
@@ -73,7 +73,7 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
 {query}
 
 **Protein Documents (retrieved based on similarity to the input protein sequence):**  
-{formattedDocuments}
+{documents}
 
 ---
 **Your Answer:**
@@ -81,7 +81,7 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
         )
 
     chain = LLMChain(llm=llm, prompt=prompt)
-    answer = chain.run(query=query, documents=formatted_documents)
+    answer = chain.run(query=query, documents=formattedDocuments)
 
-    protein_ids = documents_df["Protein ID"].tolist()
+    protein_ids = documentsDf["Protein ID"].tolist()
     return answer, protein_ids
