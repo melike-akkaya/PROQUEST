@@ -233,6 +233,43 @@ class RAGResponse(BaseModel):
     answer: str
     protein_ids: List[str]
 
+def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
+    try:
+        print(f"Trying top_k = {top_k}")
+        answer, protein_ids = answerWithProteins(llm, query, sequence, top_k)
+        return answer, protein_ids
+    except Exception as e:
+        print(f"Initial top_k={top_k} failed: {e}")
+        last_error = e
+
+    # ,f top_k failed, perform binary search for the largest valid k
+    low = 1
+    high = top_k - 1
+    best_answer = None
+    best_ids = []
+    last_valid_k = None
+
+    for _ in range(max_attempts):
+        if low > high:
+            break
+
+        mid = (low + high) // 2
+        print(f"Trying fallback top_k = {mid}")
+        try:
+            answer, protein_ids = answerWithProteins(llm, query, sequence, mid)
+            best_answer = answer
+            best_ids = protein_ids
+            last_valid_k = mid
+            low = mid + 1
+        except Exception as e:
+            print(f"Error at top_k = {mid}: {e}")
+            last_error = e
+            high = mid - 1
+
+    if best_answer is None:
+        raise RuntimeError(f"Token limit error even at low top_k. Last error: {last_error}")
+
+    return best_answer, best_ids
 
 @app.post("/rag_order", response_model=RAGResponse)
 def rag_order(req: RAGRequest):
@@ -271,40 +308,13 @@ def rag_order(req: RAGRequest):
         raise HTTPException(status_code=400, detail=f"Model init error: {e}")
 
     try:
-        answer, protein_ids = answerWithProteins(llm, req.question, req.sequence, req.top_k)
+        answer, protein_ids = safe_answer_with_proteins(llm, req.question, req.sequence, req.top_k)
         if answer is None:
             answer = ""
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"RAG ranking error: {e}")
+        raise HTTPException(status_code=500, detail=f"RAG generation failed: {e}")
 
-    return RAGResponse(answer=answer, protein_ids = protein_ids)
-        #     raw_answer, protein_ids = answerWithProteins(llm, req.question, req.sequence, req.top_k)
-
-    #     rethink_prompts = [
-    #         "OK, I need to figure out ",
-    #         "I think ",
-    #         "Wait, maybe ",
-    #         "Let me check if ",
-    #         "Another thing to note is that ",
-    #         "Now, using all the above information, I can answer the question:",
-    #         f"{req.question}",
-    #         "**ANSWER**\n"
-    #     ]
-
-    #     reasoning_text = "\n\n".join(rethink_prompts) + "\n" + raw_answer
-
-    #     improved_answer = llm(reasoning_text)
-
-    #     if "**ANSWER**" in improved_answer:
-    #         final_answer = improved_answer.split("**ANSWER**")[-1].strip()
-    #     else:
-    #         final_answer = improved_answer.strip()
-
-    #     return RAGResponse(answer=final_answer, protein_ids=protein_ids)
-
-    # except Exception as e:
-    #     raise HTTPException(status_code=500, detail=f"RAG reasoning error: {e}")
-
+    return RAGResponse(answer=answer, protein_ids=protein_ids)
 
 class RAGProteinListRequest(BaseModel):
     protein_ids: List[str]
