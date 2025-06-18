@@ -4,7 +4,7 @@ from src.proteinRetriverFromBM25 import retrieveRelatedProteinsFromBM25
 from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences
 import pandas as pd
 
-def formatDocuments(df):
+def format_documents(df):
     return "\n\n".join(
         f"Protein ID: {row['Protein ID']}\nContent: {row['Content']}"
         for _, row in df.iterrows()
@@ -15,8 +15,8 @@ def answerWithProteins(llm, query, sequence, top_k):
         half_top_k = top_k // 2
         docs1 = retrieveRelatedProteins(query, top_k)
         docs2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
-        documentsDf = pd.concat([docs1, docs2], ignore_index=True)
-        formattedDocuments = formatDocuments(documentsDf)
+        documents_df = pd.concat([docs1, docs2], ignore_index=True)
+        formatted_documents = format_documents(documents_df)
 
         prompt = PromptTemplate(
             template="""
@@ -46,8 +46,8 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
         )
 
     else:
-        documentsDf = retrieveRelatedProteinsFromSequences(sequence, top_k)
-        formattedDocuments = formatDocuments(documentsDf)
+        documents_df = retrieveRelatedProteinsFromSequences(sequence, top_k)
+        formatted_documents = format_documents(documents_df)
 
         prompt = PromptTemplate(
             template="""
@@ -81,7 +81,7 @@ Weave in your reasoning explicitly with phrases like “Let me check if…,” �
         )
 
     chain = LLMChain(llm=llm, prompt=prompt)
-    answer = chain.run(query=query, documents=formattedDocuments)
+    answer = chain.run(query=query, documents=formatted_documents)
 
-    protein_ids = documentsDf["Protein ID"].tolist()
+    protein_ids = documents_df["Protein ID"].tolist()
     return answer, protein_ids
