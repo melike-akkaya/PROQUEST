@@ -2,6 +2,7 @@ from langchain import PromptTemplate, LLMChain
 from src.proteinRetriverFromFlatFiles import retrieveRelatedProteins
 from src.proteinRetriverFromBM25 import retrieveRelatedProteinsFromBM25
 from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences
+from src.proteinRetriverFromFTS import retrieveRelatedProteinsFTS
 import pandas as pd
 
 def format_documents(df):
@@ -10,12 +11,68 @@ def format_documents(df):
         for _, row in df.iterrows()
     )
 
+def hybridRetrieveRelatedProteins(query, top_k):
+    vectordbDocs = retrieveRelatedProteins(query, top_k)
+    bm25Docs = retrieveRelatedProteinsFromBM25(query, top_k)
+    ftsDocs = retrieveRelatedProteinsFTS(query, top_k)
+
+    weights = {
+        "vector": 0.5,
+        "bm25": 0.3,
+        "fts": 0.2
+    }
+
+    def score_df(df, method_name):
+        scoreMap = {}
+        for rank, row in df.iterrows():
+            pid = row["Protein ID"]
+            score = 1.0 - (rank / top_k)  # higher rank -> higher score
+            scoreMap[pid] = {
+                "content": row["Content"],
+                method_name: score
+            }
+        return scoreMap
+
+    vectorScores = score_df(vectordbDocs, "vector")
+    bm25Scores = score_df(bm25Docs, "bm25")
+    ftsScores = score_df(ftsDocs, "fts")
+
+    allPids = set(vectorScores) | set(bm25Scores) | set(ftsScores)
+    combinedResults = {}
+
+    for pid in allPids:
+        scoreParts = {
+            "vector": vectorScores.get(pid, {}).get("vector", 0),
+            "bm25": bm25Scores.get(pid, {}).get("bm25", 0),
+            "fts": ftsScores.get(pid, {}).get("fts", 0)
+        }
+        baseScore = (
+            weights["vector"] * scoreParts["vector"] +
+            weights["bm25"] * scoreParts["bm25"] +
+            weights["fts"] * scoreParts["fts"]
+        )
+        overlapCount = sum(1 for v in scoreParts.values() if v > 0)
+        overlapBoost = 1 + 0.15 * (overlapCount - 1)  # 0.15 boost per extra source
+        boostedScore = baseScore * overlapBoost
+
+        content = (vectorScores.get(pid, {}).get("content") or
+                   bm25Scores.get(pid, {}).get("content") or
+                   ftsScores.get(pid, {}).get("content"))
+
+        combinedResults[pid] = {
+            "Protein ID": pid,
+            "Content": content,
+            "Score": boostedScore
+        }
+
+    df = pd.DataFrame(combinedResults.values())
+    df = df.sort_values(by="Score", ascending=False).drop(columns=["Score"])
+    return df.head(top_k).reset_index(drop=True)
+
+
 def answerWithProteins(llm, query, sequence, top_k):
     if sequence == '':
-        half_top_k = top_k // 2
-        docs1 = retrieveRelatedProteins(query, top_k)
-        docs2 = retrieveRelatedProteinsFromBM25(query, half_top_k)
-        documents_df = pd.concat([docs1, docs2], ignore_index=True)
+        documents_df = hybridRetrieveRelatedProteins(query, top_k)
         formatted_documents = format_documents(documents_df)
 
         prompt = PromptTemplate(
