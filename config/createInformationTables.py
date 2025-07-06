@@ -198,13 +198,12 @@ def createFlatFileMappingTable(dbPath):
     conn.commit()
     conn.close()
 
-def createVirtualFlatFileTable(dbPath):
+def createVirtualFlatFileTable(dbPath="asset/protein_index.db"):
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
 
     try:
         cursor.execute("DROP TABLE IF EXISTS flat_files_fts;")
-        print("old flat_files_fts table is deleted.")
 
         cursor.execute("""
             CREATE VIRTUAL TABLE flat_files_fts
@@ -219,8 +218,8 @@ def createVirtualFlatFileTable(dbPath):
             INSERT INTO flat_files_fts(content)
             SELECT content FROM flat_files;
         """)
-        print("flat_files table is filled")
 
+        conn.commit()
 
     except sqlite3.Error as e:
         print(f"SQLite ERROR: {e}")
