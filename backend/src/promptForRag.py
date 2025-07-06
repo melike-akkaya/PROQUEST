@@ -12,6 +12,7 @@ def format_documents(df):
     )
 
 def hybridRetrieveRelatedProteins(query, top_k):
+    
     vectordbDocs = retrieveRelatedProteins(query, top_k)
     bm25Docs = retrieveRelatedProteinsFromBM25(query, top_k)
     ftsDocs = retrieveRelatedProteinsFTS(query, top_k)
