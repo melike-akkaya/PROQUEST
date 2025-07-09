@@ -77,9 +77,9 @@ def visualizeGpuUsage(file_path):
 
     plt.show()
 
-def visualizeComparison(averageBlastTime, averageSearchTime, averageEmbTime):
+def visualizeComparison(averageBlastTime, averageEmbTime, averageSearchTime):
     categories = ['Average Blast Search Time', 'Average Embedding Creation Time', 'Average Search Time']
-    values = [averageBlastTime, averageSearchTime, averageEmbTime]
+    values = [averageBlastTime, averageEmbTime, averageSearchTime]
 
     plt.figure(figsize=(8, 6))
     bars = plt.bar(categories, values, color=['#2b6dad', '#51c4d3', '#2b9fad'])
@@ -91,6 +91,8 @@ def visualizeComparison(averageBlastTime, averageSearchTime, averageEmbTime):
     plt.ylim(0, max(values) + 0.5)
     plt.ylabel('Time (seconds)')
     plt.title('Average Processing Times Comparison')
+
+    plt.grid(axis='y', linestyle='--', alpha=0.5)
 
     plt.tight_layout()
     plt.savefig('average_times_comparison.png', dpi=300)
