@@ -54,87 +54,6 @@ def visualizeDurationForBlastSearch():
     plt.grid(True)
     plt.show()
 
-def blastComparison(totalProteins, values):
-    categories = ["1. Found Proteins", "2. Found Proteins", "3. Found Proteins", "4. Found Proteins", "5. Found Proteins"]
-    
-
-    percentages = [(v / totalProteins) * 100 for v in values]
-
-    plt.figure(figsize=(12, 6))
-    plt.bar(categories, values, color=['blue', 'green', 'red', 'purple', 'orange'])
-
-    for i, v in enumerate(values):
-        plt.text(i, v + 20, f"{v} ({percentages[i]:.1f}%)", ha='center', fontsize=12)
-
-    plt.title("Number of Found Proteins in Similar Proteins\n(where n = 10000 and Manhattan Distance Algorithm is used)")
-    plt.ylim(0, totalProteins+50)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-
-    plt.show()
-
-def compareTime(blastFile, vectorDbFiles):
-    blastInfo = []
-    with open(blastFile, 'r') as f:
-        for line in f:
-            parts = line.strip().split('\t')
-            if len(parts) > 1:
-                try:
-                    blastInfo.append(float(parts[2]))
-                except ValueError:
-                    continue
-                
-    avgBlastTime = sum(blastInfo) / len(blastInfo) if blastInfo else 0
-
-    avgSearchTimes = [0] * (len(vectorDbFiles) + 2) 
-    avgBlastTimes = [avgBlastTime] + [0] * (len(vectorDbFiles) + 1)  
-    avgEmbeddingTimes = [0] * (len(vectorDbFiles) + 2)  
-    
-    embeddingInfo = []
-    if vectorDbFiles:
-        with open(vectorDbFiles[0], 'r') as f:
-            for line in f:
-                parts = line.strip().split(',')
-                if len(parts) > 1:
-                    try:
-                        embeddingInfo.append(float(parts[1]))
-                    except ValueError:
-                        continue
-
-    avgEmbeddingTime = sum(embeddingInfo) / len(embeddingInfo) if embeddingInfo else 0
-    avgEmbeddingTimes[1] = avgEmbeddingTime 
-
-    for i, file in enumerate(vectorDbFiles):
-        searchInfo = []
-        with open(file, 'r') as f:
-            for line in f:
-                parts = line.strip().split(',')
-                if len(parts) > 2:
-                    try:
-                        searchInfo.append(float(parts[2]))
-                    except ValueError:
-                        continue
-        
-        avgSearchTime = sum(searchInfo) / len(searchInfo) if searchInfo else 0
-        avgSearchTimes[i + 2] = avgSearchTime 
-
-    numCategories = len(vectorDbFiles) + 2 
-
-    x = np.arange(numCategories)
-    barWidth = 0.25
-
-    plt.figure(figsize=(12, 6))
-    plt.bar(x, avgBlastTimes, barWidth, label='Average Blast Time', color='blue')
-    plt.bar(x, avgEmbeddingTimes, barWidth, label='Average Embedding Creation Time', color='green')
-    plt.bar(x, avgSearchTimes, barWidth, label='Average Search Time', color='orange')
-
-    plt.title('Average Time Analysis')
-    plt.xlabel('Categories')
-    plt.ylabel('Average Time (in seconds)')
-    plt.xticks(x, ['Blast Search', 'Embedding Creation', 'vectordb0\nn=10, euclidean', 'vectordb1\nn=1000, manhattan', 'vectordb2\nn=1000, angular', 'vectordb3\nn=10000, manhattan'] )
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-compareTime('blast.txt', ['vectordb0.txt', 'vectordb1.txt', 'vectordb2.txt', 'vectordb3.txt',])
 def visualizeGpuUsage(file_path):
     usage = []
 
@@ -157,3 +76,21 @@ def visualizeGpuUsage(file_path):
     plt.tight_layout()
 
     plt.show()
+
+def visualizeComparison(averageBlastTime, averageSearchTime, averageEmbTime):
+    categories = ['Average Blast Search Time', 'Average Embedding Creation Time', 'Average Search Time']
+    values = [averageBlastTime, averageSearchTime, averageEmbTime]
+
+    plt.figure(figsize=(8, 6))
+    bars = plt.bar(categories, values, color=['#2b6dad', '#51c4d3', '#2b9fad'])
+
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2.0, height + 0.05, f'{height:.3f}', ha='center', va='bottom')
+
+    plt.ylim(0, max(values) + 0.5)
+    plt.ylabel('Time (seconds)')
+    plt.title('Average Processing Times Comparison')
+
+    plt.tight_layout()
+    plt.savefig('average_times_comparison.png', dpi=300)

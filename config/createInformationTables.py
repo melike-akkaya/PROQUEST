@@ -30,8 +30,8 @@ def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile =
     cur.execute("DROP TABLE IF EXISTS protein_info")
     cur.execute("""
         CREATE TABLE protein_info (
-            protein_id TEXT,
-            protein_name TEXT PRIMARY KEY,
+            protein_id TEXT PRIMARY KEY,
+            protein_name TEXT,
             type TEXT,
             os TEXT,
             ox TEXT,
