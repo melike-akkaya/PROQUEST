@@ -96,3 +96,59 @@ def visualizeComparison(averageBlastTime, averageEmbTime, averageSearchTime):
 
     plt.tight_layout()
     plt.savefig('average_times_comparison.png', dpi=300)
+
+
+
+def evaluateTopKMatchWithBlast(vector_txt_path, blast_txt_path, max_k=10):
+    vector_results = {}
+    with open(vector_txt_path, 'r') as vf:
+        for line in vf:
+            parts = line.strip().split(',')
+            if len(parts) < 4:
+                continue
+            protein_id = parts[0].strip()
+            hits = [p.strip() for p in parts[3:]]  
+            vector_results[protein_id] = hits
+
+    blast_results = {}
+    blast_df = pd.read_csv(blast_txt_path, sep='\t')
+    for _, row in blast_df.iterrows():
+        pid = str(row['Protein ID']).strip()
+        hits = []
+        for i in range(1, 6):  # İlk 5 sonucu al
+            col = f'Similar Protein {i}'
+            if pd.notna(row[col]):
+                hits.append(str(row[col]).strip())
+        blast_results[pid] = hits
+
+    # Ortak protein ID'leri bul
+    common_ids = set(vector_results.keys()).intersection(set(blast_results.keys()))
+    print(f"Toplam ortak protein sayısı: {len(common_ids)}")
+
+    success_counts = []
+    for k in range(1, max_k + 1):
+        success = 0
+        for pid in common_ids:
+            top_k_hits = [hit for hit in vector_results[pid] if hit != pid][:k]
+            blast_top_5 = set(blast_results[pid])
+            if set(top_k_hits).intersection(blast_top_5):
+                success += 1
+        accuracy = success / len(common_ids) * 100
+        success_counts.append(accuracy)
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(range(1, max_k + 1), success_counts, marker='o', linestyle='-')
+    plt.xlabel('Top-k in Semantic Search')
+    plt.ylabel('Accuracy (%)')
+    plt.title('Cumulative Accuracy of Top-k Semantic Search with Respect to BLAST Top-5 Ground Truth')
+    plt.grid(True)
+
+    for k, acc in zip(range(1, max_k + 1), success_counts):
+        y_offset = 1 if acc < 99 else -2  # Etiketin grafiğin dışında kalmasını engellemek için
+        plt.text(k, acc + y_offset, f'{acc:.1f}%', ha='center', va='bottom' if y_offset > 0 else 'top')
+
+    plt.ylim(0, 100)
+    plt.tight_layout()
+    plt.show()
+
+##evaluateTopKMatchWithBlast('vectordb_results.txt', 'blast.txt', max_k=10)
