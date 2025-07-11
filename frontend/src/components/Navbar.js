@@ -108,8 +108,8 @@ export default function Navbar({ mode, toggleMode }) {
                         ? 'linear-gradient(90deg,rgb(92, 81, 245),rgb(96, 255, 242))'
                         : 'linear-gradient(90deg,rgb(69, 84, 245),rgb(91, 255, 219))')
                     : (theme.palette.mode === 'dark'
-                        ? 'linear-gradient(90deg,rgb(69, 143, 255),rgb(14, 212, 103))'
-                        : 'linear-gradient(90deg,rgb(0, 166, 255),rgb(4, 186, 86))'),
+                        ? 'linear-gradient(90deg,rgb(255, 176, 69),rgb(245, 96, 96))'
+                        : 'linear-gradient(90deg,rgb(255, 140, 0),rgb(245, 69, 69))'),
                 fontWeight: 700,
               },
               '& .MuiTab-root:hover': {
