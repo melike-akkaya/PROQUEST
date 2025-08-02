@@ -3,7 +3,7 @@ import torch
 import numpy as np
 from transformers import T5EncoderModel, T5Tokenizer
 
-device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:5' if torch.cuda.is_available() else 'cpu')
 print(f"[protT5Embedder] Using device: {device}")
 
 # where to cache HF weights
