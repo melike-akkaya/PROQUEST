@@ -17,7 +17,7 @@ function Hero() {
         py: { xs: 6, md: 10 },
         mb: 6,
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'visible'
       }}
     >
       <Container maxWidth="lg">
@@ -85,7 +85,16 @@ function Hero() {
             </Fade>
           </Box>
 
-          <Box flex="1" display={{ xs: 'none', md: 'block' }} position="relative" height="300px">
+          <Box
+           flex="1"
+           display={{ xs: 'none', md: 'block' }}
+           position="relative"
+           sx={{
+             height: 'auto',
+             minHeight: 280,
+             overflow: 'visible'
+           }}
+         >
             <HeroLogos />
           </Box>
         </Box>
