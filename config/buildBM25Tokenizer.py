@@ -8,7 +8,7 @@ from pinecone_text.sparse.bm25_tokenizer import BM25Tokenizer
 PERSIST_DIR   = "chroma_uniprot_nomic"        
 BM25_PATH     = "bm25_model_fromflatfiles.pkl"              
 EMBED_MODEL   = "nomic-ai/nomic-embed-text-v1"
-DB_PATH       = "backend/asset/protein_index.db"
+DB_PATH       = "backend/asset/protein_index2.db"
 
 def build_and_save_bm25(outpath = BM25_PATH):    
     conn = sqlite3.connect(DB_PATH)

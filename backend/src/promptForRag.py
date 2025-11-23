@@ -1,4 +1,5 @@
-from langchain import PromptTemplate, LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_classic.chains import LLMChain
 from src.proteinRetriverFromFlatFiles import retrieveRelatedProteins
 from src.proteinRetriverFromBM25 import retrieveRelatedProteinsFromBM25
 from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequences

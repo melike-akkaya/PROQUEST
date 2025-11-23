@@ -7,7 +7,7 @@ import pandas as pd
 
 CACHE_PATH = "asset/docs_sp.joblib"
 BM25_PATH   = "asset/bm25_model_fromflatfiles.pkl"
-DB_PATH     = "asset/protein_index.db"
+DB_PATH     = "asset/protein_index2.db"
 
 # ── module‐level cache ───────────────────────────────────────────────────────
 _bm25     = None

@@ -1,5 +1,5 @@
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_classic.chains import LLMChain
 import requests
 
 def generate_solr_query(question, llm, searchFields, queryFields, resultFields):
