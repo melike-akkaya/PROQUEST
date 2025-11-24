@@ -21,7 +21,7 @@ def removeIEAAnnotations() :
 
     print(f'Filtered data saved to {outputFile}')
 
-def createProteinGoMappingTable(dbPath = "asset/protein_index.db"):
+def createProteinGoMappingTable(dbPath = "asset/protein_index2.db"):
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
 
@@ -38,7 +38,7 @@ def createProteinGoMappingTable(dbPath = "asset/protein_index.db"):
     conn.commit()
     conn.close()
 
-def processGoaFile(dbPath = "asset/protein_index.db", goaFilePath = "goa_uniprot_updated.gpa" ):
+def processGoaFile(dbPath = "asset/protein_index2.db", goaFilePath = "goa_uniprot_updated.gpa" ):
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
 

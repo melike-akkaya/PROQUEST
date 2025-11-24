@@ -18,7 +18,7 @@ def searchSpecificEmbedding(embedding):
     
     columns = ['Protein ID', 'Similarity', 'Short Name', 'Protein Name', 'Organism', 'Taxon ID', 'Gene Name', 'pe', 'sv']
     results = pd.DataFrame(columns=columns)
-    dbPath = "asset/protein_index.db"
+    dbPath = "asset/protein_index2.db"
 
     for index_id in neighbors:
         conn = sqlite3.connect(dbPath)

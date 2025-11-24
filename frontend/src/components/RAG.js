@@ -14,68 +14,64 @@ import axios from 'axios';
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 
 const PROVIDER_MODELS = {
-  OpenAI: [
-    'gpt-4o',
-    'gpt-4o-mini',
-    'o3-mini',
-    'gpt-4.1-2025-04-14',
-    'o4-mini-2025-04-16',
-    'o3-2025-04-16',
-    'o3-mini-2025-01-31',
-    'o1-2024-12-17',
-    'o1-mini-2024-09-12',
-    'o1-pro-2025-03-19',
-    'gpt-3.5-turbo-instruct',
-    'gpt-3.5-turbo-1106',
-    'gpt-3.5-turbo',
-    'gpt-3.5-turbo-0125',
-    'gpt-4-0125-preview',
-    'gpt-4-turbo',
-    'gpt-4-turbo-preview',
-    'gpt-4-1106-preview',
-    'gpt-4-32k-0613',
-    'gpt-4-0613',
-    'gpt-3.5-turbo-16k'
+  "OpenAI": [
+      "gpt-5.1",
+      "gpt-5",
+      "gpt-5-nano",
+      "gpt-5-mini",
+      "gpt-4o",
+      "gpt-4.1",
+      "gpt-4o-mini",
+      "o4-mini",
+      "o3",
+      "o3-mini",
+      "o1",
+      "gpt-4.1-nano",
   ],
-  Google: [
-    'gemini-2.0-flash',
-    'gemini-2.5-flash',
-    'gemini-1.5-flash',
-    'gemini-2.0-flash-lite',
-    'gemini-1.5-flash',
+  "Anthropic": [
+      "claude-sonnet-4-5",
+      "claude-haiku-4-5",
+      "claude-opus-4-1",
   ],
-  Anthropic: [
-    'claude-3-7-sonnet-latest',
-    'claude-3-5-sonnet-20240620',
-    'claude-3-opus-20240229',
-    'claude-3-sonnet-20240229',
-    'claude-3-haiku-20240307',
-    'claude-3-5-sonnet-latest',
-    'claude-2.1',
-    'claude-2.0',
-    'claude-instant-1.2'
+  "Google": [
+      "gemini-2.5-pro",
+      "gemini-2.5-flash",
   ],
-  Nvidia: [
-    'meta/llama-3.1-405b-instruct',
-    'meta/llama-3.1-70b-instruct',
-    'meta/llama-3.1-8b-instruct',
-    'nv-mistralai/mistral-nemo-12b-instruct',
-    'mistralai/mixtral-8x22b-instruct-v0.1',
-    'mistralai/mistral-large-2-instruct',
-    'nvidia/nemotron-4-340b-instruct'
+  "Groq": [
+      "openai/gpt-oss-120b",
+      "llama-3.3-70b-versatile",
+      "meta-llama/llama-4-scout-17b-16e-instruct",
+      "moonshotai/kimi-k2-instruct",
+      "moonshotai/kimi-k2-instruct-0905",
+      "llama-3.1-8b-instant",
+      "groq/compound",
+      "groq/compound-mini",
+  ],
+  "OpenRouter": [
+      "deepseek/deepseek-r1-distill-llama-70b",
+      "deepseek/deepseek-r1:free",
+      "deepseek/deepseek-r1",
+      "deepseek/deepseek-chat",        
+      "qwen/qwen3-235b-a22b-2507",
+      "moonshotai/kimi-k2",
+      "x-ai/grok-4",
+      "x-ai/grok-3",        
+      "tencent/hunyuan-a13b-instruct",
   ],
   Mistral: [
     'mistral-small',
     'codestral-latest'
   ],
-  OpenRouter: [
-    'deepseek/deepseek-r1',
-    'deepseek/deepseek-r1:free',
-    'deepseek/deepseek-r1-distill-llama-70b',
-    'deepseek/deepseek-r1:nitro',
-    'deepseek/deepseek-chat'
-  ]
-};
+  Nvidia: [
+    'meta/llama-3.1-405b-instruct',
+    'meta/llama-3.1-70b-instruct',
+    'meta/llama-3.1-8b-instruct',
+    'nv-mistralai/mistral-nemo-12b-instruct',      
+    'mistralai/mixtral-8x22b-instruct-v0.1',
+    'mistralai/mistral-large-2-instruct',
+    'nvidia/nemotron-4-340b-instruct'
+  ],
+}
 
 const EXAMPLE_QUERIES = [
   "What is the catalytic activity, cofactor requirement and pathway context of human CYP2E1?",

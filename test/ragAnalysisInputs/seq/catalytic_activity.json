@@ -1,0 +1,262 @@
+[
+    {
+        "instruction": "Please evaluate the following protein sequence and provide an explanation of the enzyme's catalytic activity, including the chemical reaction it facilitates: ",
+        "input": "```\nMTRNQRTLRTAVEFSGIGIHTGETIRVRLLPAPPGTGVEFVRTDLPDAPVIPAHISYHSPKDMRTRLLHGGAVVETVEHLLAACSGLSIDNLRVELSGSELPVLDGSALPFIEFLQQAGITEQKEQAKVFKLEEPVYVREGDATLVALPRDKDGLELEYVGTFDEAQELSGSYRIELTPEIFVEEIAPARTFALASQVKALQEAGHGKGATRDNTLVVGDPDTEYRMPLEPIRHKLMDLIGDLRLLGADLTAHVIATRTGHRVNAELVRRLLDLMQAQETEGLVQRESALDIREILRMLPHRYPFLMIDRVIEVEGYNRAVAIKNVTVNEPYFQGHFPDIPLMPGVLQLESMAQLAGILLLRKLEYTGKLAVLWSIDKVKLRGAVTPGDQLRVEVETTRMKGRTAQVRGRGTVAGRLVCEATLMFTMIDA\n```",
+        "output": "Evaluation of the protein sequence indicates that the associated enzyme exhibits catalytic activity in the form of this chemical reaction: a UDP-3-O-[(3R)-3-hydroxyacyl]-N-acetyl-alpha-D-glucosamine +   H2O = a UDP-3-O-[(3R)-3-hydroxyacyl]-alpha-D-glucosamine + acetate.",
+        "metadata": {
+            "protein_accession": "A0A523PW87",
+            "num_tokens_in_input": 438,
+            "seq_len": 430,
+            "task": "catalytic_activity",
+            "annots": "a UDP-3-O-[(3R)-3-hydroxyacyl]-N-acetyl-alpha-D-glucosamine +   H2O = a UDP-3-O-[(3R)-3-hydroxyacyl]-alpha-D-glucosamine + acetate",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please evaluate the following protein sequence and provide an explanation of the enzyme's catalytic activity, including the chemical reaction it facilitates: ",
+        "input": "```\nMVTRDETAEAEGLRPAVGSSRVRTYQVRTYGCQMNVHDSERLSGLLESAGYQRAAEGTDADIVVFNTCAVRENADNKLYGNLSHLAPRKQADPNMQIAVGGCLAQKDRDAVLRRAPWVDVVFGTHNIGSLPTLLERARHNREAQVEIVEALQEFPSALPASRESAYAAWVSISVGCNNTCTFCIVPSLRGKEVDRRPGDILAEVQSLVDQGVLEITLLGQNVNAYGVSFADPELPRDRGAFAKLLRACGGIDGLERVRFTSPHPAEFTDDVIEAMAATPNVCPTLHMPLQSGSDRILKAMRRSYRAERFLGIIDKVRAAIPHAAITTDLIVGFPGETEEDFQATLDVVEQARFAGAFTFQYSKRPGTPAADMPDQLPKSVVTERYQRLIELQERISLEQNREQVGRAVELLVATGEGRKDASTARMSGRARDGRLVHFLPGDNEIRPGDIVTTTVTGAAPHHLIADAPIIERRRTRAGDAHAAGQKPRTGVGLGMPRIGAPAPSATAEGCGC\n```",
+        "output": "Upon reviewing the provided protein sequence, the corresponding enzyme's catalytic activity is identified as the following chemical reaction: [sulfur carrier]-SH + AH2 + N(6)-dimethylallyladenosine(37) in   tRNA + 2 S-adenosyl-L-methionine = 2-methylsulfanyl-N(6)-   dimethylallyladenosine(37) in tRNA + 5'-deoxyadenosine + [sulfur   carrier]-H + A + 2 H(+) + L-methionine + S-adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0QVX5",
+            "num_tokens_in_input": 520,
+            "seq_len": 512,
+            "task": "catalytic_activity",
+            "annots": "[sulfur carrier]-SH + AH2 + N(6)-dimethylallyladenosine(37) in   tRNA + 2 S-adenosyl-L-methionine = 2-methylsulfanyl-N(6)-   dimethylallyladenosine(37) in tRNA + 5'-deoxyadenosine + [sulfur   carrier]-H + A + 2 H(+) + L-methionine + S-adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please evaluate the following protein sequence and provide an explanation of the enzyme's catalytic activity, including the chemical reaction it facilitates: ",
+        "input": "```\nMTQTLSQLEHDGAFIERHIGPSVSQQQHMLSVVGATSLDALIRQIVPQDIQLPSPPAVGEAATEHEALSELKAIAGRNQRYKSYIGMGYSAVLMPPVILRNVLENPGWYTAYTPYQPEVSQGRLEALLNFQQVTQDLTGLDLASASLLDEATAAAEAMAMAKRISKLKQAERFFVADDVHPQTLDVVRTRAETFGFEIVVGKAEDALKDDAVFGVLLQQVGTTGELHDYSDLMAALKARKVVSCVASDIMALVLLTAPGKQGADIVFGSAQRFGVPMGYGGPHAAFFACRDEHKRAMPGRIIGVSRDAAGNTALRMAMQTREQHIRREKANSNICTSQVLLANIAGMYAVFHGPEGLKRIAGRIHRLTDILAAGLTQGGLLLRHRSWFDTLTIEVADKDAVLSRALSFGINLRSDLASAVGITLDEATTREDVLALFAVLLGDDHGLDIGALDAAISQQAATIPAGLLRQDAILSHPVFNRYHSETEMMRYLHRLARKDLALNQAMIPLGSCTMKLNAAAEMLPITWPEFAELHPFCPPEQALGYRQMIEQLSGWLVQLTGYDAICMQPNSGAQGEYAGLLAIRRYHESRNEAGRHLCLIPSSAHGTNPASAQMAGMDVVVVACDKQGNIDLHDLREKAQAAGEQLSCIMVTYPSTHGVYEETIREVCQIVHQYGGQVYLDGANMNAQVGITTPGYIGADVSHLNLHKTFCIPHGGGGPGMGPIGVKAHLAPFVPGHQVVKIDGVLTEQGAVSAAPFGSASILPISWM\n```",
+        "output": "Evaluation of the protein sequence indicates that the associated enzyme exhibits catalytic activity in the form of this chemical reaction: (R)-N(6)-lipoyl-L-lysyl-[glycine-cleavage complex H protein] +   glycine + H(+) = (R)-N(6)-(S(8)-aminomethyldihydrolipoyl)-L-lysyl-   [glycine-cleavage complex H protein] + CO2.",
+        "metadata": {
+            "protein_accession": "C6D8X1",
+            "num_tokens_in_input": 776,
+            "seq_len": 956,
+            "task": "catalytic_activity",
+            "annots": "(R)-N(6)-lipoyl-L-lysyl-[glycine-cleavage complex H protein] +   glycine + H(+) = (R)-N(6)-(S(8)-aminomethyldihydrolipoyl)-L-lysyl-   [glycine-cleavage complex H protein] + CO2",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the provided protein sequence and determine the catalytic activity of the enzyme it represents, focusing on the chemical reaction it promotes: ",
+        "input": "```\nMSQRSCLSVILAAGEGTRMKSALPKVLHQIAGLPMVAHVVKAADAAGASSDAIVIGHGAEEMRKAVTKFSPKAETFVQEERLGTAHAVLAAREAISRGYDDILVMFGDTPLIDAEALNLARLKLAEGAAVAVIGFRPPLPNGYGRLVEKGGKLIAIREEKDCSEAEKKIGFCNAGMMAVAGAHALKLLDAVGNKNAKGEYYLTDIVEIAGAQGLDVVATEASFENALGINNRAELAQAEGIWQARRRQEAMLSGVTLIAPETVYFSHDTEIGADTVVEPNVWFGPGVKIAGGAKIHAFSHIEGATIAANCDVGPFARLRPGADLRNKAKVGNFCEVKQAVIEEGAKVNHLTYIGDARVGAGANIGAGTITCNYDGFSKFFTDIGEGAFVGSNSSLVAPVSIGKGGYIASGSVITESVPDDALAFGRARQKTIPGKGKELRERFASAAAAKKKAAGADH\n```",
+        "output": "Upon reviewing the provided protein sequence, the corresponding enzyme's catalytic activity is identified as the following chemical reaction: H(+) + N-acetyl-alpha-D-glucosamine 1-phosphate + UTP =   diphosphate + UDP-N-acetyl-alpha-D-glucosamine.",
+        "metadata": {
+            "protein_accession": "Q98LX2",
+            "num_tokens_in_input": 466,
+            "seq_len": 458,
+            "task": "catalytic_activity",
+            "annots": "H(+) + N-acetyl-alpha-D-glucosamine 1-phosphate + UTP =   diphosphate + UDP-N-acetyl-alpha-D-glucosamine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the provided protein sequence and determine the catalytic activity of the enzyme it represents, focusing on the chemical reaction it promotes: ",
+        "input": "```\nMAAAKKEDGGSEGPNRDRGGASAAFECNICLETAREAVVSMCGHLYCWPCLHQWLETRPERQECPVCKAGISREKVVPLYGRGSQKQQDPRLKTPPRPQGQRPAPESRGGFQTYGDAGGFHLSFGVGAFPFGFFTTVFSAHEPFYRGPGVDLGPGRPGSGWQDSLFLLLAIFFFFWLLSV\n```",
+        "output": "An analysis of the protein sequence reveals that the enzyme's catalytic function corresponds to the chemical reaction: S-ubiquitinyl-[E2 ubiquitin-conjugating enzyme]-L-cysteine +   [acceptor protein]-L-lysine = [E2 ubiquitin-conjugating enzyme]-L-   cysteine + N(6)-ubiquitinyl-[acceptor protein]-L-lysine..",
+        "metadata": {
+            "protein_accession": "F7GGI4",
+            "num_tokens_in_input": 188,
+            "seq_len": 180,
+            "task": "catalytic_activity",
+            "annots": "S-ubiquitinyl-[E2 ubiquitin-conjugating enzyme]-L-cysteine +   [acceptor protein]-L-lysine = [E2 ubiquitin-conjugating enzyme]-L-   cysteine + N(6)-ubiquitinyl-[acceptor protein]-L-lysine.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the provided protein sequence and determine the catalytic activity of the enzyme it represents, focusing on the chemical reaction it promotes: ",
+        "input": "```\nMTKQNLKGLLLPQLEQVVVSLGEPKYRAGQIYQWLYKYRVSSFDEMTNLPQPLREKLHEVAFIEQFQLVTYQTSQRDGTKKFLFELSDGKRIETVLIPPRQSAVDFEDRLTLCVSSQVGCALDCKFCATASMGFLRNLTVSEILNQFLTAQQFSEKPITNIVFMGMGEPMLNYDNVMSAIDIFTDPNGFGIGPRRITISTAGYANFIRRMADENRKPKLALSLHSMRDDVRVELMPINKKYNVEELISALEYYKHKTRKGVMLEYIVFEGVNDSDVDVRLLTKAFRRLDCRINLIPFHSIEFTNPQGLSATLRGASQTGIEEFWKALRKNGVTAFIRHSAGVDIDAACGQLAVKEEVMNL\n```",
+        "output": "Based on the provided protein sequence, the enzyme appears to facilitate the chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A7V1TTA1",
+            "num_tokens_in_input": 368,
+            "seq_len": 360,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given the protein sequence below, please analyze and describe the catalytic activity of the corresponding enzyme, specifically the chemical reaction it catalyzes: ",
+        "input": "```\nMTTPSAPITQDVLTIPRKLPEGGKVNLVGLTREQLREALIAAGTPEKQAKMRVGQIWQWIYHWGVRDFAQMTNLAKDYRALLDEKFEIELPEVVTRQVSLDGTRKYLLRIAGGHEVEMVYIPEESRGTLCISSQVGCTLTCTFCHTGTQKLVRNLTAGEIVGQVLVARDDLGEWPEQGVPKNDVRLVSNVVLMGMGEPLYNFDNVRDAMSVVMDGEGISLSRRRITLSTSGVVPEIARAAEEIGCLLAVSFHATTDEVRDKLVPINKRWNIETLLNTLREYPRLSNSERITFEYVMLKDVNDSDDDARRLVRLIRGIPAKINLIPFNEWPGAPYQRSDWERIEAFADIIYKAGYASPIRTPRGEDIMAACGQLKSATERARKSKAQIAAEAGL\n```",
+        "output": "By examining the input protein sequence, the enzyme catalyzes the subsequent chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A3S3PG87",
+            "num_tokens_in_input": 401,
+            "seq_len": 393,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given the protein sequence below, please analyze and describe the catalytic activity of the corresponding enzyme, specifically the chemical reaction it catalyzes: ",
+        "input": "```\nMDKGTSFFTTPSFSATTRAIFNTMPQWFSFAVGLLIAYPLLINSLRYRRLKQLQKKFYFPTRESMAKMTDEEAFQIQKETAQLEFPFMFVKAGQFALFRTYGIPTISHLLIKTGQFSKPETSFKRYTDTAALIGEMVENSPTSQRAFLSVARTRFLHSGYQASGKILDTDLLYTLALFAVQPVNFIAAFEWRPLSDLERCAIGTFWKSLGDALGISSDILPSGKTGFRDGIHWLEEVDTWSQEYEVKYMVPDAQNRESADQATAVLLYNLPKVFHPVGLQFTSFMMDDRLRKAMLYVE\n```",
+        "output": "By examining the input protein sequence, the enzyme catalyzes the subsequent chemical reaction: 4-farnesyl-3,5-dihydroxy-6-methylphthalide + AH2 + 2 O2 =   (4E,8E)-10-(4,6-dihydroxy-7-methyl-3-oxo-1,3-dihydro-2-benzofuran-5-   yl)-4,8-dimethyldeca-4,8-dienoate + A + acetone + H(+) + H2O.",
+        "metadata": {
+            "protein_accession": "W6R4H8",
+            "num_tokens_in_input": 306,
+            "seq_len": 298,
+            "task": "catalytic_activity",
+            "annots": "4-farnesyl-3,5-dihydroxy-6-methylphthalide + AH2 + 2 O2 =   (4E,8E)-10-(4,6-dihydroxy-7-methyl-3-oxo-1,3-dihydro-2-benzofuran-5-   yl)-4,8-dimethyldeca-4,8-dienoate + A + acetone + H(+) + H2O",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given the protein sequence below, please analyze and describe the catalytic activity of the corresponding enzyme, specifically the chemical reaction it catalyzes: ",
+        "input": "```\nMTASTGKVNLLGLTQPQLESFFETIGEKRFRAGQVMKWIHHFGVEDFDAMSNIGKALREKLKASAEIRGPEVVSQDISSDGTRKWVVRVASGSCVETVYIPQGGRGTLCVSSQAGCALDCSFCSTGKQGFNSDLTAAEIIGQVWIANKSFGTVPAKIDRAITNVVMMGMGEPLLNFDNVVSAMTIMMDDLGYGISKRKVTLSTSGVAPMIDKLAEVTDVSLALSLHAPNDELRNELVPINKKYPLAVVLDACNRYISRLGEKRFLTIEYTLLKDVNDQPVHAEQMIALLKDFPCKINLIPFNPFPFSGYERPSNNAIRRFQDLLHKAGHNVTVRTTRGDDIDAACGQLVGQVMDRTRRSQRYIALRQLDNDADAGLNAANRN\n```",
+        "output": "Based on the provided protein sequence, the enzyme appears to facilitate the chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A1E4WTD0",
+            "num_tokens_in_input": 390,
+            "seq_len": 382,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given the protein sequence below, please analyze and describe the catalytic activity of the corresponding enzyme, specifically the chemical reaction it catalyzes: ",
+        "input": "```\nMKGVAKGIPSISDVDSHALVAWLRAHAEPAYRAKQIRRHAMHGAASEFEELSDLPKTLREKLAASFRWSAVELEREEASADGETRKALLRLADGHHIESVLMPHHGARNAVCVSTQAGCPMACAFCATGEMGLVRNLTAGEIVDQVRYWQRELAPRGERVSHVVYMGMGEPLNNYDASLSAARTLIDPNGFGISPRRVTISTCGVVPKIDELAQEGLPINLAVSLHAPDDRTRTAIMPINRKWGVEEVLAASARYVKRTKRRVTFEYVMLAGVNDSDAAARELAEKIGRHGRKADAHLNLIPYNPGPGGFRRPSAERMERFAKVLQDAGIAATLRISKGQDIAAGCGQLKVSEGKAAATT\n```",
+        "output": "Based on the provided protein sequence, the enzyme appears to facilitate the chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A536S8T0",
+            "num_tokens_in_input": 368,
+            "seq_len": 360,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following protein sequence and elucidate the catalytic activity of the corresponding enzyme, particularly the chemical reaction it aids in catalyzing: ",
+        "input": "```\nMNLKDVLRGIDYKIIKGKNNLNIGEIQYDSRKVKTGDLFVCIAGYVTDGHKYIESAFKNGAAAIVLSKKVDFIPDCTVIEVKDTRKALALMSSNYYDNPAEDMKIIGITGTNGKTTSTFMVKSILETAGYKVGVVGTISNYIGNKKIPSHRTTPESLELQKLFKEMVDDGVDYCVMEASSHSLYLDRVYGVEFCQALFTNLTRDHLDFHKTFEEYYKSKIILFKNTVNSVINIDDKYGERVYEDAKGKKLTYAIDKNADLMADNLKIHSRGVNFNISYEGNTKHINLNIPGKYNVMNALGSAGVCLAEGIDLNTVKKGLEDMPSVPGRCEIVTKSYNLGYEVVVDYAHTPDGLENILKCAREFTKGKLISVFGCGGDRDSTKRPIMGNIGTKFSDFAVVTSDNPRGEEPMAIIKDILTGIKKNNYIVIENRKEAIKKAMEMAETGDVVVIAGKGHEDYQILKDRTIHFDEREIVAEIIEESTVNN\n```",
+        "output": "An analysis of the protein sequence reveals that the enzyme's catalytic function corresponds to the chemical reaction: ATP + meso-2,6-diaminoheptanedioate + UDP-N-acetyl-alpha-D-   muramoyl-L-alanyl-D-glutamate = ADP + H(+) + phosphate + UDP-N-   acetyl-alpha-D-muramoyl-L-alanyl-gamma-D-glutamyl-meso-2,6-   diaminoheptanedioate.",
+        "metadata": {
+            "protein_accession": "B9E0V8",
+            "num_tokens_in_input": 493,
+            "seq_len": 485,
+            "task": "catalytic_activity",
+            "annots": "ATP + meso-2,6-diaminoheptanedioate + UDP-N-acetyl-alpha-D-   muramoyl-L-alanyl-D-glutamate = ADP + H(+) + phosphate + UDP-N-   acetyl-alpha-D-muramoyl-L-alanyl-gamma-D-glutamyl-meso-2,6-   diaminoheptanedioate",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following protein sequence and elucidate the catalytic activity of the corresponding enzyme, particularly the chemical reaction it aids in catalyzing: ",
+        "input": "```\nMLMITSFANPRVAQAFVDYMATQGVILTIQQHNQSDVWLADESQAERVRAELARFLENPADPRYLAASWQAGHTGSGLHYRRYPFFAALRERAGPVTWVMMIACVVVFIAMQILGDQEVMLWLAWPFDPTLKFEFWRYFTHALMHFSLMHILFNLLWWWYLGGAVEKRLGSGKLIVITLISALLSGYVQQKFSGPWFGGLSGVVYALMGYVWLRGERDPQSGIYLQRGLIIFALIWIVAGWFDLFGMSMANGAHIAGLAVGLAMAFVDSLNARKRK\n```",
+        "output": "By examining the input protein sequence, the enzyme catalyzes the subsequent chemical reaction: Cleaves type-1 transmembrane domains using a catalytic dyad   composed of serine and histidine that are contributed by different   transmembrane domains..",
+        "metadata": {
+            "protein_accession": "P09391",
+            "num_tokens_in_input": 284,
+            "seq_len": 276,
+            "task": "catalytic_activity",
+            "annots": "Cleaves type-1 transmembrane domains using a catalytic dyad   composed of serine and histidine that are contributed by different   transmembrane domains.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following protein sequence and elucidate the catalytic activity of the corresponding enzyme, particularly the chemical reaction it aids in catalyzing: ",
+        "input": "```\nMAANIMKVIVSGNKRRYQEDGFDLDLTYIYPNIIAMGFPAERLEGVYRNNIDDVVRFLDSKHKNHYKIYNLCAERHYDTSKFNCRVAQYPFEDHNPPQLELIKPFCEDLDQWLSEDEQHVAAIHCKAGKGRTGVMICAYLLHRGKFQEALEALDFYGVVRTHDKKGVTIPSQRRYVIYYNYLLRNRLQYKPVALLFHKMMFETIPMFTGGTCNPQFVVYQLKVKIHTSNTANTRREDKLMYFRFPQPLPVCGDIKVEFFHKQNKMMKKEKMFHFWINTFFIPGPEETLDKLENGSAGTLRELSDKSHQNSAMVAGSETNDKDFLILTLNKNDLDKANKDKANKNFSPNFKVKLFFTKTVEEGANCDTSSTSASVTPDVSDNEPDHYRYSDTTDSDPENEPSEEDRHNQITKV\n```",
+        "output": "Evaluation of the protein sequence indicates that the associated enzyme exhibits catalytic activity in the form of this chemical reaction: a 1,2-diacyl-sn-glycero-3-phospho-(1D-myo-inositol-3,4,5-   trisphosphate) + H2O = a 1,2-diacyl-sn-glycero-3-phospho-(1D-myo-   inositol-4,5-bisphosphate) + phosphate.",
+        "metadata": {
+            "protein_accession": "A0A1A8G562",
+            "num_tokens_in_input": 420,
+            "seq_len": 412,
+            "task": "catalytic_activity",
+            "annots": "a 1,2-diacyl-sn-glycero-3-phospho-(1D-myo-inositol-3,4,5-   trisphosphate) + H2O = a 1,2-diacyl-sn-glycero-3-phospho-(1D-myo-   inositol-4,5-bisphosphate) + phosphate",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following protein sequence and elucidate the catalytic activity of the corresponding enzyme, particularly the chemical reaction it aids in catalyzing: ",
+        "input": "```\nMNKLISILVPCYQSQPFLDRFFKSLLKQDWNGVKVIFFNDNKPDPTYEILKQFQQAHPQLAIEVHCGEKNVGVGGSRDQLINYVDTPYFYFVDPDDEFSDPNCFKAIVETIQGENFDIAVLNSIVYLQMLKNDFLIKHIPLKNIFQGKVKLNPDNTVNHLHYIQNNDQYIWNIVINTAFFKALDLQFVNRFIEDIAVWFPIMFKAQKVLWIDVNGVNYYLRPNSASTQKNSIKLLSFIEAYERLYFHLKKVGKLADFIDPNNKIESRFWRRQAFIWFSFINVSWMKAEFEQTKSVLQKLFDFMEANGIYDRVFTNKHHGIYLLWVNRLKHFKKLVQAQPHL\n```",
+        "output": "Based on the provided protein sequence, the enzyme appears to facilitate the chemical reaction: a 1,2-diacyl-3-O-(beta-D-galactosyl)-sn-glycerol + UDP-alpha-   D-galactose = a 1,2-diacyl-3-O-[beta-D-galactosyl-(1->6)-beta-D-   galactosyl]-sn-glycerol + H(+) + UDP.",
+        "metadata": {
+            "protein_accession": "P75302",
+            "num_tokens_in_input": 349,
+            "seq_len": 341,
+            "task": "catalytic_activity",
+            "annots": "a 1,2-diacyl-3-O-(beta-D-galactosyl)-sn-glycerol + UDP-alpha-   D-galactose = a 1,2-diacyl-3-O-[beta-D-galactosyl-(1->6)-beta-D-   galactosyl]-sn-glycerol + H(+) + UDP",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Using the protein sequence supplied, identify and describe the enzymatic catalytic activity, with emphasis on the chemical reaction it accelerates: ",
+        "input": "```\nMTKQNLLGMSREEIAAFCVALGEKPYRARQLFQWIYGRSAAHFAEMTNLALALRARLAEVAELAPLELVQRKISRNGDTEKLLFRLPDGLQVESVMMAEEGRHTLCLSSQVGCPIDCAFCATGKMGLLRNLTAGEIINQLLTAQRVCGRKVTNVVLMGMGEPLNNYEAVIKACQLMADAEGPNLGQRHIVISTSGLIPKIRQFAAEGHKYRLAISLNATTDEVRDRLMPLNRKYPIADLLAAARDYTRQAKQRVTFEYVLLAGVNDSVQEADRLKKLVAGIPCKINLIPYNAVDENFQRPSAERIEAFYRRLQNLPAPVTLRWSKGDDIDAACGQLWTKAERSVRGRVAV\n```",
+        "output": "An analysis of the protein sequence reveals that the enzyme's catalytic function corresponds to the chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A7Y5FHV2",
+            "num_tokens_in_input": 358,
+            "seq_len": 350,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Using the protein sequence supplied, identify and describe the enzymatic catalytic activity, with emphasis on the chemical reaction it accelerates: ",
+        "input": "```\nMQNSIYGLTQAQLQDWMAANDQKKYRAAQVWEWLYQHRVTSFAEMKNLPDALIAQLNDSFTFSPLTVVQKLTATDKTTKWLFRMADGLLIETVLMYMDYGLSVCVTTQSGCNIGCTFCASGLIRKQRDLTAGEIVAQIMQVQHYLDAAGEGERVSHVVVMGIGEPFDNFTNVINFIHIINDQHGLDIGARHITVSTSGLANKIREFADLHLQVNLAISLHAPNNDLRSSIMRINRAWPLEKLFAAIDYYTTTTNRRITFEYIMLNDVNDHPKEAHELVELLTPFKKLAFVNLIPYNTVVEHPQYSRSTPENIAKFHDIVYRGGINCVVRKEHGGDIDAACGQLRSNMLHKKNSIGVRLPENAQAAQ\n```",
+        "output": "By examining the input protein sequence, the enzyme catalyzes the subsequent chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A0R1XIU9",
+            "num_tokens_in_input": 374,
+            "seq_len": 366,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Using the protein sequence supplied, identify and describe the enzymatic catalytic activity, with emphasis on the chemical reaction it accelerates: ",
+        "input": "```\nMRGGLWQLGQSITRRLAQADKKTIGRRCFASDADLKKTVLYDFHVVNGGKMVPFAGWSMPIQYKDSIMDSTVNCRENGSLFDVSHMCGLSLKGKDTIPFLEKLVIADVAGLAPGTGSLTVFTNEKGGAIDDSVVTKVTNDHIYLVVNAGCRDKDLAHIEEHMKSFKSKGGDVSWHIHDERSLLALQGPLAAPVLQYLTKDDLSKMYFGEFRVLDINGAPCFLTRTGYTGEDGFEISVPSENALDLAKALLEKSEGKIRLTGLGARDSLRLEAGLCLYGNDMEQHTTPVEAGLTWAIGKRRRAEGGFLGAEVILKQIEEGPKIRRVGFFSSGPPPRSHSEIQDSNGQNIGEITSGGFSPCLKKNIAMGYVKTGNHKAGTNVKIVIRGKSYDGVVTKMPFVPTKYYKP\n```",
+        "output": "Upon reviewing the provided protein sequence, the corresponding enzyme's catalytic activity is identified as the following chemical reaction: (6S)-5,6,7,8-tetrahydrofolate + (R)-N(6)-(S(8)-   aminomethyldihydrolipoyl)-L-lysyl-[protein] = (6R)-5,10-methylene-   5,6,7,8-tetrahydrofolate + (R)-N(6)-dihydrolipoyl-L-lysyl-[protein] +   NH4(+).",
+        "metadata": {
+            "protein_accession": "P54260",
+            "num_tokens_in_input": 414,
+            "seq_len": 406,
+            "task": "catalytic_activity",
+            "annots": "(6S)-5,6,7,8-tetrahydrofolate + (R)-N(6)-(S(8)-   aminomethyldihydrolipoyl)-L-lysyl-[protein] = (6R)-5,10-methylene-   5,6,7,8-tetrahydrofolate + (R)-N(6)-dihydrolipoyl-L-lysyl-[protein] +   NH4(+)",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Using the protein sequence supplied, identify and describe the enzymatic catalytic activity, with emphasis on the chemical reaction it accelerates: ",
+        "input": "```\nMRTATIKRQTKETQIEVSLNLDQQSGIQIDTGVGYFDHMLNLLAKHGRFGLVVKATGDLEVDAHHTVEDTGIVLGETLKEALGDKVQIERYGDAMVPMDETLAQVVVDLSGRSYLVFDAELTNPRLGSFETEVTEDFFQALAFAAEMNLHARVLYGRNTHHKIEALFKATGRALRQAVTINPAIEGVNSTKGVI\n```",
+        "output": "Based on the provided protein sequence, the enzyme appears to facilitate the chemical reaction: D-erythro-1-(imidazol-4-yl)glycerol 3-phosphate = 3-(imidazol-   4-yl)-2-oxopropyl phosphate + H2O.",
+        "metadata": {
+            "protein_accession": "B2GBR2",
+            "num_tokens_in_input": 202,
+            "seq_len": 194,
+            "task": "catalytic_activity",
+            "annots": "D-erythro-1-(imidazol-4-yl)glycerol 3-phosphate = 3-(imidazol-   4-yl)-2-oxopropyl phosphate + H2O",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Using the protein sequence supplied, identify and describe the enzymatic catalytic activity, with emphasis on the chemical reaction it accelerates: ",
+        "input": "```\nMIATQPNLLDFSSTSLTALMQAWGEPAFRATQLIQWLYQKGVTDIDQMSNISKVFREKLKSDACIQRLEVMFDQIARDGTRKWLFRLYDGNAIETVFIPEKTRGTLCVSSQVGCALNCSFCSTGKEGFNRNLSLAEIIGQVVMAKSLLNPDEKITNVVMMGMGEPLLNYQPVIDAMDLMMDDHAFGLSKYRVTLSTSGVVPQMLQLKNDSPVSLAVSLHAPTNSLREQLVPLNKKYPLEVLIPVCRDYFPKDSKRCIVFEYVMLKGMNDSLTHAKQLIRLLDNMPCKVNLIPFNPFPGTNYICSNWETIVAFQDRLGKAGIKTWIRKTRGEDIDGACGQLAGDFDDRTGRRARMGGKNSKKI\n```",
+        "output": "By examining the input protein sequence, the enzyme catalyzes the subsequent chemical reaction: adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine.",
+        "metadata": {
+            "protein_accession": "A0A1G0HMJ3",
+            "num_tokens_in_input": 370,
+            "seq_len": 362,
+            "task": "catalytic_activity",
+            "annots": "adenosine(37) in tRNA + 2 reduced [2Fe-2S]-[ferredoxin] + 2 S-   adenosyl-L-methionine = 2-methyladenosine(37) in tRNA + 5'-   deoxyadenosine + L-methionine + 2 oxidized [2Fe-2S]-[ferredoxin] + S-   adenosyl-L-homocysteine",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the provided protein sequence and determine the catalytic activity of the enzyme it represents, focusing on the chemical reaction it promotes: ",
+        "input": "```\nMYSLHNQRINPNTFAQLIDKLGLLLTNHALVIDSRKLHLGDIFCAYPGTATDGRKFISSAIQAGAQAILYEPEITSEPSVINFPVTNLMHYVGLLAAHQANYPSQDMLNIAITGTNGKTSISHWLNQAYTCLAQTSAIIGTTGAGIYPAVSDYASTTPDPITLQHLLNQFKRAQVDVLAMEVSSHALDQGRINGVSFSTAVFTNLTQDHLDYHHTMQEYFAAKAELFYWQGLAHGVINADDEYGQQLIAMLQTENPRLNLLSYGIEQGDLRASDIQLSTQGIKFTLHYKQQEQLIHAKIIGRFNVYNLLAVFGVLLANGIAWDELGLIAGQLKPVIGRMDATIQADKPLVVVDYSHTPDALEKALSTLGEISQQAKLICVFGCGGNRDTGKRPLMGQIATELADHVIITTDNPRHEEPAAIIQDILTGVKRSNYQVIIDRKQALIEALNQATAGDVVLVAGKGHESYQEIKGVKHHFSDLELVAELLNEKV\n```",
+        "output": "Upon reviewing the provided protein sequence, the corresponding enzyme's catalytic activity is identified as the following chemical reaction: ATP + meso-2,6-diaminoheptanedioate + UDP-N-acetyl-alpha-D-   muramoyl-L-alanyl-D-glutamate = ADP + H(+) + phosphate + UDP-N-   acetyl-alpha-D-muramoyl-L-alanyl-gamma-D-glutamyl-meso-2,6-   diaminoheptanedioate.",
+        "metadata": {
+            "protein_accession": "A0A3D5YPQ0",
+            "num_tokens_in_input": 499,
+            "seq_len": 491,
+            "task": "catalytic_activity",
+            "annots": "ATP + meso-2,6-diaminoheptanedioate + UDP-N-acetyl-alpha-D-   muramoyl-L-alanyl-D-glutamate = ADP + H(+) + phosphate + UDP-N-   acetyl-alpha-D-muramoyl-L-alanyl-gamma-D-glutamyl-meso-2,6-   diaminoheptanedioate",
+            "split": "train"
+        }
+    }
+]

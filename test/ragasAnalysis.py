@@ -9,7 +9,7 @@ import re
 
 os.environ["OPENAI_API_KEY"] = ""
 
-conn = sqlite3.connect("backend/asset/protein_index.db")
+conn = sqlite3.connect("backend/asset/protein_index2.db")
 
 def process_content(content):
     cleaned_content = re.sub(r'^[A-Z]{2}\s+-\S+\t', '', content, flags=re.MULTILINE)

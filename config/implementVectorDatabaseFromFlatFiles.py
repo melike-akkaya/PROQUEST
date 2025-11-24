@@ -15,7 +15,7 @@ device           = "cuda:3" if torch.cuda.is_available() else "cpu"
 chunkTokens      = 4096
 overlapTokens    = 512
 modelMaxTokens   = 8192
-sqlitePath       = "backend/asset/protein_index.db"
+sqlitePath       = "backend/asset/protein_index2.db"
 tableName        = "flat_files"
 
 # ───────────────────────────────────────────────

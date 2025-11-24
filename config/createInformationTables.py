@@ -1,7 +1,7 @@
 import re
 import sqlite3
 
-def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile = "asset/uniprot_sprot.fasta"):
+def createProteinInformationTable(dbFile = "asset/protein_index2.db", fastaFile = "asset/uniprot_sprot.fasta"):
     # regular expression pattern explanation:
     #   - ^>sp\| : Ensures the header starts with ">sp|"
     #   - (?P<protein_id>[^|]+) : Captures protein_id (everything until the next '|')
@@ -71,7 +71,7 @@ def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile =
 #createProteinInformationTable()
 
 def process_obo_file():
-    db_path = "asset/protein_index.db"
+    db_path = "asset/protein_index2.db"
     obo_file_path = "asset/go-basic.obo"
 
     conn = sqlite3.connect(db_path)
@@ -198,7 +198,7 @@ def createFlatFileMappingTable(dbPath):
     conn.commit()
     conn.close()
 
-def createVirtualFlatFileTable(dbPath="asset/protein_index.db"):
+def createVirtualFlatFileTable(dbPath="asset/protein_index2.db"):
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
 

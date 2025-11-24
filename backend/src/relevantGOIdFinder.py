@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 from scipy.stats import hypergeom
 
-def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index.db'):
+def findRelatedGoIds(genesOfInterest, dbPath='asset/protein_index2.db'):
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
 

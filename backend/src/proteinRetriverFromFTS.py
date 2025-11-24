@@ -27,7 +27,7 @@ def sanitize_fts_term(term: str) -> str:
     sanitized = term.replace("-", " ").replace("_", " ")
     return sanitized
 
-def retrieveRelatedProteinsFTS(query, top_k=10, db_path="asset/protein_index.db"):
+def retrieveRelatedProteinsFTS(query, top_k=10, db_path="asset/protein_index2.db"):
     stopwords = {'what', 'which', 'who', 'are', 'is', 'the', 'of', 'in', 'on', 'to', 'there', 'those', 'this', 'these',
                  'and', 'information', 'a', 'an', 'do', 'does', 'can', 'could', 'should', 'would', 'please', 'just',
                  'only', 'also', 'even', 'still', 'yet', 'already', 'however', 'how', 'when', 'where', 'why', 'at', 

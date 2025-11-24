@@ -25,7 +25,7 @@ def load_vectorstore(chroma_dir = "asset/chroma_uniprot_nomic") -> Chroma:
         )
     return _vectordb
 
-def retrieveRelatedProteins(query, top_k, db_path = "asset/protein_index.db"):
+def retrieveRelatedProteins(query, top_k, db_path = "asset/protein_index2.db"):
     # get or create the shared vectorstore
     global _vectordb
     

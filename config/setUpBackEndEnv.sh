@@ -37,7 +37,8 @@ pip install requests \
     einops \
     chromadb \
     sentencepiece \
-    pinecone_text
+    pinecone_text \
+    langchain_groq
 
 echo ">>> Installing PyTorch + torchvision..."
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126

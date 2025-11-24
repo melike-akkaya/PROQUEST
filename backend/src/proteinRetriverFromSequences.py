@@ -3,7 +3,7 @@ import sqlite3
 from annoy import AnnoyIndex
 from src.prott5Embedder import getEmbeddings
 
-def searchSpecificEmbedding(embedding, topK, annoydb="asset/protein_embeddings_2.ann", db_path="asset/protein_index.db", embeddingDimension=1024):
+def searchSpecificEmbedding(embedding, topK, annoydb="asset/protein_embeddings_2.ann", db_path="asset/protein_index2.db", embeddingDimension=1024):
     """
     Given a query embedding, return a DataFrame of the topK nearest
     proteins (by angular distance) from the Annoy index plus info
@@ -77,7 +77,7 @@ def searchSpecificEmbedding(embedding, topK, annoydb="asset/protein_embeddings_2
     return result_df
 
 
-def retrieveRelatedProteinsFromSequences(sequence, topK, db_path="asset/protein_index.db"):
+def retrieveRelatedProteinsFromSequences(sequence, topK, db_path="asset/protein_index2.db"):
     """
     Embed a query sequence, fetch the topK most similar proteins
     via searchSpecificEmbedding, then pull their full content.-

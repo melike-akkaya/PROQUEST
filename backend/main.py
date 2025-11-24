@@ -3,41 +3,131 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging, io, time, sqlite3
 from datetime import datetime
+from typing import List
+
+import os
+import pandas as pd
+from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import GoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
+from langchain_groq import ChatGroq
+
 from src.prompt import query_uniprot, generate_solr_query
 from src.promptForRag import answerWithProteins
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
 from src.prott5Embedder import load_t5, getEmbeddings
 from src.proteinRetriverFromFlatFiles import load_vectorstore
-from src.proteinRetriverFromBM25 import (bm25_initialize)
-from typing import List
-import pandas as pd
-from fastapi.responses import JSONResponse
-from dotenv import load_dotenv
-import os
+from src.proteinRetriverFromBM25 import bm25_initialize
 
+from configModels import get_provider_for_model_name
 
 load_dotenv()
-
-
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
 
-sqliteDb = "asset/protein_index.db"
+sqliteDb = "asset/protein_index2.db"
 
-# set up in‑memory log capture
+# set up in-memory log capture
 log_stream = io.StringIO()
-logging.basicConfig(stream=log_stream, level=logging.INFO,
-                    format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    stream=log_stream,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
 logger = logging.getLogger("backend")
+
+
+# Models that don't support temperature parameter (OpenAI reasoning-style)
+NO_TEMP_MODELS = {
+    "gpt-5.1",
+    "gpt-5",
+    "gpt-5-nano",
+    "gpt-5-mini",
+    "gpt-4.1",
+    "gpt-4.1-nano",
+    "o4-mini",
+    "o3",
+    "o3-mini",
+    "o1",
+}
+
+PROVIDER_ENV_VARS = {
+    "Google": os.getenv("GOOGLE_API_KEY"),
+    "Mistral": os.getenv("MISTRAL_API_KEY")
+}
+
+
+def build_llm(model_name: str, api_key: str | None, temperature: float | None):
+    provider = get_provider_for_model_name(model_name)
+    if not provider:
+        raise ValueError(f"Unsupported model {model_name}: no provider found")
+
+    if not api_key:
+        env_var = PROVIDER_ENV_VARS.get(provider)
+        if env_var:
+            api_key = os.getenv(env_var)
+
+    kwargs = {}
+    if temperature is not None and model_name not in NO_TEMP_MODELS:
+        kwargs["temperature"] = temperature
+
+    if provider == "OpenAI":
+        return ChatOpenAI(model=model_name, api_key=api_key, **kwargs)
+
+    if provider == "Google":
+        return GoogleGenerativeAI(
+            model=model_name,
+            google_api_key=api_key,
+            **kwargs,
+        )
+
+    if provider == "Anthropic":
+        return ChatAnthropic(
+            model=model_name,
+            anthropic_api_key=api_key,
+            **kwargs,
+        )
+
+    if provider == "Groq":
+        return ChatGroq(
+            model_name=model_name,
+            groq_api_key=api_key,
+            **kwargs,
+        )
+
+    if provider == "Mistral":
+        return ChatMistralAI(
+            model=model_name,
+            api_key=api_key,
+            **kwargs,
+        )
+
+    if provider == "Nvidia":
+        return ChatNVIDIA(
+            model=model_name,
+            api_key=api_key,
+            **kwargs,
+        )
+
+    if provider == "OpenRouter":
+        return ChatOpenAI(
+            model=model_name,
+            api_key=api_key,
+            base_url="https://openrouter.ai/api/v1",
+            **kwargs,
+        )
+
+    raise ValueError(f"Unsupported provider {provider}")
+
 
 
 @app.get("/available_api_keys")
@@ -46,16 +136,18 @@ def get_available_api_keys():
         "Google": os.getenv("GOOGLE_API_KEY"),
         "Mistral": os.getenv("MISTRAL_API_KEY")
     }
-    keys = {k: v for k, v in keys.items() if v}  # boş olmayanları filtrele
+    keys = {k: v for k, v in keys.items() if v}
     if not keys:
         return JSONResponse(content={"detail": "No keys found."}, status_code=404)
     return keys
+
 
 @app.on_event("startup")
 def on_startup():
     # this will download/cache & move to GPU/CPU exactly once
     load_vectorstore()
-    print("[FastAPI] Chromadb (chroma_uniprot_nomic) & embedder (nomic-ai/nomic-embed-text-v1) loaded on startup.")
+    print("[FastAPI] Chromadb (chroma_uniprot_nomic) & embedder (nomic-ai/nomic-embed-text-v1) loaded on startup."
+    )
     load_t5()
     print("[FastAPI] ProtT5 model loaded on startup.")
     bm25_initialize()
@@ -97,37 +189,7 @@ def llm_query(req: LLMRequest):
 
     try:
         m = req.model
-
-        kwargs = {}  
-        if req.temperature is not None:
-            kwargs["temperature"] = req.temperature
-
-        if m.startswith("gemini"):
-            llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key, **kwargs)
-
-        elif m.startswith(("gpt", "o4", "o3", "o1")):
-            llm = ChatOpenAI(model=m, api_key=req.api_key, **kwargs)
-
-        elif m.startswith("claude"):
-            llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key, **kwargs)
-
-        elif m.startswith(("meta", "mistralai", "nv-mistralai", "nvidia")):
-            llm = ChatNVIDIA(model=m, api_key=req.api_key, **kwargs)
-
-        elif m.startswith("deepseek"):
-            llm = ChatOpenAI(
-                model=m,
-                api_key=req.api_key,
-                base_url="https://openrouter.ai/api/v1",
-                **kwargs
-            )
-
-        elif m in ("mistral-small", "codestral-latest"):
-            llm = ChatMistralAI(model=m, api_key=req.api_key, **kwargs)
-
-        else:
-            raise ValueError(f"Unsupported model {m}")
-
+        llm = build_llm(m, req.api_key, req.temperature)
 
         if req.verbose:
             logger.info(f"Using model={m}, question={req.question}, limit={req.limit}, retries={req.retry_count}")
@@ -207,10 +269,7 @@ def vector_search(req: VectorRequest):
     df_final = df[df["Similarity"] >= 0.90]
     found = df_final.to_dict(orient="records")
 
-    proteins = [
-        rec["Protein ID"].strip("<>").split(">")[-1]
-        for rec in found
-    ]
+    proteins = [rec["Protein ID"].strip("<>").split(">")[-1] for rec in found]
     go_df = findRelatedGoIds(proteins, dbPath=sqliteDb)
     go_records = go_df.to_dict(orient="records")
 
@@ -221,6 +280,7 @@ def vector_search(req: VectorRequest):
         go_enrichment=go_records
     )
 
+
 class RAGRequest(BaseModel):
     model: str
     api_key: str
@@ -229,9 +289,11 @@ class RAGRequest(BaseModel):
     top_k: int
     temperature: float | None = None
 
+
 class RAGResponse(BaseModel):
     answer: str
     protein_ids: List[str]
+
 
 def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
     try:
@@ -242,7 +304,7 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
         print(f"Initial top_k={top_k} failed: {e}")
         last_error = e
 
-    # ,f top_k failed, perform binary search for the largest valid k
+    # if top_k failed, perform binary search for the largest valid k
     low = 1
     high = top_k - 1
     best_answer = None
@@ -275,35 +337,7 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
 def rag_order(req: RAGRequest):
     try:
         m = req.model
-        kwargs = {}
-        if req.temperature is not None:
-            kwargs["temperature"] = req.temperature
-
-        if m.startswith("gemini"):
-            llm = GoogleGenerativeAI(model=m, google_api_key=req.api_key, **kwargs)
-
-        elif m.startswith(("gpt", "o4", "o3", "o1")):
-            llm = ChatOpenAI(model=m, api_key=req.api_key, **kwargs)
-
-        elif m.startswith("claude"):
-            llm = ChatAnthropic(model=m, anthropic_api_key=req.api_key, **kwargs)
-
-        elif m.startswith(("meta", "mistralai", "nv-mistralai", "nvidia")):
-            llm = ChatNVIDIA(model=m, api_key=req.api_key, **kwargs)
-
-        elif m.startswith("deepseek"):
-            llm = ChatOpenAI(
-                model=m,
-                api_key=req.api_key,
-                base_url="https://openrouter.ai/api/v1",
-                **kwargs
-            )
-
-        elif m in ("mistral-small", "codestral-latest"):
-            llm = ChatMistralAI(model=m, api_key=req.api_key, **kwargs)
-
-        else:
-            raise ValueError(f"Unsupported model {m}")
+        llm = build_llm(m, req.api_key, req.temperature)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Model init error: {e}")
 
@@ -349,11 +383,8 @@ def rag_order_with_protein_info(req: RAGProteinListRequest):
         else:
             row = dict.fromkeys(columns, "")
             row['Protein ID'] = pid
-
         results.loc[len(results)] = row
 
     conn.close()
 
-    return RAGProteinInfoResponse(
-        found_info=results.to_dict(orient="records")
-    )
+    return RAGProteinInfoResponse(found_info=results.to_dict(orient="records"))

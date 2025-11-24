@@ -1,0 +1,262 @@
+[
+    {
+        "instruction": "Please examine the protein encoded by the amino acid sequence and describe its functional role, potential involvement in cellular processes, and its subcellular location: ",
+        "input": "```\nMELSTLASSSCMLSTFKQEAFAAEPTALPDLSEELPQTHPSKNAATFPSPFYAKSYMQMDSAKDSKADKKELCSLHKSLEQEKGGLEDPERPRQRKRRKPRVLFSQAQVYELERRFKQQKYLSAPERDHLANVLKLTSTQVKIWFQNRRYKCKRQRQDQTLEMVGIPPPRRIAVPVLVRDGKPCLGESSPYNSPYNVSINPYSYNAYPAYTNYNGSACNANYNCNYPSMQTMQPAAASNNFMNFSVGDLNSVQTPIPQGNAGISTLHGIRAW\n```",
+        "output": "Based on the given amino acid sequence, the protein appears to have a primary function of chromatin binding, DNA-binding transcription activator activity, RNA polymerase II-specific, protein homodimerization activity, RNA polymerase II cis-regulatory region sequence-specific DNA binding, RNA polymerase II-specific DNA-binding transcription factor binding. It is likely involved in the positive regulation of neuron differentiation, proepicardium development, ventricular septum morphogenesis, regulation of cardiac conduction, regulation of cardiac muscle contraction, cardiac muscle cell proliferation, atrioventricular node cell development, atrial cardiac muscle tissue development, and its subcellular localization is within the cytoplasm, protein-DNA complex, RNA polymerase II transcription regulator complex.",
+        "metadata": {
+            "protein_accession": "K7G954",
+            "num_tokens_in_input": 280,
+            "seq_len": 272,
+            "task": "GO",
+            "annots": "cytoplasm, protein-DNA complex, RNA polymerase II transcription regulator complex | chromatin binding, DNA-binding transcription activator activity, RNA polymerase II-specific, protein homodimerization activity, RNA polymerase II cis-regulatory region sequence-specific DNA binding, RNA polymerase II-specific DNA-binding transcription factor binding | positive regulation of neuron differentiation, proepicardium development, ventricular septum morphogenesis, regulation of cardiac conduction, regulation of cardiac muscle contraction, cardiac muscle cell proliferation, atrioventricular node cell development, atrial cardiac muscle tissue development",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Review the subsequent protein sequence and estimate its involvement in any biological processes: ",
+        "input": "```\nMKAKTLSRHLREGVKNLSRNGWMTFASVSAVTVTLLLVGVFLTAIMNMNHFATKVEQDVEIRVHIDPAAKEADQKKLEDDMSKIAKVESIKYSSKEEELKRLIKSLGDSGKTFELFEQDNPLKNVFVVKAKEPTDTATIAKKIEKMQFVSNVQYGKGQVERLFDTVKTGRNIGIVLIAGLLFTAMFLISNTIKITIYARSTEIEIMKLVGATNWFIRWPFLLEGLFLGVLGSIIPIGLILVTYNSLQGMFNEKLGGTIFELLPYSPFVFQLAGLLVLIGALIGMWGSVMSIRRFLKV\n```",
+        "output": "The protein sequence you provided suggests a potential involvement in the cell cycle, cell division, chemokine-mediated signaling pathway, positive regulation of sporulation resulting in formation of a cellular spore.",
+        "metadata": {
+            "protein_accession": "Q81X30",
+            "num_tokens_in_input": 305,
+            "seq_len": 297,
+            "task": "GO",
+            "annots": "plasma membrane | cell cycle, cell division, chemokine-mediated signaling pathway, positive regulation of sporulation resulting in formation of a cellular spore",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you analyze the protein corresponding to the amino acid sequence and offer insights on its function, the biological processes it might participate in, and its location within the cell? ",
+        "input": "```\nMRTNRLSWILVLSVVIFLVIINTINASDDEERLMVDVFRGYNSLIQPVRNSSELPLIVKMALQLVLLINVDEKDQVMHTNVWLTLQWHDFQMKWNPVNYGEIKQIRVSPDKVWLPDIVLFNNADGNYEVSFMCNVVINHKGDMLWVPPAIYKSSCIIDVEFFPFDEQVCTLVFGSWTYNENEIKLEFVQAELVDVSEYSASSIWDVIDVPASLVNKRSRIEFQVRIRRKTLFYTVVLIIPTVLMAFLSMAVFFLPTDSGEKITLTISVLLSIVVFLLLVSKILPPTSSTIPLMAKYLLLTFVLNVITILVTVIIINVYFRGPRTHRMPQWVRVVFLQFLPKLVCMKRPKSASERSAVRSGMAQLPGVGQFTLSPSAHHPLCPSADDRTTTIRNTASNETSAYYPLSTDALRAIDAIEYITEHLKRDEQHKSFRDDWKYVAMIIDRLLLYVFFGITVGGTCGILFSAPHVFQRIDQQEMLDRLKEKYDTASNIP\n```",
+        "output": "The protein with the amino acid sequence is expected to exhibit acetylcholine-gated cation-selective channel activity, excitatory extracellular ligand-gated ion channel activity, neurotransmitter receptor activity, transmembrane signaling receptor activity, transmitter-gated ion channel activity involved in regulation of postsynaptic membrane potential, contributing to the regulation of oviposition, locomotion, positive regulation of acetylcholine secretion, neurotransmission, regulation of muscle contraction, positive regulation of locomotion involved in locomotory behavior, chemical synaptic transmission, neuromuscular synaptic transmission, signal transduction. It can be typically found in the neuron projection, neuronal cell body, plasma membrane, postsynaptic membrane, synapse of the cell.",
+        "metadata": {
+            "protein_accession": "P48181",
+            "num_tokens_in_input": 501,
+            "seq_len": 493,
+            "task": "GO",
+            "annots": "neuron projection, neuronal cell body, plasma membrane, postsynaptic membrane, synapse | acetylcholine-gated cation-selective channel activity, excitatory extracellular ligand-gated ion channel activity, neurotransmitter receptor activity, transmembrane signaling receptor activity, transmitter-gated ion channel activity involved in regulation of postsynaptic membrane potential | regulation of oviposition, locomotion, positive regulation of acetylcholine secretion, neurotransmission, regulation of muscle contraction, positive regulation of locomotion involved in locomotory behavior, chemical synaptic transmission, neuromuscular synaptic transmission, signal transduction",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Identify the function of the protein and the biological process it might contribute to, using the protein sequence provided: ",
+        "input": "```\nMSDNSHHTQSAPSPSDGPTPSGHPSGTTDFGFRHVPVTEKKSMVREVFDSVAGKYDIMNDVMSLGIHRAWKKIFVTELGPHPDLRLLDLAGGTGDISFGWLRGGGGPAILSDINVSMLAVGRDRALSRGLVSGLNFVAVDAEAIPIADCSVDRVSIAFGLRNCTDKLQVLREARRVLRPGGRFLCLEFSRVQVAALSPIYDAWSFQVLPRMGAAIAGDRESYQYLAESIRMFPDQETLADMMREAGLERVSYQNLSGGIAAIHSGWRI\n```",
+        "output": "Upon inspection of the protein sequence provided, it is likely that the protein performs the function of 2-octaprenyl-6-methoxy-1,4-benzoquinone methylase activity, demethylmenaquinone methyltransferase activity, S-adenosylmethionine:2-demethylmenaquinol methyltransferase activity, S-adenosylmethionine:2-demethylmenaquinol-7 methyltransferase activity, S-adenosylmethionine:2-demethylquinol-8 methyltransferase activity and participates in the aerobic respiration, menaquinone biosynthetic process, methylation, ubiquinone biosynthetic process.",
+        "metadata": {
+            "protein_accession": "A0A318QH74",
+            "num_tokens_in_input": 276,
+            "seq_len": 268,
+            "task": "GO",
+            "annots": "2-octaprenyl-6-methoxy-1,4-benzoquinone methylase activity, demethylmenaquinone methyltransferase activity, S-adenosylmethionine:2-demethylmenaquinol methyltransferase activity, S-adenosylmethionine:2-demethylmenaquinol-7 methyltransferase activity, S-adenosylmethionine:2-demethylquinol-8 methyltransferase activity | aerobic respiration, menaquinone biosynthetic process, methylation, ubiquinone biosynthetic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following amino acid sequence, and determine the function of the resulting protein, its subcellular localization, and any biological processes it may be part of: ",
+        "input": "```\nMEPVDPNLEPWKHPGSQPTTACNSCYCKKCVWHCQLCFLKKGLGISYGRKKRKHRRGPPQNSKDHQTPLRKQPLSIIRRNNQTGPKESKKEVASKAETHP\n```",
+        "output": "The protein characterized by the amino acid sequence demonstrates actinin binding, cyclin binding, metal ion binding, protein domain specific binding, protein serine/threonine phosphatase inhibitor activity, RNA-binding transcription regulator activity, trans-activation response element binding and is implicated in the modulation by virus of host chromatin organization, negative regulation of peptidyl-threonine phosphorylation, positive regulation of transcription elongation by RNA polymerase II, positive regulation of viral transcription, suppression by virus of host translation initiation, suppression by virus of host type I interferon-mediated signaling pathway. Its subcellular localization is primarily within the extracellular region, host cell cytoplasm, host cell nucleolus.",
+        "metadata": {
+            "protein_accession": "A0A6J3W8F4",
+            "num_tokens_in_input": 108,
+            "seq_len": 100,
+            "task": "GO",
+            "annots": "extracellular region, host cell cytoplasm, host cell nucleolus | actinin binding, cyclin binding, metal ion binding, protein domain specific binding, protein serine/threonine phosphatase inhibitor activity, RNA-binding transcription regulator activity, trans-activation response element binding | modulation by virus of host chromatin organization, negative regulation of peptidyl-threonine phosphorylation, positive regulation of transcription elongation by RNA polymerase II, positive regulation of viral transcription, suppression by virus of host translation initiation, suppression by virus of host type I interferon-mediated signaling pathway",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Extrapolate the likely function of the protein and the biological process it might be a part of, using the following sequence: ",
+        "input": "```\nMRMAHVADVHLGHALMNLRSREEAVMETFERLMEEVRECSVDVLVIAGDLFEHARPKTEALYLAVEKLSELKEDGVEIVATAGNHEIRRRKGAVSPISVLERMGLVRHLYYSERRPERHRYTATFDGVRVTFHGLQYLPKNSFVERAKVIRAKYRPDPEADVNVAIFHQALPGTIPDESEIVEPAYFPEGHDYYAMGHVHVPSREEKIHGSPAPYPGSPEPLTFLEVKDERGAHKRRGFFLVEFDRGGLVEYEFVEVEWSRELSVVEVSGERWEEELRRRVRRGQIVKVVAKDTGASPEEVEKVAIEAGADRCVVELRERRREVEEGDETEGPLDLEGIIREGVKRARAATLTRVDVPDDVVVEVALEILRGVREDNPPDLGDVEGIVAGEPPSEGSEESSEEPEESDGEEVGLEVEEVKVESRGTSSEGMSRAGSKLGSSGRPSLDRWIG\n```",
+        "output": "The analysis of the specified protein sequence suggests its potential function as 3'-5' exonuclease activity, DNA end binding, endonuclease activity, manganese ion binding, Y-form DNA binding, with a possible involvement in the double-strand break repair.",
+        "metadata": {
+            "protein_accession": "Q8TXI3",
+            "num_tokens_in_input": 459,
+            "seq_len": 451,
+            "task": "GO",
+            "annots": "3'-5' exonuclease activity, DNA end binding, endonuclease activity, manganese ion binding, Y-form DNA binding | double-strand break repair",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Utilizing the provided protein sequence, determine the probable function and the biological process it may participate in: ",
+        "input": "```\nMTTAAIIVAAGRGQRAGGGVPKQWRELAGRRVADWTIAQFSGRVDHIVLVLSAEDEHFWQEFKQTGFILALGGSDRASSVKNGLDALAGMNIEHVLIHDVARPCVGERVISDVLTALETHAAAAPGLAITDALWRGDGDIVTGVQDRSGLFAAQTPQGFHYDPIVEAHAAHPGGAADDVEVARAAGLDVAIVPGDADNLKITRPEDFARAEQILGQTMDVRLGNGYDVHRFGDGDHVVLCGVDVPHDRGLQGHSDADVGMHAVTDAIYGALAQGDIGRHFPPSDPQWKGAASEIFLRHVVELAGQMGYRISNIDCTLVCEFPKIGPHADAMRAEMARIMDLRVDQVSVKATTSERLGFTGRSEGIAALATACLVKS\n```",
+        "output": "The protein sequence under consideration appears to have a primary function of 2-C-methyl-D-erythritol 2,4-cyclodiphosphate synthase activity, 2-C-methyl-D-erythritol 4-phosphate cytidylyltransferase activity, metal ion binding, and it may be associated with the isopentenyl diphosphate biosynthetic process, methylerythritol 4-phosphate pathway, terpenoid biosynthetic process.",
+        "metadata": {
+            "protein_accession": "A0A0C1JLQ8",
+            "num_tokens_in_input": 384,
+            "seq_len": 376,
+            "task": "GO",
+            "annots": "2-C-methyl-D-erythritol 2,4-cyclodiphosphate synthase activity, 2-C-methyl-D-erythritol 4-phosphate cytidylyltransferase activity, metal ion binding | isopentenyl diphosphate biosynthetic process, methylerythritol 4-phosphate pathway, terpenoid biosynthetic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Considering the protein sequence below, predict its biological function by examining its structural features and comparing it to functionally characterized proteins: ",
+        "input": "```\nMKHIPRKRFGQNFLTDDTVLYNIIRAIDPQPQDTMVEIGPGLAAMTRLLLEGVQQMHVVELDRDLVERLKKSFDPKRLIIHSADALQFDFSTIPVPAGSKLRVVGNLPYNISSPLLFHLAEMAPHVQDQHFMLQKEVVERMVAEPGSKVYGRLSVMLQWRYHMELMFVVPPTAFDPPPRVESAIVRMIPLAQPLPCDQAKLEQVVLKAFSQRRKVIRNCLAGMFAESDLLEVGIDPQLRPETIPLAQYVALANRL\n```",
+        "output": "After analyzing the amino acid sequence, the protein appears to be involved in 16S rRNA (adenine(1518)-N(6)/adenine(1519)-N(6))-dimethyltransferase activity, RNA binding, based on its structure and sequence similarity.",
+        "metadata": {
+            "protein_accession": "A6SV13",
+            "num_tokens_in_input": 263,
+            "seq_len": 255,
+            "task": "GO",
+            "annots": "cytoplasm | 16S rRNA (adenine(1518)-N(6)/adenine(1519)-N(6))-dimethyltransferase activity, RNA binding",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Assess the function of the protein and its possible involvement in a biological process, based on the following amino acid sequence: ",
+        "input": "```\nMTLAPDNTLLTPTQMAEADRLAVAGGVDSFSLMQAAGRAVADAIRARFEPRPVLVLCGPGNNGGDGFIVAHLLHLQGWPVTLRLLGNRDRLTGDAAKAAALWEQGADPIRPGDAADASLIVDALLGAGLDRDVSGDFASAIAMVNAADCPVVAIDMPSGLDGASGAVRGAAVKADLTVSFFRAKPGHFLLPGRDLCGELVLADIGIPADVLDAIAPQTWRNGPALWPLPVAGAGGNKFDRGHCLVVSGGPLQTGAARLAALGAFRVGAGLVSLAGSEAALHVHAAHVTAIMLRLAPDRAALEAILADRRINAVVIGPAAGVGAETAGQVEAVLASGACVVLDADALTSFAETPDALFAAIAPQARPVVLTPHEGEFQRLFGGLSGDKLARARLAAARSGAVIVLKGSDTVIAAPDGRAAINANAPAWLGTAGAGDVLAGIIAGLMGQGMGGWEAACAGVWLHAEAANRFGGPGLMSEDLPGLLPAVLAALATQS\n```",
+        "output": "The protein sequence under consideration appears to have a primary function of ADP-dependent NAD(P)H-hydrate dehydratase activity, ATP binding, metal ion binding, NADHX epimerase activity, NADPHX epimerase activity, and it may be associated with the nicotinamide nucleotide metabolic process.",
+        "metadata": {
+            "protein_accession": "A0A1E4GB09",
+            "num_tokens_in_input": 502,
+            "seq_len": 494,
+            "task": "GO",
+            "annots": "ADP-dependent NAD(P)H-hydrate dehydratase activity, ATP binding, metal ion binding, NADHX epimerase activity, NADPHX epimerase activity | nicotinamide nucleotide metabolic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Provide a detailed description of the protein with the following amino acid sequence, including its function, subcellular localization, and the biological processes it may be involved in: ",
+        "input": "```\nMCGALKKKILFVLGGPGAGKGTQCARLVEKYGFVHLSAGDLLREERQSGSENGELIDRMIKEGQIVPVQITLSLLQQAMIVSGRELFLIDGFPRNFDNLQGWQEQMPDEDYHVEGVLFYDCPENVMEERLLERGKTSGRTDDNAEAIRKRFRTYIESTMPVIDYYAKLNKVFKVDATPGPDAVFEATRAFVEPIVNGHTH\n```",
+        "output": "The protein with the amino acid sequence is expected to exhibit ATP binding, CMP kinase activity, dCMP kinase activity, UMP kinase activity, contributing to the 'de novo' pyrimidine nucleobase biosynthetic process, phosphorylation, pyrimidine nucleotide biosynthetic process. It can be typically found in the cytoplasm, motile cilium, nucleus of the cell.",
+        "metadata": {
+            "protein_accession": "A0A2D4BMP7",
+            "num_tokens_in_input": 208,
+            "seq_len": 200,
+            "task": "GO",
+            "annots": "cytoplasm, motile cilium, nucleus | ATP binding, CMP kinase activity, dCMP kinase activity, UMP kinase activity | 'de novo' pyrimidine nucleobase biosynthetic process, phosphorylation, pyrimidine nucleotide biosynthetic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Review the subsequent protein sequence and estimate its involvement in any biological processes: ",
+        "input": "```\nFLSAITSILGKFF\n```",
+        "output": "The provided sequence is likely associated with the defense response to bacterium, defense response to fungus, hemolysis in another organism in biological systems.",
+        "metadata": {
+            "protein_accession": "P0DQK5",
+            "num_tokens_in_input": 21,
+            "seq_len": 13,
+            "task": "GO",
+            "annots": "extracellular region | defense response to bacterium, defense response to fungus, hemolysis in another organism",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Review the subsequent protein sequence and estimate its involvement in any biological processes: ",
+        "input": "```\nMAIETILVINKSGGLIYQRNFTNDEQKLNSNEYLILASTLHGVFAIASQLTPKALQLTQQTNIENTIPYIPYVGMSSNRSDTRNGGGNNNKHTNNEKLGSFKGDDFFKEPFTNWNKSGLRQLCTDQFTMFIYQTLTGLKFVAISSSVMPQRQPTIATTDKPDRPKSTSNLAIQIADNFLRKVYCLYSDYVMKDPSYSMEMPIRSNLFDEKVKKMVENLQ\n```",
+        "output": "Upon analyzing the protein sequence, it appears to be related to the chromosome organization, endoplasmic reticulum to Golgi vesicle-mediated transport, intra-Golgi vesicle-mediated transport, macroautophagy, retrograde transport, endosome to Golgi.",
+        "metadata": {
+            "protein_accession": "Q03784",
+            "num_tokens_in_input": 227,
+            "seq_len": 219,
+            "task": "GO",
+            "annots": "cytosol, endoplasmic reticulum, phagophore assembly site, TRAPP complex, TRAPPI protein complex, TRAPPII protein complex, TRAPPIII protein complex | chromosome organization, endoplasmic reticulum to Golgi vesicle-mediated transport, intra-Golgi vesicle-mediated transport, macroautophagy, retrograde transport, endosome to Golgi",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Provide a detailed description of the protein with the following amino acid sequence, including its function, subcellular localization, and the biological processes it may be involved in: ",
+        "input": "```\nMTGTRTWAERAADLDAADPLAALRDRFLPAPGVVAYLDGNSLGRPVADAANRLGEFVHHAWGQRLIRGWTEDGPDGPWMDWPQRVGDRIAALALGAAPGQTVLADSTTVLLYKLARAAVDAATAADPARRVIVTFADDFPTDRYIVDAIAAERGGTVRRLDADIAAGVTPDQIGGAVGPDTALVLISHVAYRSGWLADAPSIVAAAHDAGAYVLLDLCHSAGSVPLALDEWGVDLAVGCTYKFLNGGPGSPAFAYLRRDLHDRLRQPIQGWMGHAEPFTMGPGYVPAAGIRHLVSGTPPILAAVPLLASLDLLEQAGITAVRTKSLALTGYALDLVDAWLVPHGVRVISPREPERRGGHITIHRPGFRDVVDQLWARGVLPDYREPDAIRIGPAPLSTSFTELHDGLAVLRDILEGRIG\n```",
+        "output": "The protein characterized by the amino acid sequence demonstrates 3-hydroxykynureninase activity, kynureninase activity, pyridoxal phosphate binding and is implicated in the 'de novo' NAD biosynthetic process from tryptophan, anthranilate metabolic process, L-kynurenine catabolic process, quinolinate biosynthetic process, tryptophan catabolic process. Its subcellular localization is primarily within the cytoplasm.",
+        "metadata": {
+            "protein_accession": "A0A561SMU1",
+            "num_tokens_in_input": 427,
+            "seq_len": 419,
+            "task": "GO",
+            "annots": "cytoplasm | 3-hydroxykynureninase activity, kynureninase activity, pyridoxal phosphate binding | 'de novo' NAD biosynthetic process from tryptophan, anthranilate metabolic process, L-kynurenine catabolic process, quinolinate biosynthetic process, tryptophan catabolic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Study the protein sequence provided and speculate on its possible participation in a biological process: ",
+        "input": "```\nMRSSRCARLLLLLLLPPLLLTPPAGDAAVITGACDRDPQCGGGMCCAVSLWVKSIRICTPMGKVGDSCHPMTRKNHFGNGRQERRKRKRRRKKKVPFLGRRMHHTCPCLPGLACSRTSFNRYTCLAQK\n```",
+        "output": "The potential biological process associated with the given protein sequence is angiogenesis, chemotaxis, endothelial cell proliferation, negative regulation of apoptotic process, neuropeptide signaling pathway, positive regulation of smooth muscle contraction, rhythmic process, spermatogenesis.",
+        "metadata": {
+            "protein_accession": "Q863H5",
+            "num_tokens_in_input": 136,
+            "seq_len": 128,
+            "task": "GO",
+            "annots": "extracellular region | angiogenesis, chemotaxis, endothelial cell proliferation, negative regulation of apoptotic process, neuropeptide signaling pathway, positive regulation of smooth muscle contraction, rhythmic process, spermatogenesis",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please examine the protein encoded by the amino acid sequence and describe its functional role, potential involvement in cellular processes, and its subcellular location: ",
+        "input": "```\nMNYFILILPILPYLYGPAVCSEDETRLVKTLFTGYNKVVRPVSHFKDPVVVTVGLQLIQLISVDEVNQIVTSNVRLKQQWKDVHLQWNPDDYGGIRKIRIPSTDLWKPDLVLYNNADGDFAIVHETKVLLEHTGMITWTPPAIFKSYCEIVVLHFPFDLQNCSMKLGTWTYDGNLVIINPDSDRPDLSNFMESGEWVMKDYRSWKHWVYYACCPDTPYLDITYHFLLLRLPLYFIVNVIIPCMLFSFLTGLVFYLPTDSGEKMTLSISVLLSLTVFLLVIVELIPSTSSAVPLIGKYMLFTMIFVIASIIITVIVINTHHRSPSTHIMPAWVRKIFIDTIPNMMFFSTMKRPSQERQEKRLFPADFDISDISGKPMPASVTYHSPITKNPDVRSAIEGVKYIADTMKSDEESNNAAEEWKFVAMVLDHILLCVFMAVCIIGTLGVFAGRLIELSML\n```",
+        "output": "Upon analysis of the specified amino acid sequence, it is evident that the protein performs acetylcholine-gated cation-selective channel activity, cation channel activity, excitatory extracellular ligand-gated ion channel activity, neurotransmitter receptor activity, transmembrane signaling receptor activity, transmitter-gated ion channel activity involved in regulation of postsynaptic membrane potential, participating in the skeletal muscle fiber development, ion transmembrane transport, skeletal system morphogenesis, regulation of membrane potential, neuromuscular synaptic transmission, chondrocyte intercalation involved in growth plate cartilage morphogenesis, membrane repolarization, signal transduction. This protein is generally localized to the acetylcholine-gated channel complex, neuron projection, plasma membrane, postsynaptic membrane, synapse within the cell.",
+        "metadata": {
+            "protein_accession": "Q98880",
+            "num_tokens_in_input": 464,
+            "seq_len": 456,
+            "task": "GO",
+            "annots": "acetylcholine-gated channel complex, neuron projection, plasma membrane, postsynaptic membrane, synapse | acetylcholine-gated cation-selective channel activity, cation channel activity, excitatory extracellular ligand-gated ion channel activity, neurotransmitter receptor activity, transmembrane signaling receptor activity, transmitter-gated ion channel activity involved in regulation of postsynaptic membrane potential | skeletal muscle fiber development, ion transmembrane transport, skeletal system morphogenesis, regulation of membrane potential, neuromuscular synaptic transmission, chondrocyte intercalation involved in growth plate cartilage morphogenesis, membrane repolarization, signal transduction",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following amino acid sequence, and determine the function of the resulting protein, its subcellular localization, and any biological processes it may be part of: ",
+        "input": "```\nMNIHGKGFPLDLGGSFTEDAPRPPVPGEEGELVSTDPRPISHGFYSGKSDVIKNETSTATPRRSDLDLGYEPEGSASPTPPYLRWAESLHSLLDDQDGINLFRTFLKQEDCGDLLDFWFACSGFRKLEPCVANEEKRLKLAKAIYKKYILDNNGIVSRQIKPATKSFIKDCVMKLQIDPDMFDQAQTEIQCMIEDNTYPLFLKSDIYLEYTRTGGESPKIYSDQSSGSGTGKGLPGYLPTLNEDEEWKCDQDTEEETSRDSAPSSRLTQKLLLETATQRATSTRRYSEGREFRHGPWREPVNPYYVNTGYALAPATSANDSEQQSMSSDADTISLTDSSVDGIPPYRLRKQHRREMQESAKANGRVPLPHIPRTYRMPKDIHVEPQKFAAELINRLEEVQREREAEEKLEERLKRVRAEEEGEDADVSSGPSVVSHKLPSAQVFHHFAPRYSEMGCAGMPLRDAHEENPESILDEHVQRVMKTPGCQSPGPGRHSPKPRSPESGPAGKVPVTIPPGHGKHATKSGMKLDAANLYHHKHVYHHVHHHGGLKPKEQIEAEATQRVQNSFAWNVDSHNYATKSRNYTEGMGLAPNPADALGYSGKAGLLSKRNVKKTDSGKSDGASYDMPGSPEDVERNQKILQWIIEGEKEISRHKKTSHGLAGCVPPSPHSCSRPGEHPWAFNTPGHSFLCPGPLILRVVNKIIQDQPYRAGRTTSSQAHGRGVCSFSGGHCMLGPSIALIHRSAPKSSSSETFDLETRSGLKPQKRPG\n```",
+        "output": "With the provided amino acid sequence, the protein is expected to display protein homodimerization activity, protein C-terminus binding, signaling receptor complex adaptor activity, protein domain specific binding, R-SMAD binding, protein kinase binding, beta-catenin binding, protein self-association and participate in the protein polyubiquitination, negative regulation of fat cell differentiation, activation of protein kinase activity, sensory perception of sound, negative regulation of transcription elongation by RNA polymerase II, positive regulation of proteasomal ubiquitin-dependent protein catabolic process, genomic imprinting, negative regulation of protein metabolic process. Its typical subcellular localization is the beta-catenin destruction complex, cell cortex, cytoplasmic vesicle, lateral plasma membrane, microtubule cytoskeleton, nucleus, perinuclear region of cytoplasm, Wnt signalosome.",
+        "metadata": {
+            "protein_accession": "K7FV20",
+            "num_tokens_in_input": 776,
+            "seq_len": 857,
+            "task": "GO",
+            "annots": "beta-catenin destruction complex, cell cortex, cytoplasmic vesicle, lateral plasma membrane, microtubule cytoskeleton, nucleus, perinuclear region of cytoplasm, Wnt signalosome | protein homodimerization activity, protein C-terminus binding, signaling receptor complex adaptor activity, protein domain specific binding, R-SMAD binding, protein kinase binding, beta-catenin binding, protein self-association | protein polyubiquitination, negative regulation of fat cell differentiation, activation of protein kinase activity, sensory perception of sound, negative regulation of transcription elongation by RNA polymerase II, positive regulation of proteasomal ubiquitin-dependent protein catabolic process, genomic imprinting, negative regulation of protein metabolic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Provide a detailed description of the protein with the following amino acid sequence, including its function, subcellular localization, and the biological processes it may be involved in: ",
+        "input": "```\nMDPIDPSLEPWNHPGSQPRTPCNKCYCKKCCYHCQQCFVSKGLGISYGRKKRRQRRRAPQGGQVHQDPIPKQPSSQPRGDPTGPKE\n```",
+        "output": "Upon analysis of the specified amino acid sequence, it is evident that the protein performs actinin binding, cyclin binding, metal ion binding, protein domain specific binding, protein serine/threonine phosphatase inhibitor activity, RNA-binding transcription regulator activity, trans-activation response element binding, participating in the modulation by virus of host chromatin organization, negative regulation of peptidyl-threonine phosphorylation, positive regulation of transcription elongation by RNA polymerase II, positive regulation of viral transcription, suppression by virus of host translation initiation, suppression by virus of host type I interferon-mediated signaling pathway. This protein is generally localized to the extracellular region, host cell cytoplasm, host cell nucleolus within the cell.",
+        "metadata": {
+            "protein_accession": "U6BJS7",
+            "num_tokens_in_input": 94,
+            "seq_len": 86,
+            "task": "GO",
+            "annots": "extracellular region, host cell cytoplasm, host cell nucleolus | actinin binding, cyclin binding, metal ion binding, protein domain specific binding, protein serine/threonine phosphatase inhibitor activity, RNA-binding transcription regulator activity, trans-activation response element binding | modulation by virus of host chromatin organization, negative regulation of peptidyl-threonine phosphorylation, positive regulation of transcription elongation by RNA polymerase II, positive regulation of viral transcription, suppression by virus of host translation initiation, suppression by virus of host type I interferon-mediated signaling pathway",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you analyze the protein corresponding to the amino acid sequence and offer insights on its function, the biological processes it might participate in, and its location within the cell? ",
+        "input": "```\nMGKPARKGCDCRRFLRNNWLLLSTVAAVVLGIAIGVLVREYSKLSSLEKFYFAFPGEILMRMLKLIIFAVNYIQHDYRCCCPGFQRIWENWSTCRRLLFLYHDHCCDSRNMFPENLVQACFQQYKTKREEVNTPSEPGMNISQASVTAIMTTAISKNKTKEYKVIGMYSDGINVLGLIVFCLVFGLVIGKMGEKGQILVDFFTALSDATMKIVQIIMCYMPLGILFLIAGKIIEVEDWEIFRKLGLYMATVLSGLAIHSIVILPLIYFTVVRKNPFRFAMGMAQALLTALMISSSSATLPVTFRCAEEKNQVDKRITRFVLPVGATINMDGTALYEAVAAVFIAQLNDLDLGIGQIITISVTATAASIGAAGVPQAGLVTMVIVLSAVGLPAEDVTLIIAVDWLLDRFRTMVNVLGDAFGTGIVEKLSKKELEQMDVSSEVNIVNPFALESTILDNENSDTKKSYVNGGFAVDKSDSISFTQTSQF\n```",
+        "output": "Based on the given amino acid sequence, the protein appears to have a primary function of high-affinity L-glutamate transmembrane transporter activity, D-aspartate transmembrane transporter activity, anion channel activity, cysteine transmembrane transporter activity, identical protein binding, L-glutamate transmembrane transporter activity, chloride transmembrane transporter activity, L-aspartate transmembrane transporter activity. It is likely involved in the righting reflex, motor neuron apoptotic process, synapse organization, heart contraction, response to xenobiotic stimulus, long-term synaptic potentiation, response to morphine, glutathione biosynthetic process, and its subcellular localization is within the dendrite, neuronal cell body, early endosome membrane, cell surface, postsynapse, membrane raft, apical plasma membrane, recycling endosome membrane.",
+        "metadata": {
+            "protein_accession": "M3WU75",
+            "num_tokens_in_input": 494,
+            "seq_len": 486,
+            "task": "GO",
+            "annots": "dendrite, neuronal cell body, early endosome membrane, cell surface, postsynapse, membrane raft, apical plasma membrane, recycling endosome membrane | high-affinity L-glutamate transmembrane transporter activity, D-aspartate transmembrane transporter activity, anion channel activity, cysteine transmembrane transporter activity, identical protein binding, L-glutamate transmembrane transporter activity, chloride transmembrane transporter activity, L-aspartate transmembrane transporter activity | righting reflex, motor neuron apoptotic process, synapse organization, heart contraction, response to xenobiotic stimulus, long-term synaptic potentiation, response to morphine, glutathione biosynthetic process",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following amino acid sequence, and determine the function of the resulting protein, its subcellular localization, and any biological processes it may be part of: ",
+        "input": "```\nMGLDGADDDVSETQQPQQEEKTNGQSQSNEETQNPSDSFKLKFCTVCASNNNRSMEAHLRLTTAQPTPYPTISFGTGSLVRLPGPSISQPNVYNFNSTSYASMYDELASKDRRLYSANGILPMLERNKNVKFGPERWQDWRVGVPRTEWGDDKGAKGTEAGTVDVVITCEERCWDAVVDDLLTRGSPLNRPVHVFNVDIKDNHEEALVGGRAILELADKLNEVAVEEREAYVKGGGRGFENGEGRSGFDERVPDVLAEWQERWPNLPALWTLAWF\n```",
+        "output": "The protein characterized by the amino acid sequence demonstrates myosin phosphatase activity, protein tyrosine phosphatase activity, RNA polymerase II CTD heptapeptide repeat phosphatase activity and is implicated in the sno(s)RNA transcription, regulation of termination of RNA polymerase II transcription, positive regulation of telomere maintenance via semi-conservative replication, transcriptional start site selection at RNA polymerase II promoter, termination of RNA polymerase II transcription, exosome-dependent, transcription elongation by RNA polymerase II promoter, regulation of siRNA-independent facultative heterochromatin formation, termination of RNA polymerase II transcription, poly(A)-coupled. Its subcellular localization is primarily within the chromatin, mRNA cleavage and polyadenylation specificity factor complex.",
+        "metadata": {
+            "protein_accession": "F9WZJ4",
+            "num_tokens_in_input": 283,
+            "seq_len": 275,
+            "task": "GO",
+            "annots": "chromatin, mRNA cleavage and polyadenylation specificity factor complex | myosin phosphatase activity, protein tyrosine phosphatase activity, RNA polymerase II CTD heptapeptide repeat phosphatase activity | sno(s)RNA transcription, regulation of termination of RNA polymerase II transcription, positive regulation of telomere maintenance via semi-conservative replication, transcriptional start site selection at RNA polymerase II promoter, termination of RNA polymerase II transcription, exosome-dependent, transcription elongation by RNA polymerase II promoter, regulation of siRNA-independent facultative heterochromatin formation, termination of RNA polymerase II transcription, poly(A)-coupled",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the following amino acid sequence, and determine the function of the resulting protein, its subcellular localization, and any biological processes it may be part of: ",
+        "input": "```\nMARDKDLSPYLDFDRETWRHLRMSMPQVLTEQEVVELRGIGENIDLDEVAEVYLPLSRLIHLQVHARQELTQATETFLGEKAPHIPFVIGVAGSVAVGKSTTARLLQVLLQRWDEHPRVDLVTTDGFLHPTEILKKRGILDRKGFPESYDQRALLRFVTDVKAGKAHVKAPVYSHTLYDRVENECVTVSRPDILIVEGLNVLQTGPTLSVSDLFDFSVYVDAALEDIERWYIDRFLKLRQLAFRAPNAHFSHYADMGDRAATDEARRIWQTINLPNLVEHILPTRVRASLVLCKGADHKVARVRMRKI\n```",
+        "output": "Based on the given amino acid sequence, the protein appears to have a primary function of ATP binding, pantothenate kinase activity. It is likely involved in the coenzyme A biosynthetic process, phosphorylation, and its subcellular localization is within the cytoplasm.",
+        "metadata": {
+            "protein_accession": "Q6NI48",
+            "num_tokens_in_input": 316,
+            "seq_len": 308,
+            "task": "GO",
+            "annots": "cytoplasm | ATP binding, pantothenate kinase activity | coenzyme A biosynthetic process, phosphorylation",
+            "split": "train"
+        }
+    }
+]
