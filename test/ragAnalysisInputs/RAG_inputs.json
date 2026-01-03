@@ -1,0 +1,1058 @@
+[
+  {
+    "question": "What are the key metabolic pathways in the liver that human insulin (INS) accelerates to lower blood glucose?",
+    "answer": "Human insulin decreases blood glucose by increasing cellular permeability to monosaccharides and by accelerating hepatic glycolysis, the pentose phosphate cycle, and glycogen synthesis.",
+    "source": "P01308"
+  },
+  {
+    "question": "How is the mature human insulin hormone structurally organized after processing of the precursor?",
+    "answer": "Mature insulin is a heterodimer composed of an insulin B chain (residues 25–54) and an insulin A chain (residues 90–110), linked by two interchain disulfide bonds; an additional intrachain disulfide bond is present within the A chain.",
+    "source": "P01308"
+  },  
+  {
+    "question": "Which human protein negatively regulates leptin receptor cell surface expression?",
+    "answer": "Leptin receptor gene-related protein negatively regulates leptin receptor (LEPR) cell surface expression, leading to reduced cellular responsiveness to leptin.",
+    "source": "O15243"
+  },
+  {
+    "question": "Which enzymatic activity is attributed to the human BRCA1 protein based on its molecular function, and what type of enzyme does this classify it as?",
+    "answer": "It has E3 ubiquitin-protein ligase activity, classifying it as a RING-type E3 ubiquitin transferase.",
+    "source": "P38398"
+  },
+  {
+    "question": "What types of post-translational modifications have been experimentally identified on the human BRCA1 protein?",
+    "answer": "Phosphorylation, ubiquitination, SUMOylation, and N-terminal acetylation have been identified on BRCA1.",
+    "source": "P38398"
+  },
+  {
+    "question": "How does MOTS-c influence cellular metabolism at the molecular signaling level?",
+    "answer": "MOTS-c inhibits the folate cycle, leading to accumulation of AICAR and activation of AMPK, thereby regulating insulin sensitivity and metabolic homeostasis.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "What evidence supports a role for MOTS-c in skeletal muscle physiology and aging?",
+    "answer": "MOTS-c levels increase in skeletal muscle with age, reduce myostatin signaling, promote AKT-mediated muscle growth, and improve physical performance in both young and aging organisms.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "Which gene encodes rhodopsin in humans and what alternative gene symbol is also used?",
+    "answer": "Rhodopsin is encoded by the RHO gene, which is also known by the synonym OPN2.",
+    "source": "P08100"
+  },
+  {
+    "question": "Which regions of rhodopsin have been structurally resolved to provide insight into receptor–arrestin interactions?",
+    "answer": "High-resolution X-ray crystal structures have resolved rhodopsin in complex with arrestin, revealing details of the transmembrane helices, cytoplasmic loops, phosphorylation sites, and disulfide bonds.",
+    "source": "P08100"
+  },
+  {
+    "question": "Which distinct catalytic activities have been attributed to the human FHIT protein, and how are these activities reflected by the set of EC numbers associated with it?",
+    "answer": "FHIT has been attributed multiple activities including bis(5'-adenosyl)-triphosphatase activity (EC 3.6.1.29), adenosine 5'-monophosphoramidase activity (EC 3.9.1.-), adenylylsulfatase activity (EC 3.6.2.1), and an adenylylsulfate-ammonia adenylyltransferase activity (EC 2.7.7.51).",
+    "source": "P49789"
+  },
+  {
+    "question": "What is the reported relationship between FHIT and the p53 tumor suppressor pathway in human cancer cells?",
+    "answer": "Coexpression of FHIT and p53 produces synergistic tumor suppression, coinciding with FHIT-mediated inactivation of MDM2 and stabilization of p53.",
+    "source": "P49789"
+  },
+  {
+    "question": "Which post-translational modification by a specific kinase has been identified for FHIT, and which tyrosine residues are implicated?",
+    "answer": "FHIT is phosphorylated by Src kinase, with tyrosine residues Tyr-114 and Tyr-145 implicated as phosphorylation sites.",
+    "source": "P49789"
+  },
+  {
+    "question": "Which specific tyrosine residue in the C-terminal region has been reported to regulate VEGFR-2 autophosphorylation, and how was its role tested?",
+    "answer": "Tyrosine 1212 was reported to regulate autophosphorylation and signaling activation, and its role was tested through site-directed mutagenesis of this residue.",
+    "source": "P35918"
+  },
+  {
+  "question": "Which residues form the catalytic machinery of alpha-amylase A?",
+  "answer": "The catalytic nucleophile is residue 227, and the proton donor is residue 251.",
+  "source": "P0C1B3"
+  },
+  {
+    "question": "What is the reported developmental consequence of losing VEGFR-2 function in mice, and which early vascular process fails?",
+    "answer": "Loss of VEGFR-2 function causes failure of blood-island formation and vasculogenesis during embryonic development.",
+    "source": "P35918"
+  },
+  {
+    "question": "What is the specific functional role of mouse CatSper-tau (C2cd6/CATSPERT; CTSRT_MOUSE) in CatSper channel organization within the sperm flagellum membrane?",
+    "answer": "CatSper-tau is an auxiliary component of the CatSper complex required for targeting and trafficking the preassembled CatSper complexes into the quadrilinear nanodomains of the flagellar membrane. It targets these complexes to elongating flagella and links channel-carrying vesicles to motor proteins, supporting sperm hyperactivation needed for late-stage motility during fertilization.",
+    "source": "A0A5F8MPU3"
+  },
+  {
+    "question": "What is the biological role of Globin CTT-III (GLB3_CHITH) in Chironomus thummi thummi and how is this role supported by its molecular features?",
+    "answer": "Globin CTT-III functions as an extracellular oxygen carrier in Chironomus thummi thummi. This role is supported by its classification as a globin family protein, its ability to bind heme b via axial iron-coordinating residues, and its annotated oxygen-binding and oxygen carrier activities.",
+    "source": "P02229"
+  },
+  {
+    "question": "What role does BRCA1 play within the BASC complex, and what is the functional significance of this association?",
+    "answer": "BRCA1 is a component of the BRCA1-associated genome surveillance complex (BASC), a multi-protein supercomplex involved in recognizing and repairing aberrant DNA structures. This association highlights BRCA1’s central role in maintaining genomic stability through DNA damage sensing and repair pathways.",
+    "source": "P38398"
+  },
+  {
+    "question": "Which enzymatic role is assigned to the human BRCA1 protein, and what does this imply about the type of post-translational modification it catalyzes?",
+    "answer": "BRCA1 is assigned E3 ubiquitin-protein transferase activity (EC 2.3.2.27), implying it catalyzes ubiquitination by transferring ubiquitin to protein substrates.",
+    "source": "P38398"
+  },
+  {
+    "question": "How does formation of a heterodimer with BARD1 change the biochemical output of BRCA1’s ligase function, particularly in terms of ubiquitin chain topology?",
+    "answer": "When complexed with BARD1, BRCA1 assembles polyubiquitin chains through an unconventional linkage involving lysine 6 (K6) of ubiquitin.",
+    "source": "P38398"
+  },
+  {
+    "question": "Which residue is annotated as the oxygen-binding site in human myoglobin?",
+    "answer": "Residue 65 is annotated as a binding site for oxygen (O2) in human myoglobin.",
+    "source": "P02144"
+  },
+  {
+    "question": "How does ATG5 contribute to the crosstalk between autophagy and apoptosis in human cells?",
+    "answer": "ATG5 plays a dual role by participating in autophagy and also modulating apoptosis. In addition to its function in autophagosome formation, ATG5 can interact with apoptotic regulators such as FADD and has been described as an apoptosis-specific protein, linking autophagic processes to programmed cell death pathways under certain cellular stress conditions.",
+    "source": "Q9H1Y0"
+  },
+  {
+    "question": "How do naturally occurring mutations in the human insulin gene affect insulin processing or function?",
+    "answer": "Naturally occurring mutations in the insulin gene can impair proinsulin processing, alter receptor binding, or reduce hormone stability. Some variants are associated with conditions such as familial hyperproinsulinemia or diabetes, highlighting the importance of precise insulin sequence and processing for normal endocrine function.",
+    "source": "P01308"
+  },
+  {
+    "question": "What is the core enzymatic function of human MYLK (smooth muscle myosin light chain kinase), and what is its primary substrate in cells?",
+    "answer": "Human MYLK encodes a Ca2+/calmodulin-dependent serine/threonine protein kinase (EC 2.7.11.18) whose central function is to phosphorylate the regulatory myosin light chain (MLC; classically MYL9/MLC20 in smooth muscle and related non-muscle contexts). This phosphorylation increases myosin II ATPase activity and promotes actomyosin contractility, supporting processes such as smooth muscle contraction, cell shape changes, and barrier regulation.",
+    "source": "Q15746"
+  },
+  {
+    "question": "What is the membrane topology of GPNMB?",
+    "answer": "GPNMB has an extracellular region, a single transmembrane helix, and a cytoplasmic tail, consistent with a type I membrane protein.",
+    "source": "Q14956"
+  },
+  {
+    "question": "How does a disease-associated truncation of GPNMB affect its predicted intracellular trafficking, and what mislocalization phenotype has been experimentally observed?",
+    "answer": "A PLCA3-associated variant missing residues 189–572 is reported to be expressed at much lower levels and to be mislocalized to the endoplasmic reticulum and nuclear envelope rather than the normal membrane locations.",
+    "source": "Q14956"
+  },
+  {
+    "question": "Which EGF-like domains are annotated as calcium-binding, and what fraction do they represent among the nine EGF-like domains listed?",
+    "answer": "EGF-like domains 2 (356–396), 7 (870–911), and 8 (912–952) are annotated as calcium-binding. That is 3 out of 9 EGF-like domains.",
+    "source": "P01133"
+  },
+  {
+    "question": "A precursor protein contains a bioactive growth factor peptide as an internal segment near the C-terminus of the ectodomain. Which residue interval corresponds to the embedded mature growth factor, and how does it relate to a nearby EGF-like module annotated in roughly the same region?",
+    "answer": "The mature epidermal growth factor corresponds to residues 971–1023; a nearby EGF-like domain spans 972–1013 and lies mostly within that mature peptide interval.",
+    "source": "P01133"
+  },
+  {
+    "question": "How are LDL-receptor class B repeats distributed across the ectodomain, and what does their arrangement suggest about modular organization (e.g., clustering vs. uniform spacing)?",
+    "answer": "There are 9 repeats arranged in two clusters: 86–258 (four repeats) and 483–696 (five repeats), suggesting clustered modular organization rather than uniform spacing.",
+    "source": "P01133"
+  },
+  {
+    "question": "Among multiple EGF-like domains in a protein, some are annotated as calcium-binding. Which specific EGF-like domains are calcium-binding, and what proportion do they represent of the total EGF-like domains listed?",
+    "answer": "EGF-like domains 2 (356–396), 7 (870–911), and 8 (912–952) are calcium-binding; that is 3 out of 9 EGF-like domains.",
+    "source": "P01133"
+  },
+  {
+    "question": "A post-translational modification site is reported with uncertainty between two adjacent residues. What is the nature of that ambiguity and which residues are involved?",
+    "answer": "Uncertainty about which residue carries O-glycosylation: either Ser-954 or Thr-955.",
+    "source": "P01133"
+  },
+  {
+    "question": "What receptor interaction is directly tied to activation via receptor dimerization, and which receptor is the ligand reported to bind?",
+    "answer": "It binds EGFR and promotes EGFR dimerization.",
+    "source": "P01133"
+  },
+  {
+    "question": "Has the three-dimensional structure of anoplin been experimentally determined?",
+    "answer": "Yes, the three-dimensional structure of anoplin has been determined using NMR spectroscopy, and several NMR structures of the peptide are available.",
+    "source": "P0C005"
+  },
+  {
+    "question": "What antimicrobial activities does anoplin exhibit?",
+    "answer": "Anoplin shows broad-spectrum antimicrobial activity against both Gram-positive and Gram-negative bacteria. It also displays antifungal activity while having little or no hemolytic effect on human red blood cells.",
+    "source": "P0C005"
+  },
+  {
+    "question": "What does the insulin precursor get cut into, and what are the names of the final hormone chains?",
+    "answer": "Human preproinsulin is processed into an Insulin B chain (aa 25–54), a C-peptide (aa 57–87), and an Insulin A chain (aa 90–110). The active hormone insulin consists of the B chain and A chain.",
+    "source": "P01308"
+  },
+
+  {
+    "question": "What happens in mice when the myoglobin gene is knocked out?",
+    "answer": "Most embryos lacking myoglobin die early due to heart failure and vascular insufficiency. Mice that survive to adulthood show compensatory adaptations, such as increased myocardial vascularity and altered gene expression, allowing relatively normal exercise capacity.",
+    "source": "P04247"
+  },
+  {
+    "question": "What type of protein family does myoglobin belong to?",
+    "answer": "Myoglobin belongs to the globin family, which includes oxygen-binding proteins characterized by a conserved globin fold and a heme-binding site.",
+    "source": "P04247"
+  },
+  {
+    "question": "How does SOX2 help control stem cell identity?",
+    "answer": "SOX2 works together with OCT4 to bind DNA and regulate key developmental genes such as NANOG, FGF4, and UTF1. This cooperative binding helps maintain stem cells in an undifferentiated, self-renewing state.",
+    "source": "P54231"
+  },
+  {
+    "question": "What type of DNA-binding domain does SOX2 use?",
+    "answer": "SOX2 uses an HMG-box (high mobility group box) domain to bind DNA in a sequence-specific manner, allowing it to bend DNA and regulate transcription efficiently.",
+    "source": "P54231"
+  },
+  {
+    "question": "Where in the cell is BIO3-BIO1 located and how is it targeted there?",
+    "answer": "BIO3-BIO1 localizes to the mitochondrial matrix and contains an N-terminal mitochondrial transit peptide (reported as residues 1–23) that targets the precursor protein to mitochondria.",
+    "source": "B0F481"
+  },
+  {
+    "question": "A key note warns that using the mitochondrial genetic code would create tandem start/stop codons, implying translation must occur outside mitochondria. What is the implication for where this peptide is likely synthesized?",
+    "answer": "It implies the peptide is likely synthesized in the cytoplasm (using the nuclear/cytosolic translation machinery), even though its sequence originates from mitochondrial DNA.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "Which specific residues are experimentally linked to enhanced glycolytic response to glucose stimulation, and what happens when they are mutated?",
+    "answer": "Glu-5 and Gly-7 are linked; mutating E5→A or G7→A eliminates the enhanced glycolytic response to glucose stimulation.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "A short motif is implicated in nuclear localization and DNA-binding. Which residues form that motif, and what is the effect of mutating them to alanine?",
+    "answer": "Residues 11–14 (YPRK) form the motif; mutating YPRK→AAAA abolishes nuclear localization and DNA-binding activity.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "A second alanine-scan mutation separates nuclear localization from DNA-binding. Which residues are changed, and what functional split does it reveal?",
+    "answer": "Residues 13–16 (RKLR) are changed to AAAA; this does not affect nuclear localization or interaction with NFE2L2 but abolishes DNA-binding, indicating DNA-binding can be disrupted without preventing nuclear entry.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "A population-specific variant is described at residue 14. What is the amino-acid change, which population is it noted in, and what phenotype association is described?",
+    "answer": "K14Q; noted as specific to the Northeast Asian population; associated with increased susceptibility of sedentary males to type 2 diabetes and increased plasma levels of the peptide.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "Which catalytic residue is identified as critical for enzymatic activity, and what functional consequence is observed when this residue is mutated?",
+    "answer": "Tyr-140 is annotated as the proton donor (active site). A Y140F mutation reduces activity by ~95% according to the UniProt mutagenesis note.",
+    "source": "P21673"
+  },
+  {
+    "question": "How is osteoclast formation inhibited in human bone remodeling at the molecular level?",
+    "answer": "Osteoclast formation is inhibited by a soluble decoy receptor that binds RANKL and prevents it from activating its signaling receptor on osteoclast precursors.",
+    "source": "O00300"
+  },
+  {
+    "question": "What local molecular balance is critical for maintaining normal bone homeostasis?",
+    "answer": "Normal bone homeostasis depends on the local ratio between RANKL (TNFSF11) and osteoprotegerin (TNFRSF11B).",
+    "source": "O00300"
+  },
+  {
+    "question": "Which mechanism explains how a secreted factor can simultaneously regulate bone resorption and protect cells from apoptosis?",
+    "answer": "By acting as a decoy receptor for both RANKL and TRAIL, the factor can suppress osteoclastogenesis while also blocking TRAIL-mediated apoptotic signaling.",
+    "source": "O00300"
+  },
+  {
+  "question": "How does TNFRSF11B regulate bone remodeling?",
+  "answer": "TNFRSF11B regulates bone remodeling by inhibiting osteoclast activity and promoting osteoclast apoptosis, thereby reducing bone resorption and balancing bone formation.",
+  "source": "O00300"
+  },
+  {
+  "question": "What type of protein is TNFRSF11B in terms of structure and secretion?",
+  "answer": "TNFRSF11B is a secreted precursor protein that forms homodimers and belongs to the tumor necrosis factor receptor superfamily.",
+  "source": "O00300"
+  },
+  {
+    "question": "Does AtAMI1 act only on indole-3-acetamide (IAM), or does it have other substrates and preferences?",
+    "answer": "It is broader than IAM: it converts phenyl-2-acetamide (PAM) to phenyl-2-acetate and shows a preference PAM > IAM. It can also use L-asparagine and 1-naphthaleneacetamide, but not indole-3-acetonitrile or indole-3-acetyl-L-aspartic acid (per the UniProt functional notes).",
+    "source": "Q9FR37"
+  },
+  {
+    "question": "Is there any stated activity regulation or inhibitor information for AtAMI1?",
+    "answer": "Yes—activity is reported as inhibited by phenylmethylsulfonyl fluoride (PMSF).",
+    "source": "Q9FR37"
+  },
+  {
+    "question": "What cofactors and inhibitors/regulators are reported for the proteinase activity?",
+    "answer": "The enzyme binds Zn2+ (one zinc ion per subunit) as a cofactor. Proteinase activity is slightly enhanced by Ca2+ and Mg2+. It is inhibited by EDTA and phenanthroline, but not by PMSF.",
+    "source": "P0DJH3"
+  },
+  {
+    "question": "What is the normal biological role of type I collagen?",
+    "answer": "Type I collagen is a fibrillar collagen and a major structural component of the extracellular matrix. It normally forms trimers composed of two alpha-1(I) chains and one alpha-2(I) chain, providing tensile strength to tissues such as bone.",
+    "source": "P86289"
+  },
+  {
+  "question": "Which enzymatic activities are associated with the FHIT protein?",
+  "answer": "FHIT exhibits multiple enzymatic activities, including bis(5'-adenosyl)-triphosphatase activity (EC 3.6.1.29), adenosine 5'-monophosphoramidase activity (EC 3.9.1.-), adenylylsulfatase activity (EC 3.6.2.1), and adenylylsulfate-ammonia adenylyltransferase activity (EC 2.7.7.51).",
+  "source": "P49789"
+  },
+  {
+    "question": "How can an oxygen-binding protein maintain extremely high oxygen affinity despite lacking one of the canonical histidine residues typically involved in heme coordination?",
+    "answer": "The missing histidine is functionally replaced by a tyrosine residue in the distal heme pocket, which stabilizes bound oxygen and confers unusually high oxygen affinity and oxidation resistance.",
+    "source": "P80721"
+  },
+  {
+    "question": "What quaternary structure does Paramphistomum epiclitum Globin-3 adopt?",
+    "answer": "Globin-3 is a monomeric protein.",
+    "source": "P80721"
+  },
+  {
+    "question": "Why would exceptionally high oxygen avidity be advantageous for a parasitic trematode living in low-oxygen environments?",
+    "answer": "High oxygen avidity allows efficient oxygen capture and retention under hypoxic conditions within the host, supporting parasite metabolism where oxygen availability is limited.",
+    "source": "P80721"
+  },
+  {
+    "question": "What is the normal biological role of Globin-3 (myoglobin) in Paramphistomum epiclitum?",
+    "answer": "Globin-3 is an oxygen-binding globin protein that functions in oxygen transport and oxygen carrier activity, supporting oxygen handling in the parasite.",
+    "source": "P80721"
+  },
+  {
+    "question": "What role does the proximal iron-coordinating residue play in oxygen binding, and where is it located in the sequence?",
+    "answer": "The proximal residue directly coordinates the heme iron and anchors the heme group; it is located at position 99 in the sequence.",
+    "source": "P80721"
+  },
+  {
+    "question": "Is there a short protein fragment in humans that is related to the transcription factor TFEB?",
+    "answer": "Yes, there is a short protein fragment derived from the TFEB gene that corresponds to the N-terminal region of transcription factor EB. It represents a fragment rather than the full-length TFEB protein.",
+    "source": "Q86WB1"
+  },
+  {
+    "question": "How can protease activity trigger cell signaling in humans?",
+    "answer": "Protease activity can expose a hidden activation sequence on certain membrane receptors, which then acts as an internal ligand to start signaling.",
+    "source": "O00254"
+  },
+  {
+    "question": "Where is the FHIT gene located and why is this region biologically significant?",
+    "answer": "The FHIT gene spans the fragile site at chromosome 3p14.2, a region prone to chromosomal breakage and rearrangements. This genomic instability explains why FHIT is frequently altered in various cancers.",
+    "source": "P49789"
+  },
+  {
+    "question": "Which physiological systems rely on protease-activated signaling mechanisms?",
+    "answer": "Protease-activated signaling plays important roles in blood coagulation, platelet function, and vascular responses.",
+    "source": "O00254"
+  },
+  {
+    "question": "Which class of human proteins binds specific regulatory DNA sequences to activate or repress sets of target genes and acts as master regulators during development?",
+    "answer": "Certain DNA-binding transcription factors act as master regulators by binding specific regulatory DNA sequences and activating or repressing sets of target genes, shaping organ formation and cell fate decisions.",
+    "source": "P26367"
+  },
+  {
+    "question": "What kind of genetic regulator is especially important for forming the eye and parts of the brain in humans?",
+    "answer": "A key developmental transcription factor is required for proper formation of the eye (including iris, retina, and lens) and also contributes to patterning and differentiation in the central nervous system.",
+    "source": "P26367"
+  },
+  {
+    "question": "How does a transcription factor that contains both a paired domain and a homeobox domain achieve specificity in regulating genes involved in eye and neural development?",
+    "answer": "It uses two distinct but cooperative DNA-binding domains that recognize different sequence motifs, allowing fine-tuned control of target gene expression across developmental contexts.",
+    "source": "P26367"
+  },
+  {
+    "question": "Why can mutations in a single developmental transcription factor lead to a wide spectrum of ocular phenotypes such as aniridia, foveal hypoplasia, and anterior segment malformations?",
+    "answer": "Because the protein functions as a master regulator during multiple stages of eye development, different mutations can disrupt DNA binding, protein stability, or regulatory feedback, leading to variable phenotypic outcomes.",
+    "source": "P26367"
+  },
+  {
+    "question": "What is the functional significance of alternative splicing in a developmental transcription factor that controls tissue-specific gene expression?",
+    "answer": "Alternative splicing modulates the DNA-binding properties of the paired domain, enabling tissue- and stage-specific regulation of downstream genes.",
+    "source": "P26367"
+  },
+  {
+    "question": "What kind of protein activity is especially important during pollen development to cope with oxidative stress?",
+    "answer": "Antioxidant enzymes that detoxify reactive oxygen species are crucial during pollen development, as metabolic activity and stress levels are high.",
+    "source": "Q8L5E0"
+  },
+  {
+    "question": "Why would a protein that binds both copper and zinc ions be a strong candidate for an antioxidant defense role?",
+    "answer": "Copper commonly participates in redox catalysis while zinc stabilizes protein structure; this metal-binding combination is characteristic of Cu/Zn superoxide dismutases.",
+    "source": "Q8L5E0"
+  },
+  {
+    "question": "How does TFEB coordinate lysosomal biogenesis with autophagy in response to nutrient availability?",
+    "answer": "When nutrients are abundant, phosphorylation keeps TFEB out of the nucleus; during starvation or stress, TFEB becomes dephosphorylated, enters the nucleus, and activates a transcriptional program that boosts lysosome formation and autophagy-related gene expression.",
+    "source": "P19484"
+  },
+  {
+    "question": "Why is phosphorylation at Ser-211 considered a key switch for TFEB localization and activity?",
+    "answer": "Phosphorylation at Ser-211 promotes binding to 14-3-3 proteins, which favors cytosolic retention; losing that phosphorylation reduces 14-3-3 binding and supports nuclear accumulation and transcriptional activation.",
+    "source": "P19484"
+  },
+  {
+    "question": "What role do Rag GTPases play in controlling TFEB signaling at the lysosome?",
+    "answer": "Rag GTPases help recruit TFEB to the lysosomal surface in an amino-acid-dependent manner, positioning TFEB for regulation by lysosome-associated signaling pathways that determine whether it stays inactive or moves to the nucleus.",
+    "source": "P19484"
+  },
+  {
+    "question": "How can lysosomal calcium signals influence TFEB-dependent transcription?",
+    "answer": "Lysosomal calcium release can activate phosphatases such as calcineurin, which remove inhibitory phosphates from TFEB, promoting its nuclear translocation and activation of lysosome/autophagy gene networks.",
+    "source": "P19484"
+  },
+  {
+    "question": "How does CFTR combine features of an ATP-binding cassette protein with ion channel activity?",
+    "answer": "CFTR uses ATP binding and hydrolysis at its nucleotide-binding domains to control the opening and closing of a chloride-conducting pore, effectively converting an ABC transporter–like architecture into a gated ion channel.",
+    "source": "P13569"
+  },
+  {
+    "question": "Why is phosphorylation of the regulatory domain essential for CFTR function?",
+    "answer": "Phosphorylation of the regulatory domain relieves inhibitory interactions within the protein, allowing ATP-driven gating of the channel and enabling chloride ion flow across the membrane.",
+    "source": "P13569"
+  },
+  {
+    "question": "How does CFTR-mediated chloride transport influence fluid balance in epithelial tissues?",
+    "answer": "By regulating chloride secretion, CFTR controls osmotic water movement across epithelia, which is critical for maintaining proper hydration of mucus and other secretions in organs such as the lungs and intestines.",
+    "source": "P13569"
+  },
+  {
+    "question": "What explains the broad physiological impact of CFTR dysfunction across multiple organs?",
+    "answer": "CFTR is expressed in many epithelial tissues, so impaired chloride and bicarbonate transport disrupts fluid composition in diverse systems, leading to widespread effects rather than a single-organ defect.",
+    "source": "P13569"
+  },
+  {
+    "question": "How does fibronectin contribute to the assembly and organization of the extracellular matrix?",
+    "answer": "Fibronectin serves as a scaffold protein that binds integrins, collagen, fibrin, and other matrix components, enabling cell-mediated fibrillogenesis and the formation of a structured extracellular matrix.",
+    "source": "P07589"
+  },
+  {
+    "question": "Why is fibronectin considered a multifunctional protein rather than a simple adhesion molecule?",
+    "answer": "In addition to mediating cell adhesion, fibronectin regulates cell migration, wound healing, matrix assembly, and signaling pathways that influence cell shape, survival, and differentiation.",
+    "source": "P07589"
+  },
+  {
+    "question": "How does alternative splicing increase the functional diversity of fibronectin?",
+    "answer": "Alternative splicing generates multiple fibronectin isoforms with different domain compositions, allowing tissue-specific interactions and fine-tuning of cell–matrix communication.",
+    "source": "P07589"
+  },
+  {
+    "question": "What role does fibronectin play in bone biology and osteoblast function?",
+    "answer": "Fibronectin supports osteoblast compaction and mineralization by promoting fibril assembly and regulating the deposition of type I collagen during bone matrix formation.",
+    "source": "P07589"
+  },
+  {
+    "question": "How does Abi1 function as a molecular scaffold in actin cytoskeleton remodeling?",
+    "answer": "Abi1 links signaling proteins to actin-regulatory complexes by interacting with partners such as Abl kinases, NAP1, and EPS8, thereby coordinating actin polymerization and membrane dynamics.",
+    "source": "Q8IZP0"
+  },
+  {
+    "question": "Why is Abi1 considered a key regulator of signal transduction downstream of tyrosine kinases?",
+    "answer": "Abi1 binds activated tyrosine kinases and adaptor proteins, allowing it to transmit phosphorylation-dependent signals to cytoskeletal and growth-related pathways.",
+    "source": "Q8IZP0"
+  },
+  {
+    "question": "How can alternative splicing of Abi1 influence cellular behavior?",
+    "answer": "Different Abi1 isoforms vary in their interaction domains and expression patterns, which can alter signaling complex composition and lead to tissue- or context-specific effects on cell growth and migration.",
+    "source": "Q8IZP0"
+  },
+  {
+    "question": "How does phospholipase D catalyze both hydrolysis and transphosphatidylation reactions?",
+    "answer": "The enzyme cleaves the phosphodiester bond of phospholipids using a metal-assisted catalytic mechanism, and in the presence of high concentrations of primary alcohols it redirects the reaction toward transphosphatidylation instead of water-mediated hydrolysis.",
+    "source": "Q8KRU5"
+  },
+  {
+    "question": "Why is metal binding essential for the enzymatic activity of phospholipase D?",
+    "answer": "Bound metal ions stabilize the active-site geometry and participate in substrate coordination, enabling efficient cleavage of the phosphodiester bond and proper release of reaction products.",
+    "source": "Q8KRU5"
+  },
+  {
+    "question": "How does calcium influence the functional state of phospholipase D?",
+    "answer": "Calcium acts as an activating cofactor that enhances catalytic efficiency and allows allosteric stimulation by phosphatidic acid, thereby increasing enzymatic output under appropriate conditions.",
+    "source": "Q8KRU5"
+  },
+  {
+    "question": "What is the functional consequence of proteolytic cleavage of phospholipase D?",
+    "answer": "Proteolytic processing generates a more active enzyme form but removes regulatory features, eliminating responsiveness to phosphatidic acid–dependent allosteric activation.",
+    "source": "Q8KRU5"
+  },
+  {
+    "question": "What role does the epsilon-globin chain play during human development?",
+    "answer": "It is a beta-like globin primarily used in very early embryonic hemoglobin, helping the embryo transport oxygen before the fetal and adult beta-type globins take over.",
+    "source": "P02100"
+  },
+  {
+    "question": "Which hemoglobin assemblies commonly include epsilon-globin in early embryos?",
+    "answer": "Epsilon-globin forms tetramers with alpha or zeta chains, producing early embryonic hemoglobins such as α2ε2 (often called Gower-2) and ζ2ε2 (often called Gower-1).",
+    "source": "P02100"
+  },
+  {
+    "question": "How does epsilon-globin bind oxygen at the molecular level?",
+    "answer": "Like other globins, it binds oxygen via a heme b cofactor; conserved residues in the globin fold position the heme iron and stabilize bound oxygen through the distal and proximal heme-pocket residues.",
+    "source": "P02100"
+  },
+  {
+    "question": "Why are the distal and proximal heme-pocket residues important in epsilon-globin?",
+    "answer": "The proximal residue anchors the heme iron to the protein scaffold, while the distal residue helps control ligand entry and stabilizes bound oxygen—together tuning affinity and reactivity.",
+    "source": "P02100"
+  },
+  {
+    "question": "What is MOTS-c and why is it unusual compared with most human peptides?",
+    "answer": "MOTS-c is a very short, 16–amino-acid peptide encoded within mitochondrial DNA (in the MT-RNR1 region). It’s unusual because it’s mitochondrial-derived yet behaves like a signaling peptide that can act outside mitochondria and influence cell-wide metabolism.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "What does MOTS-c do in metabolic regulation?",
+    "answer": "It supports metabolic balance by improving insulin sensitivity and helping protect against diet- and age-associated insulin resistance and weight gain.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "How can MOTS-c activate AMPK without directly being an enzyme?",
+    "answer": "It can inhibit the folate cycle, which reduces de novo purine synthesis and leads to accumulation of AICAR, a metabolite that activates AMPK—shifting cells toward energy-conserving, stress-adaptive metabolism.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "What is Alpha-amylase A type-1/2 from Aspergillus oryzae?",
+    "answer": "It’s a secreted fungal enzyme (often called Taka-amylase A) that breaks down starch and related carbohydrates by cutting internal α-1,4 glycosidic bonds.",
+    "source": "P0C1B3"
+  },
+  {
+    "question": "Which cofactors does Taka-amylase A bind, and how many are bound per subunit?",
+    "answer": "Taka-amylase A binds calcium ions (Ca2+) and is reported to bind 2 calcium ions per subunit; calcium is inhibitory at high concentrations.",
+    "source": "P0C1B3"
+  },
+  {
+    "question": "What cellular processes are regulated by EGF signaling?",
+    "answer": "EGF signaling regulates cell growth, cell cycle progression, migration, differentiation, and survival.",
+    "source": "P01133"
+  },
+  {
+    "question": "What is one alternative name historically used for TEP1?",
+    "answer": "TEP1 has also been referred to as telomerase-associated protein 1 or p240/p80 telomerase homolog in older naming contexts.",
+    "source": "Q99973"
+  },
+  {
+    "question": "A specific missense variant is linked to altered oxygen binding and increased aggregation propensity. What is the amino-acid change, at what position, and what additional molecular effect is noted besides aggregation?",
+    "answer": "The variant is H→Y at position 98; besides increased tendency to form high-molecular-weight aggregates and being more prone to heme bleaching, it is described as having decreased oxygen binding and altered oxygen carrier activity.",
+    "source": "P02144"
+  },
+  {
+    "question": "How does interaction with transcription factors involved in oxidative stress responses position a mitochondrial-encoded molecule within cellular defense networks?",
+    "answer": "It places the molecule as a signaling link between mitochondrial metabolic status and nuclear stress-response pathways, contributing to cellular adaptation and resilience.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "What is the immunological significance of intrathymic selection for T cell receptors that incorporate the TRBJ1-1 joining segment?",
+    "answer": "Intrathymic selection ensures that receptors containing TRBJ1-1 are self–MHC restricted but non-autoaggressive, shaping a functional peripheral T cell pool capable of effective immune responses without autoimmunity.",
+    "source": "A0A0J9YXA8"
+  },
+  {
+    "question": "How is the Spike glycoprotein functionally divided into distinct regions, and what is the general role of each region?",
+    "answer": "It is divided into S1 and S2 regions, where S1 is primarily responsible for receptor binding and S2 drives membrane fusion after proteolytic activation.",
+    "source": "P0DTC2"
+  },
+  {
+    "question": "Opsin-3 is connected to light-induced effects in multiple skin cell types, including melanocytes and dermal fibroblasts, with distinct wavelengths mentioned across studies. What systems-level implication follows from wavelength-specific induction across different cell types?",
+    "answer": "It implies that Opsin-3 may participate in a distributed cutaneous photoreception network where different cell types convert specific light cues into distinct downstream programs (pigmentation, barrier repair, photoageing-related pathways), rather than a single uniform response.",
+    "source": "Q9H1Y3"
+  },
+  {
+    "question": "How does the myoglobin from Haliotis diversicolor differ structurally from typical vertebrate myoglobins in terms of size and oligomeric state?",
+    "answer": "It is an unusually large myoglobin of about 378 amino acids that forms a homodimer, contrasting with the much smaller (~150 amino acids), monomeric myoglobins commonly found in vertebrates.",
+    "source": "Q01966"
+  },
+  {
+    "question": "What molecular event triggers activation of rhodopsin during visual signal initiation?",
+    "answer": "Activation is triggered by light-induced isomerization of the covalently bound retinal chromophore, causing a conformational change that allows coupling to the G protein transducin.",
+    "source": "P08100"
+  },
+  {
+    "question": "Why is pyridoxal phosphate essential for the catalytic activity of aspartate aminotransferase?",
+    "answer": "Pyridoxal phosphate serves as a cofactor that forms a Schiff base with an active-site lysine, enabling stabilization of reaction intermediates during amino group transfer.",
+    "source": "P00509"
+  },
+  {
+    "question": "Why is it informative that multiple independent structural methods (X-ray crystallography and NMR) have been used to study the EGF domain and its complexes?",
+    "answer": "Using both crystallography and NMR provides complementary evidence: crystallography captures high-resolution snapshots of the ligand alone or bound to receptor extracellular domains, while NMR characterizes solution behavior and ligand interactions under near-physiological conditions, together strengthening structure–function interpretations.",
+    "source": "P01133"
+  },
+  {
+    "question": "Why does the presence of both DNA polymerase and 3'-5' exonuclease activities within the same polypeptide matter for mitochondrial genome stability?",
+    "answer": "The polymerase activity enables DNA synthesis, while the 3'-5' exonuclease activity provides proofreading to remove misincorporated nucleotides, together ensuring high-fidelity replication of mitochondrial DNA.",
+    "source": "P54098"
+  },
+  {
+    "question": "Which biological role is assigned to a 153–amino acid globin-family protein expressed in muscle tissue of an amphibian species?",
+    "answer": "It serves primarily as an oxygen storage protein and facilitates oxygen diffusion within muscle tissues through reversible binding to a heme iron.",
+    "source": "A0A6P7YCT3"
+  },
+  {
+    "question": "What catalytic reaction links heme redox state changes with nitric oxide metabolism in a muscle globin?",
+    "answer": "The interconversion between ferric and ferrous heme coupled to nitric oxide and nitrite, as described for nitrite reductase activity.",
+    "source": "A0A6P7YCT3"
+  },
+  {
+    "question": "What functional evidence supports classification of a Xenopus laevis globin as an oxygen carrier?",
+    "answer": "Gene Ontology annotations include oxygen binding, oxygen carrier activity, oxygen transport, and response to hypoxia, supporting an oxygen-transport role.",
+    "source": "A0A1L8FAX8"
+  },
+  {
+    "question": "Which catalytic reaction links heme redox chemistry to nitric oxide metabolism in a muscle globin?",
+    "answer": "The interconversion of ferric and ferrous heme coupled to nitric oxide and nitrite, corresponding to nitrite reductase activity.",
+    "source": "A0A8D0H6S8"
+  },
+  {
+    "question": "How does ligand binding initiate intracellular signaling in insulin-responsive cells?",
+    "answer": "Binding of insulin induces receptor autophosphorylation on tyrosine residues, triggering downstream signaling cascades.",
+    "source": "P06213"
+  },
+  {
+    "question": "Which human peptide hormone belongs to the insulin superfamily and is synthesized as a precursor that is later processed into two chains?",
+    "answer": "Insulin-like peptide 5, which is produced as a precursor and processed into an A chain and a B chain.",
+    "source": "Q9Y5Q6"
+  },
+  {
+    "question": "Which class of receptor mediates signaling of a relaxin-like hormone involved in testicular descent?",
+    "answer": "A leucine-rich repeat-containing G protein-coupled receptor, specifically LGR8 (also known as RXFP2).",
+    "source": "P51460"
+  },
+  {
+    "question": "What functional role links insulin-degrading enzyme to neurodegenerative disease research?",
+    "answer": "Its ability to degrade amyloid beta peptides links it to pathways relevant to Alzheimer’s disease.",
+    "source": "P14735"
+  },
+  {
+    "question": "What type of enzyme activity is associated with IGF1R, based on its EC number?",
+    "answer": "Receptor tyrosine kinase activity (EC 2.7.10.1), catalyzing phosphorylation of protein tyrosine residues using ATP.",
+    "source": "P08069"
+  },
+  {
+    "question": "How many amino acids does the human T cell receptor delta diversity 1 protein contain?",
+    "answer": "It contains 2 amino acids.",
+    "source": "P0DPR3"
+  },
+  {
+    "question": "In which tissue was the Pneumadin peptide originally identified?",
+    "answer": "The peptide was identified in lung tissue.",
+    "source": "P22103"
+  },
+  {
+    "question": "What types of nucleotide sequence data have been used to characterize the human albumin gene structure?",
+    "answer": "Both mRNA sequences (including large-scale mRNA datasets) and genomic DNA sequences have been used to characterize the gene structure.",
+    "source": "P02768"
+  },
+  {
+    "question": "What is the albumin-family domain architecture of afamin, and how does it map to residue intervals?",
+    "answer": "Afamin contains three albumin-like domains: Albumin 1 (22–210), Albumin 2 (211–403), and Albumin 3 (404–599), matching the canonical ALB/AFP/VDB family architecture.",
+    "source": "P43652"
+  },
+  {
+    "question": "What regulatory relationship to the core clock is proposed, and how is the strength of that claim expressed?",
+    "answer": "The entry says DBP “may be a direct target for regulation by the circadian pacemaker component clock.” The word “may” marks this as a proposed/putative relationship rather than a definitive one in this summary.",
+    "source": "Q10586"
+  },
+  {
+    "question": "What biological or technical reasons can explain why a predicted human protein sequence is shorter than the canonical form of the same protein family?",
+    "answer": "Such differences may arise from alternative splicing predictions, incomplete gene models, pseudogene transcription, or partial annotation of genomic regions.",
+    "source": "Genome-based protein prediction concepts"
+  },
+  {
+    "question": "What experimental evidence supports the cellular role of large endocytic adaptor proteins in humans?",
+    "answer": "Mass spectrometry–based proteomics and interaction studies provide evidence for their expression, phosphorylation, and binding partners in human cells.",
+    "source": "Q8NDI1"
+  },
+  {
+    "question": "How does interferon signaling utilize RNA degradation as an antiviral mechanism in human cells?",
+    "answer": "Interferon induces the 2-5A pathway, activating RNase L to degrade viral and cellular RNAs, thereby inhibiting viral replication.",
+    "source": "Q05823"
+  },
+  {
+    "question": "What biological fluid is the primary site of abundance for the protein known as seminal plasma beta-inhibin?",
+    "answer": "Seminal plasma.",
+    "source": "P08118"
+  },
+  {
+    "question": "Which member of the scavenger receptor class A family is generated in multiple isoforms through alternative splicing?",
+    "answer": "Scavenger receptor class A member 1.",
+    "source": "P21757"
+  },
+  {
+    "question": "Which human protein, encoded by the ELAC2 gene, has been studied as a susceptibility factor in hereditary prostate cancer?",
+    "answer": "Zinc phosphodiesterase ELAC protein 2.",
+    "source": "Q9BQ52"
+  },
+  {
+    "question": "Which human nuclear protein forms heterodimers with MAX to bind E-box DNA sequences and regulate transcription?",
+    "answer": "Max-interacting protein 1.",
+    "source": "P50539"
+  },
+  {
+    "question": "What evidence indicates that the Hip1 protein is synthesized as a precursor, and how is this designation reflected in curated protein databases?",
+    "answer": "The protein entry is explicitly flagged as a precursor, indicating post-translational processing, a designation assigned during Swiss-Prot curation based on experimental and sequence-based evidence.",
+    "source": "P9WHR3"
+  },
+  {
+    "question": "Which canonical protein product is encoded by the human gene NDUFAB1, what are its primary functional identity and short name, and how is its cellular targeting implied by the annotation state of the sequence?",
+    "answer": "NDUFAB1 encodes the mitochondrial acyl carrier protein, annotated with the short name ACP, and its mitochondrial targeting/processing is implied by the precursor status of the sequence.",
+    "source": "O14561"
+  },
+  {
+    "question": "What molecular function is attributed to the mitochondrial CDGSH iron-sulfur domain-containing protein 3, and how does this activity contribute to mitochondrial homeostasis?",
+    "answer": "The protein transfers [2Fe-2S] iron-sulfur clusters to apoferrodoxins such as FDX1 and FDX2, thereby contributing to mitochondrial iron homeostasis, regulation of free iron levels, control of reactive oxygen species, and overall mitochondrial function.",
+    "source": "P0C7P0"
+  },
+  {
+    "question": "How do the functional annotations for the human PMAIP1 gene product connect p53/TP53-dependent transcriptional induction with mitochondrial apoptotic execution, and which mechanistic outcomes are explicitly described for its downstream effects on mitochondria and caspase activation?",
+    "answer": "The protein is described as a pro-apoptotic factor that contributes to p53/TP53-dependent apoptosis, promoting mitochondrial membrane changes, efflux of apoptogenic proteins from mitochondria, and activation of caspases as part of intrinsic apoptotic signaling.",
+    "source": "Q13794"
+  },
+  {
+    "question": "How does the cellular localization and membrane topology of the leptin receptor gene-related protein explain its ability to regulate hormone receptor availability at the cell surface?",
+    "answer": "The protein is a multipass membrane protein localized to the Golgi apparatus and endosome membranes, a positioning that enables it to control receptor trafficking and reduce cell-surface expression of leptin and growth hormone receptors.",
+    "source": "O15243"
+  },
+  {
+    "question": "What biological role is attributed to the leptin receptor overlapping transcript-like 1 protein, and how does this role relate to hormonal signaling in metabolic regulation?",
+    "answer": "The protein participates in the negative regulation of growth hormone action, acting cooperatively with related proteins to reduce hepatic growth hormone signaling and thereby influence metabolic regulation.",
+    "source": "O95214"
+  },
+  {
+    "question": "Which functional properties characterize a human leptin receptor variant that binds leptin and mediates its endocytosis but does not activate STAT3-dependent signaling pathways?",
+    "answer": "The receptor binds leptin, mediates leptin endocytosis, and may facilitate leptin transport across the blood–brain barrier, while lacking the ability to induce STAT3 phosphorylation and downstream STAT3 activation.",
+    "source": "A8K2E3"
+  },
+  {
+    "question": "What biological function is attributed to the human LEPROTL1 protein of 155 amino acids, and how does this function relate to hormonal regulation in the liver?",
+    "answer": "The LEPROTL1 protein negatively regulates growth hormone receptor cell-surface expression in the liver, contributing to reduced growth hormone responsiveness during periods of limited nutrient availability.",
+    "source": "A0A3B3IS19"
+  },
+  {
+    "question": "What annotation status and sequence completeness are associated with the human LEPROTL1 protein entry that is labeled as a fragment?",
+    "answer": "The entry is unreviewed and explicitly flagged as a fragment, indicating that the 162–amino acid sequence represents an incomplete portion of the full-length LEPROTL1 protein.",
+    "source": "E5RHU8"
+  },
+  {
+    "question": "What role does the mouse dynein axonemal intermediate chain 2 protein play in ciliary biology, and which specific ciliary structure is it associated with?",
+    "answer": "The protein is part of the dynein complex of respiratory cilia and is associated with the cilium axoneme, contributing to axonemal dynein-based motility machinery.",
+    "source": "A2AC93"
+  },
+  {
+    "question": "What annotation status and sequence completeness characterize the mouse Dnai2 protein entry consisting of 562 amino acids, and how does this status differ from curated reference sequences?",
+    "answer": "The entry is unreviewed and explicitly flagged as a fragment, indicating that the 562–amino acid sequence represents an incomplete portion of the full-length dynein axonemal intermediate chain 2 protein compared with reviewed reference entries.",
+    "source": "R4GML5"
+  },
+    {
+    "question": "Which major functional protein classes are generated from the SARS-CoV-2 replicase polyprotein 1a through proteolytic processing?",
+    "answer": "Proteolytic processing of the polyprotein yields multiple non-structural proteins, including host translation inhibitor nsp1, nsp2, papain-like protease nsp3, nsp4, the 3C-like main protease nsp5, nsp6, nsp7, nsp8, RNA-capping enzyme subunit nsp9, nsp10, and nsp11.",
+    "source": "P0DTC1"
+  },
+   {
+    "question": "What type of enzyme is encoded by the Salmonella typhi gene wzc and what is its Enzyme Commission classification?",
+    "answer": "The wzc gene encodes a tyrosine-protein kinase that catalyzes protein tyrosine phosphorylation and is classified under the Enzyme Commission number 2.7.10.-.",
+    "source": "Q8Z5G6"
+  },
+  {
+    "question": "What is the primary molecular function of the human FOXP2 protein and which protein domain underlies this activity?",
+    "answer": "FOXP2 functions as a transcription factor that regulates gene expression, and this activity is mediated by its conserved forkhead (FOX) DNA-binding domain.",
+    "source": "O15409"
+  },
+  {
+    "question": "What is the predicted molecular function of the FOXP2 protein encoded in the bonobo genome and where does it primarily act within the cell?",
+    "answer": "The FOXP2 protein in bonobo functions as a DNA-binding transcriptional repressor and primarily localizes to the nucleus, where it regulates RNA polymerase II–dependent gene expression.",
+    "source": "A0A2R9AFL9"
+  },
+  {
+    "question": "Which domain in SMN mediates recognition of dimethylarginine-containing partners, and what is its residue range?",
+    "answer": "The Tudor domain mediates association with symmetrically dimethylated arginine residues in interaction partners, and it spans residues 91–151 in the canonical sequence.",
+    "source": "Q16637"
+  },
+  {
+    "question": "What does the disruption phenotype section say happens when myoglobin is knocked out in mice?",
+    "answer": "Most embryos lacking myoglobin die around embryonic day ~9.5–10.5, apparently from congestive heart failure and vascular insufficiency; surviving homozygous knockout mice can be fertile and show largely normal activity/exercise capacity but display compensatory changes such as increased myocardial vascularity and altered coronary flow/hematocrit.",
+    "source": "P04247"
+  },
+  {
+    "question": "What is the primary enzymatic function of PETH2_THECS?",
+    "answer": "PETH2_THECS functions as a cutinase that catalyzes the hydrolysis of ester bonds in polyesters, including natural cutin and synthetic polymers such as poly(ethylene terephthalate) (PET).",
+    "source": "E9LVH9"
+  },
+  {
+    "question": "What is the primary biological role of MOTS-c in human metabolism?",
+    "answer": "MOTS-c promotes metabolic homeostasis by improving insulin sensitivity, reducing obesity, and regulating glucose and lipid metabolism, particularly under metabolic stress conditions.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "What biological process is CIROP involved in during human development?",
+    "answer": "CIROP plays a role in the establishment of left-right asymmetry during early embryonic development, a process essential for correct positioning of internal organs.",
+    "source": "A0A1B0GTW7"
+  },
+  {
+    "question": "What evidence supports a role for BLT3B in lipid transfer rather than classical enzymatic activity?",
+    "answer": "BLT3B is classified as a member of the bridge-like lipid transfer protein family and lacks annotated catalytic domains, supporting a function in lipid transport or membrane bridging rather than enzymatic catalysis.",
+    "source": "A0JNW5"
+  },
+  {
+    "question": "How does the subcellular localization of CLRN2 support its proposed biological function?",
+    "answer": "Localization to the stereocilium membrane places CLRN2 precisely at the site of mechanotransduction, supporting its role in maintaining membrane properties and protein complexes necessary for auditory signal transduction.",
+    "source": "A0PK11"
+  },
+  {
+    "question": "How does proteolytic processing of the pro-epidermal growth factor precursor regulate the biological activity of EGF?",
+    "answer": "The full-length pro-epidermal growth factor is an inactive precursor that undergoes specific proteolytic cleavage to release the mature epidermal growth factor peptide, which then acts as a potent ligand for the EGF receptor to trigger downstream signaling pathways.",
+    "source": "P01133"
+  },
+  {
+    "question": "What regulatory logic links nutrient starvation to SdpC production, and how does this logic help Bacillus subtilis delay the irreversible commitment to sporulation?",
+    "answer": "Under nutrient starvation, Spo0A induces sdpC expression indirectly by relieving AbrB repression (Spo0A negatively controls AbrB). During nutrient-rich growth, AbrB (with Abh) represses sdpC. This logic ensures SDP accumulates primarily in stationary phase, where it can kill non-sporulating siblings to release nutrients—thereby supporting survival and delaying the energetically expensive and irreversible onset of sporulation until conditions truly warrant commitment.",
+    "source": "O34344"
+  },
+  {
+    "question": "What does the requirement for multiple, spatially separated residues in toxin function suggest about the mechanism of pore formation?",
+    "answer": "It suggests that pore formation is a multistep process involving coordinated contributions from different regions of the protein. Distinct residues may govern folding, membrane recognition, oligomerization interfaces, and pore stabilization, indicating that disruption of any one of these steps can impair overall cytolytic activity.",
+    "source": "P77335"
+  },
+  {
+    "question": "Why is zymogen activation an important regulatory feature for proteolytic toxins produced in venom glands?",
+    "answer": "Zymogen activation prevents premature proteolysis within venom-producing cells and glands. By synthesizing the enzyme in an inactive precursor form and activating it only after secretion or processing, the organism protects its own tissues while ensuring potent enzymatic activity upon envenomation.",
+    "source": "A0A0B4U9L8"
+  },
+  {
+    "question": "What makes aspartate aminotransferase a common model enzyme in studies of structure–function relationships?",
+    "answer": "Its well-characterized reaction mechanism, availability of extensive mutagenesis data, and conserved fold across species make it ideal for correlating structural features with catalytic function and for understanding general principles of enzyme catalysis.",
+    "source": "P00509"
+  },
+  {
+    "question": "Why is lipoprotein signal peptidase essential for the viability of Gram-negative bacteria?",
+    "answer": "Lipoprotein signal peptidase is required to remove signal peptides from prolipoproteins after their modification with diacylglycerol. Without this processing step, mature lipoproteins cannot be correctly localized to the bacterial envelope, leading to severe defects in membrane integrity and cell viability.",
+    "source": "P00804"
+  },
+  {
+    "question": "How does the precursor structure of human insulin enable regulated hormone secretion?",
+    "answer": "Human insulin is synthesized as preproinsulin, which includes a signal peptide, B chain, C-peptide, and A chain. This organization allows proper folding and disulfide bond formation in the endoplasmic reticulum, followed by proteolytic removal of the signal peptide and C-peptide in secretory granules to generate mature, bioactive insulin released in a regulated manner.",
+    "source": "P01308"
+  },
+  {
+    "question": "What functional role does hemoglobin subunit epsilon play during early human development?",
+    "answer": "Hemoglobin subunit epsilon is a beta-like globin expressed during early embryogenesis, where it combines with alpha or zeta globin chains to form embryonic hemoglobins that support efficient oxygen transport under the low-oxygen conditions of the developing embryo.",
+    "source": "P02100"
+  },
+  {
+    "question": "Which human protein is encoded by two highly similar paralogous genes that both contribute to oxygen transport in erythrocytes, and what is the length of its mature polypeptide chain?",
+    "answer": "Hemoglobin subunit alpha, encoded by the paralogous genes HBA1 and HBA2, with a mature length of 142 amino acids.",
+    "source": "P69905"
+  },
+   {
+    "question": "Which human enzyme catalyzes the oxidative cleavage of heme into biliverdin, free iron, and carbon monoxide, and what is the length of its full-length polypeptide?",
+    "answer": "Heme oxygenase 1 catalyzes the oxidative degradation of heme, and its full-length polypeptide consists of 288 amino acids.",
+    "source": "P09601"
+  },
+  {
+    "question": "How can early expression of a viral DNA polymerase shape the progression of the viral replicative cycle?",
+    "answer": "Early synthesis ensures that the polymerase is available immediately after infection, allowing rapid initiation of viral DNA replication and timely coordination with other replication and repair factors.",
+    "source": "A0A7H0DN44"
+  },
+  {
+    "question": "How does proteolytic processing of a single precursor polypeptide generate a mature hormone composed of two separate chains, and why is this architecture functionally important?",
+    "answer": "A precursor is cleaved to remove a connecting peptide, yielding two peptide chains that remain linked by disulfide bonds; this two-chain architecture is critical for forming the correct 3D fold needed for high-affinity receptor binding and biological activity.",
+    "source": "P01308"
+  },
+  {
+    "question": "Which human gene product is proposed to control mosaic spacing of retinal neuron subtypes, and what cellular mechanism underlies this spatial organization?",
+    "answer": "The MEGF11 gene product is proposed to control retinal mosaic spacing through homotypic repulsion between identical neuron subtypes, ensuring even distribution across the retina.",
+    "source": "A6BM72"
+  },
+  {
+    "question": "What structural characteristics define the MEGF9 gene product as a type I membrane protein, and how does this topology influence its cellular localization?",
+    "answer": "The MEGF9 gene product contains a signal peptide and a single transmembrane segment that anchors it as a type I membrane protein, positioning its EGF-like domains extracellularly for interaction while retaining a short cytoplasmic tail.",
+    "source": "Q9H1U4"
+  },
+  {
+    "question": "Which enzymatic reaction detoxifies superoxide radicals in olive tissues and what are the immediate chemical products formed from superoxide?",
+    "answer": "The Cu/Zn superoxide dismutase reaction converts 2 superoxide anions plus 2 protons into hydrogen peroxide and molecular oxygen (2 O2− + 2 H+ → H2O2 + O2).",
+    "source": "Q8L5E0"
+  },
+  {
+    "question": "What biological significance can be inferred from identifying only a short N-terminal fragment of a Cu/Zn superoxide dismutase in olive pollen?",
+    "answer": "The short N-terminal fragment likely represents an immunodominant region that is sufficient for allergen recognition, even though it does not encompass the full enzymatic structure required for catalytic activity.",
+    "source": "P80740"
+  },
+  {
+    "question": "Which enzymatic mechanism enables olive leaf cells to detoxify superoxide radicals generated during environmental stress?",
+    "answer": "A copper/zinc-dependent superoxide dismutase catalyzes the conversion of superoxide radicals into hydrogen peroxide and molecular oxygen, reducing oxidative damage.",
+    "source": "A9LMI6"
+  },
+  {
+    "question": "What discovery approach revealed the existence of a short 71–amino acid translation product encoded within the human TEP1 gene locus?",
+    "answer": "Ribosome profiling and mass spectrometry–based detection of alternative open reading frames revealed translation of a short alternative protein encoded within the TEP1 gene locus.",
+    "source": "L8E7X6"
+  },
+  {
+    "question": "Which serine endopeptidase in rat neuroendocrine tissues is responsible for cleaving prohormones at paired basic residues, and what type of substrates does it primarily process?",
+    "answer": "Neuroendocrine convertase 2 (PCSK2) cleaves prohormones and proneuropeptides at paired basic amino acid sites, enabling maturation of hormones such as glucagon and various neuropeptides.",
+    "source": "P28841"
+  },
+  {
+    "question": "Which rat serine endopeptidase participates in the maturation of peptide hormones by cleaving precursor proteins at paired basic amino acid motifs?",
+    "answer": "Neuroendocrine convertase 2, encoded by the Pcsk2 gene, processes hormone and neuropeptide precursors by cleaving at paired basic residues such as Lys-Arg sites.",
+    "source": "A0A8I6A2I9"
+  },
+  {
+    "question": "How does cleavage at paired basic amino acid residues contribute to endocrine hormone maturation in rats?",
+    "answer": "Cleavage at paired basic residues such as Lys-Arg sites enables conversion of inactive prohormones into biologically active hormones and neuropeptides required for endocrine signaling.",
+    "source": "A6K734"
+  },
+  {
+    "question": "Which human gene product functions as a Rho GTPase-activating protein that suppresses RhoA and Cdc42 signaling, and what is the molecular consequence of this activity?",
+    "answer": "ARHGAP10 encodes a Rho GTPase-activating protein that accelerates GTP hydrolysis on RhoA and Cdc42, converting them to inactive GDP-bound forms and thereby downregulating cytoskeletal and signaling pathways.",
+    "source": "Q96EV3"
+  },
+  {
+    "question": "What is the biological role of the STE2 gene product in Saccharomyces cerevisiae?",
+    "answer": "STE2 encodes the alpha-factor pheromone receptor, a G protein–coupled receptor that enables MATa yeast cells to detect and respond to the alpha mating pheromone during sexual conjugation.",
+    "source": "P06842"
+  },
+  {
+    "question": "What is the primary cellular function of the human MFN2 gene product?",
+    "answer": "MFN2 encodes mitofusin-2, a dynamin-like GTPase that mediates mitochondrial outer membrane fusion, thereby regulating mitochondrial network architecture and maintaining mitochondrial integrity.",
+    "source": "O95140"
+  },
+   {
+    "question": "What is the primary biological role of the LAMA5 gene product in humans?",
+    "answer": "LAMA5 encodes laminin subunit alpha-5, a major extracellular matrix glycoprotein that forms heterotrimeric laminins and is essential for basement membrane assembly, cell adhesion, migration, and tissue organization.",
+    "source": "O15230"
+  },
+  {
+    "question": "What is the primary biochemical function of the MYLK gene product in humans?",
+    "answer": "MYLK encodes myosin light chain kinase (MLCK), a Ca2+/calmodulin-dependent serine/threonine kinase that phosphorylates the regulatory light chain of myosin II, enabling actin–myosin interaction and contractile force generation.",
+    "source": "Q15746"
+  },
+   {
+    "question": "What is the primary biological role of the human OBSCN (obscurin) gene product?",
+    "answer": "OBSCN encodes obscurin, a giant cytoskeletal protein that functions as a structural and signaling scaffold in striated muscle, contributing to sarcomere organization, myofibril alignment, and muscle integrity.",
+    "source": "A6NGQ3"
+  },
+  {
+    "question": "What is the primary biological function of bovine fibronectin?",
+    "answer": "Bovine fibronectin is a multifunctional extracellular matrix glycoprotein that mediates cell adhesion, cell migration, wound healing, opsonization, and maintenance of cell shape by binding to cell surfaces and extracellular ligands such as collagen, fibrin, and heparin.",
+    "source": "P07589"
+  },
+  {
+    "question": "Where is insulin localized and how does it exert its effects?",
+    "answer": "Insulin is secreted into the bloodstream, where it binds to insulin receptors on target cells to activate intracellular signaling pathways that regulate glucose and lipid metabolism.",
+    "source": "P01321"
+  },
+  {
+    "question": "What physiological processes depend on melanopsin signaling?",
+    "answer": "Melanopsin signaling contributes to circadian rhythm regulation, pupillary light reflex, optokinetic responses, sleep–wake cycles, and adaptation of physiology to ambient light levels.",
+    "source": "Q9UHM6"
+  },
+  {
+    "question": "What are the key biochemical steps in rhodopsin-mediated phototransduction?",
+    "answer": "Upon photon absorption, 11-cis-retinal isomerizes to all-trans-retinal, converting rhodopsin into its active form (metarhodopsin II). This activated receptor catalytically activates multiple molecules of the G protein transducin, which in turn stimulates cGMP phosphodiesterase. The resulting drop in cGMP closes cyclic nucleotide–gated ion channels, hyperpolarizing the rod cell and generating a neural signal.",
+    "source": "P08100"
+  },
+  {
+    "question": "How does CAH6 differ from other carbonic anhydrase isoforms in terms of localization and function?",
+    "answer": "Unlike most carbonic anhydrases, which are cytosolic or membrane-associated, CAH6 is a secreted enzyme predominantly found in saliva. This extracellular localization suggests a specialized role in modifying the chemical environment of the oral cavity rather than intracellular pH regulation.",
+    "source": "Q865C0"
+  },
+   {
+    "question": "How does OPG contribute to pathological bone loss in inflammatory diseases?",
+    "answer": "In inflammatory contexts, cytokines such as TNF-α and IL-1β alter the RANKL/OPG ratio by upregulating RANKL or downregulating OPG expression. This shift favors osteoclast activation and bone erosion, as observed in rheumatoid arthritis and other chronic inflammatory disorders.",
+    "source": "O00300"
+  },
+  {
+    "question": "How does the multifunctional nature of a type-A DNA polymerase contribute to both DNA synthesis and repair processes in Escherichia coli, and which catalytic activities enable this dual role?",
+    "answer": "The enzyme supports DNA synthesis through its polymerase activity while simultaneously maintaining genome integrity via intrinsic 3'-5' exonuclease proofreading and 5'-3' exonuclease-mediated nick translation, allowing it to remove damaged nucleotides and fill resulting gaps during DNA repair.",
+    "source": "P00582"
+  },
+  {
+    "question": "What role do reversible cysteine modifications play in fine-tuning the activity of oxidative stress regulators in bacteria?",
+    "answer": "Reversible modifications such as disulfide bond formation, S-nitrosylation, and glutathionylation allow the regulator to respond to diverse redox signals, enabling graded and condition-specific transcriptional responses to oxidative and nitrosative stress.",
+    "source": "P0ACQ4"
+  },
+  {
+    "question": "Why is phosphorylation of the regulatory domain essential for the activation of a human ABC-family chloride channel?",
+    "answer": "Phosphorylation of multiple serine residues within the regulatory domain relieves inhibitory interactions, allowing nucleotide-binding domains to engage productively and enabling ATP-dependent channel opening.",
+    "source": "P13569"
+  },
+  {
+    "question": "How does NMDA receptor 'coincidence detection' emerge from its activation requirements, and why is this property central to learning-related synaptic plasticity?",
+    "answer": "NMDA receptors require both ligand binding and membrane depolarization to relieve channel block, causing Ca2+ influx only when presynaptic glutamate release coincides with postsynaptic activity; this couples timing-dependent signaling to plasticity mechanisms such as LTP and LTD.",
+    "source": "Q05586"
+  },
+  {
+    "question": "Why does melanopsin-mediated phototransduction exhibit slower kinetics compared to rod- and cone-based visual signaling?",
+    "answer": "Its signaling cascade relies on G-protein–coupled receptor mechanisms optimized for sustained light detection rather than rapid image formation, allowing prolonged integration of illumination levels instead of fast temporal resolution.",
+    "source": "Q9UHM6"
+  },
+  {
+    "question": "Why is association with an ITAM-containing adaptor protein critical for signal transduction by certain single-pass immune receptors?",
+    "answer": "Because the receptor itself lacks intracellular signaling motifs, coupling to an ITAM-bearing adaptor enables recruitment of kinases and downstream signaling complexes necessary to propagate activation signals within the cell.",
+    "source": "B6A8C7"
+  },
+  {
+    "question": "What structural features of myoglobin underlie its ability to reversibly bind small gaseous ligands?",
+    "answer": "A compact globin fold creates a hydrophobic pocket surrounding the heme iron, stabilizing ligand binding while permitting rapid association and dissociation of molecules such as oxygen, carbon monoxide, and nitric oxide.",
+    "source": "P68082"
+  },
+  {
+    "question": "How does an initiator caspase integrate signals from death receptors to activate the extrinsic apoptotic cascade in mouse cells?",
+    "answer": "Upon death-receptor stimulation, the protease is recruited via adaptor proteins into a signaling complex where proximity-induced dimerization and proteolytic processing generate an active enzyme that then cleaves downstream effector caspases to execute apoptosis.",
+    "source": "O89110"
+  },
+  {
+    "question": "How can an endocytic trafficking adaptor couple membrane internalization to actin remodeling, and why is this coupling important for cargo sorting?",
+    "answer": "By binding endocytic scaffold proteins and simultaneously engaging actin-associated machinery, the adaptor can coordinate vesicle formation, movement, and positioning, ensuring that internalized cargo is efficiently directed into the correct recycling or degradative pathways.",
+    "source": "Q8NDI1"
+  },
+  {
+    "question": "How does a cyclin-dependent–like kinase that is not directly involved in cell cycle progression exert critical functions in neuronal cells?",
+    "answer": "By partnering with neuron-specific activators rather than classical cyclins, the kinase regulates phosphorylation of substrates involved in neuronal migration, synaptic signaling, and cytoskeletal organization, enabling precise control of post-mitotic neuronal functions.",
+    "source": "A0A090N7W4"
+  },
+  {
+    "question": "How can an extremely short mitochondrial microprotein exert a measurable impact on cellular energy metabolism?",
+    "answer": "Despite its small size, the microprotein integrates into mitochondrial membranes and directly participates in the assembly and stabilization of respiratory chain complexes, thereby influencing electron transport efficiency and overall ATP production.",
+    "source": "E0CX11"
+  },
+  {
+    "question": "How does a viral DNA polymerase achieve high processivity during genome replication despite lacking intrinsic sliding-clamp activity?",
+    "answer": "The polymerase forms a holoenzyme by associating with a heterodimeric viral processivity factor, which stabilizes its interaction with DNA and enables continuous nucleotide incorporation over long template regions.",
+    "source": "A0A7H0DN44"
+  },
+  {
+    "question": "Find the PubMed codes of the proteins that regulates insulin sensitivity",
+    "answer": "MOTS-c (Mitochondrial-derived peptide MOTS-c) regulates insulin sensitivity.",
+    "source": "A0A0C5B5G6"
+  },
+  {
+    "question": "What specific proteins does ARHGAP10 interact with to regulate cytoskeletal organization, and how does this interaction impact cellular processes?",
+    "answer": "ARHGAP10 interacts with PKN3 (PubMed:11432776), PAK-2p34, PTK2/FAK1, PTK2B/PYK2, MICAL1, and WDR44.",
+    "source": "A1A4S6"
+  },
+  {
+    "question": "What is the primary function of the protein encoded by the RNF103 gene in Homo sapiens?",
+    "answer": "Acts as an E2-dependent E3 ubiquitin-protein ligase, involved in ERAD pathway.",
+    "source": "O00237"
+  },
+  {
+    "question": "What is the variant associated with mitochondrial complex III deficiency, nuclear type 4 (MC3DN4) in humans?",
+    "answer": "Variant F45 in the UQCRQ gene is associated with MC3DN4.",
+    "source": "O14949"
+  },
+  {
+    "question": "Based on the UniProt entry for SH3 and PX domain-containing protein 2B (SH3PXD2B), what is the connection between this protein and Frank-Ter Haar syndrome (FTHS), and what specific amino acid variant is associated with the disease?",
+    "answer": "Variant R43W (rs267607046) in SH3PXD2B is associated with Frank-Ter Haar syndrome (FTHS).",
+    "source": "A1X283"
+  },
+  {
+    "question": "According to the UniProt entry, what is a function of Ras-related protein Rab-32 and where is it localized within the cell?",
+    "answer": "Functions as an A-kinase anchoring protein and localizes to the mitochondrial outer membrane.",
+    "source": "Q13637"
+  },
+  {
+    "question": "What tissues express this the estrogen receptor (ESR1) in Oryzias latipes?",
+    "answer": "Expressed in brain, ovary, testis, and female liver.",
+    "source": "P50241"
+  },
+  {
+    "question": "What type of alternative products are generated from the POTEE gene, and how many isoforms are identified?",
+    "answer": "Three isoforms generated by alternative splicing: POTE2A, POTE2B, and POTE2C/D.",
+    "source": "Q6S8J3"
+  },
+  {
+    "question": "How do the expression levels of TFIIIA isoforms and their protein products vary during Arabidopsis development?",
+    "answer": "Isoforms 1 and 2 expressed in seedlings and flowers. Isoform 2 is in mature seeds. TFIIIA increases in seeds, TFIIIA-C decreases.",
+    "source": "Q84MZ4"
+  },
+  {
+    "question": "What is the primary catalytic function of spinach glycolate oxidase, and where in the cell is this enzyme located?",
+    "answer": "Catalyzes oxidation of glycolate to glyoxylate, reducing O₂ to H₂O₂; located in the peroxisome.",
+    "source": "P05414"
+  },
+  {
+    "question": "Which domain structure enables the HA33/C (HA1) protein from Clostridium botulinum C phage to bind specific sugars on host mucins, how does this binding contribute to the toxin’s function, and what subunit composition is the HA33/C part of within the larger botulinum toxin complex?",
+    "answer": "HA33/C contains two β-trefoil lectin domains; binding facilitates intestinal absorption. It is part of the hemagglutinin complex in the 16S botulinum toxin.",
+    "source": "P0DPR0"
+  }
+]
