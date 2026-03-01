@@ -36,6 +36,7 @@ const PROVIDER_MODELS = {
   "Google": [
       "gemini-2.5-pro",
       "gemini-2.5-flash",
+      "gemini-3-flash-preview"
   ],
   "Groq": [
       "openai/gpt-oss-120b",
