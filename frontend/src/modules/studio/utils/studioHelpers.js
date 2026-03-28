@@ -2,34 +2,6 @@ function safeText(value) {
   return (value ?? '').toString().trim();
 }
 
-export function buildConversationAwareQuestion(messages, latestQuestion) {
-  const cleanedQuestion = safeText(latestQuestion);
-  const history = messages
-    .filter((message) => message.includeInContext !== false)
-    .filter((message) => message.role === 'user' || message.role === 'assistant')
-    .slice(-6)
-    .map((message) => {
-      const roleLabel = message.role === 'user' ? 'User' : 'Assistant';
-      return `${roleLabel}: ${safeText(message.content)}`;
-    })
-    .join('\n');
-
-  if (!history) {
-    return cleanedQuestion;
-  }
-
-  return [
-    'Continue the following protein-analysis conversation.',
-    'Use prior turns only as supporting context and prioritize the newest user request.',
-    '',
-    'Conversation history:',
-    history,
-    '',
-    'Newest user request:',
-    cleanedQuestion,
-  ].join('\n');
-}
-
 export function buildSuggestedFollowUps({ question, answer, proteinInfo = [], sequence = '' }) {
   const normalizedQuestion = safeText(question).toLowerCase();
   const normalizedAnswer = safeText(answer).toLowerCase();

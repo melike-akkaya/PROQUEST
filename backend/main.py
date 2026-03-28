@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, Body
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 import logging, io, time, sqlite3
 from datetime import datetime
@@ -281,25 +281,33 @@ def vector_search(req: VectorRequest):
     )
 
 
+class RAGChatMessage(BaseModel):
+    role: str
+    content: str
+    includeInContext: bool = True
+
+
 class RAGRequest(BaseModel):
     model: str
     api_key: str
     question: str
     sequence: str
     top_k: int
+    chat_history: List[RAGChatMessage] = Field(default_factory=list)
     temperature: float | None = None
 
 
 class RAGResponse(BaseModel):
     answer: str
     protein_ids: List[str]
+    suggested_followups: List[str]
 
 
-def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
+def safe_answer_with_proteins(llm, query, sequence, top_k, chat_history=None, max_attempts=6):
     try:
         print(f"Trying top_k = {top_k}")
-        answer, protein_ids = answerWithProteins(llm, query, sequence, top_k)
-        return answer, protein_ids
+        answer, protein_ids, suggested_followups = answerWithProteins(llm, query, sequence, top_k, chat_history)
+        return answer, protein_ids, suggested_followups
     except Exception as e:
         print(f"Initial top_k={top_k} failed: {e}")
         last_error = e
@@ -309,7 +317,7 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
     high = top_k - 1
     best_answer = None
     best_ids = []
-    last_valid_k = None
+    best_followups = []
 
     for _ in range(max_attempts):
         if low > high:
@@ -318,10 +326,10 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
         mid = (low + high) // 2
         print(f"Trying fallback top_k = {mid}")
         try:
-            answer, protein_ids = answerWithProteins(llm, query, sequence, mid)
+            answer, protein_ids, suggested_followups = answerWithProteins(llm, query, sequence, mid, chat_history)
             best_answer = answer
             best_ids = protein_ids
-            last_valid_k = mid
+            best_followups = suggested_followups
             low = mid + 1
         except Exception as e:
             print(f"Error at top_k = {mid}: {e}")
@@ -331,7 +339,7 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, max_attempts=6):
     if best_answer is None:
         raise RuntimeError(f"Token limit error even at low top_k. Last error: {last_error}")
 
-    return best_answer, best_ids
+    return best_answer, best_ids, best_followups
 
 @app.post("/rag_order", response_model=RAGResponse)
 def rag_order(req: RAGRequest):
@@ -342,13 +350,23 @@ def rag_order(req: RAGRequest):
         raise HTTPException(status_code=400, detail=f"Model init error: {e}")
 
     try:
-        answer, protein_ids = safe_answer_with_proteins(llm, req.question, req.sequence, req.top_k)
+        chat_history = [
+            message.model_dump() if hasattr(message, "model_dump") else message.dict()
+            for message in req.chat_history
+        ]
+        answer, protein_ids, suggested_followups = safe_answer_with_proteins(
+            llm,
+            req.question,
+            req.sequence,
+            req.top_k,
+            chat_history,
+        )
         if answer is None:
             answer = ""
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"RAG generation failed: {e}")
 
-    return RAGResponse(answer=answer, protein_ids=protein_ids)
+    return RAGResponse(answer=answer, protein_ids=protein_ids, suggested_followups=suggested_followups or [])
 
 class RAGProteinListRequest(BaseModel):
     protein_ids: List[str]

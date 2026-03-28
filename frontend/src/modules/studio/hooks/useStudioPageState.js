@@ -13,7 +13,6 @@ import {
   TEMPERATURE_RANGES,
 } from '../constants';
 import {
-  buildConversationAwareQuestion,
   buildSuggestedFollowUps,
   formatApiError,
   normalizeSequenceInput,
@@ -256,11 +255,20 @@ export default function useStudioPageState() {
     setRagLoading(true);
 
     try {
-      const contextualQuestion = buildConversationAwareQuestion(nextMessages, questionToSend);
       const ragResponse = await queryRAG({
         model: ragConfig.model,
         apiKey: ragConfig.apiKey,
-        question: contextualQuestion,
+        question: questionToSend,
+        chatHistory: ragMessages
+          .filter((message) => message.id !== 'rag-welcome')
+          .filter((message) => message.includeInContext !== false)
+          .filter((message) => message.role === 'user' || message.role === 'assistant')
+          .slice(-6)
+          .map((message) => ({
+            role: message.role,
+            content: message.content,
+            includeInContext: true,
+          })),
         sequence: sequenceToSend,
         topK: ragConfig.topK,
         temperature: ragConfig.temperature,
@@ -286,12 +294,14 @@ export default function useStudioPageState() {
           content: ragResponse.answer || 'No answer returned.',
           proteinIds: ragResponse.proteinIds,
           proteinInfo,
-          suggestions: buildSuggestedFollowUps({
-            question: questionToSend,
-            answer: ragResponse.answer,
-            proteinInfo,
-            sequence: sequenceToSend,
-          }),
+          suggestions: ragResponse.suggestedFollowUps?.length
+            ? ragResponse.suggestedFollowUps
+            : buildSuggestedFollowUps({
+                question: questionToSend,
+                answer: ragResponse.answer,
+                proteinInfo,
+                sequence: sequenceToSend,
+              }),
         },
       ]);
     } catch (error) {

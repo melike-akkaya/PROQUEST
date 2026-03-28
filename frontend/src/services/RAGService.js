@@ -4,6 +4,7 @@ export async function queryRAG({
   model,
   apiKey,
   question,
+  chatHistory,
   sequence,
   topK,
   temperature = null
@@ -16,6 +17,10 @@ export async function queryRAG({
     top_k: topK
   };
 
+  if (chatHistory?.length) {
+    payload.chat_history = chatHistory;
+  }
+
   if (temperature !== null) {
     payload.temperature = temperature;
   }
@@ -23,7 +28,8 @@ export async function queryRAG({
   const { data } = await axios.post('/rag_order', payload);
   return {
     answer: data.answer,
-    proteinIds: data.protein_ids
+    proteinIds: data.protein_ids,
+    suggestedFollowUps: data.suggested_followups || [],
   };
 }
 
