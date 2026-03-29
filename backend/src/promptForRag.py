@@ -170,7 +170,7 @@ Style:
 - Do not use code fences.
 
 ---
-**Question:**  
+{conversation_block}**Question:**  
 {query}
 
 **Protein Documents:**  
@@ -212,7 +212,7 @@ Style:
 - Do not use code fences.
 
 ---
-**Question:**  
+{conversation_block}**Question:**  
 {query}
 
 **Protein Documents (retrieved based on similarity to the input protein sequence):**  
