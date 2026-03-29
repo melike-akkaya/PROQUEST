@@ -1,3 +1,5 @@
+import json
+
 from langchain_core.prompts import PromptTemplate
 from langchain_classic.chains import LLMChain
 from src.proteinRetriverFromFlatFiles import retrieveRelatedProteins
@@ -6,11 +8,51 @@ from src.proteinRetriverFromSequences import retrieveRelatedProteinsFromSequence
 from src.proteinRetriverFromFTS import retrieveRelatedProteinsFTS
 import pandas as pd
 
+
+FOLLOW_UPS_MARKER = "SUGGESTED_FOLLOWUPS_JSON:"
+
+
 def format_documents(df):
     return "\n\n".join(
         f"Protein ID: {row['Protein ID']}\nContent: {row['Content']}"
         for _, row in df.iterrows()
     )
+
+
+def build_conversation_aware_question(chat_history, latest_question):
+    cleaned_question = (latest_question or "").strip()
+    history = []
+
+    for message in chat_history or []:
+        if not isinstance(message, dict):
+            continue
+        if message.get("includeInContext") is False:
+            continue
+
+        role = str(message.get("role") or "").strip().lower()
+        content = str(message.get("content") or "").strip()
+        if role not in {"user", "assistant"} or not content:
+            continue
+
+        role_label = "User" if role == "user" else "Assistant"
+        history.append(f"{role_label}: {content}")
+
+    history = history[-6:]
+
+    if not history:
+        return cleaned_question
+
+    return "\n".join([
+        "Continue the following protein-analysis conversation.",
+        "Use prior turns only as supporting context and prioritize the newest user request.",
+        "",
+        "Conversation history:",
+        *history,
+        "",
+        "Newest user request:",
+        cleaned_question,
+    ]).strip()
+
 
 def hybridRetrieveRelatedProteins(query, top_k):
     vectordbDocs = retrieveRelatedProteins(query, top_k)
@@ -71,9 +113,38 @@ def hybridRetrieveRelatedProteins(query, top_k):
     return df.head(top_k).reset_index(drop=True)
 
 
-def answerWithProteins(llm, query, sequence, top_k):
+def extract_answer_and_followups(raw_output):
+    text = (raw_output or "").strip()
+    marker_index = text.rfind(FOLLOW_UPS_MARKER)
+
+    if marker_index == -1:
+        return text, []
+
+    answer = text[:marker_index].rstrip()
+    followups_raw = text[marker_index + len(FOLLOW_UPS_MARKER):].strip()
+
+    try:
+        parsed = json.loads(followups_raw)
+    except json.JSONDecodeError:
+        return text, []
+
+    if not isinstance(parsed, list):
+        return text, []
+
+    suggestions = []
+    for item in parsed:
+        candidate = str(item).strip()
+        if candidate and candidate not in suggestions:
+            suggestions.append(candidate)
+
+    return answer, suggestions[:4]
+
+
+def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
+    contextual_query = build_conversation_aware_question(chat_history, query)
+
     if sequence == '':
-        documents_df = hybridRetrieveRelatedProteins(query, top_k)
+        documents_df = hybridRetrieveRelatedProteins(contextual_query, top_k)
         formatted_documents = format_documents(documents_df)
 
         prompt = PromptTemplate(
@@ -93,6 +164,10 @@ Style:
   “Based on the provided documents…”, or similar phrases.
 - Use clear, concise scientific language.
 - If you need to show your reasoning, weave it briefly into the answer itself, without long preambles.
+- After your answer, add one final line exactly in this format:
+  SUGGESTED_FOLLOWUPS_JSON: ["follow-up question 1", "follow-up question 2", "follow-up question 3"]
+- Make the follow-up questions specific and relevant to the current answer.
+- Do not use code fences.
 
 ---
 **Question:**  
@@ -131,6 +206,10 @@ Style:
   “Based on the following sequence…”, or similar phrases.
 - Use clear, concise scientific language.
 - If you need to show your reasoning, weave it briefly into the answer itself, without long preambles.
+- After your answer, add one final line exactly in this format:
+  SUGGESTED_FOLLOWUPS_JSON: ["follow-up question 1", "follow-up question 2", "follow-up question 3"]
+- Make the follow-up questions specific and relevant to the current answer.
+- Do not use code fences.
 
 ---
 **Question:**  
@@ -145,7 +224,8 @@ Style:
         )
 
     chain = LLMChain(llm=llm, prompt=prompt)
-    answer = chain.run(query=query, documents=formatted_documents)
+    raw_output = chain.run(query=contextual_query, documents=formatted_documents)
+    answer, suggested_followups = extract_answer_and_followups(raw_output)
 
     protein_ids = documents_df["Protein ID"].tolist()
-    return answer, protein_ids
+    return answer, protein_ids, suggested_followups
