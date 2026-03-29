@@ -19,8 +19,7 @@ def format_documents(df):
     )
 
 
-def build_conversation_aware_question(chat_history, latest_question):
-    cleaned_question = (latest_question or "").strip()
+def build_conversation_context(chat_history):
     history = []
 
     for message in chat_history or []:
@@ -40,17 +39,15 @@ def build_conversation_aware_question(chat_history, latest_question):
     history = history[-6:]
 
     if not history:
-        return cleaned_question
+        return ""
 
     return "\n".join([
-        "Continue the following protein-analysis conversation.",
-        "Use prior turns only as supporting context and prioritize the newest user request.",
+        "Previous chat messages are provided only as optional background context.",
+        "Prioritize the newest user request and ignore prior turns unless they are clearly relevant.",
         "",
         "Conversation history:",
         *history,
         "",
-        "Newest user request:",
-        cleaned_question,
     ]).strip()
 
 
@@ -141,10 +138,18 @@ def extract_answer_and_followups(raw_output):
 
 
 def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
-    contextual_query = build_conversation_aware_question(chat_history, query)
+    cleaned_query = (query or "").strip()
+    conversation_context = build_conversation_context(chat_history)
+    conversation_block = ""
+    if conversation_context:
+        conversation_block = (
+            "**Conversation Context (optional background):**\n"
+            f"{conversation_context}\n\n"
+            "---\n"
+        )
 
     if sequence == '':
-        documents_df = hybridRetrieveRelatedProteins(contextual_query, top_k)
+        documents_df = hybridRetrieveRelatedProteins(cleaned_query, top_k)
         formatted_documents = format_documents(documents_df)
 
         prompt = PromptTemplate(
@@ -164,13 +169,17 @@ Style:
   “Based on the provided documents…”, or similar phrases.
 - Use clear, concise scientific language.
 - If you need to show your reasoning, weave it briefly into the answer itself, without long preambles.
+- If conversation context is provided, treat it as optional background only.
+- Use it only when the current question clearly depends on prior turns or contains references that need that context.
+- If the current question stands on its own or shifts topic, ignore the conversation context.
+- Never let conversation context override the current question or the retrieved documents.
 - After your answer, add one final line exactly in this format:
   SUGGESTED_FOLLOWUPS_JSON: ["follow-up question 1", "follow-up question 2", "follow-up question 3"]
 - Make the follow-up questions specific and relevant to the current answer.
 - Do not use code fences.
 
 ---
-**Question:**  
+{conversation_block}**Question:**  
 {query}
 
 **Protein Documents:**  
@@ -206,13 +215,17 @@ Style:
   “Based on the following sequence…”, or similar phrases.
 - Use clear, concise scientific language.
 - If you need to show your reasoning, weave it briefly into the answer itself, without long preambles.
+- If conversation context is provided, treat it as optional background only.
+- Use it only when the current question clearly depends on prior turns or contains references that need that context.
+- If the current question stands on its own or shifts topic, ignore the conversation context.
+- Never let conversation context override the current question or the retrieved documents.
 - After your answer, add one final line exactly in this format:
   SUGGESTED_FOLLOWUPS_JSON: ["follow-up question 1", "follow-up question 2", "follow-up question 3"]
 - Make the follow-up questions specific and relevant to the current answer.
 - Do not use code fences.
 
 ---
-**Question:**  
+{conversation_block}**Question:**  
 {query}
 
 **Protein Documents (retrieved based on similarity to the input protein sequence):**  
@@ -224,7 +237,11 @@ Style:
         )
 
     chain = LLMChain(llm=llm, prompt=prompt)
-    raw_output = chain.run(query=contextual_query, documents=formatted_documents)
+    raw_output = chain.run(
+        query=cleaned_query,
+        documents=formatted_documents,
+        conversation_block=conversation_block,
+    )
     answer, suggested_followups = extract_answer_and_followups(raw_output)
 
     protein_ids = documents_df["Protein ID"].tolist()
