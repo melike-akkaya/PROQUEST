@@ -255,22 +255,20 @@ export default function useStudioPageState() {
     setRagLoading(true);
 
     try {
-      const chatHistory = ragMessages
-        .filter((message) => message.id !== 'rag-welcome')
-        .filter((message) => message.includeInContext !== false)
-        .filter((message) => message.role === 'user' || message.role === 'assistant')
-        .slice(-6)
-        .map((message) => ({
-          role: message.role,
-          content: message.content,
-          includeInContext: true,
-        }));
-
       const ragResponse = await queryRAG({
         model: ragConfig.model,
         apiKey: ragConfig.apiKey,
         question: questionToSend,
-        chatHistory,
+        chatHistory: ragMessages
+          .filter((message) => message.id !== 'rag-welcome')
+          .filter((message) => message.includeInContext !== false)
+          .filter((message) => message.role === 'user' || message.role === 'assistant')
+          .slice(-6)
+          .map((message) => ({
+            role: message.role,
+            content: message.content,
+            includeInContext: true,
+          })),
         sequence: sequenceToSend,
         topK: ragConfig.topK,
         temperature: ragConfig.temperature,
