@@ -229,7 +229,7 @@ export default function LiquidNavbar({ mode, toggleMode }) {
                       key={item.id}
                       component="button"
                       type="button"
-                      onClick={() => navigate(`/studio?module=${item.id}`)}
+                      onClick={() => navigate(`/query/${item.id}`)}
                       sx={{
                         appearance: 'none',
                         border: 'none',

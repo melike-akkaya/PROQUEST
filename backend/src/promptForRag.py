@@ -10,6 +10,7 @@ import pandas as pd
 
 
 FOLLOW_UPS_MARKER = "SUGGESTED_FOLLOWUPS_JSON:"
+MAX_CONTEXT_TURNS = 3
 
 
 def format_documents(df):
@@ -19,8 +20,7 @@ def format_documents(df):
     )
 
 
-def build_conversation_aware_question(chat_history, latest_question):
-    cleaned_question = (latest_question or "").strip()
+def build_conversation_context(chat_history):
     history = []
 
     for message in chat_history or []:
@@ -37,20 +37,16 @@ def build_conversation_aware_question(chat_history, latest_question):
         role_label = "User" if role == "user" else "Assistant"
         history.append(f"{role_label}: {content}")
 
-    history = history[-6:]
+    history = history[-MAX_CONTEXT_TURNS:]
 
     if not history:
-        return cleaned_question
+        return ""
 
     return "\n".join([
-        "Continue the following protein-analysis conversation.",
-        "Use prior turns only as supporting context and prioritize the newest user request.",
-        "",
-        "Conversation history:",
+        "Background context from earlier turns (optional):",
+        "It is much less important than the latest request and may be ignored.",
         *history,
         "",
-        "Newest user request:",
-        cleaned_question,
     ]).strip()
 
 
@@ -141,10 +137,18 @@ def extract_answer_and_followups(raw_output):
 
 
 def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
-    contextual_query = build_conversation_aware_question(chat_history, query)
+    cleaned_query = (query or "").strip()
+    conversation_context = build_conversation_context(chat_history)
+    conversation_block = ""
+    if conversation_context:
+        conversation_block = (
+            "**Background Context From Earlier Turns (optional):**\n"
+            f"{conversation_context}\n\n"
+            "---\n"
+        )
 
     if sequence == '':
-        documents_df = hybridRetrieveRelatedProteins(contextual_query, top_k)
+        documents_df = hybridRetrieveRelatedProteins(cleaned_query, top_k)
         formatted_documents = format_documents(documents_df)
 
         prompt = PromptTemplate(
@@ -164,6 +168,8 @@ Style:
   “Based on the provided documents…”, or similar phrases.
 - Use clear, concise scientific language.
 - If you need to show your reasoning, weave it briefly into the answer itself, without long preambles.
+- If background context from earlier turns is provided, treat it as much less important than the current question and the retrieved protein documents.
+- Use earlier-turn context only when it clearly helps interpret the latest request; otherwise ignore it.
 - After your answer, add one final line exactly in this format:
   SUGGESTED_FOLLOWUPS_JSON: ["follow-up question 1", "follow-up question 2", "follow-up question 3"]
 - Make the follow-up questions specific and relevant to the current answer.
@@ -206,6 +212,8 @@ Style:
   “Based on the following sequence…”, or similar phrases.
 - Use clear, concise scientific language.
 - If you need to show your reasoning, weave it briefly into the answer itself, without long preambles.
+- If background context from earlier turns is provided, treat it as much less important than the current question and the retrieved protein documents.
+- Use earlier-turn context only when it clearly helps interpret the latest request; otherwise ignore it.
 - After your answer, add one final line exactly in this format:
   SUGGESTED_FOLLOWUPS_JSON: ["follow-up question 1", "follow-up question 2", "follow-up question 3"]
 - Make the follow-up questions specific and relevant to the current answer.
@@ -224,7 +232,11 @@ Style:
         )
 
     chain = LLMChain(llm=llm, prompt=prompt)
-    raw_output = chain.run(query=contextual_query, documents=formatted_documents)
+    raw_output = chain.run(
+        query=cleaned_query,
+        documents=formatted_documents,
+        conversation_block=conversation_block,
+    )
     answer, suggested_followups = extract_answer_and_followups(raw_output)
 
     protein_ids = documents_df["Protein ID"].tolist()
