@@ -156,7 +156,7 @@ export default function HomePage() {
                 variant="contained"
                 size="large"
                 endIcon={<ArrowForwardRoundedIcon />}
-                onClick={() => navigate('/studio?module=rag')}
+                onClick={() => navigate('/query/rag')}
                 sx={{
                   flex: 1,
                   minHeight: 52,
@@ -176,7 +176,7 @@ export default function HomePage() {
               <Button
                 variant="outlined"
                 size="large"
-                onClick={() => navigate('/studio?module=vector')}
+                onClick={() => navigate('/query/vector')}
                 sx={{
                   flex: 1,
                   minHeight: 52,

@@ -129,10 +129,20 @@ export default function useStudioPageState() {
   const ragRequestIdRef = useRef(0);
 
   const activeModule = useMemo(() => {
+    if (location.pathname.includes('/query/llm')) {
+      return 'llm';
+    }
+    if (location.pathname.includes('/query/vector')) {
+      return 'vector';
+    }
+    if (location.pathname.includes('/query/rag')) {
+      return 'rag';
+    }
+
     const params = new URLSearchParams(location.search);
     const moduleFromQuery = params.get('module');
     return ['llm', 'vector', 'rag'].includes(moduleFromQuery) ? moduleFromQuery : 'rag';
-  }, [location.search]);
+  }, [location.pathname, location.search]);
 
   const activeModuleMeta = useMemo(
     () => STUDIO_MODULES.find((module) => module.id === activeModule) || STUDIO_MODULES[0],
@@ -255,20 +265,21 @@ export default function useStudioPageState() {
     setRagLoading(true);
 
     try {
+      const chatHistory = ragMessages
+        .filter((message) => message.id !== 'rag-welcome')
+        .filter((message) => message.includeInContext !== false)
+        .filter((message) => message.role === 'user' || message.role === 'assistant')
+        .slice(-6)
+        .map((message) => ({
+          role: message.role,
+          content: message.content,
+        }));
+
       const ragResponse = await queryRAG({
         model: ragConfig.model,
         apiKey: ragConfig.apiKey,
         question: questionToSend,
-        chatHistory: ragMessages
-          .filter((message) => message.id !== 'rag-welcome')
-          .filter((message) => message.includeInContext !== false)
-          .filter((message) => message.role === 'user' || message.role === 'assistant')
-          .slice(-6)
-          .map((message) => ({
-            role: message.role,
-            content: message.content,
-            includeInContext: true,
-          })),
+        chatHistory,
         sequence: sequenceToSend,
         topK: ragConfig.topK,
         temperature: ragConfig.temperature,
