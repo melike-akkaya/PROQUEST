@@ -23,7 +23,6 @@ import {
 } from '@mui/material';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 
@@ -60,6 +59,9 @@ export default function RagStudioPanel({ meta, state }) {
             threads={state.threads}
             activeThreadId={state.activeThreadId}
             pendingThreadId={state.pendingThreadId}
+            busy={state.busy}
+            onCreateThread={state.resetThread}
+            onClearThreads={state.clearThreads}
             onSelectThread={state.selectThread}
           />
         )}
@@ -86,13 +88,6 @@ export default function RagStudioPanel({ meta, state }) {
                   sx={{ textTransform: 'none', color: alpha(meta.accent, 0.9) }}
                 >
                   {state.showAdvanced ? 'Hide advanced' : 'Show advanced'}
-                </Button>
-                <Button
-                  startIcon={<RestartAltRoundedIcon fontSize="small" />}
-                  onClick={state.resetThread}
-                  sx={{ textTransform: 'none', color: alpha(meta.accent, 0.9) }}
-                >
-                  New thread
                 </Button>
               </Stack>
             </Stack>

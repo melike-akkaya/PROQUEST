@@ -20,6 +20,7 @@ import {
 import {
   buildRagChatHistory,
   createRagThread,
+  isRagThreadEmpty,
   limitRagThreads,
   loadPersistedRagThreads,
   normalizeRagThread,
@@ -496,11 +497,29 @@ export default function useStudioPageState() {
   }
 
   function resetRagThread() {
+    if (isRagThreadEmpty(activeRagThread)) {
+      setRagQuestion('');
+      setRagSequence('');
+      setRagError('');
+      return;
+    }
+
     const freshThread = createRagThread();
     setRagThreadState((current) => ({
       threads: limitRagThreads([freshThread, ...current.threads]),
       activeThreadId: freshThread.id,
     }));
+    setRagQuestion('');
+    setRagSequence('');
+    setRagError('');
+  }
+
+  function clearRagThreads() {
+    const freshThread = createRagThread();
+    setRagThreadState({
+      threads: [freshThread],
+      activeThreadId: freshThread.id,
+    });
     setRagQuestion('');
     setRagSequence('');
     setRagError('');
@@ -534,6 +553,7 @@ export default function useStudioPageState() {
       selectThread: selectRagThread,
       send: handleRagSend,
       resetThread: resetRagThread,
+      clearThreads: clearRagThreads,
     },
     llm: {
       config: llmConfig,

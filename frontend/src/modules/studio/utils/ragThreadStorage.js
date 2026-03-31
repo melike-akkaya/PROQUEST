@@ -71,34 +71,21 @@ function isContextMessage(message) {
   );
 }
 
-function buildThreadTitle(messages) {
-  const firstUserMessage = messages.find((message) => message.role === 'user' && message.content.trim());
-  return trimText(firstUserMessage?.content, 58) || 'New protein thread';
+export function isRagThreadEmpty(thread) {
+  const messages = Array.isArray(thread?.messages) ? thread.messages : [];
+  return !messages.some(isContextMessage);
 }
 
-function buildThreadPreview(messages) {
-  const latestVisibleMessage = [...messages]
-    .reverse()
-    .find((message) => (message.role === 'user' || message.role === 'assistant') && message.content.trim());
-
-  return (
-    trimText(latestVisibleMessage?.content, 84) ||
-      'Continue a protein conversation from this browser.'
-  );
+function buildThreadTitle(messages) {
+  const firstUserMessage = messages.find((message) => message.role === 'user' && message.content.trim());
+  return trimText(firstUserMessage?.content, 58) || 'Untitled chat';
 }
 
 export function getRagThreadMeta(thread) {
   const messages = Array.isArray(thread?.messages) ? thread.messages : [cloneWelcomeMessage()];
-  const turnCount = messages.filter(
-    (message) =>
-      (message.role === 'user' || message.role === 'assistant') &&
-      message.id !== INITIAL_RAG_MESSAGE.id
-  ).length;
 
   return {
     title: buildThreadTitle(messages),
-    preview: buildThreadPreview(messages),
-    turnCount,
   };
 }
 
@@ -155,8 +142,15 @@ export function loadPersistedRagThreads() {
 
     const parsed = JSON.parse(raw);
     const threads = Array.isArray(parsed?.threads) && parsed.threads.length
-      ? limitRagThreads(parsed.threads.map(normalizeRagThread))
+      ? limitRagThreads(parsed.threads.map(normalizeRagThread).filter((thread) => !isRagThreadEmpty(thread)))
       : [fallbackThread];
+
+    if (!threads.length) {
+      return {
+        activeThreadId: fallbackThread.id,
+        threads: [fallbackThread],
+      };
+    }
 
     const activeThreadId = threads.some((thread) => thread.id === parsed?.activeThreadId)
       ? parsed.activeThreadId
@@ -177,7 +171,15 @@ export function persistRagThreads(threads, activeThreadId) {
   }
 
   try {
-    const normalizedThreads = limitRagThreads(threads).map(normalizeRagThread);
+    const normalizedThreads = limitRagThreads(threads)
+      .map(normalizeRagThread)
+      .filter((thread) => !isRagThreadEmpty(thread));
+
+    if (!normalizedThreads.length) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return;
+    }
+
     const payload = {
       activeThreadId: normalizedThreads.some((thread) => thread.id === activeThreadId)
         ? activeThreadId
