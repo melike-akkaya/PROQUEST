@@ -112,7 +112,7 @@ export default function HomePage() {
           <Box>
             <Chip
               icon={<BiotechRoundedIcon sx={{ color: 'inherit !important' }} />}
-              label="Protein search, sequence retrieval, and RAG in one place"
+              label="ProteinSearch, SeqSim, and ProteinChat in one place"
               sx={{
                 mb: 2.5,
                 height: 38,
@@ -147,8 +147,7 @@ export default function HomePage() {
                 color: tokens.muted,
               }}
             >
-              ProQuest brings UniProt query building, vector similarity search, and retrieval-backed
-              chat into a single, cleaner workflow.
+              ProQuest brings ProteinSearch, SeqSim, and ProteinChat into a single, cleaner workflow.
             </Typography>
 
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mt: 3.5, maxWidth: 460 }}>
@@ -170,7 +169,7 @@ export default function HomePage() {
                   },
                 }}
               >
-                Start Chat
+                Open ProteinChat
               </Button>
 
               <Button
@@ -192,7 +191,7 @@ export default function HomePage() {
                   },
                 }}
               >
-                Explore Vector Search
+                Open SeqSim
               </Button>
             </Stack>
           </Box>

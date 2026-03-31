@@ -61,7 +61,7 @@ function Hero() {
                     transition: 'all 0.7s ease'
                   }}
                 >
-                  Start LLM Query
+                  Start ProteinSearch
                 </Button>
                 <Button
                   variant="outlined"
@@ -79,7 +79,7 @@ function Hero() {
                     transition: 'all 0.7s ease'
                   }}
                 >
-                  Start Vector Search
+                  Start SeqSim
                 </Button>
               </Box>
             </Fade>
@@ -108,9 +108,9 @@ function Features() {
   const navigate = useNavigate();
 
   const features = [
-    { title: 'Vector Search', icon: '🔍', path: '/query/vector' },
-    { title: 'LLM Search', icon: '🧠', path: '/query/llm' },
-    { title: 'RAG',          icon: '📚', path: '/query/rag' },
+    { title: 'SeqSim', icon: '🔍', path: '/query/vector' },
+    { title: 'ProteinSearch', icon: '🧠', path: '/query/llm' },
+    { title: 'ProteinChat',   icon: '📚', path: '/query/rag' },
   ];
 
   return (

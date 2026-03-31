@@ -5,21 +5,21 @@ import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 
 export const HOME_MODULES = [
   {
-    title: 'LLM Query',
+    title: 'ProteinSearch',
     description: 'Translate natural language into precise UniProt queries and inspect the results clearly.',
     path: '/query/llm',
     accent: '#4f7dff',
     icon: AutoAwesomeRoundedIcon,
   },
   {
-    title: 'Vector Search',
+    title: 'SeqSim',
     description: 'Paste a sequence and review similar proteins with enrichment data in one place.',
     path: '/query/vector',
     accent: '#4f8a76',
     icon: TravelExploreRoundedIcon,
   },
   {
-    title: 'RAG Chat',
+    title: 'ProteinChat',
     description: 'Work in a chat-first flow while keeping retrieval context and protein references visible.',
     path: '/query/rag',
     accent: '#7283ec',

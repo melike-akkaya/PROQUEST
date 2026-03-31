@@ -70,7 +70,7 @@ export const TEMPERATURE_RANGES = {
 export const STUDIO_MODULES = [
   {
     id: 'rag',
-    title: 'RAG Chat',
+    title: 'ProteinChat',
     eyebrow: 'Chat-first retrieval',
     description:
       'Context-aware protein chat with retrieval-backed answers.',
@@ -81,7 +81,7 @@ export const STUDIO_MODULES = [
   },
   {
     id: 'llm',
-    title: 'LLM Query',
+    title: 'ProteinSearch',
     eyebrow: 'Natural language to UniProt query',
     description:
       'Turn a natural-language request into a UniProt query and inspect the returned proteins.',
@@ -92,7 +92,7 @@ export const STUDIO_MODULES = [
   },
   {
     id: 'vector',
-    title: 'Vector Search',
+    title: 'SeqSim',
     eyebrow: 'Sequence-first discovery',
     description:
       'Run the embedding-based retrieval and GO enrichment flow with a cleaner analyst view.',

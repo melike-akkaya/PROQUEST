@@ -245,7 +245,7 @@ export default function LLMQuery() {
             : '0 2px 12px rgba(0, 0, 0, 0.1)',}}
       >
         <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
-                   LLM Query with RAG
+                   ProteinChat
         </Typography>
 
         {warning && <Alert severity="warning" sx={{ mb: 2 }}>{warning}</Alert>}

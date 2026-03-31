@@ -123,9 +123,9 @@ export default function Navbar({ mode, toggleMode }) {
               },
             }}
           >
-            <Tab label="LLM Query" />
-            <Tab label="Vector Search" />
-            <Tab label="RAG" />
+            <Tab label="ProteinSearch" />
+            <Tab label="SeqSim" />
+            <Tab label="ProteinChat" />
           </Tabs>
         </Box>
 

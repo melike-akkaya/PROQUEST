@@ -16,19 +16,19 @@ import logo from '../assets/logo.png';
 const NAV_ITEMS = [
   {
     id: 'llm',
-    label: 'LLM Query',
+    label: 'ProteinSearch',
     gradientLight: 'linear-gradient(135deg, #2f8cff 0%, #69c6ff 100%)',
     gradientDark: 'linear-gradient(135deg, #4b98ff 0%, #7ad3ff 100%)',
   },
   {
     id: 'vector',
-    label: 'Vector Search',
+    label: 'SeqSim',
     gradientLight: 'linear-gradient(135deg, #3e9dff 0%, #5fd7a8 100%)',
     gradientDark: 'linear-gradient(135deg, #68b2ff 0%, #6fe2b8 100%)',
   },
   {
     id: 'rag',
-    label: 'RAG Chat',
+    label: 'ProteinChat',
     gradientLight: 'linear-gradient(135deg, #658cff 0%, #8f8bff 100%)',
     gradientDark: 'linear-gradient(135deg, #7a93ff 0%, #9f97ff 100%)',
   },
