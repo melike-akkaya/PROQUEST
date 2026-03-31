@@ -1,5 +1,5 @@
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
-from langchain_classic.chains import LLMChain
 import requests
 
 def generate_solr_query(question, llm, searchFields, queryFields, resultFields):
@@ -85,8 +85,15 @@ Examples: Here are a few examples of generated Solr queries for particular natur
 The question is: {question} 
 Generate a Solr query for the UniProt database based on this natural language query."""
     )
-    chain = LLMChain(llm=llm, prompt=prompt)
-    solr_query = chain.run(question=question, searchfields=searchFields, queryfields=queryFields, resultfields=resultFields)
+    chain = prompt | llm | StrOutputParser()
+    solr_query = chain.invoke(
+        {
+            "question": question,
+            "searchfields": searchFields,
+            "queryfields": queryFields,
+            "resultfields": resultFields,
+        }
+    )
     return solr_query.strip()
 
 
@@ -107,5 +114,6 @@ def query_uniprot(solr_query, limit):
         "format": "json",
         "size": limit
     }
-    response = requests.get(base_url, params=params)
+    response = requests.get(base_url, params=params, timeout=30)
+    response.raise_for_status()
     return response.json()

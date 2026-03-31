@@ -61,8 +61,13 @@ NO_TEMP_MODELS = {
 }
 
 PROVIDER_ENV_VARS = {
+    "OpenAI": "OPENAI_API_KEY",
     "Google": "GOOGLE_API_KEY",
+    "Anthropic": "ANTHROPIC_API_KEY",
+    "Groq": "GROQ_API_KEY",
     "Mistral": "MISTRAL_API_KEY",
+    "Nvidia": "NVIDIA_API_KEY",
+    "OpenRouter": "OPENROUTER_API_KEY",
 }
 
 
@@ -130,8 +135,8 @@ def build_llm(model_name: str, api_key: str | None, temperature: float | None, c
 @app.get("/available_api_keys")
 def get_available_api_keys():
     keys = {
-        "Google": os.getenv("GOOGLE_API_KEY"),
-        "Mistral": os.getenv("MISTRAL_API_KEY")
+        provider: os.getenv(env_var)
+        for provider, env_var in PROVIDER_ENV_VARS.items()
     }
     keys = {k: v for k, v in keys.items() if v}
     if not keys:
@@ -196,6 +201,7 @@ def llm_query(req: LLMRequest):
     # retry loop to generate Solr query + fetch
     solr_query = ""
     results = {"results": []}
+    last_error = None
     for attempt in range(1, req.retry_count + 1):
         try:
             if req.verbose:
@@ -204,6 +210,7 @@ def llm_query(req: LLMRequest):
                 req.question, llm, searchfields, queryfields, resultfields
             )
             results = query_uniprot(solr_query, req.limit)
+            last_error = None
             if results.get("results"):
                 if req.verbose:
                     logger.info(f"Success on attempt {attempt}")
@@ -212,8 +219,15 @@ def llm_query(req: LLMRequest):
                 if req.verbose:
                     logger.warning(f"No results on attempt {attempt}")
         except Exception as e:
+            last_error = e
             logger.error(f"Error on attempt {attempt}: {e}")
         time.sleep(3)
+
+    if not results.get("results") and last_error is not None:
+        raise HTTPException(
+            status_code=502,
+            detail=f"LLM query failed after {req.retry_count} attempts: {last_error}",
+        )
 
     return LLMResponse(
         solr_query=solr_query,
