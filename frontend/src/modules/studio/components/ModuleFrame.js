@@ -3,7 +3,7 @@ import { Box, Stack } from '@mui/material';
 
 import ModuleIntroCard from './ModuleIntroCard';
 
-export default function ModuleFrame({ meta, showMobileIntro = true, children }) {
+export default function ModuleFrame({ meta, showMobileIntro = true, rightSidebar = null, children }) {
   return (
     <Box
       sx={{
@@ -36,7 +36,15 @@ export default function ModuleFrame({ meta, showMobileIntro = true, children }) 
         {children}
       </Stack>
 
-      <Box sx={{ display: { xs: 'none', lg: 'block' } }} />
+      <Box
+        sx={{
+          display: { xs: 'none', lg: 'block' },
+          position: rightSidebar ? 'sticky' : 'static',
+          top: rightSidebar ? 108 : 'auto',
+        }}
+      >
+        {rightSidebar}
+      </Box>
     </Box>
   );
 }

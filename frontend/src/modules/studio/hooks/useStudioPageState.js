@@ -17,6 +17,14 @@ import {
   formatApiError,
   normalizeSequenceInput,
 } from '../utils/studioHelpers';
+import {
+  buildRagChatHistory,
+  createRagThread,
+  limitRagThreads,
+  loadPersistedRagThreads,
+  normalizeRagThread,
+  persistRagThreads,
+} from '../utils/ragThreadStorage';
 
 function createModelConfig(provider = 'OpenAI') {
   return {
@@ -92,6 +100,7 @@ function getShellBackground(activeModule, paletteMode) {
 export default function useStudioPageState() {
   const theme = useTheme();
   const location = useLocation();
+  const [ragThreadState, setRagThreadState] = useState(loadPersistedRagThreads);
   const [ragConfig, setRagConfig] = useState(() => ({
     ...createModelConfig('OpenAI'),
     topK: 10,
@@ -102,11 +111,10 @@ export default function useStudioPageState() {
     limit: 5,
     retryCount: 10,
   }));
-  const [ragMessages, setRagMessages] = useState([INITIAL_RAG_MESSAGE]);
   const [ragQuestion, setRagQuestion] = useState('');
   const [ragSequence, setRagSequence] = useState('');
   const [ragError, setRagError] = useState('');
-  const [ragLoading, setRagLoading] = useState(false);
+  const [ragPendingThreadId, setRagPendingThreadId] = useState(null);
   const [showRagAdvanced, setShowRagAdvanced] = useState(false);
   const [ragExamplesAnchor, setRagExamplesAnchor] = useState(null);
   const [llmQuestion, setLlmQuestion] = useState('');
@@ -127,6 +135,19 @@ export default function useStudioPageState() {
   });
   const chatViewportRef = useRef(null);
   const ragRequestIdRef = useRef(0);
+  const activeRagThreadIdRef = useRef(null);
+  const ragThreads = ragThreadState.threads;
+  const activeRagThreadId = ragThreadState.activeThreadId;
+
+  const activeRagThread = useMemo(
+    () => ragThreads.find((thread) => thread.id === activeRagThreadId) || ragThreads[0],
+    [ragThreads, activeRagThreadId]
+  );
+  const ragMessages = useMemo(
+    () => activeRagThread?.messages || [INITIAL_RAG_MESSAGE],
+    [activeRagThread]
+  );
+  const ragLoading = ragPendingThreadId === activeRagThreadId;
 
   const activeModule = useMemo(() => {
     if (location.pathname.includes('/query/llm')) {
@@ -157,6 +178,14 @@ export default function useStudioPageState() {
     [ragMessages]
   );
 
+  const ragThreadList = useMemo(
+    () =>
+      [...ragThreads].sort(
+        (left, right) => new Date(right.updatedAt).getTime() - new Date(left.updatedAt).getTime()
+      ),
+    [ragThreads]
+  );
+
   const vectorGoNamespaces = useMemo(
     () =>
       Array.from(new Set(vectorResult.goEnrichment.map((row) => row.Namespace).filter(Boolean))),
@@ -172,6 +201,10 @@ export default function useStudioPageState() {
   );
 
   useEffect(() => {
+    activeRagThreadIdRef.current = activeRagThreadId;
+  }, [activeRagThreadId]);
+
+  useEffect(() => {
     if (!chatViewportRef.current) {
       return;
     }
@@ -181,6 +214,10 @@ export default function useStudioPageState() {
       behavior: 'smooth',
     });
   }, [ragMessages, ragLoading]);
+
+  useEffect(() => {
+    persistRagThreads(ragThreads, activeRagThreadId);
+  }, [ragThreads, activeRagThreadId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -215,6 +252,37 @@ export default function useStudioPageState() {
     applyUpdates((current) => ({ ...current, ...updates }));
   }
 
+  function updateRagThread(threadId, updater) {
+    setRagThreadState((current) => ({
+      ...current,
+      threads: current.threads.map((thread) => {
+        if (thread.id !== threadId) {
+          return thread;
+        }
+
+        return normalizeRagThread(updater(thread));
+      }),
+    }));
+  }
+
+  function selectRagThread(threadId) {
+    setRagThreadState((current) => {
+      const selectedThread = current.threads.find((thread) => thread.id === threadId);
+      if (!selectedThread) {
+        return current;
+      }
+
+      return {
+        ...current,
+        threads: [selectedThread, ...current.threads.filter((thread) => thread.id !== threadId)],
+        activeThreadId: threadId,
+      };
+    });
+    setRagError('');
+    setRagQuestion('');
+    setRagSequence('');
+  }
+
   function updateRagConfig(updates) {
     setRagConfig((current) => ({ ...current, ...updates }));
   }
@@ -225,9 +293,20 @@ export default function useStudioPageState() {
 
   async function handleRagSend(prefilledQuestion) {
     const requestId = ++ragRequestIdRef.current;
+    const threadId = activeRagThread?.id;
     const questionToSend = (prefilledQuestion ?? ragQuestion).trim();
     const sequenceToSend = ragSequence.trim();
     setRagError('');
+
+    if (!threadId) {
+      setRagError('Open a thread before sending a question.');
+      return;
+    }
+
+    if (ragPendingThreadId) {
+      setRagError('Wait for the current answer to finish before sending another message.');
+      return;
+    }
 
     if (!ragConfig.provider || !ragConfig.model) {
       setRagError('Choose a provider and model for the RAG thread.');
@@ -255,25 +334,20 @@ export default function useStudioPageState() {
       role: 'user',
       content: questionToSend,
       sequence: sequenceToSend,
-      includeInContext: true,
     };
     const nextMessages = [...ragMessages, userMessage];
 
-    setRagMessages(nextMessages);
+    updateRagThread(threadId, (thread) => ({
+      ...thread,
+      updatedAt: new Date().toISOString(),
+      messages: nextMessages,
+    }));
     setRagQuestion('');
     setRagSequence('');
-    setRagLoading(true);
+    setRagPendingThreadId(threadId);
 
     try {
-      const chatHistory = ragMessages
-        .filter((message) => message.id !== 'rag-welcome')
-        .filter((message) => message.includeInContext !== false)
-        .filter((message) => message.role === 'user' || message.role === 'assistant')
-        .slice(-6)
-        .map((message) => ({
-          role: message.role,
-          content: message.content,
-        }));
+      const chatHistory = buildRagChatHistory(ragMessages);
 
       const ragResponse = await queryRAG({
         model: ragConfig.model,
@@ -289,44 +363,61 @@ export default function useStudioPageState() {
         return;
       }
 
-      const proteinInfo = ragResponse.proteinIds.length
-        ? await fetchRAGProteinInfo(ragResponse.proteinIds)
-        : [];
+      let proteinInfo = [];
+      if (ragResponse.proteinIds.length) {
+        try {
+          proteinInfo = await fetchRAGProteinInfo(ragResponse.proteinIds);
+        } catch (_) {
+          proteinInfo = [];
+        }
+      }
 
       if (requestId !== ragRequestIdRef.current) {
         return;
       }
 
-      setRagMessages((current) => [
-        ...current,
-        {
-          id: `assistant-${Date.now()}`,
-          role: 'assistant',
-          content: ragResponse.answer || 'No answer returned.',
-          proteinIds: ragResponse.proteinIds,
-          proteinInfo,
-          suggestions: ragResponse.suggestedFollowUps?.length
-            ? ragResponse.suggestedFollowUps
-            : buildSuggestedFollowUps({
-                question: questionToSend,
-                answer: ragResponse.answer,
-                proteinInfo,
-                sequence: sequenceToSend,
-              }),
-        },
-      ]);
+      updateRagThread(threadId, (thread) => ({
+        ...thread,
+        updatedAt: new Date().toISOString(),
+        messages: [
+          ...thread.messages,
+          {
+            id: `assistant-${Date.now()}`,
+            role: 'assistant',
+            content: ragResponse.answer || 'No answer returned.',
+            proteinIds: ragResponse.proteinIds,
+            proteinInfo,
+            suggestions: ragResponse.suggestedFollowUps?.length
+              ? ragResponse.suggestedFollowUps
+              : buildSuggestedFollowUps({
+                  question: questionToSend,
+                  answer: ragResponse.answer,
+                  proteinInfo,
+                  sequence: sequenceToSend,
+                }),
+          },
+        ],
+      }));
     } catch (error) {
       if (requestId !== ragRequestIdRef.current) {
         return;
       }
 
-      setRagError(formatApiError(error));
-      setRagMessages((current) => current.filter((message) => message.id !== userMessage.id));
-      setRagQuestion(questionToSend);
-      setRagSequence(sequenceToSend);
+      if (activeRagThreadIdRef.current === threadId) {
+        setRagError(formatApiError(error));
+      }
+      updateRagThread(threadId, (thread) => ({
+        ...thread,
+        updatedAt: new Date().toISOString(),
+        messages: thread.messages.filter((message) => message.id !== userMessage.id),
+      }));
+      if (activeRagThreadIdRef.current === threadId) {
+        setRagQuestion(questionToSend);
+        setRagSequence(sequenceToSend);
+      }
     } finally {
       if (requestId === ragRequestIdRef.current) {
-        setRagLoading(false);
+        setRagPendingThreadId((current) => (current === threadId ? null : current));
       }
     }
   }
@@ -405,12 +496,14 @@ export default function useStudioPageState() {
   }
 
   function resetRagThread() {
-    ragRequestIdRef.current += 1;
-    setRagMessages([INITIAL_RAG_MESSAGE]);
+    const freshThread = createRagThread();
+    setRagThreadState((current) => ({
+      threads: limitRagThreads([freshThread, ...current.threads]),
+      activeThreadId: freshThread.id,
+    }));
     setRagQuestion('');
     setRagSequence('');
     setRagError('');
-    setRagLoading(false);
   }
 
   return {
@@ -420,10 +513,14 @@ export default function useStudioPageState() {
     rag: {
       config: ragConfig,
       messages: ragMessages,
+      threads: ragThreadList,
+      activeThreadId: activeRagThreadId,
+      pendingThreadId: ragPendingThreadId,
       question: ragQuestion,
       sequence: ragSequence,
       error: ragError,
       loading: ragLoading,
+      busy: Boolean(ragPendingThreadId),
       showAdvanced: showRagAdvanced,
       examplesAnchor: ragExamplesAnchor,
       latestInsight: latestRagInsight,
@@ -434,6 +531,7 @@ export default function useStudioPageState() {
       setExamplesAnchor: setRagExamplesAnchor,
       updateConfig: updateRagConfig,
       restoreStoredKey: () => restoreStoredKey(ragConfig.provider, setRagConfig),
+      selectThread: selectRagThread,
       send: handleRagSend,
       resetThread: resetRagThread,
     },

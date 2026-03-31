@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
-from langchain_google_genai import GoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAI, ChatGoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_mistralai.chat_models import ChatMistralAI
@@ -61,12 +61,12 @@ NO_TEMP_MODELS = {
 }
 
 PROVIDER_ENV_VARS = {
-    "Google": os.getenv("GOOGLE_API_KEY"),
-    "Mistral": os.getenv("MISTRAL_API_KEY")
+    "Google": "GOOGLE_API_KEY",
+    "Mistral": "MISTRAL_API_KEY",
 }
 
 
-def build_llm(model_name: str, api_key: str | None, temperature: float | None):
+def build_llm(model_name: str, api_key: str | None, temperature: float | None, chat_mode: bool = False):
     provider = get_provider_for_model_name(model_name)
     if not provider:
         raise ValueError(f"Unsupported model {model_name}: no provider found")
@@ -84,11 +84,8 @@ def build_llm(model_name: str, api_key: str | None, temperature: float | None):
         return ChatOpenAI(model=model_name, api_key=api_key, **kwargs)
 
     if provider == "Google":
-        return GoogleGenerativeAI(
-            model=model_name,
-            google_api_key=api_key,
-            **kwargs,
-        )
+        google_model = ChatGoogleGenerativeAI if chat_mode else GoogleGenerativeAI
+        return google_model(model=model_name, google_api_key=api_key, **kwargs)
 
     if provider == "Anthropic":
         return ChatAnthropic(
@@ -284,7 +281,6 @@ def vector_search(req: VectorRequest):
 class RAGChatMessage(BaseModel):
     role: str
     content: str
-    includeInContext: bool = True
 
 
 class RAGRequest(BaseModel):
@@ -345,7 +341,7 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, chat_history=None, ma
 def rag_order(req: RAGRequest):
     try:
         m = req.model
-        llm = build_llm(m, req.api_key, req.temperature)
+        llm = build_llm(m, req.api_key, req.temperature, chat_mode=True)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Model init error: {e}")
 
