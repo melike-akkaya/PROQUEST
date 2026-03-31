@@ -30,6 +30,7 @@ import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import ChatBubble from '../components/ChatBubble';
 import DataTableCard from '../components/DataTableCard';
 import ModuleFrame from '../components/ModuleFrame';
+import RagThreadSidebar from '../components/RagThreadSidebar';
 import StoredKeyField from '../components/StoredKeyField';
 import { PROVIDER_MODELS, RAG_EXAMPLES, TEMPERATURE_RANGES } from '../constants';
 import { renderProteinLink } from '../utils/studioFormatters';
@@ -50,7 +51,19 @@ export default function RagStudioPanel({ meta, state }) {
 
   return (
     <>
-      <ModuleFrame meta={meta} showMobileIntro={!hasUserTurns}>
+      <ModuleFrame
+        meta={meta}
+        showMobileIntro={!hasUserTurns}
+        rightSidebar={(
+          <RagThreadSidebar
+            accent={meta.accent}
+            threads={state.threads}
+            activeThreadId={state.activeThreadId}
+            pendingThreadId={state.pendingThreadId}
+            onSelectThread={state.selectThread}
+          />
+        )}
+      >
         <Paper elevation={0} sx={{ ...surfaceSx, p: { xs: 1.75, md: 2.1 } }}>
           <Stack spacing={2}>
             <Stack
@@ -282,7 +295,7 @@ export default function RagStudioPanel({ meta, state }) {
 
               <IconButton
                 onClick={() => state.send()}
-                disabled={state.loading}
+                disabled={state.busy}
                 sx={{
                   width: 48,
                   height: 48,
@@ -298,7 +311,7 @@ export default function RagStudioPanel({ meta, state }) {
                   },
                 }}
               >
-                {state.loading ? <CircularProgress size={20} color="inherit" /> : <ArrowUpwardRoundedIcon />}
+                {state.busy ? <CircularProgress size={20} color="inherit" /> : <ArrowUpwardRoundedIcon />}
               </IconButton>
             </Stack>
           </Stack>

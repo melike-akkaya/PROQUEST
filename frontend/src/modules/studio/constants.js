@@ -155,5 +155,4 @@ export const INITIAL_RAG_MESSAGE = {
     'Summarize the likely role of this sequence.',
     "Which proteins are related to Alzheimer's disease?",
   ],
-  includeInContext: false,
 };
