@@ -33,6 +33,13 @@ import { downloadCsv } from '../utils/studioHelpers';
 import { renderGoLink, renderProteinLink, summarizeTableValue } from '../utils/studioFormatters';
 import { getStudioFieldSx, getStudioSurfaceSx } from '../utils/studioStyles';
 
+const GO_COLUMN_MIN_WIDTHS = {
+  'GO Name': 220,
+  Namespace: 180,
+  Definition: 320,
+  'is A': 320,
+};
+
 function StatCard({ accent, label, value }) {
   const theme = useTheme();
   const surfaceSx = getStudioSurfaceSx(theme, accent, {
@@ -224,6 +231,7 @@ export default function VectorStudioPanel({ meta, state }) {
                                         fontWeight: 700,
                                         color: theme.palette.mode === 'dark' ? '#f4f7fb' : '#11203b',
                                         whiteSpace: 'nowrap',
+                                        minWidth: GO_COLUMN_MIN_WIDTHS[column],
                                         borderBottomColor: alpha(
                                           theme.palette.divider,
                                           theme.palette.mode === 'dark' ? 0.55 : 0.9
@@ -244,6 +252,7 @@ export default function VectorStudioPanel({ meta, state }) {
                                         sx={{
                                           color: theme.palette.mode === 'dark' ? '#dbe8e2' : '#33425c',
                                           verticalAlign: 'top',
+                                          minWidth: GO_COLUMN_MIN_WIDTHS[column],
                                           borderBottomColor: alpha(
                                             theme.palette.divider,
                                             theme.palette.mode === 'dark' ? 0.4 : 0.75
@@ -274,6 +283,7 @@ export default function VectorStudioPanel({ meta, state }) {
                 subtitle="Full similarity-hit table from the vector search stage."
                 rows={state.result.hits}
                 filename="similar_proteins.csv"
+                pageSize={10}
                 accent={meta.accent}
                 cellRenderers={{ 'Protein ID': renderProteinLink }}
               />

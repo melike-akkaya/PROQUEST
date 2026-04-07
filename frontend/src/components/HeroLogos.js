@@ -33,7 +33,7 @@ function HeroLogos() {
     >
       <Typography
         variant="overline"
-        sx={{ letterSpacing: 1, opacity: 0.8, textAlign: 'center' }}
+        sx={{ letterSpacing: 1, opacity: 0.8, textAlign: 'center', fontWeight: 600 }}
       >
         {title}
       </Typography>

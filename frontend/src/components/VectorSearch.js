@@ -17,6 +17,13 @@ FEFPQPLPVCGDIKVEFFHKQNKMLKKDKMFHFWVNTFFIPGPEETSEKVENGSLCDQEI
 DSICSIERADNDKEYLVLTLTKNDLDKANKDKANRYFSPNFKVKLYFTKTVEEPSNPEAS
 SSTSVTPDVSDNEPDHYRYSDTTDSDPENEPFDEDQHTQITKV`;
 
+const GO_COLUMN_MIN_WIDTHS = {
+  'GO Name': 220,
+  Namespace: 180,
+  Definition: 320,
+  'is A': 320,
+};
+
 function downloadCSV(filename, rows) {
   if (!rows || !rows.length) return;
   const headers = Object.keys(rows[0]);
@@ -283,7 +290,12 @@ export default function VectorSearch() {
                           {Object.keys(subset[0]).map(col => (
                             <TableCell
                               key={col}
-                              sx={{ fontWeight: 600, fontSize: '0.9rem', whiteSpace: 'nowrap' }}
+                              sx={{
+                                fontWeight: 600,
+                                fontSize: '0.9rem',
+                                whiteSpace: 'nowrap',
+                                minWidth: GO_COLUMN_MIN_WIDTHS[col]
+                              }}
                             >
                               {col}
                             </TableCell>
@@ -304,7 +316,14 @@ export default function VectorSearch() {
                             }}
                           >
                             {Object.entries(row).map(([col, val]) => (
-                              <TableCell key={col} sx={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                              <TableCell
+                                key={col}
+                                sx={{
+                                  whiteSpace: 'normal',
+                                  wordBreak: 'break-word',
+                                  minWidth: GO_COLUMN_MIN_WIDTHS[col]
+                                }}
+                              >
                                 {col === 'GO ID' ? (
                                   <a
                                     href={`https://www.ebi.ac.uk/QuickGO/term/${val}`}
