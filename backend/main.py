@@ -238,6 +238,7 @@ def llm_query(req: LLMRequest):
 
 class VectorRequest(BaseModel):
     sequence: str
+    similarity_threshold: float = 0.8
 
 
 class VectorResponse(BaseModel):
@@ -254,6 +255,7 @@ def vector_search(req: VectorRequest):
         seq = "".join(line for line in raw.splitlines() if not line.startswith(">"))
     else:
         seq = raw.replace("\n", "").strip()
+
 
     t0 = datetime.now()
     embDict, _ = getEmbeddings(
@@ -273,12 +275,11 @@ def vector_search(req: VectorRequest):
 
     # nearest neighbour search
     t1 = datetime.now()
-    df = searchSpecificEmbedding(query_embedding) # list proteins with similarity up to 0.8
+    df = searchSpecificEmbedding(query_embedding, threshold=req.similarity_threshold)
     search_time = (datetime.now() - t1).total_seconds()
 
-    # list proteins with similarity up to 0.9
     df_final = df[df["Similarity"] >= 0.90]
-    found = df_final.to_dict(orient="records")
+    found = df.to_dict(orient="records")
 
     proteins = [rec["Protein ID"].strip("<>").split(">")[-1] for rec in found]
     go_df = findRelatedGoIds(proteins, dbPath=sqliteDb)

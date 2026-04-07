@@ -134,6 +134,8 @@ export default function useStudioPageState() {
     goEnrichment: [],
     hits: [],
   });
+  // Similarity threshold for vector search (default 0.8)
+  const [similarityThreshold, setSimilarityThreshold] = useState(0.8);
   const chatViewportRef = useRef(null);
   const ragRequestIdRef = useRef(0);
   const activeRagThreadIdRef = useRef(null);
@@ -482,7 +484,8 @@ export default function useStudioPageState() {
     setVectorLoading(true);
 
     try {
-      const response = await vectorSearch(normalizedSequence);
+      // Pass threshold to backend
+      const response = await vectorSearch(normalizedSequence, similarityThreshold);
       setVectorResult({
         embeddingTime: response.embedding_time,
         searchTime: response.search_time,
@@ -580,6 +583,8 @@ export default function useStudioPageState() {
       hasResults: vectorResult.embeddingTime !== null,
       setSequence: setVectorSequence,
       search: handleVectorSearch,
+      similarityThreshold,
+      setSimilarityThreshold,
     },
   };
 }

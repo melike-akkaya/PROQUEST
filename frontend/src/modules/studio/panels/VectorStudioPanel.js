@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -20,7 +20,13 @@ import {
   Typography,
   alpha,
   useTheme,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
@@ -64,6 +70,17 @@ function StatCard({ accent, label, value }) {
 }
 
 export default function VectorStudioPanel({ meta, state }) {
+  // Advanced settings state
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  // Local threshold state, always synced with parent/global state
+  const [similarityThreshold, setSimilarityThreshold] = useState(state.similarityThreshold ?? 0.8);
+
+  // Sync local threshold with parent/global state when it changes externally
+  useEffect(() => {
+    if (state.similarityThreshold !== similarityThreshold) {
+      setSimilarityThreshold(state.similarityThreshold ?? 0.8);
+    }
+  }, [state.similarityThreshold]);
   const theme = useTheme();
   const surfaceSx = getStudioSurfaceSx(theme, meta.accent, {
     darkTint: 0.06,
@@ -109,8 +126,24 @@ export default function VectorStudioPanel({ meta, state }) {
               Load example
             </Button>
             <Button
+              startIcon={<TuneRoundedIcon fontSize="small" />}
+              onClick={() => setShowAdvanced((prev) => !prev)}
+              sx={{ textTransform: 'none', color: alpha(meta.accent, 0.92) }}
+            >
+              {showAdvanced ? 'Hide advanced' : 'Advanced settings'}
+            </Button>
+            <Button
               variant="contained"
-              onClick={state.search}
+              onClick={() => {
+                // If threshold changed, update parent and trigger search only after update
+                if (state.setSimilarityThreshold && similarityThreshold !== state.similarityThreshold) {
+                  state.setSimilarityThreshold(similarityThreshold);
+                  // Use a microtask to ensure parent state is updated before search
+                  Promise.resolve().then(() => state.search());
+                } else {
+                  state.search();
+                }
+              }}
               disabled={state.loading}
               endIcon={state.loading ? <CircularProgress size={16} color="inherit" /> : <RefreshRoundedIcon />}
               sx={{
@@ -129,6 +162,32 @@ export default function VectorStudioPanel({ meta, state }) {
               Search
             </Button>
           </Stack>
+
+          <Collapse in={showAdvanced}>
+            <Box sx={{ width: '100%', mt: 2 }}>
+              <FormControl fullWidth size="small" variant="outlined" sx={fieldSx}>
+                <InputLabel htmlFor="similarity-threshold">Similarity threshold</InputLabel>
+                <OutlinedInput
+                  id="similarity-threshold"
+                  type="number"
+                  label="Similarity threshold"
+                  value={similarityThreshold}
+                  inputProps={{ min: 0, max: 1, step: 0.01 }}
+                  onChange={(e) => {
+                    let val = parseFloat(e.target.value);
+                    if (isNaN(val)) val = 0.8;
+                    if (val > 1) val = 1;
+                    if (val < 0) val = 0;
+                    setSimilarityThreshold(val);
+                  }}
+                  endAdornment={<InputAdornment position="end">[0-1]</InputAdornment>}
+                />
+              </FormControl>
+              <Typography variant="caption" sx={{ color: theme.palette.text.secondary, mt: 0.5 }}>
+                Only proteins with similarity above this threshold will be returned.
+              </Typography>
+            </Box>
+          </Collapse>
         </Stack>
       </Paper>
 

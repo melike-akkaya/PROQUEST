@@ -8,7 +8,7 @@ def cosineSimilarity(vec1, vec2):
     vec2 = np.array(vec2)
     return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
 
-def searchSpecificEmbedding(embedding):
+def searchSpecificEmbedding(embedding, threshold=0.8):
     annoydb = 'asset/protein_embeddings_2.ann'
     embeddingDimension = 1024
 
@@ -40,8 +40,8 @@ def searchSpecificEmbedding(embedding):
         vector = annoyIndex.get_item_vector(index_id)
         similarity = round(cosineSimilarity(embedding, vector), 4)
 
-        # stop the loop once similarity < 0.8
-        if similarity < 0.8:
+        # stop the loop once similarity < threshold
+        if similarity < threshold:
             break
 
         if not infoDf.empty:
