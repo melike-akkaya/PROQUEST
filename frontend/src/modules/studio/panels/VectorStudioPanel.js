@@ -107,6 +107,15 @@ export default function VectorStudioPanel({ meta, state }) {
     lightBackgroundAlpha: 0.96,
     darkBackgroundAlpha: 0.04,
   });
+  const thresholdHintDotSx = {
+    display: 'inline-block',
+    width: 6,
+    height: 6,
+    mr: 0.75,
+    borderRadius: '50%',
+    backgroundColor: alpha(meta.accent, 0.9),
+    transform: 'translateY(-1px)',
+  };
 
   return (
     <ModuleFrame meta={meta}>
@@ -230,8 +239,12 @@ export default function VectorStudioPanel({ meta, state }) {
                 variant="caption"
                 sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.75, lineHeight: 1.5 }}
               >
-                Only proteins with cosine similarity above the chosen threshold are returned. A
-                threshold of <b>0.90</b> is usually enough to retrieve the most relevant matches.
+                <Box component="span" sx={thresholdHintDotSx} />
+                Only proteins with cosine similarity above the chosen threshold are returned.
+                <br />
+                <br />
+                <Box component="span" sx={thresholdHintDotSx} />
+                A threshold of <b>0.90</b> is usually enough to retrieve the most relevant matches.
                 The average similarity is around <b>0.82</b>, which can be thought of as a broader
                 cutoff that still returns many reasonably close proteins, not just the very top
                 matches. If the threshold is set too low, then every protein above that value will
