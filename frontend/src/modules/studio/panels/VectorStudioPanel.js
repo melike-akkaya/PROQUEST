@@ -230,10 +230,13 @@ export default function VectorStudioPanel({ meta, state }) {
                 variant="caption"
                 sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.75, lineHeight: 1.5 }}
               >
-                Only proteins with similarity above this threshold will be returned. The mean
-                similarity of returned proteins is around <b>0.82</b>, so higher thresholds may
-                slow the search. A value near <b>0.90</b> is usually enough to capture the closest
-                matches.
+                Only proteins with cosine similarity above the chosen threshold are returned. A
+                threshold of <b>0.90</b> is usually enough to retrieve the most relevant matches.
+                The average similarity is around <b>0.82</b>, which can be thought of as a broader
+                cutoff that still returns many reasonably close proteins, not just the very top
+                matches. If the threshold is set too low, then every protein above that value will
+                be returned, which can significantly increase the number of results and make the
+                search slower.
               </Typography>
             </Box>
           </Collapse>
