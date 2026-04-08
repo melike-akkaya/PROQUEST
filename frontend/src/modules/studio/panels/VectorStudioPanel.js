@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -10,6 +10,7 @@ import {
   Collapse,
   Fade,
   Paper,
+  Slider,
   Stack,
   Table,
   TableBody,
@@ -20,11 +21,6 @@ import {
   Typography,
   alpha,
   useTheme,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
 } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
@@ -45,6 +41,18 @@ const GO_COLUMN_MIN_WIDTHS = {
   Definition: 320,
   'is A': 320,
 };
+const DEFAULT_SIMILARITY_THRESHOLD = 0.9;
+const SIMILARITY_THRESHOLD_STEP = 0.01;
+const SIMILARITY_THRESHOLD_MIN = 0;
+const SIMILARITY_THRESHOLD_MAX = 1;
+
+function clampSimilarityThreshold(value, fallback = DEFAULT_SIMILARITY_THRESHOLD) {
+  if (!Number.isFinite(value)) {
+    return fallback;
+  }
+  const clamped = Math.min(SIMILARITY_THRESHOLD_MAX, Math.max(SIMILARITY_THRESHOLD_MIN, value));
+  return Number(clamped.toFixed(2));
+}
 
 function StatCard({ accent, label, value }) {
   const theme = useTheme();
@@ -72,15 +80,18 @@ function StatCard({ accent, label, value }) {
 export default function VectorStudioPanel({ meta, state }) {
   // Advanced settings state
   const [showAdvanced, setShowAdvanced] = useState(false);
-  // Local threshold state, always synced with parent/global state
-  const [similarityThreshold, setSimilarityThreshold] = useState(state.similarityThreshold ?? 0.8);
+  const currentThreshold = clampSimilarityThreshold(
+    state.similarityThreshold ?? DEFAULT_SIMILARITY_THRESHOLD
+  );
 
-  // Sync local threshold with parent/global state when it changes externally
-  useEffect(() => {
-    if (state.similarityThreshold !== similarityThreshold) {
-      setSimilarityThreshold(state.similarityThreshold ?? 0.8);
+  function updateSimilarityThreshold(nextValue) {
+    const clamped = clampSimilarityThreshold(nextValue, currentThreshold);
+    if (state.setSimilarityThreshold && clamped !== state.similarityThreshold) {
+      state.setSimilarityThreshold(clamped);
     }
-  }, [state.similarityThreshold]);
+    return clamped;
+  }
+
   const theme = useTheme();
   const surfaceSx = getStudioSurfaceSx(theme, meta.accent, {
     darkTint: 0.06,
@@ -134,16 +145,7 @@ export default function VectorStudioPanel({ meta, state }) {
             </Button>
             <Button
               variant="contained"
-              onClick={() => {
-                // If threshold changed, update parent and trigger search only after update
-                if (state.setSimilarityThreshold && similarityThreshold !== state.similarityThreshold) {
-                  state.setSimilarityThreshold(similarityThreshold);
-                  // Use a microtask to ensure parent state is updated before search
-                  Promise.resolve().then(() => state.search());
-                } else {
-                  state.search();
-                }
-              }}
+              onClick={() => state.search(currentThreshold)}
               disabled={state.loading}
               endIcon={state.loading ? <CircularProgress size={16} color="inherit" /> : <RefreshRoundedIcon />}
               sx={{
@@ -163,28 +165,75 @@ export default function VectorStudioPanel({ meta, state }) {
             </Button>
           </Stack>
 
-          <Collapse in={showAdvanced}>
-            <Box sx={{ width: '100%', mt: 2 }}>
-              <FormControl fullWidth size="small" variant="outlined" sx={fieldSx}>
-                <InputLabel htmlFor="similarity-threshold">Similarity threshold</InputLabel>
-                <OutlinedInput
-                  id="similarity-threshold"
-                  type="number"
-                  label="Similarity threshold"
-                  value={similarityThreshold}
-                  inputProps={{ min: 0, max: 1, step: 0.01 }}
-                  onChange={(e) => {
-                    let val = parseFloat(e.target.value);
-                    if (isNaN(val)) val = 0.8;
-                    if (val > 1) val = 1;
-                    if (val < 0) val = 0;
-                    setSimilarityThreshold(val);
+          <Collapse in={showAdvanced} sx={{ width: '100%' }}>
+            <Box
+              sx={{
+                width: '100%',
+                mt: 2,
+                px: { xs: 1, sm: 2 },
+                py: 2,
+                borderRadius: 3,
+                border: `1px solid ${
+                  theme.palette.mode === 'dark' ? alpha('#ffffff', 0.08) : alpha(meta.accent, 0.14)
+                }`,
+                backgroundColor:
+                  theme.palette.mode === 'dark' ? alpha(meta.accent, 0.05) : alpha(meta.accent, 0.03),
+              }}
+            >
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{ mb: 1 }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: theme.palette.mode === 'dark' ? '#f4f7fb' : '#11203b',
                   }}
-                  endAdornment={<InputAdornment position="end">[0-1]</InputAdornment>}
-                />
-              </FormControl>
-              <Typography variant="caption" sx={{ color: theme.palette.text.secondary, mt: 0.5 }}>
-                Only proteins with similarity above this threshold will be returned.
+                >
+                  Similarity threshold
+                </Typography>
+                <Typography
+                  sx={{
+                    fontVariantNumeric: 'tabular-nums',
+                    fontWeight: 700,
+                    color: meta.accent,
+                    minWidth: 48,
+                    textAlign: 'right',
+                  }}
+                >
+                  {currentThreshold.toFixed(2)}
+                </Typography>
+              </Stack>
+              <Slider
+                value={currentThreshold}
+                min={SIMILARITY_THRESHOLD_MIN}
+                max={SIMILARITY_THRESHOLD_MAX}
+                step={SIMILARITY_THRESHOLD_STEP}
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 0.5, label: '0.5' },
+                  { value: 1, label: '1' },
+                ]}
+                valueLabelDisplay="auto"
+                onChange={(_, value) => updateSimilarityThreshold(value)}
+                sx={{
+                  color: meta.accent,
+                  '& .MuiSlider-markLabel': {
+                    color: theme.palette.text.secondary,
+                    fontSize: '0.75rem',
+                  },
+                }}
+              />
+              <Typography
+                variant="caption"
+                sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.75, lineHeight: 1.5 }}
+              >
+                Only proteins with similarity above this threshold will be returned. The mean
+                similarity of returned proteins is around <b>0.82</b>, so higher thresholds may
+                slow the search. A value near <b>0.90</b> is usually enough to capture the closest
+                matches.
               </Typography>
             </Box>
           </Collapse>

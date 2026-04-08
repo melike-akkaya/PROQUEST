@@ -17,11 +17,13 @@ import {
   Select,
   Stack,
   TextField,
+  Tooltip,
   Typography,
   alpha,
   useTheme,
 } from '@mui/material';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
@@ -34,6 +36,11 @@ import StoredKeyField from '../components/StoredKeyField';
 import { PROVIDER_MODELS, RAG_EXAMPLES, TEMPERATURE_RANGES } from '../constants';
 import { renderProteinLink } from '../utils/studioFormatters';
 import { getStudioFieldSx, getStudioMenuPaperSx, getStudioSurfaceSx } from '../utils/studioStyles';
+
+function formatSequencePreview(sequence) {
+  const clean = String(sequence || '').replace(/\s+/g, '');
+  return clean.length > 8 ? `${clean.slice(0, 8)}…` : clean;
+}
 
 export default function RagStudioPanel({ meta, state }) {
   const theme = useTheme();
@@ -348,16 +355,61 @@ export default function RagStudioPanel({ meta, state }) {
         onClose={() => state.setExamplesAnchor(null)}
         PaperProps={{ sx: getStudioMenuPaperSx(theme) }}
       >
-        {RAG_EXAMPLES.prompts.map((prompt) => (
+        {RAG_EXAMPLES.prompts.map((example) => (
           <MenuItem
-            key={prompt}
+            key={example.question}
             onClick={() => {
-              state.setQuestion(prompt);
+              state.setQuestion(example.question);
+              if (example.sequence) {
+                state.setSequence(example.sequence);
+              }
               state.setExamplesAnchor(null);
             }}
-            sx={{ whiteSpace: 'normal', fontSize: '0.92rem', lineHeight: 1.45 }}
+            sx={{ whiteSpace: 'normal', fontSize: '0.92rem', lineHeight: 1.45, gap: 1.25 }}
           >
-            {prompt}
+            <Box component="span" sx={{ flex: 1 }}>
+              {example.question}
+            </Box>
+            {example.sequence ? (
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={0.5}
+                onClick={(event) => event.stopPropagation()}
+                sx={{
+                  flexShrink: 0,
+                  px: 0.75,
+                  py: 0.25,
+                  borderRadius: 1,
+                  border: `1px solid ${alpha(meta.accent, 0.3)}`,
+                  backgroundColor: alpha(meta.accent, 0.08),
+                }}
+              >
+                <Typography
+                  component="span"
+                  sx={{
+                    fontFamily: 'monospace',
+                    fontSize: '0.72rem',
+                    color: theme.palette.text.secondary,
+                    letterSpacing: 0.2,
+                  }}
+                >
+                  {formatSequencePreview(example.sequence)}
+                </Typography>
+                <Tooltip title="Copy sequence" placement="top">
+                  <IconButton
+                    size="small"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigator.clipboard?.writeText(String(example.sequence).replace(/\s+/g, ''));
+                    }}
+                    sx={{ p: 0.25, color: alpha(meta.accent, 0.9) }}
+                  >
+                    <ContentCopyRoundedIcon sx={{ fontSize: '0.95rem' }} />
+                  </IconButton>
+                </Tooltip>
+              </Stack>
+            ) : null}
           </MenuItem>
         ))}
       </Menu>

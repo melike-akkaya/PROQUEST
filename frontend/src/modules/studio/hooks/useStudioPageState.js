@@ -134,8 +134,8 @@ export default function useStudioPageState() {
     goEnrichment: [],
     hits: [],
   });
-  // Similarity threshold for vector search (default 0.8)
-  const [similarityThreshold, setSimilarityThreshold] = useState(0.8);
+  // Similarity threshold for vector search (default 0.9)
+  const [similarityThreshold, setSimilarityThreshold] = useState(0.9);
   const chatViewportRef = useRef(null);
   const ragRequestIdRef = useRef(0);
   const activeRagThreadIdRef = useRef(null);
@@ -471,11 +471,12 @@ export default function useStudioPageState() {
     }
   }
 
-  async function handleVectorSearch() {
+  async function handleVectorSearch(nextThreshold = similarityThreshold) {
     setVectorError('');
     setVectorResult({ embeddingTime: null, searchTime: null, goEnrichment: [], hits: [] });
 
     const normalizedSequence = normalizeSequenceInput(vectorSequence);
+    const thresholdToUse = Number.isFinite(nextThreshold) ? nextThreshold : similarityThreshold;
     if (!normalizedSequence) {
       setVectorError('Paste a protein sequence first.');
       return;
@@ -484,8 +485,7 @@ export default function useStudioPageState() {
     setVectorLoading(true);
 
     try {
-      // Pass threshold to backend
-      const response = await vectorSearch(normalizedSequence, similarityThreshold);
+      const response = await vectorSearch(normalizedSequence, thresholdToUse);
       setVectorResult({
         embeddingTime: response.embedding_time,
         searchTime: response.search_time,

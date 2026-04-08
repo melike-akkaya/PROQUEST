@@ -239,17 +239,7 @@ FEFPQPLPVCGDIKVEFFHKQNKMLKKDKMFHFWVNTFFIPGPEETSEKVENGSLCDQEI
 DSICSIERADNDKEYLVLTLTKNDLDKANKDKANRYFSPNFKVKLYFTKTVEEPSNPEAS
 SSTSVTPDVSDNEPDHYRYSDTTDSDPENEPFDEDQHTQITKV`;
 
-export const RAG_EXAMPLES = {
-  prompts: [
-    'What is the catalytic activity, cofactor requirement and pathway context of human CYP2E1?',
-    'What does the Amyloid-beta precursor protein do in the brain?',
-    'Which proteins are functionally close to this sequence, and what evidence supports that?',
-    'Explain the likely role of this protein and mention the most relevant UniProt entries.',
-  ],
-  case: {
-    question:
-      'What does the Amyloid-beta precursor protein do in the brain, and what proteins does it interact with?',
-    sequence: `MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTK
+const RAG_EXAMPLE_SEQUENCE = `MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTK
 TCIDTKEGILQYCQEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVG
 EFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFR
 GVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEE
@@ -261,7 +251,25 @@ QAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYER
 MNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLANMISEPRISYGNDALMPSLTET
 KTTVELLPVNGEFSLDDLQPWHSFGADSVPANTENEVEPVDARPAADRGLTTRPGSGLTN
 IKTEEISEVKMDAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIATVIVITL
-VMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN`,
+VMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN`;
+
+export const RAG_EXAMPLES = {
+  prompts: [
+    { question: 'What is the catalytic activity, cofactor requirement and pathway context of human CYP2E1?' },
+    { question: 'What does the Amyloid-beta precursor protein do in the brain?' },
+    {
+      question: 'Which proteins are functionally close to this sequence, and what evidence supports that?',
+      sequence: RAG_EXAMPLE_SEQUENCE,
+    },
+    {
+      question: 'Explain the likely role of this protein and mention the most relevant UniProt entries.',
+      sequence: RAG_EXAMPLE_SEQUENCE,
+    },
+  ],
+  case: {
+    question:
+      'What does the Amyloid-beta precursor protein do in the brain, and what proteins does it interact with?',
+    sequence: RAG_EXAMPLE_SEQUENCE,
   },
 };
 
