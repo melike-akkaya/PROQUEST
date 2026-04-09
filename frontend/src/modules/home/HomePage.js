@@ -246,32 +246,42 @@ export default function HomePage() {
               />
 
               <Typography
-                variant="h1"
+                component="h1"
                 sx={{
-                  maxWidth: 640,
-                  fontSize: { xs: '2.4rem', md: '4.1rem' },
-                  lineHeight: { xs: 1.08, md: 0.98 },
-                  letterSpacing: '-0.06em',
+                  maxWidth: 920,
+                  fontSize: { xs: '1.62rem', sm: '2rem', md: '2.5rem', lg: '2.75rem' },
+                  lineHeight: { xs: 1.14, md: 1.06 },
+                  letterSpacing: '-0.045em',
                   fontWeight: 800,
                   fontFamily: '"Sora", "Space Grotesk", sans-serif',
                   color: tokens.text,
                   textAlign: { xs: 'left', lg: 'center' },
+                  textWrap: 'balance',
                 }}
               >
-                Modern, clear protein discovery.
-              </Typography>
-
-              <Typography
-                sx={{
-                  mt: 2.25,
-                  maxWidth: 580,
-                  fontSize: { xs: '1rem', md: '1.08rem' },
-                  lineHeight: 1.8,
-                  color: tokens.muted,
-                  textAlign: { xs: 'left', lg: 'center' },
-                }}
-              >
-                ProQuest brings ProteinSearch, SeqSim, and ProteinChat into a single, cleaner workflow.
+                ProQuest: LLM-powered semantic exploration of the Universal Protein Resource{' '}
+                <Box
+                  component="span"
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    px: { xs: 0.68, md: 0.82 },
+                    py: { xs: 0.11, md: 0.15 },
+                    borderRadius: '999px',
+                    whiteSpace: 'nowrap',
+                    verticalAlign: 'middle',
+                    fontSize: '0.58em',
+                    lineHeight: 1.05,
+                    letterSpacing: '-0.02em',
+                    fontWeight: 700,
+                    color: tokens.accent,
+                    backgroundColor: tokens.accentSoft,
+                    border: `1px solid ${alpha(tokens.accent, theme.palette.mode === 'dark' ? 0.24 : 0.16)}`,
+                    boxShadow: `inset 0 1px 0 ${alpha('#ffffff', theme.palette.mode === 'dark' ? 0.06 : 0.55)}`,
+                  }}
+                >
+                  UniProt
+                </Box>
               </Typography>
             </Box>
 
