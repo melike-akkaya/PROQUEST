@@ -30,6 +30,7 @@ export async function queryRAG({
     answer: data.answer,
     proteinIds: data.protein_ids,
     suggestedFollowUps: data.suggested_followups || [],
+    tokenUsage: data.token_usage || null,
   };
 }
 

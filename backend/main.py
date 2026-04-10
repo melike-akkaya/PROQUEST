@@ -18,7 +18,7 @@ from langchain_mistralai.chat_models import ChatMistralAI
 from langchain_groq import ChatGroq
 
 from src.prompt import query_uniprot, generate_solr_query
-from src.promptForRag import answerWithProteins
+from src.promptForRag import RAGGenerationError, answerWithProteins
 from src.relevantGOIdFinder import findRelatedGoIds
 from src.relevantProteinFinder import searchSpecificEmbedding
 from src.prott5Embedder import load_t5, getEmbeddings
@@ -312,15 +312,95 @@ class RAGResponse(BaseModel):
     answer: str
     protein_ids: List[str]
     suggested_followups: List[str]
+    token_usage: dict | None = None
+
+
+def summarize_token_usage_attempts(attempts):
+    normalized_attempts = [attempt for attempt in attempts if isinstance(attempt, dict)]
+    sources = {attempt.get("source") for attempt in normalized_attempts if attempt.get("source")}
+
+    def attempt_total(attempt):
+        total_tokens = attempt.get("total_tokens")
+        if isinstance(total_tokens, int):
+            return total_tokens
+
+        input_tokens = attempt.get("input_tokens")
+        output_tokens = attempt.get("output_tokens")
+        if isinstance(input_tokens, int) and isinstance(output_tokens, int):
+            return input_tokens + output_tokens
+
+        return None
+
+    input_tokens = sum(
+        attempt.get("input_tokens", 0)
+        for attempt in normalized_attempts
+        if isinstance(attempt.get("input_tokens"), int)
+    )
+    output_tokens = sum(
+        attempt.get("output_tokens", 0)
+        for attempt in normalized_attempts
+        if isinstance(attempt.get("output_tokens"), int)
+    )
+    total_tokens = sum(
+        total
+        for total in (attempt_total(attempt) for attempt in normalized_attempts)
+        if isinstance(total, int)
+    )
+    successful_attempts = [
+        attempt for attempt in normalized_attempts if attempt.get("status") == "success"
+    ]
+    successful_attempt = successful_attempts[-1] if successful_attempts else None
+
+    if len(sources) > 1:
+        source = "mixed"
+    elif sources:
+        source = next(iter(sources))
+    else:
+        source = "unavailable"
+
+    return {
+        "attempt_count": len(normalized_attempts),
+        "successful_attempt": successful_attempt.get("attempt") if successful_attempt else None,
+        "final_top_k": successful_attempt.get("top_k") if successful_attempt else None,
+        "successful_retrieval_mode": successful_attempt.get("retrieval_mode") if successful_attempt else None,
+        "failed_attempt_count": sum(
+            1
+            for attempt in normalized_attempts
+            if attempt.get("status") != "success"
+        ),
+        "source": source,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": total_tokens,
+        "attempts": normalized_attempts,
+    }
 
 
 def safe_answer_with_proteins(llm, query, sequence, top_k, chat_history=None, max_attempts=6):
+    attempt_records = []
+
+    def record_attempt(attempt_usage, fallback_top_k, fallback_status, fallback_error=None):
+        normalized = dict(attempt_usage or {})
+        normalized["attempt"] = len(attempt_records) + 1
+        normalized.setdefault("top_k", int(fallback_top_k))
+        normalized.setdefault("status", fallback_status)
+        if fallback_error and not normalized.get("error"):
+            normalized["error"] = str(fallback_error)
+        attempt_records.append(normalized)
+        return normalized
+
     try:
         print(f"Trying top_k = {top_k}")
-        answer, protein_ids, suggested_followups = answerWithProteins(llm, query, sequence, top_k, chat_history)
-        return answer, protein_ids, suggested_followups
+        answer, protein_ids, suggested_followups, attempt_usage = answerWithProteins(llm, query, sequence, top_k, chat_history)
+        record_attempt(attempt_usage, top_k, "success")
+        return answer, protein_ids, suggested_followups, summarize_token_usage_attempts(attempt_records)
+    except RAGGenerationError as e:
+        print(f"Initial top_k={top_k} failed: {e}")
+        record_attempt(e.attempt_usage, top_k, "failed", e)
+        last_error = e
     except Exception as e:
         print(f"Initial top_k={top_k} failed: {e}")
+        record_attempt({}, top_k, "failed", e)
         last_error = e
 
     # if top_k failed, perform binary search for the largest valid k
@@ -337,20 +417,27 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, chat_history=None, ma
         mid = (low + high) // 2
         print(f"Trying fallback top_k = {mid}")
         try:
-            answer, protein_ids, suggested_followups = answerWithProteins(llm, query, sequence, mid, chat_history)
+            answer, protein_ids, suggested_followups, attempt_usage = answerWithProteins(llm, query, sequence, mid, chat_history)
+            record_attempt(attempt_usage, mid, "success")
             best_answer = answer
             best_ids = protein_ids
             best_followups = suggested_followups
             low = mid + 1
+        except RAGGenerationError as e:
+            print(f"Error at top_k = {mid}: {e}")
+            record_attempt(e.attempt_usage, mid, "failed", e)
+            last_error = e
+            high = mid - 1
         except Exception as e:
             print(f"Error at top_k = {mid}: {e}")
+            record_attempt({}, mid, "failed", e)
             last_error = e
             high = mid - 1
 
     if best_answer is None:
         raise RuntimeError(f"Token limit error even at low top_k. Last error: {last_error}")
 
-    return best_answer, best_ids, best_followups
+    return best_answer, best_ids, best_followups, summarize_token_usage_attempts(attempt_records)
 
 @app.post("/rag_order", response_model=RAGResponse)
 def rag_order(req: RAGRequest):
@@ -365,7 +452,7 @@ def rag_order(req: RAGRequest):
             message.model_dump() if hasattr(message, "model_dump") else message.dict()
             for message in req.chat_history
         ]
-        answer, protein_ids, suggested_followups = safe_answer_with_proteins(
+        answer, protein_ids, suggested_followups, token_usage = safe_answer_with_proteins(
             llm,
             req.question,
             req.sequence,
@@ -377,7 +464,12 @@ def rag_order(req: RAGRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"RAG generation failed: {e}")
 
-    return RAGResponse(answer=answer, protein_ids=protein_ids, suggested_followups=suggested_followups or [])
+    return RAGResponse(
+        answer=answer,
+        protein_ids=protein_ids,
+        suggested_followups=suggested_followups or [],
+        token_usage=token_usage,
+    )
 
 class RAGProteinListRequest(BaseModel):
     protein_ids: List[str]

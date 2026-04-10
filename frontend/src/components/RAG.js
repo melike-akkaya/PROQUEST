@@ -109,6 +109,12 @@ const TEMPERATURE_RANGES = {
   OpenRouter: { min: 0.0, max: 2.0, default: 1.0 },
 };
 
+function formatTokenValue(value) {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value.toLocaleString()
+    : 'n/a';
+}
+
 function downloadCSV(filename, rows) {
   if (!rows || !rows.length) return;
   const headers = Object.keys(rows[0]);
@@ -138,6 +144,7 @@ export default function LLMQuery() {
   const [hasStoredKey, setHasStoredKey] = useState(false);
   const [customKeyMode, setCustomKeyMode] = useState(false);
   const [answer, setAnswer] = useState('');
+  const [tokenUsage, setTokenUsage] = useState(null);
 
   useEffect(() => {
     if (provider) {
@@ -185,6 +192,7 @@ export default function LLMQuery() {
     setWarning('');
     setError('');
     setAnswer('');
+    setTokenUsage(null);
     setResults([]);
     setProteinInfo([]);
   
@@ -204,7 +212,7 @@ export default function LLMQuery() {
   
     setLoading(true);
     try {
-      const { answer: llmAnswer, proteinIds } = await queryRAG({
+      const { answer: llmAnswer, proteinIds, tokenUsage: nextTokenUsage } = await queryRAG({
         model:       llmType,
         apiKey,
         question,
@@ -214,6 +222,7 @@ export default function LLMQuery() {
       });
 
       setAnswer(llmAnswer);
+      setTokenUsage(nextTokenUsage);
 
       setResults(proteinIds);
 
@@ -824,6 +833,131 @@ export default function LLMQuery() {
           >
             <TypewriterEffect text={answer} speed={15} />
           </Box>
+        </Box>
+      )}
+      {tokenUsage && (
+        <Box sx={{ mt: 3 }}>
+          <Divider
+            sx={{
+              mb: 3,
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: 'text.primary',
+              textAlign: 'center',
+              '&::before, &::after': {
+                borderColor: (theme) => theme.palette.divider,
+              },
+            }}
+          >
+            Token Usage
+          </Divider>
+
+          <Paper
+            elevation={0}
+            sx={{
+              p: 2.5,
+              borderRadius: '16px',
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? alpha('#16a5a5', 0.08)
+                  : alpha('#16a5a5', 0.04),
+            }}
+          >
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
+              {[
+                ['Total', tokenUsage.total_tokens],
+                ['Input', tokenUsage.input_tokens],
+                ['Output', tokenUsage.output_tokens],
+                ['Attempts', tokenUsage.attempt_count],
+              ].map(([label, value]) => (
+                <Box
+                  key={label}
+                  sx={{
+                    px: 1.4,
+                    py: 1,
+                    minWidth: 108,
+                    borderRadius: '12px',
+                    border: '1px solid',
+                    borderColor: (theme) => alpha('#16a5a5', theme.palette.mode === 'dark' ? 0.26 : 0.18),
+                    backgroundColor: (theme) => alpha('#16a5a5', theme.palette.mode === 'dark' ? 0.08 : 0.06),
+                  }}
+                >
+                  <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: 'text.secondary' }}>
+                    {label}
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.92rem', fontWeight: 700, color: 'text.primary' }}>
+                    {formatTokenValue(value)}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+
+            {!!tokenUsage.attempts?.length && (
+              <Box sx={{ display: 'grid', gap: 1.2 }}>
+                {tokenUsage.attempts.map((attempt) => {
+                  const breakdown = attempt.prompt_breakdown || {};
+
+                  return (
+                    <Box
+                      key={`attempt-${attempt.attempt ?? attempt.top_k}`}
+                      sx={{
+                        p: 1.6,
+                        borderRadius: '14px',
+                        border: '1px solid',
+                        borderColor: (theme) => alpha('#16a5a5', theme.palette.mode === 'dark' ? 0.22 : 0.14),
+                        backgroundColor: (theme) =>
+                          theme.palette.mode === 'dark'
+                            ? alpha(theme.palette.background.paper, 0.28)
+                            : alpha(theme.palette.common.white, 0.72),
+                      }}
+                    >
+                      <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, mb: 1 }}>
+                        Attempt {attempt.attempt ?? '?'} • top_k {attempt.top_k ?? '?'} • {attempt.status || 'unknown'}
+                      </Typography>
+
+                      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
+                        {[
+                          ['Total', attempt.total_tokens],
+                          ['Input', attempt.input_tokens],
+                          ['Output', attempt.output_tokens],
+                          ['Docs', attempt.retrieved_document_count],
+                          ['Prompt est.', breakdown.prompt_tokens_estimate],
+                          ['Docs est.', breakdown.documents_tokens_estimate],
+                        ].map(([label, value]) => (
+                          <Typography
+                            key={`${attempt.attempt}-${label}`}
+                            sx={{
+                              px: 1,
+                              py: 0.6,
+                              borderRadius: '999px',
+                              fontSize: '0.78rem',
+                              backgroundColor: (theme) =>
+                                theme.palette.mode === 'dark'
+                                  ? alpha('#16a5a5', 0.12)
+                                  : alpha('#16a5a5', 0.08),
+                            }}
+                          >
+                            {label}: {formatTokenValue(value)}
+                          </Typography>
+                        ))}
+                      </Box>
+
+                      <Typography sx={{ fontSize: '0.76rem', color: 'text.secondary' }}>
+                        Mode: {attempt.retrieval_mode || 'rag'} • Source: {attempt.source || 'unknown'}
+                      </Typography>
+
+                      {attempt.error ? (
+                        <Typography sx={{ mt: 0.8, fontSize: '0.76rem', color: 'error.main' }}>
+                          {attempt.error}
+                        </Typography>
+                      ) : null}
+                    </Box>
+                  );
+                })}
+              </Box>
+            )}
+          </Paper>
         </Box>
       )}
       {proteinInfo.length > 0 && (

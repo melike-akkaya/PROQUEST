@@ -35,6 +35,33 @@ function normalizeIsoDate(value, fallback) {
   return candidate.toISOString();
 }
 
+function normalizeTokenUsage(tokenUsage) {
+  if (!tokenUsage || typeof tokenUsage !== 'object' || Array.isArray(tokenUsage)) {
+    return null;
+  }
+
+  const attempts = Array.isArray(tokenUsage.attempts)
+    ? tokenUsage.attempts
+        .filter((attempt) => attempt && typeof attempt === 'object' && !Array.isArray(attempt))
+        .map((attempt) => ({
+          ...attempt,
+          prompt_breakdown:
+            attempt.prompt_breakdown && typeof attempt.prompt_breakdown === 'object'
+              ? { ...attempt.prompt_breakdown }
+              : null,
+          provider_usage:
+            attempt.provider_usage && typeof attempt.provider_usage === 'object'
+              ? { ...attempt.provider_usage }
+              : null,
+        }))
+    : [];
+
+  return {
+    ...tokenUsage,
+    attempts,
+  };
+}
+
 function normalizeMessage(message, index) {
   const content = (message?.content || '').toString();
   const role = message?.role === 'user' ? 'user' : 'assistant';
@@ -47,6 +74,7 @@ function normalizeMessage(message, index) {
     proteinIds: Array.isArray(message?.proteinIds) ? message.proteinIds.filter(Boolean) : [],
     proteinInfo: Array.isArray(message?.proteinInfo) ? message.proteinInfo : [],
     suggestions: Array.isArray(message?.suggestions) ? message.suggestions.filter(Boolean).slice(0, 4) : [],
+    tokenUsage: normalizeTokenUsage(message?.tokenUsage),
   };
 }
 
@@ -59,6 +87,7 @@ function serializeMessageForStorage(message, index) {
     content: normalized.content,
     sequence: normalized.sequence,
     suggestions: normalized.suggestions,
+    tokenUsage: normalized.tokenUsage,
   };
 }
 

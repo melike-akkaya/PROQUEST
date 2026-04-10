@@ -390,6 +390,7 @@ export default function useStudioPageState() {
             content: ragResponse.answer || 'No answer returned.',
             proteinIds: ragResponse.proteinIds,
             proteinInfo,
+            tokenUsage: ragResponse.tokenUsage,
             suggestions: ragResponse.suggestedFollowUps?.length
               ? ragResponse.suggestedFollowUps
               : buildSuggestedFollowUps({
