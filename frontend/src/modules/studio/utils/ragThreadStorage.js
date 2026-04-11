@@ -45,6 +45,11 @@ function normalizeTokenUsage(tokenUsage) {
         .filter((attempt) => attempt && typeof attempt === 'object' && !Array.isArray(attempt))
         .map((attempt) => ({
           ...attempt,
+          documents: Array.isArray(attempt.documents)
+            ? attempt.documents
+                .filter((document) => document && typeof document === 'object' && !Array.isArray(document))
+                .map((document) => ({ ...document }))
+            : [],
           prompt_breakdown:
             attempt.prompt_breakdown && typeof attempt.prompt_breakdown === 'object'
               ? { ...attempt.prompt_breakdown }

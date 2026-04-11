@@ -947,6 +947,70 @@ export default function LLMQuery() {
                         Mode: {attempt.retrieval_mode || 'rag'} • Source: {attempt.source || 'unknown'}
                       </Typography>
 
+                      {!!attempt.documents?.length && (
+                        <Box sx={{ mt: 1.2 }}>
+                          <Typography sx={{ fontSize: '0.78rem', fontWeight: 700, mb: 0.9 }}>
+                            Prompt flat files
+                          </Typography>
+                          <Box sx={{ display: 'grid', gap: 0.8 }}>
+                            {attempt.documents.map((document) => (
+                              <Box
+                                key={`attempt-${attempt.attempt ?? '?'}-doc-${document.rank ?? document.protein_id}`}
+                                sx={{
+                                  p: 1,
+                                  borderRadius: '12px',
+                                  border: '1px solid',
+                                  borderColor: (theme) => alpha('#16a5a5', theme.palette.mode === 'dark' ? 0.18 : 0.12),
+                                  backgroundColor: (theme) =>
+                                    theme.palette.mode === 'dark'
+                                      ? alpha('#16a5a5', 0.06)
+                                      : alpha('#16a5a5', 0.035),
+                                }}
+                              >
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    gap: 1,
+                                    flexWrap: 'wrap',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                  }}
+                                >
+                                  <Chip
+                                    label={`#${document.rank ?? '?'} ${document.protein_id || 'Unknown protein'}`}
+                                    size="small"
+                                    component={document.uniprot_url ? 'a' : 'div'}
+                                    clickable={Boolean(document.uniprot_url)}
+                                    href={document.uniprot_url || undefined}
+                                    target={document.uniprot_url ? '_blank' : undefined}
+                                    rel={document.uniprot_url ? 'noreferrer' : undefined}
+                                    sx={{
+                                      fontWeight: 700,
+                                      color: '#16a5a5',
+                                      backgroundColor: (theme) =>
+                                        theme.palette.mode === 'dark'
+                                          ? alpha('#16a5a5', 0.18)
+                                          : alpha('#16a5a5', 0.08),
+                                    }}
+                                  />
+                                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                                    <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
+                                      Prompt tokens est.: {formatTokenValue(document.prompt_fragment_tokens_estimate)}
+                                    </Typography>
+                                    <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
+                                      Content tokens est.: {formatTokenValue(document.content_tokens_estimate)}
+                                    </Typography>
+                                    <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
+                                      Chars: {formatTokenValue(document.content_char_count)}
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                              </Box>
+                            ))}
+                          </Box>
+                        </Box>
+                      )}
+
                       {attempt.error ? (
                         <Typography sx={{ mt: 0.8, fontSize: '0.76rem', color: 'error.main' }}>
                           {attempt.error}

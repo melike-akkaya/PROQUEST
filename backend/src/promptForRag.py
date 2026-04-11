@@ -110,6 +110,36 @@ def format_documents(df):
     )
 
 
+def format_document_fragment(protein_id, content):
+    return f"Protein ID: {protein_id}\nContent: {content}"
+
+
+def build_document_payload(df, llm):
+    document_details = []
+    formatted_fragments = []
+
+    for rank, (_, row) in enumerate(df.iterrows(), start=1):
+        protein_id = str(row.get("Protein ID") or "").strip()
+        content = str(row.get("Content") or "")
+        fragment = format_document_fragment(protein_id, content)
+        formatted_fragments.append(fragment)
+
+        line_count = content.count("\n") + 1 if content else 0
+        document_details.append(
+            {
+                "rank": rank,
+                "protein_id": protein_id,
+                "uniprot_url": f"https://www.uniprot.org/uniprotkb/{protein_id}" if protein_id else None,
+                "content_char_count": len(content),
+                "content_line_count": line_count,
+                "content_tokens_estimate": safe_count_text_tokens(llm, content),
+                "prompt_fragment_tokens_estimate": safe_count_text_tokens(llm, fragment),
+            }
+        )
+
+    return "\n\n".join(formatted_fragments), document_details
+
+
 def build_history_messages(chat_history):
     if MAX_CONTEXT_TURNS <= 0:
         return []
@@ -295,6 +325,7 @@ def build_attempt_usage(
     top_k,
     retrieval_mode,
     retrieved_document_count,
+    document_details,
     system_prompt_text,
     query,
     formatted_documents,
@@ -348,6 +379,7 @@ def build_attempt_usage(
         "total_tokens": total_tokens,
         "provider_usage": provider_usage,
         "prompt_breakdown": prompt_breakdown,
+        "documents": document_details,
         "error": error,
     }
 
@@ -446,6 +478,7 @@ def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
     human_prompt_text = HYBRID_RAG_HUMAN_PROMPT if sequence == '' else SEQUENCE_RAG_HUMAN_PROMPT
     documents_df = pd.DataFrame(columns=["Protein ID", "Content"])
     formatted_documents = ""
+    document_details = []
     prompt_messages = []
 
     try:
@@ -454,7 +487,7 @@ def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
         else:
             documents_df = retrieveRelatedProteinsFromSequences(sequence, top_k)
 
-        formatted_documents = format_documents(documents_df)
+        formatted_documents, document_details = build_document_payload(documents_df, llm)
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt_text),
@@ -473,6 +506,7 @@ def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
             top_k=top_k,
             retrieval_mode=retrieval_mode,
             retrieved_document_count=len(documents_df.index),
+            document_details=document_details,
             system_prompt_text=system_prompt_text,
             query=cleaned_query,
             formatted_documents=formatted_documents,
@@ -492,6 +526,7 @@ def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
             top_k=top_k,
             retrieval_mode=retrieval_mode,
             retrieved_document_count=len(documents_df.index),
+            document_details=document_details,
             system_prompt_text=system_prompt_text,
             query=cleaned_query,
             formatted_documents=formatted_documents,
@@ -511,6 +546,7 @@ def answerWithProteins(llm, query, sequence, top_k, chat_history=None):
         top_k=top_k,
         retrieval_mode=retrieval_mode,
         retrieved_document_count=len(documents_df.index),
+        document_details=document_details,
         system_prompt_text=system_prompt_text,
         query=cleaned_query,
         formatted_documents=formatted_documents,

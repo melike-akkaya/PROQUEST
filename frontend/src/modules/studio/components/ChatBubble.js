@@ -46,6 +46,58 @@ function TokenMetric({ label, value, accent, subdued = false }) {
   );
 }
 
+function DocumentUsageRow({ document, accent, theme }) {
+  return (
+    <Box
+      sx={{
+        p: 0.9,
+        borderRadius: 2,
+        border: `1px solid ${alpha(accent, 0.12)}`,
+        backgroundColor: alpha(accent, theme.palette.mode === 'dark' ? 0.045 : 0.03),
+      }}
+    >
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={0.9}
+        alignItems={{ xs: 'flex-start', md: 'center' }}
+        justifyContent="space-between"
+      >
+        <Stack direction="row" spacing={0.8} alignItems="center" flexWrap="wrap" useFlexGap>
+          <Chip
+            label={`#${document.rank ?? '?'} ${document.protein_id || 'Unknown protein'}`}
+            size="small"
+            component={document.uniprot_url ? 'a' : 'div'}
+            clickable={Boolean(document.uniprot_url)}
+            href={document.uniprot_url || undefined}
+            target={document.uniprot_url ? '_blank' : undefined}
+            rel={document.uniprot_url ? 'noreferrer' : undefined}
+            sx={{
+              fontWeight: 700,
+              color: accent,
+              backgroundColor: alpha(accent, theme.palette.mode === 'dark' ? 0.18 : 0.08),
+            }}
+          />
+          <Typography sx={{ fontSize: '0.75rem', opacity: 0.72 }}>
+            Prompt tokens est.: {formatTokenValue(document.prompt_fragment_tokens_estimate)}
+          </Typography>
+        </Stack>
+
+        <Stack direction="row" spacing={0.9} flexWrap="wrap" useFlexGap>
+          <Typography sx={{ fontSize: '0.72rem', opacity: 0.68 }}>
+            Content tokens est.: {formatTokenValue(document.content_tokens_estimate)}
+          </Typography>
+          <Typography sx={{ fontSize: '0.72rem', opacity: 0.68 }}>
+            Chars: {formatTokenValue(document.content_char_count)}
+          </Typography>
+          <Typography sx={{ fontSize: '0.72rem', opacity: 0.68 }}>
+            Lines: {formatTokenValue(document.content_line_count)}
+          </Typography>
+        </Stack>
+      </Stack>
+    </Box>
+  );
+}
+
 export default function ChatBubble({ message, accent, onSuggestionClick }) {
   const theme = useTheme();
   const [copied, setCopied] = useState(false);
@@ -243,6 +295,22 @@ export default function ChatBubble({ message, accent, onSuggestionClick }) {
                             <Typography sx={{ fontSize: '0.72rem', color: theme.palette.error.main }}>
                               {attempt.error}
                             </Typography>
+                          )}
+
+                          {!!attempt.documents?.length && (
+                            <Stack spacing={0.75}>
+                              <Typography sx={{ fontSize: '0.74rem', fontWeight: 700, opacity: 0.78 }}>
+                                Prompt flat files
+                              </Typography>
+                              {attempt.documents.map((document) => (
+                                <DocumentUsageRow
+                                  key={`${message.id}-attempt-${attempt.attempt ?? '?'}-doc-${document.rank ?? document.protein_id}`}
+                                  document={document}
+                                  accent={accent}
+                                  theme={theme}
+                                />
+                              ))}
+                            </Stack>
                           )}
                         </Stack>
                       </Box>
