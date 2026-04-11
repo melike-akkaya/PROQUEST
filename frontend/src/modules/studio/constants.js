@@ -115,7 +115,11 @@ export const STUDIO_MODULES = [
       },
       {
         tone: 'warning',
-        text: 'Even with retrieval support, the answer should still be checked against the cited proteins, annotations, and evidence shown in the thread. You can lower retrieved proteins (top K) from Advanced settings to reduce token usage; at 10, prompts can reach roughly 50k-60k tokens.',
+        text: 'Even with retrieval support, the answer should still be checked against the cited proteins, annotations, and evidence shown in the thread.',
+      },
+      {
+        tone: 'warning',
+        text: 'From Advanced settings, you can lower retrieved proteins (top K) to reduce token usage; at 10, prompts can reach roughly 50k-60k tokens.',
       },
     ],
   },
