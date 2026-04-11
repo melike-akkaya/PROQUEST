@@ -115,7 +115,7 @@ export const STUDIO_MODULES = [
       },
       {
         tone: 'warning',
-        text: 'Even with retrieval support, the answer should still be checked against the cited proteins, annotations, and evidence shown in the thread.',
+        text: 'Even with retrieval support, the answer should still be checked against the cited proteins, annotations, and evidence shown in the thread. You can lower retrieved proteins (top K) from Advanced settings to reduce token usage; at 10, prompts can reach roughly 50k-60k tokens.',
       },
     ],
   },
@@ -280,7 +280,7 @@ export const INITIAL_RAG_MESSAGE = {
     'Ask a protein question, optionally attach a sequence, and continue with follow-up turns in the same thread.',
   suggestions: [
     'What is the function of human albumin?',
-    'Summarize the likely role of this sequence.',
+    'Which pathways is human TP53 involved in?',
     "Which proteins are related to Alzheimer's disease?",
   ],
 };
