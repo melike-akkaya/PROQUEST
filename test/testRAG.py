@@ -26,8 +26,8 @@ SHEET_SUMMARY = "summary"
 
 MODEL_CONFIGS = [
     {
-        "model": "gemini-2.5-flash",
-        "api_key": "AIzaSyCIfhq-bc_FQMroNIBb3ZVo-eTFDWNIabE",
+        "model": "gpt-5-mini",
+        "api_key": "pl",
         "top_k": 50,
         "temperature": None,
     },
@@ -37,6 +37,16 @@ REQUEST_TIMEOUT = 180
 SLEEP_BETWEEN_CALLS = 2
 SAVE_EVERY_N_ROWS = 1
 MONITOR_INTERVAL_SEC = 1.0
+
+RESULTS_HEADER = [
+    "timestamp", "model", "json_file", "item_index", "task",
+    "protein_accession", "question",
+    "sequence",
+    "seq_len",
+    "top_k", "temperature",
+    "protein_ids", "answer", "expected_output",
+    "status", "error"
+]
 
 
 class ResourceMonitor:
@@ -129,19 +139,37 @@ def ensure_workbook(path: str, sheet_name: str):
         ws = wb[sheet_name] if sheet_name in wb.sheetnames else wb.create_sheet(sheet_name)
 
         if ws.max_row == 1 and all(c.value is None for c in ws[1]):
-            pass
+            ws.append(RESULTS_HEADER)
+            wb.save(path)
+            return wb, ws
+
+        current_header = [c.value for c in ws[1]]
+
+        if not any(current_header):
+            ws.delete_rows(1)
+            ws.insert_rows(1)
+            ws.append(RESULTS_HEADER)
+            wb.save(path)
+            return wb, ws
+
+        if "sequence" not in current_header:
+            try:
+                seq_len_idx = current_header.index("seq_len") + 1  # 1-based column
+            except ValueError:
+                seq_len_idx = len(current_header) + 1
+
+            ws.insert_cols(seq_len_idx)
+            ws.cell(row=1, column=seq_len_idx, value="sequence")
+
+            wb.save(path)
+
     else:
         wb = Workbook()
         ws = wb.active
         ws.title = sheet_name
-        ws.append([
-            "timestamp", "model", "json_file", "item_index", "task",
-            "protein_accession", "question", "seq_len",
-            "top_k", "temperature",
-            "protein_ids", "answer", "expected_output",
-            "status", "error"
-        ])
+        ws.append(RESULTS_HEADER)
         wb.save(path)
+
     return wb, ws
 
 
@@ -163,7 +191,6 @@ def rag_call(model, api_key, question, sequence, top_k, temperature):
 
 
 def iter_items_seq(input_dir: str):
-    # many json files under a dir; each file is a list of items: instruction, input (sequence in code block), output, metadata{task, protein_accession}
     json_files = glob.glob(os.path.join(input_dir, "**/*.json"), recursive=True)
     for jf in json_files:
         with open(jf, "r", encoding="utf-8") as f:
@@ -186,7 +213,6 @@ def iter_items_seq(input_dir: str):
 
 
 def iter_items_noseq(input_json: str):
-    # one json file with a list of items: question, answer, source sequence must be "" always.
     with open(input_json, "r", encoding="utf-8") as f:
         items = json.load(f)
 
@@ -201,13 +227,12 @@ def iter_items_noseq(input_json: str):
             "task": "RAG result",
             "protein_accession": protein_accession,
             "question": question,
-            "sequence": "",
+            "sequence": "",  # always blank in noseq mode
             "expected": expected,
         }
 
 
 def write_monitor_and_summary(wb, monitor: ResourceMonitor):
-    # MONITOR SHEET
     if monitor.samples:
         if SHEET_MONITOR in wb.sheetnames:
             del wb[SHEET_MONITOR]
@@ -216,7 +241,6 @@ def write_monitor_and_summary(wb, monitor: ResourceMonitor):
         for s in monitor.samples:
             ws_m.append(list(s.values()))
 
-        # SUMMARY SHEET
         if SHEET_SUMMARY in wb.sheetnames:
             del wb[SHEET_SUMMARY]
         ws_s = wb.create_sheet(SHEET_SUMMARY)
@@ -293,6 +317,7 @@ def run_all(mode: str, input_dir: str | None, input_json: str | None, output_xls
                     it["task"],
                     it["protein_accession"],
                     it["question"],
+                    it["sequence"] if mode == "seq" else "",
                     len(it["sequence"]),
                     cfg["top_k"],
                     cfg["temperature"] or "",
@@ -329,11 +354,11 @@ def main():
         if args.mode == "seq":
             if not args.input_dir:
                 raise ValueError("--input-dir is required for mode=seq")
-            out = os.path.join(args.input_dir, "RAG_Sequence_Search_Analysis.xlsx")
+            out = os.path.join(args.input_dir, "GPT_RAG_Sequence_Search_Analysis.xlsx")
         else:
             if not args.input_json:
                 raise ValueError("--input-json is required for mode=noseq")
-            out = os.path.join(os.path.dirname(args.input_json), "RAG_Analysis.xlsx")
+            out = os.path.join(os.path.dirname(args.input_json), "GPT_RAG_Analysis.xlsx")
 
     run_all(args.mode, args.input_dir, args.input_json, out)
 
