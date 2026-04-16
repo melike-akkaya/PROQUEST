@@ -230,6 +230,9 @@ export default function useStudioPageState() {
     getStoredProviderKey(ragConfig.provider, ragConfig.model).then((updates) => {
       if (!cancelled) {
         setRagConfig((current) => {
+          if (current.customKeyMode && !current.apiKey && updates.hasStoredKey) {
+            return { ...current, ...updates };
+          }
           if (current.customKeyMode) {
             return {
               ...current,
@@ -252,6 +255,9 @@ export default function useStudioPageState() {
     getStoredProviderKey(llmConfig.provider, llmConfig.model).then((updates) => {
       if (!cancelled) {
         setLlmConfig((current) => {
+          if (current.customKeyMode && !current.apiKey && updates.hasStoredKey) {
+            return { ...current, ...updates };
+          }
           if (current.customKeyMode) {
             return {
               ...current,

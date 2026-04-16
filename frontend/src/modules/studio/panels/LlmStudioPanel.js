@@ -103,8 +103,6 @@ export default function LlmStudioPanel({ meta, state }) {
               fieldSx={fieldSx}
             />
 
-            {state.error ? <Alert severity="error">{state.error}</Alert> : null}
-
             <TextField
               label="Question"
               multiline
@@ -162,6 +160,8 @@ export default function LlmStudioPanel({ meta, state }) {
                 {state.loading ? 'Searching...' : 'Search'}
               </Button>
             </Stack>
+
+            {state.error ? <Alert severity="error">{state.error}</Alert> : null}
 
             <Collapse in={state.showAdvanced}>
               <Box

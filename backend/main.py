@@ -100,7 +100,7 @@ def _enforce_embedded_openai_rate(client_id: str):
                 raise HTTPException(
                     status_code=429,
                     detail=(
-                        f"Embedded OpenAI key rate limit reached "
+                        f"Rate limit reached "
                         f"(max {limit} request(s) per {window}s). "
                         f"Please use your own API key or try again later."
                     ),
@@ -120,7 +120,7 @@ def build_llm(model_name: str, api_key: str | None, temperature: float | None, c
         if provider == "OpenAI":
             if model_name != OPENAI_EMBEDDED_MODEL:
                 raise ValueError(
-                    f"Embedded OpenAI key is only available for model '{OPENAI_EMBEDDED_MODEL}'."
+                    f"Stored key is only available for model '{OPENAI_EMBEDDED_MODEL}'."
                 )
             _enforce_embedded_openai_rate(client_id or "anonymous")
         env_var = PROVIDER_ENV_VARS.get(provider)
