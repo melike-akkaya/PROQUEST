@@ -74,7 +74,7 @@ STORED_KEY_SENTINEL = "__SERVER_STORED_API_KEY__"
 
 # Embedded OpenAI key is gated to a single model and rate-limited per client IP.
 OPENAI_EMBEDDED_MODEL = "gpt-5-mini"
-EMBEDDED_OPENAI_LIMITS = ((60, 1), (3600, 5), (86400, 10))  # (window_seconds, max_requests)
+EMBEDDED_OPENAI_LIMITS = ((60, 2), (3600, 20), (86400, 50))  # (window_seconds, max_requests)
 _embedded_openai_usage: dict[str, list[float]] = {}
 _embedded_openai_lock = threading.Lock()
 # Set TRUSTED_PROXY=1 only when running behind a reverse proxy you control

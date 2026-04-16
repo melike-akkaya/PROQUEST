@@ -69,7 +69,7 @@ export default function StoredKeyField({
             px: 0.25,
           }}
         >
-          Rate limit: 1 request/minute, 5/hour, 10/day.
+          Rate limit: 2 requests/minute, 20/hour, 50/day.
         </Typography>
       ) : null}
 
