@@ -38,13 +38,15 @@ function createModelConfig(provider = 'OpenAI') {
   };
 }
 
-async function getStoredProviderKey(provider) {
+async function getStoredProviderKey(provider, model) {
   if (!provider) {
     return { apiKey: '', hasStoredKey: false, customKeyMode: true };
   }
 
   try {
-    const response = await axios.get('/available_api_keys');
+    const response = await axios.get('/available_api_keys', {
+      params: model ? { model } : undefined,
+    });
     const matchedKey = response.data?.[provider];
 
     if (matchedKey) {
@@ -225,33 +227,49 @@ export default function useStudioPageState() {
   useEffect(() => {
     let cancelled = false;
 
-    getStoredProviderKey(ragConfig.provider).then((updates) => {
+    getStoredProviderKey(ragConfig.provider, ragConfig.model).then((updates) => {
       if (!cancelled) {
-        setRagConfig((current) => ({ ...current, ...updates }));
+        setRagConfig((current) => {
+          if (current.customKeyMode) {
+            return {
+              ...current,
+              hasStoredKey: updates.hasStoredKey,
+            };
+          }
+          return { ...current, ...updates };
+        });
       }
     });
 
     return () => {
       cancelled = true;
     };
-  }, [ragConfig.provider]);
+  }, [ragConfig.provider, ragConfig.model]);
 
   useEffect(() => {
     let cancelled = false;
 
-    getStoredProviderKey(llmConfig.provider).then((updates) => {
+    getStoredProviderKey(llmConfig.provider, llmConfig.model).then((updates) => {
       if (!cancelled) {
-        setLlmConfig((current) => ({ ...current, ...updates }));
+        setLlmConfig((current) => {
+          if (current.customKeyMode) {
+            return {
+              ...current,
+              hasStoredKey: updates.hasStoredKey,
+            };
+          }
+          return { ...current, ...updates };
+        });
       }
     });
 
     return () => {
       cancelled = true;
     };
-  }, [llmConfig.provider]);
+  }, [llmConfig.provider, llmConfig.model]);
 
-  async function restoreStoredKey(provider, applyUpdates) {
-    const updates = await getStoredProviderKey(provider);
+  async function restoreStoredKey(provider, model, applyUpdates) {
+    const updates = await getStoredProviderKey(provider, model);
     applyUpdates((current) => ({ ...current, ...updates }));
   }
 
@@ -552,7 +570,7 @@ export default function useStudioPageState() {
       setShowAdvanced: setShowRagAdvanced,
       setExamplesAnchor: setRagExamplesAnchor,
       updateConfig: updateRagConfig,
-      restoreStoredKey: () => restoreStoredKey(ragConfig.provider, setRagConfig),
+      restoreStoredKey: () => restoreStoredKey(ragConfig.provider, ragConfig.model, setRagConfig),
       selectThread: selectRagThread,
       send: handleRagSend,
       resetThread: resetRagThread,
@@ -571,7 +589,7 @@ export default function useStudioPageState() {
       setShowAdvanced: setLlmShowAdvanced,
       setExamplesAnchor: setLlmExamplesAnchor,
       updateConfig: updateLlmConfig,
-      restoreStoredKey: () => restoreStoredKey(llmConfig.provider, setLlmConfig),
+      restoreStoredKey: () => restoreStoredKey(llmConfig.provider, llmConfig.model, setLlmConfig),
       submit: handleLlmSubmit,
     },
     vector: {

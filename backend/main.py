@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Body, Request
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
-import logging, io, time, sqlite3
+import logging, io, time, sqlite3, threading
 from datetime import datetime
 from typing import List
 
@@ -70,16 +70,67 @@ PROVIDER_ENV_VARS = {
     "OpenRouter": "OPENROUTER_API_KEY",
 }
 
+STORED_KEY_SENTINEL = "__SERVER_STORED_API_KEY__"
 
-def build_llm(model_name: str, api_key: str | None, temperature: float | None, chat_mode: bool = False):
+# Embedded OpenAI key is gated to a single model and rate-limited per client IP.
+OPENAI_EMBEDDED_MODEL = "gpt-5-mini"
+EMBEDDED_OPENAI_LIMITS = ((60, 1), (3600, 5), (86400, 10))  # (window_seconds, max_requests)
+_embedded_openai_usage: dict[str, list[float]] = {}
+_embedded_openai_lock = threading.Lock()
+# Set TRUSTED_PROXY=1 only when running behind a reverse proxy you control
+# (nginx, cloudflare, etc.). Otherwise X-Forwarded-For can be spoofed by clients.
+_trust_forwarded_for = os.getenv("TRUSTED_PROXY", "").lower() in ("1", "true", "yes")
+
+
+def _client_id(request: Request) -> str:
+    if _trust_forwarded_for:
+        forwarded = request.headers.get("x-forwarded-for")
+        if forwarded:
+            return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "anonymous"
+
+
+def _enforce_embedded_openai_rate(client_id: str):
+    now = time.time()
+    max_window = max(window for window, _ in EMBEDDED_OPENAI_LIMITS)
+    with _embedded_openai_lock:
+        history = [t for t in _embedded_openai_usage.get(client_id, []) if now - t < max_window]
+        for window, limit in EMBEDDED_OPENAI_LIMITS:
+            if sum(1 for t in history if now - t < window) >= limit:
+                raise HTTPException(
+                    status_code=429,
+                    detail=(
+                        f"Embedded OpenAI key rate limit reached "
+                        f"(max {limit} request(s) per {window}s). "
+                        f"Please use your own API key or try again later."
+                    ),
+                )
+        history.append(now)
+        _embedded_openai_usage[client_id] = history
+
+
+def build_llm(model_name: str, api_key: str | None, temperature: float | None, chat_mode: bool = False, client_id: str | None = None):
     provider = get_provider_for_model_name(model_name)
     if not provider:
         raise ValueError(f"Unsupported model {model_name}: no provider found")
 
-    if not api_key:
+    use_stored_key = api_key == STORED_KEY_SENTINEL
+
+    if use_stored_key:
+        if provider == "OpenAI":
+            if model_name != OPENAI_EMBEDDED_MODEL:
+                raise ValueError(
+                    f"Embedded OpenAI key is only available for model '{OPENAI_EMBEDDED_MODEL}'."
+                )
+            _enforce_embedded_openai_rate(client_id or "anonymous")
         env_var = PROVIDER_ENV_VARS.get(provider)
         if env_var:
             api_key = os.getenv(env_var)
+    elif not api_key:
+        raise ValueError(f"No API key provided for provider {provider}")
+
+    if not api_key:
+        raise ValueError(f"No API key available for provider {provider}")
 
     kwargs = {}
     if temperature is not None and model_name not in NO_TEMP_MODELS:
@@ -133,12 +184,15 @@ def build_llm(model_name: str, api_key: str | None, temperature: float | None, c
 
 
 @app.get("/available_api_keys")
-def get_available_api_keys():
-    keys = {
-        provider: os.getenv(env_var)
-        for provider, env_var in PROVIDER_ENV_VARS.items()
-    }
-    keys = {k: v for k, v in keys.items() if v}
+def get_available_api_keys(model: str | None = None):
+    keys = {}
+    for provider, env_var in PROVIDER_ENV_VARS.items():
+        if not os.getenv(env_var):
+            continue
+        # The embedded OpenAI key is only exposed for the gated model.
+        if provider == "OpenAI" and model != OPENAI_EMBEDDED_MODEL:
+            continue
+        keys[provider] = STORED_KEY_SENTINEL
     if not keys:
         return JSONResponse(content={"detail": "No keys found."}, status_code=404)
     return keys
@@ -173,7 +227,7 @@ class LLMResponse(BaseModel):
 
 
 @app.post("/llm_query", response_model=LLMResponse)
-def llm_query(req: LLMRequest):
+def llm_query(req: LLMRequest, request: Request):
     # clear previous logs
     log_stream.truncate(0)
     log_stream.seek(0)
@@ -191,10 +245,12 @@ def llm_query(req: LLMRequest):
 
     try:
         m = req.model
-        llm = build_llm(m, req.api_key, req.temperature)
+        llm = build_llm(m, req.api_key, req.temperature, client_id=_client_id(request))
 
         if req.verbose:
             logger.info(f"Using model={m}, question={req.question}, limit={req.limit}, retries={req.retry_count}")
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -353,10 +409,12 @@ def safe_answer_with_proteins(llm, query, sequence, top_k, chat_history=None, ma
     return best_answer, best_ids, best_followups
 
 @app.post("/rag_order", response_model=RAGResponse)
-def rag_order(req: RAGRequest):
+def rag_order(req: RAGRequest, request: Request):
     try:
         m = req.model
-        llm = build_llm(m, req.api_key, req.temperature, chat_mode=True)
+        llm = build_llm(m, req.api_key, req.temperature, chat_mode=True, client_id=_client_id(request))
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Model init error: {e}")
 

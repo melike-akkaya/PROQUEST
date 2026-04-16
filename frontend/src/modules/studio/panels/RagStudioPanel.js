@@ -115,6 +115,9 @@ export default function RagStudioPanel({ meta, state }) {
                     state.updateConfig({
                       provider: event.target.value,
                       model: PROVIDER_MODELS[event.target.value]?.[0] || '',
+                      apiKey: '',
+                      hasStoredKey: false,
+                      customKeyMode: false,
                       temperature: TEMPERATURE_RANGES[event.target.value]?.default ?? 1.0,
                     })
                   }
