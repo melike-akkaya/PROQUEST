@@ -1,10 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Excel file path
 file_path = "/home/g1-bbm-project/melike2/PROQUEST/test/combined.xlsx"
 
-# Read Excel
 df = pd.read_excel(file_path)
 
 found_cols = [
@@ -55,7 +53,7 @@ plt.title(
     fontsize=14
 )
 
-plt.ylabel("Number of Proteins")
+plt.ylabel("Number of Queries")
 plt.ylim(0, max(counts) + 80)
 plt.grid(axis="y", linestyle="--", alpha=0.7)
 
