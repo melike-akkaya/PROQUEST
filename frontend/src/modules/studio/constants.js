@@ -1,9 +1,9 @@
 export const PROVIDER_MODELS = {
   OpenAI: [
+    'gpt-5-mini',
     'gpt-5.1',
     'gpt-5',
     'gpt-5-nano',
-    'gpt-5-mini',
     'gpt-4o',
     'gpt-4.1',
     'gpt-4o-mini',
@@ -19,9 +19,9 @@ export const PROVIDER_MODELS = {
     'claude-opus-4-1',
   ],
   Google: [
+    'gemini-3-flash-preview',
     'gemini-2.5-pro',
     'gemini-2.5-flash',
-    'gemini-3-flash-preview',
     'gemini-3.1-pro-preview',
   ],
   Groq: [

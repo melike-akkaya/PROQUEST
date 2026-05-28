@@ -3,6 +3,7 @@ import numpy as np
 from scipy.stats import spearmanr
 import matplotlib.pyplot as plt
 
+
 def readBlastFile(blastFilePath):
     blastData = {}
     with open(blastFilePath, 'r') as file:
@@ -12,6 +13,7 @@ def readBlastFile(blastFilePath):
             similarProteins = [p.strip() for p in parts[3::2]]
             blastData[proteinId] = similarProteins
     return blastData
+
 
 def readVectordbFile(vectordbFilePath):
     vectordbData = {}
@@ -23,70 +25,113 @@ def readVectordbFile(vectordbFilePath):
             vectordbData[proteinId] = similarProteins
     return vectordbData
 
+
 def calculateSpearmanCorrelation(blastData, vectordbData, commonIds):
     rankings = []
     correlations = []
+
     for proteinId in commonIds:
         commonProteins = set(blastData[proteinId]).intersection(set(vectordbData[proteinId]))
-        
+
         if len(commonProteins) > 1:
-            blastRanks = [blastData[proteinId].index(protein) for protein in commonProteins]
-            vectordbRanks = [vectordbData[proteinId].index(protein) for protein in commonProteins]
-            
+            blastRanks = [blastData[proteinId].index(p) for p in commonProteins]
+            vectordbRanks = [vectordbData[proteinId].index(p) for p in commonProteins]
+
             correlation, pValue = spearmanr(blastRanks, vectordbRanks)
+
             rankings.append((proteinId, correlation, pValue))
             correlations.append(correlation)
-    
+
     medianCorrelation = np.median(correlations)
     return rankings, medianCorrelation, correlations
 
+
 def calculateCommonProteinMetric(blastData, vectordbData, commonIds):
     metrics = []
+
     for proteinId in commonIds:
         blastProteins = set(blastData[proteinId])
         vectordbProteins = set(vectordbData[proteinId])
         commonProteins = blastProteins.intersection(vectordbProteins)
-        
+
         numBlastProteins = len(blastProteins)
         numVectordbProteins = len(vectordbProteins)
         numCommonProteins = len(commonProteins)
-        
+
         metric_value = (2 * numCommonProteins) / (numBlastProteins + numVectordbProteins)
         metrics.append((proteinId, metric_value))
-    
-    meanMetric = np.mean([metric[1] for metric in metrics])
+
+    meanMetric = np.mean([m[1] for m in metrics])
     return metrics, meanMetric
+
 
 def analysis(blastData, vectordbData, n, distance, outputPath):
     commonIds = set(blastData.keys()).intersection(set(vectordbData.keys()))
-    correlationResults, medianCorrelation, correlations = calculateSpearmanCorrelation(blastData, vectordbData, commonIds)
-    commonProteinMetrics, meanMetric = calculateCommonProteinMetric(blastData, vectordbData, commonIds)
+
+    correlationResults, medianCorrelation, correlations = calculateSpearmanCorrelation(
+        blastData, vectordbData, commonIds
+    )
+
+    commonProteinMetrics, meanMetric = calculateCommonProteinMetric(
+        blastData, vectordbData, commonIds
+    )
 
     with open(outputPath, 'w') as file:
         file.write(f"Median Correlation Coefficient: {medianCorrelation}\n")
         file.write(f"Average Common Protein Metric: {meanMetric}\n")
+
         for result, metric_result in zip(correlationResults, commonProteinMetrics):
-            file.write(f"Protein ID: {result[0]}, Spearman Correlation Coefficient: {result[1]}, p-value: {result[2]}, Common Protein Metric: {metric_result[1]}\n")
+            file.write(
+                f"Protein ID: {result[0]}, "
+                f"Spearman Correlation Coefficient: {result[1]}, "
+                f"p-value: {result[2]}, "
+                f"Common Protein Metric: {metric_result[1]}\n"
+            )
 
-    plt.figure(figsize=(12, 5))
+    metric_values = [m[1] for m in commonProteinMetrics]
 
-    plt.subplot(1, 2, 1)
-    plt.hist(correlations, bins=10, color='blue', alpha=0.7)
-    plt.title(f'Distribution of Correlation Coefficients\nn={n} {distance}')
-    plt.xlabel('Spearman Correlation Coefficient')
-    plt.ylabel('Frequency')
-    plt.ylim(0, 300)
+    fig, axes = plt.subplots(1, 2, figsize=(15, 6), constrained_layout=True)
 
-    plt.subplot(1, 2, 2)
-    metric_values = [metric[1] for metric in commonProteinMetrics]
-    plt.hist(metric_values, bins=10, color='green', alpha=0.7)
-    plt.title(f'Distribution of Common Protein Metric\nn={n} {distance}')
-    plt.xlabel('Common Protein Metric')
-    plt.ylabel('Frequency')
-    plt.ylim(0, 300)
+    fig.suptitle(
+        "Comparison of SeqSim and BLAST Results",
+        fontsize=16,
+        fontweight="bold"
+    )
 
-    plt.tight_layout()
+    # LEFT: Spearman Correlation
+    axes[0].hist(
+        correlations,
+        bins=12,
+        color="steelblue",
+        alpha=0.85,
+        edgecolor="black"
+    )
+    axes[0].set_title("Spearman Rank Correlation", fontsize=13, fontweight="bold")
+    axes[0].set_xlabel("Spearman Correlation Coefficient", fontsize=11)
+    axes[0].set_ylabel("Frequency", fontsize=11)
+    axes[0].grid(True, linestyle="--", alpha=0.3)
+
+    # RIGHT: Common Protein Metric
+    axes[1].hist(
+        metric_values,
+        bins=12,
+        color="seagreen",
+        alpha=0.85,
+        edgecolor="black"
+    )
+    axes[1].set_title("Common Protein Metric", fontsize=13, fontweight="bold")
+    axes[1].set_xlabel("Common Protein Metric", fontsize=11)
+    axes[1].set_ylabel("Frequency", fontsize=11)
+    axes[1].grid(True, linestyle="--", alpha=0.3)
+
+    plt.savefig(
+        "figure7_seqsim_blast.png",
+        dpi=300,
+        bbox_inches="tight"
+    )
+
     plt.show()
+
 # blastData = readBlastFile("blast.txt")
 # vectordbData = readVectordbFile("vectordb3.txt")
 # analysis(blastData, vectordbData, 10, "euclidean", "analysis3.txt")
@@ -120,3 +165,4 @@ def compareCorrelation():
 
     plt.tight_layout()
     plt.show()
+)

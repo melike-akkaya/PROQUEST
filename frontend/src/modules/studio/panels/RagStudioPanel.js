@@ -115,6 +115,9 @@ export default function RagStudioPanel({ meta, state }) {
                     state.updateConfig({
                       provider: event.target.value,
                       model: PROVIDER_MODELS[event.target.value]?.[0] || '',
+                      apiKey: '',
+                      hasStoredKey: false,
+                      customKeyMode: false,
                       temperature: TEMPERATURE_RANGES[event.target.value]?.default ?? 1.0,
                     })
                   }
@@ -190,8 +193,6 @@ export default function RagStudioPanel({ meta, state }) {
         </Paper>
 
         <Paper elevation={0} sx={{ ...surfaceSx, p: { xs: 1.25, md: 1.75 } }}>
-          {state.error ? <Alert severity="error" sx={{ mb: 2 }}>{state.error}</Alert> : null}
-
           <Box
             ref={state.chatViewportRef}
             sx={{
@@ -316,6 +317,8 @@ export default function RagStudioPanel({ meta, state }) {
                 {state.busy ? <CircularProgress size={20} color="inherit" /> : <ArrowUpwardRoundedIcon />}
               </IconButton>
             </Stack>
+
+            {state.error ? <Alert severity="error">{state.error}</Alert> : null}
           </Stack>
         </Paper>
 

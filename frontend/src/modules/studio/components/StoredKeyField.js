@@ -10,6 +10,8 @@ export default function StoredKeyField({
   fieldSx,
 }) {
   const theme = useTheme();
+  const showRateLimitHint =
+    config.hasStoredKey && !config.customKeyMode && config.provider === 'OpenAI' && config.model === 'gpt-5-mini';
 
   return (
     <Stack spacing={1}>
@@ -58,6 +60,18 @@ export default function StoredKeyField({
           sx={fieldSx}
         />
       )}
+
+      {showRateLimitHint ? (
+        <Typography
+          sx={{
+            color: theme.palette.mode === 'dark' ? '#8ea0bc' : '#6c7c95',
+            fontSize: '0.72rem',
+            px: 0.25,
+          }}
+        >
+          Rate limit: 2 requests/minute, 20/hour, 50/day.
+        </Typography>
+      ) : null}
 
       {config.hasStoredKey && config.customKeyMode ? (
         <Button
