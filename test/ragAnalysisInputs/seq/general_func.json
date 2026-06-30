@@ -1,0 +1,262 @@
+[
+     {
+        "instruction": "Assess the following protein sequence and provide a brief report on its primary characteristics: ",
+        "input": "```\nMNRANDTSSNLKLISLVVLIVQTTALVLTLRYSQTQKSEGPRYLSSTAVVCAEIIKLITCFFVIYRNNGYRFSGMLNELNREIFASPQTRADSLKVAVPAIMYVIQNNLLFFALKKLDAATYQVTYQLKILTTAIFSVTMLGKSLHRYNWMALILLTAGVALVQYPSGDSTTSKSTAAEHDASDNILGLGAVLAACFSSGFAGVYFEKILKTSKVSLWIRNIQLAFFSVFGALLVCWLYDWQAISDDGFLRGYNGVIWIVVLLQAYGGLVIALVVKYADNILKGFAVSLSIILSSFTSWLVLGDLTITTTFAIGATVVIFATFLYGHEPKSTPAEAHNA\n```",
+        "output": "A brief overview of the protein with the provided amino acid sequence is as follows: Uridine diphosphate-N-acetylglucosamine (UDP-GlcNAc) transporter in the Golgi apparatus. UDP-N- acetylgalactosamine (UDP-GalNAc) transporter in the Golgi apparatus. Apparently transports UDP-GlcNAc and UDP-GalNAc simultaneously, and independently, by an unknown mechanism. Functions redundantly with nucleotide sugar transporter srf-3. May be involved in gonadal development.",
+        "metadata": {
+            "protein_accession": "O16658",
+            "num_tokens_in_input": 347,
+            "seq_len": 339,
+            "task": "general_function",
+            "annots": "Uridine diphosphate-N-acetylglucosamine (UDP-GlcNAc) transporter in the Golgi apparatus. UDP-N- acetylgalactosamine (UDP-GalNAc) transporter in the Golgi apparatus. Apparently transports UDP-GlcNAc and UDP-GalNAc simultaneously, and independently, by an unknown mechanism. Functions redundantly with nucleotide sugar transporter srf-3. May be involved in gonadal development.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please provide a summary of the key features and characteristics of the protein with the following amino acid sequence: ",
+        "input": "```\nMKILNTAQIRELDKYTIEHEPIKAIDLMERAAKAIAHAIMEEWIEHTPVIVFAGPGNNGGDGLAVARILAEADYQVSVYLFNIHNKLSEECATNRQRIINCKKVSKFTEVTLDFDPPELTPATLIIDSLFGSGINKPLMGGFASLVKYINQSPAKVVSIDIPSGLMCEDNSYNIRPNIIRANLTLTLQQLKLSMMFADCQQYIGRLRVLDIRLSPEYIRNTETAYRIIEEHELRPRLRQRNDFAHKGTMGHALIIAGSYGMAGAAILATRGCLRAGAGKVTTHTPKRNYSIMQTAVPEAIMQMDHEETYFSESVDTDGFDAVAIGPGLGRNENTSIALIGQIRRTQCPVVVDADAINILANHQAWLQQLPKGIILTPHPKEFDRLVGSVSNNDYDRLTRALQLAERLQGYVILKGHHSALCMPNGHVVFNSSGNSGMATAGSGDVLTGILAALLARGYERAEACMLGMYLHGLAGDIAAKQVGKESLVAGDIIRFLPKAFMQMED\n```",
+        "output": "An outline of the key aspects of the protein with the corresponding amino acid sequence is as follows: Catalyzes the epimerization of the S- and R-forms of NAD(P)HX, a damaged form of NAD(P)H that is a result of enzymatic or heat-dependent hydration. This is a prerequisite for the S-specific NAD(P)H-hydrate dehydratase to allow the repair of both epimers of NAD(P)HX.",
+        "metadata": {
+            "protein_accession": "D1PZ39",
+            "num_tokens_in_input": 513,
+            "seq_len": 505,
+            "task": "general_function",
+            "annots": "Catalyzes the epimerization of the S- and R-forms of NAD(P)HX, a damaged form of NAD(P)H that is a result of enzymatic or heat-dependent hydration. This is a prerequisite for the S-specific NAD(P)H-hydrate dehydratase to allow the repair of both epimers of NAD(P)HX.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Conduct a quick analysis of the protein represented by the following sequence and outline its main characteristics: ",
+        "input": "```\nMTDSTAASTAAPVSEGPPDGPPDGSAHPQDPARIRAMFNAIAPRYDLMNDMMSGGVHRGWKALLRARAGRPTGQGLALDLAGGTGDVADRLARNGWSVVVCDPSEGMMARGRARTTGGHAAGPPLRWVAGMGEALPFADRTFDLVTVSFGLRNMRDRQGALAEVARVLVPGGRFLCLEFSQPWRPIRGLYGAYSRLTIPRVGAAVAGRPEAYQYLVDSIRAFPDRATVTGWLEQAGLTNVTVRPVSLGIAAIHDGRRAAP\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: Methyltransferase required for the conversion of demethylmenaquinol (DMKH2) to menaquinol (MKH2) and the conversion of 2-polyprenyl-6-methoxy-1,4-benzoquinol (DDMQH2) to 2-polyprenyl-3- methyl-6-methoxy-1,4-benzoquinol (DMQH2).",
+        "metadata": {
+            "protein_accession": "A0A5M6ID58",
+            "num_tokens_in_input": 268,
+            "seq_len": 260,
+            "task": "general_function",
+            "annots": "Methyltransferase required for the conversion of demethylmenaquinol (DMKH2) to menaquinol (MKH2) and the conversion of 2-polyprenyl-6-methoxy-1,4-benzoquinol (DDMQH2) to 2-polyprenyl-3- methyl-6-methoxy-1,4-benzoquinol (DMQH2).",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the given protein sequence and share a brief overview of its attributes: ",
+        "input": "```\nMKVIIAATLLGILMHAFAEECELMPPGDNFDLEKYFSIPHVYVTHSRNGPKEQVCREYKTTKNSDGTTTTLVTSDYKTGGKPYHSELKCTNTPKSGVKGQFSVECEVPNGNGGKKKIHVETSVIATDYKNYALLQSCTKTESGIADDVLLLQTKKEGVDPGVTSVLKSVNWSLDDWFSRSKVNCDNMK\n```",
+        "output": "A concise description of the protein with the specified amino acid sequence includes: Has been described as a specific inhibitor of collagen- induced platelet aggregation. However, as it does not affect platelet shape change or adhesion, it is plausible that it exerts its antiplatelet activity by a mechanism similar to that of triplatin, moubatin and dipetalodipin as scavenging eicosanoids involved in inflammation such as thromboxan A2 (TXA2) .",
+        "metadata": {
+            "protein_accession": "Q27042",
+            "num_tokens_in_input": 196,
+            "seq_len": 188,
+            "task": "general_function",
+            "annots": "Has been described as a specific inhibitor of collagen- induced platelet aggregation. However, as it does not affect platelet shape change or adhesion, it is plausible that it exerts its antiplatelet activity by a mechanism similar to that of triplatin, moubatin and dipetalodipin as scavenging eicosanoids involved in inflammation such as thromboxan A2 (TXA2) .",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the protein with the following sequence and describe its properties: ",
+        "input": "```\nMEETGVKDVRDLCEKFLDFKREKERLEELLKEYFKRLEELERKLRAHEEKLRIEARRRKTLEKELEMERDEKAELREELRRKEVMIEKLRSDLQRMKKPPLIVGTVEEILDDGRVIVKSSTGPKFVSNVSPTVDRNELEPGANVALNQQSMAVVDVLPSEKDSRVLAMEVDESPDVSYDDIGGLDEQIREIREVVEKPLKEPELFEKVGVEPPKGVLLYGPPGTGKTLLAKAVANHADATFIRLAAPELVQKFIGEGARLVRELFELAREKAPSIIFIDEIDAIGARRMRDATSGDREVQRTLTQLLAEMDGFDPLDDIKVIAATNRKDILDPALLRPGRFDRHIKIPLPDEEGRYEIFKIHTRDMNLAEDVDLQKLAKITEGASGADIKAICTEAGMMAIREDRDIVTMDDFLKAVDRVMGKKEEESGEFKRAYH\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: ATPase which is responsible for recognizing, binding, unfolding and translocation of substrate proteins into the archaeal 20S proteasome core particle. Is essential for opening the gate of the 20S proteasome via an interaction with its C-terminus, thereby allowing substrate entry and access to the site of proteolysis. Thus, the C- termini of the proteasomal ATPase function like a 'key in a lock' to induce gate opening and therefore regulate proteolysis. Unfolding activity requires energy from ATP hydrolysis, whereas ATP binding alone promotes ATPase-20S proteasome association which triggers gate opening, and supports translocation of unfolded substrates.",
+        "metadata": {
+            "protein_accession": "Q8TX03",
+            "num_tokens_in_input": 444,
+            "seq_len": 436,
+            "task": "general_function",
+            "annots": "ATPase which is responsible for recognizing, binding, unfolding and translocation of substrate proteins into the archaeal 20S proteasome core particle. Is essential for opening the gate of the 20S proteasome via an interaction with its C-terminus, thereby allowing substrate entry and access to the site of proteolysis. Thus, the C- termini of the proteasomal ATPase function like a 'key in a lock' to induce gate opening and therefore regulate proteolysis. Unfolding activity requires energy from ATP hydrolysis, whereas ATP binding alone promotes ATPase-20S proteasome association which triggers gate opening, and supports translocation of unfolded substrates.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you evaluate the protein with this amino acid sequence and present a summary of its features? The sequence is: ",
+        "input": "```\nMSAPATSPSAPTRPLLAIETSCDDTACAILAWDGTILAEGVLSQTDHAILGGVVPEIAARAHLDALPALVAEVLKKASLTLADIDTFAGTTGPGLIGGLIVGSSYAKGLAMALHRPFVAVNHIEAHILTPRLPSLGADLHFPYLTMLVSGGHCQCVSVEETGRYVRLGGTIDDAAGEAFDKVAKMLGLSWPGGPALEKLATEGRDDAYPLPRPLKGREGCDFSFSGLKTAVSRLIDTQDPTGSRDALPRQFAADVAASFQRAVADVMADRAEHALALSPNATALVVAGGVAANKTLRHALEQVAANHGIPFFAPPLRLCTDNAVMVAWAALERLHAGETPNEIDTAARPRWPLSERTPATPEHVS\n```",
+        "output": "An outline of the key aspects of the protein with the corresponding amino acid sequence is as follows: Required for the formation of a threonylcarbamoyl group on adenosine at position 37 (t(6)A37) in tRNAs that read codons beginning with adenine. Is involved in the transfer of the threonylcarbamoyl moiety of threonylcarbamoyl-AMP (TC-AMP) to the N6 group of A37, together with TsaE and TsaB. TsaD likely plays a direct catalytic role in this reaction.",
+        "metadata": {
+            "protein_accession": "Q5FPS6",
+            "num_tokens_in_input": 373,
+            "seq_len": 365,
+            "task": "general_function",
+            "annots": "Required for the formation of a threonylcarbamoyl group on adenosine at position 37 (t(6)A37) in tRNAs that read codons beginning with adenine. Is involved in the transfer of the threonylcarbamoyl moiety of threonylcarbamoyl-AMP (TC-AMP) to the N6 group of A37, together with TsaE and TsaB. TsaD likely plays a direct catalytic role in this reaction.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Conduct a quick analysis of the protein represented by the following sequence and outline its main characteristics: ",
+        "input": "```\nMLEGKKIVIGISGSIAAYKIVHLVRLLVKQKVIVKVIMTPSARDFVSPLTLSTLSKNEVLTDIASGNTWANHVELGRWADLMLIAPLSCNTLAKMAQGHCDNLLLSVYLSATCPVMVSPAMDEDMWHHPATQKNIGILKAFGHIVLAPHHGELASGLIGEGRMEEPEAILAQIGSFFNNKADGSLEGKKVLVTAGPTHEAIDPVRFIGNHSSGKMGYALAQECRKRGAEVVLVLGPAPAILQQDLSGITVVKVTSAEEMYQACMDHFSSADIALMAAAVADYRPATTSEIKIKKQEPGLELSLVKTRDILASLGAVKTSRQVLLGFALETNDEERHALEKLHKKNADYIVLNSLNDGAAFGADTNKITIYSKTGEKSGFESKSKTAVAQDILDTIIKTGTTTI\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: Catalyzes two steps in the biosynthesis of coenzyme A. In the first step cysteine is conjugated to 4'-phosphopantothenate to form 4- phosphopantothenoylcysteine, in the latter compound is decarboxylated to form 4'-phosphopantotheine.",
+        "metadata": {
+            "protein_accession": "A0A1G7BLN4",
+            "num_tokens_in_input": 411,
+            "seq_len": 403,
+            "task": "general_function",
+            "annots": "Catalyzes two steps in the biosynthesis of coenzyme A. In the first step cysteine is conjugated to 4'-phosphopantothenate to form 4- phosphopantothenoylcysteine, in the latter compound is decarboxylated to form 4'-phosphopantotheine.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the given protein sequence and share a brief overview of its attributes: ",
+        "input": "```\nMSSKVTTRASAKSSAAKTSVYFATNVSPNKSKTSSVGKRLETKRQRKAKHISEPQEESDNELSSDQSSEEVLPKKSTKKSSLKVVSKEPKNWRQILENIRKMRDKRDAVVDSMGAEKTFDENEGNPKDKRFQVLISLMLSSQTRDEMTYKTMQSLREYGLTVNHMIETSEEDLSEMIRSVSFYRNKSKFIKRTALILRDQFDGDIPDTLDGLLSLPGVGPKMAHLAMKIAWDQLTGIAVDTHVHRICNRLKWTESKTPEQTEKQLEQWLPKDCWEDFNLLVVGFGQTICSALRPKCGECLNRKICPFVLK\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: Bifunctional DNA N-glycosylase with associated apurinic/apyrimidinic (AP) lyase function that catalyzes the first step in base excision repair (BER), the primary repair pathway for the repair of oxidative DNA damage. The DNA N-glycosylase activity releases the damaged DNA base from DNA by cleaving the N-glycosidic bond, leaving an AP site. The AP lyase activity cleaves the phosphodiester bond 3' to the AP site by a beta-elimination. Primarily recognizes and repairs oxidative base damage of pyrimidines.",
+        "metadata": {
+            "protein_accession": "A0A7R9Q180",
+            "num_tokens_in_input": 318,
+            "seq_len": 310,
+            "task": "general_function",
+            "annots": "Bifunctional DNA N-glycosylase with associated apurinic/apyrimidinic (AP) lyase function that catalyzes the first step in base excision repair (BER), the primary repair pathway for the repair of oxidative DNA damage. The DNA N-glycosylase activity releases the damaged DNA base from DNA by cleaving the N-glycosidic bond, leaving an AP site. The AP lyase activity cleaves the phosphodiester bond 3' to the AP site by a beta-elimination. Primarily recognizes and repairs oxidative base damage of pyrimidines.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Inspect the protein with the subsequent sequence and offer a concise description of its properties: ",
+        "input": "```\nMENKWQVMIVWQVDRMKIRTWNSLVKHHMYISRKAMKWVYRHHYESTNPKISSEVHIPLGEDKLVVTTYWGLHTGERDWHLGHGVSIEWRKRSYSTQVDPDLADKLIHLYHFDCFSESAIRNAILGHVVRPKCEYQAGHNKVGSLQYLALTALLTPKKIKPPLPSVRKLTEDRWNKPQKTRGHRGSHTMNGH\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: Counteracts the innate antiviral activity of host APOBEC3F and APOBEC3G. Forms a complex with host APOBEC3F and APOBEC3G thus preventing the entry of these lethally hypermutating enzymes into progeny virions. Recruits an active E3 ubiquitin ligase complex composed of elongin BC, CUL5, and RBX2 to induce polyubiquitination of APOBEC3G and APOBEC3F. In turn, they are directed to the 26S proteasome for degradation. Vif interaction with APOBEC3G also blocks its cytidine deaminase activity in a proteasome-independent manner, suggesting a dual inhibitory mechanism. May interact directly with APOBEC3G mRNA in order to inhibit its translation. Seems to play a role in viral morphology by affecting the stability of the viral nucleoprotein core. Finally, Vif also contributes to the G2 cell cycle arrest observed in HIV infected cells.",
+        "metadata": {
+            "protein_accession": "A0A2I6UEL3",
+            "num_tokens_in_input": 200,
+            "seq_len": 192,
+            "task": "general_function",
+            "annots": "Counteracts the innate antiviral activity of host APOBEC3F and APOBEC3G. Forms a complex with host APOBEC3F and APOBEC3G thus preventing the entry of these lethally hypermutating enzymes into progeny virions. Recruits an active E3 ubiquitin ligase complex composed of elongin BC, CUL5, and RBX2 to induce polyubiquitination of APOBEC3G and APOBEC3F. In turn, they are directed to the 26S proteasome for degradation. Vif interaction with APOBEC3G also blocks its cytidine deaminase activity in a proteasome-independent manner, suggesting a dual inhibitory mechanism. May interact directly with APOBEC3G mRNA in order to inhibit its translation. Seems to play a role in viral morphology by affecting the stability of the viral nucleoprotein core. Finally, Vif also contributes to the G2 cell cycle arrest observed in HIV infected cells.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Analyze the protein with the following sequence and describe its properties: ",
+        "input": "```\nMKSDHKTWLLTPAAMGRADHAAALSGIDSFGLMEKAGQAVAAAALRLLPGAQRFVVLCGPGNNGGDGYVTARALADAGAEVAVFRLGDPARLKGDAATAFARCAIAGETLENYQPRSGDAIIDAIFGAGLDRPVPDAVAAVIYKVGAQGLPVIAVDLPSGLDGSTGRVLGAAFEACHTVTFMARKPGHVLMPGRHLCGSVEVYDIGIPQRIVAAEAGPAGLNTPAAWAGLLPKAEPEAHKFRRGHLTVFSGPATATGAARLSAAAGLRAGAGLVTIASPTDALEANAAQLTAVMLKPVEDLTALSAYLDDPRHNAFVLGPGFGVGPKARDFALALQDRRLVLDADGITSFRDDASALFAAFATGETRLVLTPHEGEFARLFPDIASDEALSKIDMALAAAARSHGVVVYKGPDTVIAAPDGRALVNTNAPPSLATAGSGDVLAGMIGGLLAQGMPAFEAAAAGVWHHGEAASRAGRGLNAEELIRHIEL\n```",
+        "output": "An outline of the key aspects of the protein with the corresponding amino acid sequence is as follows: Catalyzes the epimerization of the S- and R-forms of NAD(P)HX, a damaged form of NAD(P)H that is a result of enzymatic or heat-dependent hydration. This is a prerequisite for the S-specific NAD(P)H-hydrate dehydratase to allow the repair of both epimers of NAD(P)HX.",
+        "metadata": {
+            "protein_accession": "A0A8I0DYU1",
+            "num_tokens_in_input": 497,
+            "seq_len": 489,
+            "task": "general_function",
+            "annots": "Catalyzes the epimerization of the S- and R-forms of NAD(P)HX, a damaged form of NAD(P)H that is a result of enzymatic or heat-dependent hydration. This is a prerequisite for the S-specific NAD(P)H-hydrate dehydratase to allow the repair of both epimers of NAD(P)HX.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please provide a summary of the key features and characteristics of the protein with the following amino acid sequence: ",
+        "input": "```\nMKNLKGALIFAQSGGPTSVINASAAGVFTEGLASANVTAVYGAAHGIKGILEEEFYDIGKEDPKEIELLKYTPSSALGSVRYKLKDASVDDTDYKRFLEVFKKYDVRYFFYNGGNDSMDTCNKISKYMAKSGYEMNVIGVPKTIDNDLYGTDHCPGFASAAKFIATTIMEINLDAKVYDTGMVCIIEAMGRNAGWLTASAALAGYKGLGADLIYLPETDFDVDKFVADVKEVLKKKNNKCIVCLSEGIHDKNGTLIVESLGKTGARDSFGHAQLGGVAATLASIVKEATGVKTRAVELSLMQRCAAHSASQTDIDETFEAGRQAVKAAVSGETDKMVCYKRKDGDKYECEYTLLPLELAANTEKTVPAEWIINDGTGVSDEFVKYALPLIQGETKMPREDGLPRFARLKKVLVEKR\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: Catalyzes the phosphorylation of D-fructose 6-phosphate, the first committing step of glycolysis. Uses inorganic phosphate (PPi) as phosphoryl donor instead of ATP like common ATP-dependent phosphofructokinases (ATP-PFKs), which renders the reaction reversible, and can thus function both in glycolysis and gluconeogenesis. Consistently, PPi-PFK can replace the enzymes of both the forward (ATP- PFK) and reverse (fructose-bisphosphatase (FBPase)) reactions.",
+        "metadata": {
+            "protein_accession": "A0A3D2D4T0",
+            "num_tokens_in_input": 424,
+            "seq_len": 416,
+            "task": "general_function",
+            "annots": "Catalyzes the phosphorylation of D-fructose 6-phosphate, the first committing step of glycolysis. Uses inorganic phosphate (PPi) as phosphoryl donor instead of ATP like common ATP-dependent phosphofructokinases (ATP-PFKs), which renders the reaction reversible, and can thus function both in glycolysis and gluconeogenesis. Consistently, PPi-PFK can replace the enzymes of both the forward (ATP- PFK) and reverse (fructose-bisphosphatase (FBPase)) reactions.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please provide a summary of the key features and characteristics of the protein with the following amino acid sequence: ",
+        "input": "```\nMTESVIYSGTSELISADEDNTETTRAHLLSFEQLQAQLKAQQELFQQQRELFNNDNVHTSSIPTLNHTWSFTQGLVVGQLSVIVVVAIFIKFFVFADSSATTTTTSSSNKDISGVIVKRNKNVRGTSNEDKDPNNNKEDDLNSPNLSKISTILEKTYYDVENHSPESLDWFNVLIAQTISQLRTEALLSDNIYHSLNEFLTNSDLPDYMDKIKLTEIDIGDDFPIFSNCRIKHSKDRSGRLEAKIDVDLSDTLTLGIETRLLLNHPRPLTAVLPVQLSVSIVRFSGCLTVALINTNDEEFLDLQNVTTPSPGPSNEPNSQNQTQQPTPVNNSSSRASHDVPSSSETKHSKAKRSQEDTGTALMFSFSPDYRLEFTVKSLIGSRAKLQDVPKISSLIESKLRSWFIERCIEPRFQVVKVPSLWPRRQNTREPVHSNANGIVDKTEEASI\n```",
+        "output": "A summary of the protein's main attributes with the input amino acid sequence reveals: Component of the ERMES/MDM complex, which serves as a molecular tether to connect the endoplasmic reticulum (ER) and mitochondria. Components of this complex are involved in the control of mitochondrial shape and protein biogenesis, and function in nonvesicular lipid trafficking between the ER and mitochondria. The MDM12-MMM1 subcomplex functions in the major beta-barrel assembly pathway that is responsible for biogenesis of all outer membrane beta- barrel proteins, and acts in a late step after the SAM complex. The MDM10-MDM12-MMM1 subcomplex further acts in the TOM40-specific pathway after the action of the MDM12-MMM1 complex. Essential for establishing and maintaining the structure of mitochondria and maintenance of mtDNA nucleoids.",
+        "metadata": {
+            "protein_accession": "Q6BH42",
+            "num_tokens_in_input": 456,
+            "seq_len": 448,
+            "task": "general_function",
+            "annots": "Component of the ERMES/MDM complex, which serves as a molecular tether to connect the endoplasmic reticulum (ER) and mitochondria. Components of this complex are involved in the control of mitochondrial shape and protein biogenesis, and function in nonvesicular lipid trafficking between the ER and mitochondria. The MDM12-MMM1 subcomplex functions in the major beta-barrel assembly pathway that is responsible for biogenesis of all outer membrane beta- barrel proteins, and acts in a late step after the SAM complex. The MDM10-MDM12-MMM1 subcomplex further acts in the TOM40-specific pathway after the action of the MDM12-MMM1 complex. Essential for establishing and maintaining the structure of mitochondria and maintenance of mtDNA nucleoids.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Assess the following protein sequence and provide a brief report on its primary characteristics: ",
+        "input": "```\nMFVTFICFLACLTCSYGQPRAQQYVVPSAKLEAIYPKGLRVSIPDDGFSLFAFHGKLNEEMDGLEAGHWARDITKPKEGRWTFRDRNVKLKLGDKIYFWTYVIKDGLGYRQDNGEWTVTEFVNEDGTPADTSLEPTTAPTPVRPDQPNQPIPTHRPDPPCTVSATMVDGRKSVCQGTLLFSEEFEKANLKDLANWEAEVKFPEEPDYPFNVYMVDGTLELEDGSLVLTPKLLESRFHAGILNDALDLTNRCSGQVDTTECRRQASGAQILPPVMTGKITTKNKFTFKFGRVEVRAKLPAGNWLLPEINLEPKDNVFGSRRYESGLMRVAFAKGNAVFAKKLNGGPVLADTEPFRSLLMKEKIGIDNWNRDYHNYTLIWKQDGIDMLVDGEKYGSISPGEGFYALGREHAVPHAAHWLRGSVMAPLDQYFFLSLGLRVGGVHDFADSPDKPWKNRSNKAVLNFWNDRDNWFPTWFDANLKVDYVRVYAL\n```",
+        "output": "A brief overview of the protein with the provided amino acid sequence is as follows: Involved in the recognition of invading microorganisms causing their aggregation. Activates the phenoloxidase cascade. Binds specifically to beta-1,3-glucan. Binds to curdlan, a linear water-insoluble beta-1,3-glucan polysaccharide, and to laminarin, a water-soluble beta-1,3-glucan polysaccharide containing beta-1,6 branches. Binds also to lipopolysaccharide and lipoteichoic acid.",
+        "metadata": {
+            "protein_accession": "Q8MU95",
+            "num_tokens_in_input": 496,
+            "seq_len": 488,
+            "task": "general_function",
+            "annots": "Involved in the recognition of invading microorganisms causing their aggregation. Activates the phenoloxidase cascade. Binds specifically to beta-1,3-glucan. Binds to curdlan, a linear water-insoluble beta-1,3-glucan polysaccharide, and to laminarin, a water-soluble beta-1,3-glucan polysaccharide containing beta-1,6 branches. Binds also to lipopolysaccharide and lipoteichoic acid.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Assess the following protein sequence and provide a brief report on its primary characteristics: ",
+        "input": "```\nMEQAPPDPERQLQPAPLEPLGSPDAGLGAAVGKEAEGAGEESSGVDTMTHNNFWLKKIEISVSEAEKRTGRNAMNMQETYTAYLIETRSVEHTDGQSVLTDSLWRRYSEFELLRSYLLVYYPHIVVPPLPEKRAEFVWHKLSADNMDPDFVERRRIGLENFLLRIASHPILCRDKIFYLFLTQEGNWKETVNETGFQLKADSRLKALNATFRVKNPDKRFTDLKHYSDELQSVISHLLRVRARVADRLYGVYKVHGNYGRVFSEWSAIEKEMGDGLQSAGHHMDVYASSIDDILEDEEHYADQLKEYLFYAEALRAVCRKHELMQYDLEMAAQDLASKKQQCEELVTGTVRTFSLKGMTTKLFGQETPEQREARIKVLEEQINEGEQQLKSKNLEGREFVKNAWADIERFKEQKNRDLKEALISYAVMQISMCKKGIQVWTNAKECFSKM\n```",
+        "output": "An outline of the key aspects of the protein with the corresponding amino acid sequence is as follows: Involved in the regulation of endocytosis and in several stages of intracellular trafficking. Plays a role in recycling endocytosed transferrin receptor and prevent its degradation. Involved in autophagosome assembly by regulating trafficking and recycling of phospholipid scramblase ATG9A.",
+        "metadata": {
+            "protein_accession": "O95219",
+            "num_tokens_in_input": 458,
+            "seq_len": 450,
+            "task": "general_function",
+            "annots": "Involved in the regulation of endocytosis and in several stages of intracellular trafficking. Plays a role in recycling endocytosed transferrin receptor and prevent its degradation. Involved in autophagosome assembly by regulating trafficking and recycling of phospholipid scramblase ATG9A.",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Examine the given protein sequence and share a brief overview of its attributes: ",
+        "input": "```\nMSDQDNTQTSSSKLAPHHNIFMANLESSPTKDRNTSSQNASSSRVIESLHDQIDMLTKTNLQLTTQSQNLLSKLELAQSKESKLLENLNLLKNENENLNSIFERKNKKLKELEKDYSELSNRYNEQKEKMDQLSKLAKNSSAIEQSCSEKLQNMEVNYNSLLESQNLYRDHYSDEISKLNEKIGLLELELSNQNLNYGSDTSSNSDIELNLNKFNDSVKDLKSLETEKDSKLSKIITHSLDELNLQSWLNLYQTNENLISTFAEKMDLKDVLKRNDEKISNKGAVVQTLKKNVQTQVESNNADALSSNNAQDMLPIKMVKLRKTPNTNDSSSNGNSSNNKRRSFYTASPLLSSGSIPKSASPVLPGVKRTASVRKPSSSSSKTNVTHNNDPSTSPTISVPPGVTRTVSSTHKKKGNSMVVHGAQS\n```",
+        "output": "Here is a summary of the protein with the given amino acid sequence: RNA-binding protein that binds specific mRNAs including the ASH1 mRNA, coding for a repressor of the HO endonuclease. Part of the mRNA localization machinery that restricts accumulation of certain proteins to the bud and in the daughter cell. Required for the delivery of cortical endoplasmic reticulum into the emerging bud.",
+        "metadata": {
+            "protein_accession": "P38272",
+            "num_tokens_in_input": 433,
+            "seq_len": 425,
+            "task": "general_function",
+            "annots": "RNA-binding protein that binds specific mRNAs including the ASH1 mRNA, coding for a repressor of the HO endonuclease. Part of the mRNA localization machinery that restricts accumulation of certain proteins to the bud and in the daughter cell. Required for the delivery of cortical endoplasmic reticulum into the emerging bud.",
+            "split": "test"
+        }
+    },
+    {
+        "instruction": "Examine the given protein sequence and share a brief overview of its attributes: ",
+        "input": "```\nMITISDAAQAHFVNLLADQPEGTHIRVFVISPGTATAECGVSYCPPDAVEADDMELEYNGFNAMVDEKSAPFLEDATIDFVTDQLGSQLTLKAPNAKMRKVASDASLNERIEYVIQSEINPQLASHGGNIMLLEVTEDGVAILQFGGGCNGCSMVDVTLKDGIEKQLLEMFPGELTGVKDATEHQAGDHSYQ\n```",
+        "output": "A concise description of the protein with the specified amino acid sequence includes: Involved in iron-sulfur cluster biogenesis. Binds a 4Fe-4S cluster, can transfer this cluster to apoproteins, and thereby intervenes in the maturation of Fe/S proteins. Could also act as a scaffold/chaperone for damaged Fe/S proteins.",
+        "metadata": {
+            "protein_accession": "B1KM47",
+            "num_tokens_in_input": 200,
+            "seq_len": 192,
+            "task": "general_function",
+            "annots": "Involved in iron-sulfur cluster biogenesis. Binds a 4Fe-4S cluster, can transfer this cluster to apoproteins, and thereby intervenes in the maturation of Fe/S proteins. Could also act as a scaffold/chaperone for damaged Fe/S proteins.",
+            "split": "test"
+        }
+    },
+    {
+        "instruction": "Analyze the protein with the following sequence and describe its properties: ",
+        "input": "```\nMGGKWSKRRAGGWSTIREKMEQTEPAADGVGAXSRDLEKHGAITSSNTAATNXDCAWLEAQEXEEVGFPVRPQVPLRPMTYKGALDLSHFLKEKGGLEGLXYSQKRQEILDLWVYHTQGYFPDWQNYTPGPGIRYPLTFGWCFKLVPVEPEQXEEANKGENNCLLHPMSQHGMEDAEREVLVWKFDSGLAFHHKARELHPEFYKNC\n```",
+        "output": "A short report on the protein with the given amino acid sequence highlights: Plays a role in optimizing the host cell environment for viral replication without causing cell death by apoptosis. Protects the infected cells from apoptosis in order to keep them alive until the next virus generation is ready to strike. Inhibits the Fas and TNFR- mediated death signals by blocking MAP3K5/ASK1. Decreases the half-life of TP53, protecting the infected cell against p53-mediated apoptosis. Inhibits the apoptotic signals regulated by the Bcl-2 family proteins through the formation of a Nef/PI3-kinase/PAK2 complex that leads to activation of PAK2 and induces phosphorylation of host BAD.",
+        "metadata": {
+            "protein_accession": "A0ETY7",
+            "num_tokens_in_input": 214,
+            "seq_len": 206,
+            "task": "general_function",
+            "annots": "Plays a role in optimizing the host cell environment for viral replication without causing cell death by apoptosis. Protects the infected cells from apoptosis in order to keep them alive until the next virus generation is ready to strike. Inhibits the Fas and TNFR- mediated death signals by blocking MAP3K5/ASK1. Decreases the half-life of TP53, protecting the infected cell against p53-mediated apoptosis. Inhibits the apoptotic signals regulated by the Bcl-2 family proteins through the formation of a Nef/PI3-kinase/PAK2 complex that leads to activation of PAK2 and induces phosphorylation of host BAD.",
+            "split": "test"
+        }
+    },
+    {
+        "instruction": "Analyze the protein with the following sequence and describe its properties: ",
+        "input": "```\nMLAVAVLAAGKGTRMKSDRPKVLQELAGVSLLERVLGCCESLAPDRRLLILGHQAERVEASLAGYPGLEFVRQQPQNGTGHAVQQLLGPLSGFSGELLVLNGDVPLLRPSTLEALLEQHRSNGAAVTLLTARLDDPTGYGRVFSDGDGLLSAIVEHRDCNESQRTNDLINGGIYCFNWSRLAAVLPDLEANNDQGEVYLTDTVALLDPAEHLEVADPGEIAGINDRIQLAQCEAVLQDRLRRHWMAEGVSFADPASCSLSDGCRFGRDVLVEPQTHLRGDCQIGAGSRLGPGSLLENVRLGDGVEVLYSVLRDAVVADGCVIGPYAQLRPGAELGADCRVGNFVEIKQSHLAAGCKVNHLSYIGDTELGAGVNVGAGTITANYDGVRKHRTVIGAGSKTGANSVLVAPIKLGSNVTVGAGSTLTRDVPDGALALSRTPQRIKADWPGPAA\n```",
+        "output": "A short report on the protein with the given amino acid sequence highlights: Catalyzes the last two sequential reactions in the de novo biosynthetic pathway for UDP-N-acetylglucosamine (UDP-GlcNAc). The C- terminal domain catalyzes the transfer of acetyl group from acetyl coenzyme A to glucosamine-1-phosphate (GlcN-1-P) to produce N- acetylglucosamine-1-phosphate (GlcNAc-1-P), which is converted into UDP-GlcNAc by the transfer of uridine 5-monophosphate (from uridine 5- triphosphate), a reaction catalyzed by the N-terminal domain.",
+        "metadata": {
+            "protein_accession": "A0A560KYS0",
+            "num_tokens_in_input": 458,
+            "seq_len": 450,
+            "task": "general_function",
+            "annots": "Catalyzes the last two sequential reactions in the de novo biosynthetic pathway for UDP-N-acetylglucosamine (UDP-GlcNAc). The C- terminal domain catalyzes the transfer of acetyl group from acetyl coenzyme A to glucosamine-1-phosphate (GlcN-1-P) to produce N- acetylglucosamine-1-phosphate (GlcNAc-1-P), which is converted into UDP-GlcNAc by the transfer of uridine 5-monophosphate (from uridine 5- triphosphate), a reaction catalyzed by the N-terminal domain.",
+            "split": "test"
+        }
+    },
+    {
+        "instruction": "Analyze the protein with the following sequence and describe its properties: ",
+        "input": "```\nMARYIFITGGVVSSLGKGLMAASLAALLQARGYTVRIRKFDPYLNVDPGTMSPYQHGEVYVTDDGAETDLDLGHYERFTGVSAHQSDNVTSGRVYRDIIAKERRGDYLGATVQVVPHVTDAIKEFALADTEGLDFVLCEIGGTVGDIESLPFIEAIRQLRNELEPEQSVAIHVTLVPFIAAAGELKTKPTQHSVRELAGLGIQPDLLLCRCERPLPDSERRKIAQFCNVRKEAVIPALDAKSIYQVPLNYHAEGLDTEVLRAFGLPDEGTPDLSRWHDILDRFEHPEGEVTIGVVGKYVGLPDAYKSLSEALVHGGMANRVRVNMKWLDAEMFEEDSDDXAAKLEPMHGILVPGGFGERGSEGKIGAIRFARETKVPFFGICLGMQMACIEGVRNLAGKADASTTEFGPTDEPVVGLITEWMSEKGLEERREGGDLGGTMRLGAYEAKLDGNSHVARIYGSETIQERHRHRYEVNTHYMPSLEDGGLVFSGMSPDGTLPEIIERPDHPWFIGVQFHPELKSKPFDPHPLFASFIEAAVKQSRLV\n```",
+        "output": "An outline of the key aspects of the protein with the corresponding amino acid sequence is as follows: Catalyzes the ATP-dependent amination of UTP to CTP with either L-glutamine or ammonia as the source of nitrogen. Regulates intracellular CTP levels through interactions with the four ribonucleotide triphosphates.",
+        "metadata": {
+            "protein_accession": "A0A2D5DIK1",
+            "num_tokens_in_input": 552,
+            "seq_len": 544,
+            "task": "general_function",
+            "annots": "Catalyzes the ATP-dependent amination of UTP to CTP with either L-glutamine or ammonia as the source of nitrogen. Regulates intracellular CTP levels through interactions with the four ribonucleotide triphosphates.",
+            "split": "test"
+        }
+    },
+    {
+        "instruction": "Conduct a quick analysis of the protein represented by the following sequence and outline its main characteristics: ",
+        "input": "```\nMSVTAVRGFEAAGIACGIKPSGVPDLSLVATSDRVPVTAAGVFTTNLACAAPVQVNRLHLADGRAAAVVLNSGNANAATGEQGRADARRMCELTASSLGCGTEDVLVCSTGLIGIPLPMAPIEDGIPRLAALLGSDVAAGMSAADAMLTTDTVRKEAIWEGSGAAGGPAITAGGMAKGAAMLAPAMATMLAVITSDAVASPRALQRALEHAVEDTFNALLVDGCMSTNDTVLVLANGAAGNPMIDAASGPGFHALTEVLTRVCDSLAEQMARDAEGATKLARIVVRGARSTTEARVAARGVARSQLVQCSLYGCDPYWGRVLSELGASGAFIDPERVDIAYNGITVCRNGIAAAHDAAALTVAMQPREITIEADLHLGNGEARVRFTDLTHAYVDENMGTS\n```",
+        "output": "Here is a summary of the protein with the given amino acid sequence: Catalyzes two activities which are involved in the cyclic version of arginine biosynthesis: the synthesis of N-acetylglutamate from glutamate and acetyl-CoA as the acetyl donor, and of ornithine by transacetylation between N(2)-acetylornithine and glutamate.",
+        "metadata": {
+            "protein_accession": "A0A537ZKH8",
+            "num_tokens_in_input": 409,
+            "seq_len": 401,
+            "task": "general_function",
+            "annots": "Catalyzes two activities which are involved in the cyclic version of arginine biosynthesis: the synthesis of N-acetylglutamate from glutamate and acetyl-CoA as the acetyl donor, and of ornithine by transacetylation between N(2)-acetylornithine and glutamate.",
+            "split": "test"
+        }
+    }
+]

@@ -1,7 +1,7 @@
 import re
 import sqlite3
 
-def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile = "asset/uniprot_sprot.fasta"):
+def createProteinInformationTable(dbFile = "asset/protein_index2.db", fastaFile = "asset/uniprot_sprot.fasta"):
     # regular expression pattern explanation:
     #   - ^>sp\| : Ensures the header starts with ">sp|"
     #   - (?P<protein_id>[^|]+) : Captures protein_id (everything until the next '|')
@@ -30,8 +30,8 @@ def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile =
     cur.execute("DROP TABLE IF EXISTS protein_info")
     cur.execute("""
         CREATE TABLE protein_info (
-            protein_id TEXT,
-            protein_name TEXT PRIMARY KEY,
+            protein_id TEXT PRIMARY KEY,
+            protein_name TEXT,
             type TEXT,
             os TEXT,
             ox TEXT,
@@ -71,7 +71,7 @@ def createProteinInformationTable(dbFile = "asset/protein_index.db", fastaFile =
 #createProteinInformationTable()
 
 def process_obo_file():
-    db_path = "asset/protein_index.db"
+    db_path = "asset/protein_index2.db"
     obo_file_path = "asset/go-basic.obo"
 
     conn = sqlite3.connect(db_path)
@@ -164,3 +164,65 @@ def createBackgroundDistributionCountMaterializedView(dbPath):
     
     conn.commit()
     conn.close()
+
+
+def createFlatFileMappingTable(dbPath):
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS flat_files_mapping (
+            protein_id TEXT,
+            file_id INTEGER PRIMARY KEY,
+            FOREIGN KEY (file_id) REFERENCES flat_files(file_id)
+        )
+    ''')
+
+    cursor.execute('SELECT file_id, content FROM flat_files')
+    records = cursor.fetchall()
+
+    for fileId, content in records:
+        match = re.search(r'^AC\s+(\w+);', content, re.MULTILINE)
+        if match:
+            protein_id = match.group(1)
+            try:
+                cursor.execute('''
+                    INSERT OR IGNORE INTO flat_files_mapping (protein_id, file_id)
+                    VALUES (?, ?)
+                ''', (protein_id, fileId))
+            except sqlite3.IntegrityError as e:
+                print(f"Error inserting for file_id {fileId}: {e}")
+        else:
+            print(f"No protein ID found for file_id {fileId}")
+
+    conn.commit()
+    conn.close()
+
+def createVirtualFlatFileTable(dbPath="asset/protein_index2.db"):
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("DROP TABLE IF EXISTS flat_files_fts;")
+
+        cursor.execute("""
+            CREATE VIRTUAL TABLE flat_files_fts
+            USING fts5(
+                content,
+                tokenize = 'trigram'
+            );
+        """)
+        print("flat_files_fts table is created.")
+
+        cursor.execute("""
+            INSERT INTO flat_files_fts(content)
+            SELECT content FROM flat_files;
+        """)
+
+        conn.commit()
+
+    except sqlite3.Error as e:
+        print(f"SQLite ERROR: {e}")
+
+    finally:
+        conn.close()

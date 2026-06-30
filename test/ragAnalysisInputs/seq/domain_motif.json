@@ -1,0 +1,262 @@
+[
+    {
+        "instruction": "Find and list any domains or motifs that are likely present in this protein sequence: ",
+        "input": "```\nMLDPRLLRNDLDNIAALLERRGFKLDKERILSLETRRKELQVQAQELQSERNSRSKSIGKAKAAGEDIQPLLAEVADLGDKLKQLQEVLNKVQTELRDISLVIPNIPHDSVPDGKSEDDNREERRWGEPQAFDFEPKDHVDLGEAKGLMDFDAASKLTGSRFVTLHGPLARLQRALAQFMLDTHTDEHGYTETYVPFLVNRDSLRGTGQLPKFEEDLFALKGEHQYYLIPTAEVPITNLVRDVIIDDKEMPRRWVAQTPCFRSEAGSYGRDTRGIIRQHQFEKIEMVQIVRPSDSYDALEALTAHAEAILQKLGLPYRVVTLCTGDIGFSSAKTYDLEVWLPGQGKYREISSCSNFEAFQARRLQARWRNPETGKPELVHTVNGSGLAVGRTLVAVMENYQDRDGNITVPEVLHPYMGGLEVI\n```",
+        "output": "The computational analysis of the sequence suggests the presence of the following protein domains or motifs: Aminoacyl-transfer RNA synthetases class-II family profile domains",
+        "metadata": {
+            "protein_accession": "A0A497U8B9",
+            "num_tokens_in_input": 431,
+            "seq_len": 423,
+            "task": "domain/motif",
+            "annots": "Aminoacyl-transfer RNA synthetases class-II family profile",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Find and list any domains or motifs that are likely present in this protein sequence: ",
+        "input": "```\nMTERAHRLSGRSDSLTRHIFVTGGVASSLGKGLTASSLGRLLRSRGLRVTMQKLDPYLNVDPGTMNPFQHGEVFVTEDGAETDLDVGHYERFLDVDLIGSANVTTGQIYSHVIAKERRGEFLGDTVQVIPHITDEIKTRMREQAGDDVDVIITEIGGTVGDIESQPFLEAARQVRHDLGRANVFFLHVSLVPYIGPSGELKTKPTQHSVAALRSIGIQPDAIVLRADREVPESTKRKIALMCDVDVEGVVTAKDAPSIYDIPRVLHAEGLDAYVVQRLALPFRDVDWRLWDGLLQRVHEPARQVEIALVGKYIDLPDAYLSVTEALRAGGFHHDAKVVLRWVRSDDCDTPEGAELALGGVDAVLVPGGFGVRGIEGKLGALRWARENRVPTLGICLGLQCMVIEYARNVLNLPQASSTEFDEGTPDPVVATMEEQLAFVGGAGDLGGTMRLGAYDAVLEPGSVAAAAYGSTHVSERHRHRYEVNNAYRGRLEEAGLVISGTLPDRSLVEFVELPRDVHPYYVATQAHPEFKSRPTRAHPLFAGLVAAAITRSSTPSGRRAADDAASAPDAASAPDAAPAAGSPAEGLEPAAASVQA\n```",
+        "output": "Upon evaluating your submitted sequence, our predictive algorithms suggest the presence of: Glutamine amidotransferase, CTP synthase N-terminal domains",
+        "metadata": {
+            "protein_accession": "A0A1I0ZST6",
+            "num_tokens_in_input": 604,
+            "seq_len": 596,
+            "task": "domain/motif",
+            "annots": "Glutamine amidotransferase, CTP synthase N-terminal",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Find and list any domains or motifs that are likely present in this protein sequence: ",
+        "input": "```\nVPLSPVCGSDGVTYDSECALKLMRCMIQKDLHVVMLSPCKDASPSSVPELHCSRSVYGCCRDNVTAAQGVGLAGCPSTCECNRYGSYSKTCSPSSGQCSCKPGVGGLKCDRCEPGFWNFRGIVTDEKSGCTPCNCYPLGAVRDDCEQMSGLCSCKAGISGMKCNQCPNGSKLGPSGCDQDPSVSRTCSDLHCQYGATCVQSIGRAYCECPPSICPKNKQFKVCGSDGVTYANECQLKTIACRQGSVINILHQGPCQGTTPSTGNIQTTDLTPSPKEHTNLSKIVSLETIPILKAIFPVTDNTTGPQVHKMYTVTASPGVIGHPTAGWPPSSLTSSEPPDLSGSGDFSGDTDLEASGNLEGSGVEPMGFNESSTGPPTPVPNERSTCDNTEFGCCSDGKTPSVDGEGSNCPPTKLFQGVLIVEEVEGQELFYTPEMDDPKSELFGETARSIENALNELFGNSNVKKDFKSVRVHGLGPSDPVRIIVEVHFDPRTSYNSHDVQRALLQQVKQSRRKSIVVKKPEQDNVKIVDFDWAPLLFTTTSTTAARTTVPITTASALPVTRRPPPATTRWPKVLPHAKVPSTTTKPATTRRPPFSRKVEVRPATVKVHRPCDSQPCLHGGTCEDDGVSYTCSCPAGRGGAVCERTIVYFIPEFGGRSYLAFKTMKAYYTVRISMEFRASNLDGLPLVQWTEKGKGLHFYRPSEGYVELRFNHGVWDGVITSKTLIKPGNWHHVVGNRNRRSGMLSVDGEPHLIGESPPGTDGLNLDT\n```",
+        "output": "After analyzing the given sequence, the following protein domains or motifs are predicted: Laminin G-like, Laminin EGF-like, EGF-like, SEA, Kazal-like domains",
+        "metadata": {
+            "protein_accession": "Q90404",
+            "num_tokens_in_input": 776,
+            "seq_len": 1328,
+            "task": "domain/motif",
+            "annots": "Laminin G-like, Laminin EGF-like, EGF-like, SEA, Kazal-like",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given this protein sequence, can you identify any common protein motifs or domains that it may contain? ",
+        "input": "```\nMEHYPAFLNLKGKQCLIVGGGKVARRKAKTLLDAHANVCIVSPELNQELAALVDQHPIQTTHSAKTFTANDITDNNPHLIIAATDQREVNAAVANAAHEHSILVNVADDPQASSFIVPSIIDRSPVSIAVSTGGASPVLARQLRMKLETMVPSTCGKLAEITEAYREKVKQHFPHTGQRKHFWEKALRGPFSELVYMGNETAARQRLDEMLEQDTDTPEVGEVYLVGAGPGDPDLLTFRAARLMLQADVMVYDRLVAKSILDMANQDAERIYVGKEKSSHAVPQDKINDLLVDLAKQGKRVLRLKGGDPFIFGRGGEEIETLAENGIPFQVVPGITAAAGCSSYAGIPLTHRDYAQSCTFATGHLKDGTSSLDWDKLAKPHQTVVFYMGLSGIQVISQELIAHGVPADMPAALVEQGTTRNQRVHIGTLATLPQLVKDRGVRAPTLTIVGEVVKLHDKLHWYKPEQHVMASEFSLEHTAMERK\n```",
+        "output": "Based on computational analysis, the provided sequence potentially contains the following protein domains or motifs: Sirohaem synthase dimerisation, Siroheme synthase central, Tetrapyrrole methylase domains",
+        "metadata": {
+            "protein_accession": "A0A6S6U7E2",
+            "num_tokens_in_input": 491,
+            "seq_len": 483,
+            "task": "domain/motif",
+            "annots": "Sirohaem synthase dimerisation, Siroheme synthase central, Tetrapyrrole methylase",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given this protein sequence, can you identify any common protein motifs or domains that it may contain? ",
+        "input": "```\nMSSTRAMGADQMVTKQIFVTGGVVSSLGKGLTASSLGRLLRSRGLSVVMQKLDPYINVDPGTMNPFQHGEVFVTEDGAETDLDIGHYERFLDVALSGDANATTGQVYSTVIAKERRGEYLGDTVQVIPHITDEIKRVMRSQARPDAEGNTPDVIITEIGGTVGDIESQPFLEAARQVRADLGRENVAFVHVSLIPFLPAAGELKTKPTQHSVAALRSIGIAPDALVLRTDRPLPEGIKGKVALMCDVDRDAVIECKDVSSIYEVPPTLHREGLDAYLVQRLGLQFRDVDWTEWNGLLERVHSPKYRVEVALVGKYIDLHDAYLSVQEAIKHGGFANNARVDIRWVASDGCETPEGASRELAGVDAICVPGGFGVRGIEGKLGALRWAREHGVPTLGLCLGLQCMVIEASRNMLGLAGASSTEMDPETSDPVVATMADQMDIVSGEGDLGGTMRLGSYPAKLTEGSIVAQAYGTTEVTERHRHRYEVNNAYRDRLEAAGLHISGTSPSGDLVEFVELDRSVHPYYVATQAHPEFKSRPTNPHPLFASLVHAALERHKGRYSSNQDTHVVEESAK\n```",
+        "output": "Our predictive analysis of the given protein sequence reveals possible domains or motifs. These include: Glutamine amidotransferase, CTP synthase N-terminal domains",
+        "metadata": {
+            "protein_accession": "K0YQQ6",
+            "num_tokens_in_input": 581,
+            "seq_len": 573,
+            "task": "domain/motif",
+            "annots": "Glutamine amidotransferase, CTP synthase N-terminal",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Given this protein sequence, can you identify any common protein motifs or domains that it may contain? ",
+        "input": "```\nMGGKWSKPRRAEWAAVRERMRRTEPAEGVGAASQDLGRHGALTSSNTATNNADCXWLEAQEEXGEEVGFPVRPQVPLRPMTYKGALDLSHFLKEKGGLEGLIHSQHRQDILDLWVYNTQGYFPDWQNYTPGPGTRFPLTFGWCFKLVPVEPEKIEEANQGENNCLLHPMSQHGMDDPEKEVLQWKFDSRLAFHHMARELHPEYFKN\n```",
+        "output": "Our predictive analysis of the given protein sequence reveals possible domains or motifs. These include: PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization domains",
+        "metadata": {
+            "protein_accession": "C8C983",
+            "num_tokens_in_input": 214,
+            "seq_len": 206,
+            "task": "domain/motif",
+            "annots": "PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please conduct a domain/motif search on the given protein sequence and provide your findings. The sequence is: ",
+        "input": "```\nMKIKDTLNLGKTAFPMRAGLPNKEPNWQKDWADATLYEKRQELNEGKPSFMLHDGPPYANGNIHLGHSLNKISKDIIVRYKSMAGFRAPYVPGWDTHGLPIEQQLAKAGMKRKEMDLLDYLEECRKYAMKQVDMQRSDFKSLGVLADWDRPYLTLLPEYEAAQIRVFGKMAEKGYIYKGQKPIYWSPSSESSLAEAEIEYQDVRSASIFVAFKAKDTKGKLPEDVEFVIWTTTPWTIPSNLGIFAHPDYDYSVVAVNGRKFVIASEMLEAVAEKLEWENPEVLQTIKGSELEYMVAKHPFYDRETLIMNADYVTLDSGTGLVHVAPGHGEDDYFASRKYKLPVLSPIDNRGYYTDEAPGLEGLLYDEGNKVVSKWLEEKDALLKLEFFTHSYPHDWRTKKPVIFRATPQWFASIDDFRQNILDEVERVDWVIPWGKTRLFNMVRDRGDWVISRQRAWGVPLPIFYGENGEPIITPETTEHVAKLFAEFGSKVWFEREAKDLLPEGFTHPASPNGEFTKEKDIMDVWFDSGSSWNGVLNERDYLSFPADLYLEGSDQYRGWFNSSITTSVAVNGVAPYKAVLSQGFVLDGKGRKMSKSIGNTIVPKDVTKKFGADILRLWVASIDTESDVRVSMDILSQVSEVYRKIRNTLRFLIANTSDFNPKEDAIDFAELRPVDKYMLVKFNELVKQIRTAYDNYSFMTVYKSIINFITNDLSSFYLDFAKDVVYIEAANSPERRSMQTVMYVILKDLVKILVPILPHTAEETWTY\n```",
+        "output": "After analyzing the given sequence, the following protein domains or motifs are predicted: 'HIGH' region, 'KMSKS' region domains",
+        "metadata": {
+            "protein_accession": "Q9CEH8",
+            "num_tokens_in_input": 776,
+            "seq_len": 932,
+            "task": "domain/motif",
+            "annots": "'HIGH' region, 'KMSKS' region",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please conduct a domain/motif search on the given protein sequence and provide your findings. The sequence is: ",
+        "input": "```\nMGGKWSKSSFVGWPNVRERIRRTAPAAEGVGXASQDLDKHGALTTSNTAANNATCAWLEAQEEEDVGFPVRPQVPLRPMTYKAAVDLSFFLKEKGGLEGLIYSKKRQDILDLWVYNTQGYFPDWQNYTPGPGVRYPLTFGWCYKLVPVDPXEVEEANEGEDNCLLHPISQHGMEDEDXEVLRWKFDSLLARKHMARELYPEYYKDC\n```",
+        "output": "Upon evaluating your submitted sequence, our predictive algorithms suggest the presence of: PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization domains",
+        "metadata": {
+            "protein_accession": "A0A075QCL2",
+            "num_tokens_in_input": 214,
+            "seq_len": 206,
+            "task": "domain/motif",
+            "annots": "PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please conduct a domain/motif search on the given protein sequence and provide your findings. The sequence is: ",
+        "input": "```\nMGGKWSKCSGWSDVRERMRRAEPAARERRRRAEPAAEGVGAVSRDLERHGAITSSNTATNNADLAWLEAQEEEEVGFPVRPQVPLRPMTYKAAVDLSHFLKEKGGLEGLIYSKKRQEILDLWVYHTQGYFPDWQNYTPGPGIRYPLTFGWCYKLVPVDPDKVEEANKGENNSLLHPMSLHGMEDEDGEVLEWVFDSHLAFRHMARELHPEYYKDC\n```",
+        "output": "Our bioinformatics tools have processed the sequence you provided sequence. The prediction suggests the presence of these protein domains or motifs: PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization domains",
+        "metadata": {
+            "protein_accession": "Q6EG84",
+            "num_tokens_in_input": 223,
+            "seq_len": 215,
+            "task": "domain/motif",
+            "annots": "PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you inspect the provided protein sequence and determine any possible motifs or domains? Here is the protein sequence: ",
+        "input": "```\nMPAAPADPLAGKRLLLAVSGSIAAVKVPQLVSALVQRGAQVRCVLTPSAAQLVSASALASLSRNPCYVEADQWLASQPKPLHIELAEWAELVLVVPLSASSLARLVHGLADNLLASTLLASEAPRLLAAAMNTSMWHGPAVQRNWRLLQAEPGLLALEPASAGLLACDRRGAGRMREPAQLLLAAESLALHGANQDLKGLRLLISAGPSREALDPARFLSNPSTGRMGALMALAAQWRGAEVKLLHGPLQLDPAILEGLECHQFTSAADLELLLKQHQAWANGVVMAAAVADHRLQRPNPEKLSKTDLHQQLLQPEAWQTVPDLLQAMVVAKPQQQVLMGFCAHTGDGLAQAQAKLSQKGCDLLFANPIDQADAGFAAPTNKGWLLQQGAAPQQLGPCGKLELAHQLLSQLNRCLQDLNVPTGF\n```",
+        "output": "Upon evaluating your submitted sequence, our predictive algorithms suggest the presence of: Flavoprotein, DNA/pantothenate metabolism flavoprotein C-terminal domains",
+        "metadata": {
+            "protein_accession": "A0A358C0C5",
+            "num_tokens_in_input": 432,
+            "seq_len": 424,
+            "task": "domain/motif",
+            "annots": "Flavoprotein, DNA/pantothenate metabolism flavoprotein C-terminal",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you inspect the provided protein sequence and determine any possible motifs or domains? Here is the protein sequence: ",
+        "input": "```\nMKAKGIRKSYQHLWRWGTMLLGMLMICSATEQLWVTVYYGVPVWKEATTTLFCASDAKAYTTEVHNVWATHACVPTDPNPQEVKLENVTEKFNMWKNNMVEQMHEDIISLWDQSLKPCVKLTPLCVTLDCIDINITASNTSSTSNSSRLETKGEMKNCSFNITTDVRDKMRKEYALFYKLDIVPIDDKKNSSSTSYRLISCNTSVITQACPKVSFEPIPIHYCAPAGFAILKCNDKKFNGTGPCTNVSTVQCTHGIRPVVSTQLLLNGSLAEEEVIIRSENLTDNAKTIIVQLNETVLINCTRPNNNTRKGIHMGLGKAFYATGDIIGDIRQAHCNLSRAAWNKTLEQIARKLREQFVNKTIVFTQSSGGDPEIVMHTFNCGGEFFYCSTTHLFNSSWNGTAWVNATNNTGETITLPCRIKQIINMWQEVGKAMYAPPISGPIRCLSNITGLILTRDGGINNDTGVEVFRPGGGNMKDNWRSELYKYKVVQIEPLGVAPTKAKRRVVQREKRAVGTIGAMFLGFLGAAGSTMGAASVTLTVQARLLLSGIVQQQNNLLRAIEAQQHLLQLTVWGIKQLQARVLAVERYLRDQQLLGLWGCSGKLICTTAVPWNTSWSNKNLSMIWDNLTWMEWEREIDNYTGLIYNLIEESQNQQEKNEQDLLAFDKWANLWNWFGISNWLWYIKIFIMIVGGLVGLRIVFTVLSIVNRVRQGYSPLSFQTRLPTQRGPDRPGETEEEGGDRDRDRSTRLVNGFLALIWDDLRSLCLF\n```",
+        "output": "Our bioinformatics tools have processed the sequence you provided sequence. The prediction suggests the presence of these protein domains or motifs: YXXL motif; contains endocytosis signal, Di-leucine internalization motif domains",
+        "metadata": {
+            "protein_accession": "F2YXB1",
+            "num_tokens_in_input": 776,
+            "seq_len": 858,
+            "task": "domain/motif",
+            "annots": "YXXL motif; contains endocytosis signal, Di-leucine internalization motif",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you inspect the provided protein sequence and determine any possible motifs or domains? Here is the protein sequence: ",
+        "input": "```\nMRVRGIQRNWPHWWIWGILGFWMLLICRVVGNLWVTVYYGVPVWKEAKTTLFCASDAKAYEKEVHNVWATHACVPTDPNPQEILLGNVTENFNMWKNDMVDQMHEDVISLWDQSLKPCVKLTPLCVTLECTTVKVGNNTDNAKNCSFNTTTEIRDKQQKAYALFYIPDVVPLNRENENGSEYILINCNTSTITQACPKVSFDPIPIHYCAPAGYAILKCNNNKTFNGTGPCTNVSTVQCTHGIKPVVSTQLLLNGSLAEEEIMIRSENLKDNTKTIIVHLNESVEIVCTRPNNNTRKGLRIGPGQTFFANEIIGDIRKAHCNISKANWTKTIKRVKEKLEKLYNNNKTVIFQPHSGGDLEVTTHNFNCMGEFFYCNTSKLFNTTVNGTELEFNTTGRSNKTITLQCKIKQIINMWQEVGRAMYAPPIAGNITCRSNITGLLLTWDGPTNNGTDIFRPGGGNMKDNWRSELYKYKVVEIKPLGIAPTESKRRVVEREKRAVGLGALILGFLGTAGSTMGAASIALTVQARQLLSGIVQQQNNLLRAIEAQQHMLQLTVWGIKQLQTRVLAIERYLQDQQLLGLWGCSGKVICTTAVPWNSTWSNKSQTDIWGNMTWMEWDREINNHTDIIYRLLEDAQNQQEKNEQDLLALDSWKNLWNWFDITKWLWYIKIFIMIVGGLIGLRIIFGVLPIVKRVRQGYSPLSFQTLIPNSRGPDRLGRIEEEGGEQDKDRSIRLVSGFLALAWDDLRSLCLFSYHQLKTFILIVARA\n```",
+        "output": "Our bioinformatics tools have processed the sequence you provided sequence. The prediction suggests the presence of these protein domains or motifs: YXXL motif; contains endocytosis signal, Di-leucine internalization motif domains",
+        "metadata": {
+            "protein_accession": "Q1KWM6",
+            "num_tokens_in_input": 776,
+            "seq_len": 850,
+            "task": "domain/motif",
+            "annots": "YXXL motif; contains endocytosis signal, Di-leucine internalization motif",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you predict the potential protein domains or motifs within the following sequence? ",
+        "input": "```\nMKVKGIQKNWPPLWTWWTLILGLVIICNADNLWVTVYYGVPVWEDAETPLFCASDAKAYSTEKHNVWATHACVPTDPNPQEIGLENVTEYFNMWKNNMVEQMHEDIISLWDESLKPCVKLTPLCVTLNCVTLNCTDATYIGNYTKTNYTCEEKDKIVNCTFNITTEIRDRRKKEHALFYRLDVIPIDNNNSSEYRLINCNVSTIKQACPKVSFEPIPIHYCAPAGFAILKCRDKNFTGKGECKNVSSVQCTHGIRPVVSTQLLLNGSLAEEEIVIRTENSSQNTKIIIVQLNETIEINCTRPNNNTKRSIRIGPGQTFYAQGDIIGNIRQAHCNVSAAKWKNMIQNVTELLKKTYNKNITFSPPVEGDLEVTTHSFNCRGEFFYCNTTGLFNTSGFNDTITNDTIMLPCRIKQIVRMWQKVGQAMYAPPIEGSITCRSNITGLLLMRDGGNNNTNKTETFRPSGGDMRDNWRSELYKYKIVKIKPLEIAPGKARRRVVQREKRAAVGMGALFLGFLSAAGSTMGAASLTLTVQARQLLSGIVQQQNNLLRAIEAQQHLLQLTVWGIKQLQARVLAMERYLKDQQLLGIWGCSGKLICTTNVPWNVSWSNRSYDQIWDNMTWIQWDREVRNYTQQIYTLIKEAQNQQEKNEQDLLALDSWASLWDWFAISKWLWYIKIFIMIVGGLIGFKIVFAVFSIVNRVRQGYSPLSFQTLPHHQREPDRPERIEEGGGEQDRDRSIRLVSGLLALAWDDVRSLCLFSYHRLRDFI\n```",
+        "output": "The sequence you provided sequence has been analyzed for potential protein domains or motifs. The results are as follows: YXXL motif; contains endocytosis signal, Di-leucine internalization motif domains",
+        "metadata": {
+            "protein_accession": "G1FP78",
+            "num_tokens_in_input": 776,
+            "seq_len": 856,
+            "task": "domain/motif",
+            "annots": "YXXL motif; contains endocytosis signal, Di-leucine internalization motif",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Could you predict the potential protein domains or motifs within the following sequence? ",
+        "input": "```\nMKTPFLLRRLRDAGFEVRAIASDRALAFTTETALAVAAGGPVATEARWFAAEGDALHLDLARWADLLVVAPATAAGLARAAAGLAEDLTTATILGGARRVLWAPAMNPEMWQHPATRANVERLRSWGHAFVGPEHGALAAVGEGEGLGRMSEPETIVEHVRYHLTPKDLEGYTVLVTAGPTREYFDPVRFISNPSSGKMGYAVAEAARDRGARVLLVSGPTALPEPWGVEVVHVERAEEMYAAVLERFPETDAVVMAAAVADWRPARTADEKTPKQEGANVVELAPTPDILAELGRRKSPRQVLVGFAMETRAGRERARAKLERKNLDLIALNFPTRAGSAFGGDHNEVELLFPDGRVEATGRVTKRSVAERILDHVRELLIAKEAERDAQ\n```",
+        "output": "Our bioinformatics tools have processed the sequence you provided sequence. The prediction suggests the presence of these protein domains or motifs: Flavoprotein, DNA/pantothenate metabolism flavoprotein C-terminal domains",
+        "metadata": {
+            "protein_accession": "A0A511RGT9",
+            "num_tokens_in_input": 399,
+            "seq_len": 391,
+            "task": "domain/motif",
+            "annots": "Flavoprotein, DNA/pantothenate metabolism flavoprotein C-terminal",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Can you analyze the protein sequence provided below and predict any recognizable domains or motifs it may contain? Here's the protein sequence: ",
+        "input": "```\nMGGKWSKCSGWKAVREKMEKAEPAAEPAADGVGAVSRDLEQRGAITTSNTASNNAACAWLEAQEDEEVGFPVKPQVPLRPMTFKGALDLSHFLKEKGGLEGLIYSQKRQDILDLWVYHTQGYFPDWQNYTPGPGTRYPLTFGWCFKLVPLEPEKIEEATVGENNCLLHPMNQHGMDDPEREVLVWRFDSRLAFHHVAREKHPEYYKNC\n```",
+        "output": "Our predictive analysis of the given protein sequence reveals possible domains or motifs. These include: PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization domains",
+        "metadata": {
+            "protein_accession": "Q45P52",
+            "num_tokens_in_input": 216,
+            "seq_len": 208,
+            "task": "domain/motif",
+            "annots": "PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Can you analyze the protein sequence provided below and predict any recognizable domains or motifs it may contain? Here's the protein sequence: ",
+        "input": "```\nMGNKLSRSSIVGWPAIRERIRRTNPAAERATERAAAGVGAVSRDLERHGAITSSNTASTNPGCAWLEAQEEEEEVGFPVRPQVPLRPMTYKHAVDLSHFLKEKGGLDGLFWSQQRQDILDLWVYNTQGFFPDWQNYTPGPGVRYPLTFGWCFELVPVGPEEVEERTEGESNCLLHPMNQHGMDDPEKEVLKWRFNSRLAFEHKARQKHPEFFKDC\n```",
+        "output": "Based on computational analysis, the provided sequence potentially contains the following protein domains or motifs: PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization domains",
+        "metadata": {
+            "protein_accession": "R4R0F7",
+            "num_tokens_in_input": 223,
+            "seq_len": 215,
+            "task": "domain/motif",
+            "annots": "PxxP; stabilizes the interaction of NEF/MHC-I with host AP1M1; necessary for MHC-I internalization, Dileucine internalization motif; necessary for CD4 internalization, Diacidic; necessary for CD4 internalization",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Can you analyze the protein sequence provided below and predict any recognizable domains or motifs it may contain? Here's the protein sequence: ",
+        "input": "```\nMRVGGILRNCQHWWIWGILGFWMFMICNVVGNLWVTVYYGVPVWREAKTTLFCASEAKAYEKEVHNVWATHACVPTDPNPQELDLVNVTENFNMWKNDMVDQMHEDVISLWDQSLKPCVKLTPLCVTLECNHVNITYNATIHNATDQASFNKTREQMRNCSFNVTTELRDKKKSEYALFYKIDIVPLKEEKKNNSSENNSSGHYRLINCNTSAITQACPKVTFDPIPIHYCTPAGFAILKCKDKKFNGTGPCSNVSTVQCTHGIKPVVSTQLLLNGSLAEEEIIIRSQNLTNNAKTIIVHLNESVEIICTRPNNNTRKSIRIGPGQTFYATGDIIGNIRQAHCNISGKWNETLYNVSRKLAEHFPNKTINFTSPSGGDLEITTHSFNCGGEFFYCNTSVLFNSTYNHTTKQFSSPYNDTNSTITIHCKIKQIINMWQEVGRAIYAPPIAGNITCKSNITGLLLVRDGGNTESNNTEIFRPGGGDMRDNWRSELYKYKVVEVKPLGIAPTAAKRRVVEREKRAVLGGIGAVFLGFLGAAGSTMGAASITLTVQARQLLSGIVQQQSNLLRAIEAQQHILQLTVWGIKQLQTRVLSIERYLRDQQLLGIWGCSRKLICTTAVPWNSSWSNKSLDDIWENMTWMQWDKEINNYTGLIYSLLEKSQIQQEQNEKDLLALDSWKNLWSWFDISNWLWYIRIFIMIVGGLIGLRIIFAVLSVVNRVRQGYSPLSFQTLTPTPGGLDRLGRIEEEGGEQDRDRSVRLVNGFLAIA\n```",
+        "output": "The computational analysis of the sequence suggests the presence of the following protein domains or motifs: YXXL motif; contains endocytosis signal, Di-leucine internalization motif domains",
+        "metadata": {
+            "protein_accession": "A4LAG7",
+            "num_tokens_in_input": 776,
+            "seq_len": 875,
+            "task": "domain/motif",
+            "annots": "YXXL motif; contains endocytosis signal, Di-leucine internalization motif",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please predict any recognizable motifs or domains that this protein sequence might contain. The sequence is provided below: ",
+        "input": "```\nMVRYIFITGGVVSSLGKGIAAAALAAILQERGFRVRLRKLDPYLNVDPGTMSPYQHGEVFVTDDGAETDLDLGHYERFTGYSTNRRDNITAGRIYRNIIERERGGDYLGATVQVIPHVTDEIKNFITDGNEGYDFVLCEIGGTVGDIEAMPFLEAIRQLHNELPCRRAIYIHLTLMPYIHAAGELKTKPTQHSVKELQSVGISPDILIVRTDRSIPEAERKKLSLFCNVRLSAVIQAHDVSSIYDVPIAYHHAGLDLEVLIAFGMDSASKPDMQRWKGISRCVHNPEGEVNIAIVGKYTGLKDAYKSLIQALEHGGLANRVQVNLEWIEAEVFEKEDPVSYLEKMHGILVPGAFGMRGAEGKIFAIRFAREHRVPFFGICFGMQLACIEAARNLAGIANASSSEFGATKEPVVGLMTEWIKGDIREKRSETCNLGGTMRLGAYEAYLQKGSHIARIYGKNNIFERHRHRYEVNIFYKNRLEACGLFFSGMSPDGILPETIEYIHHPWFIGVQYHPELKSRPFEPHPLFASFISAAVKQSRMV\n```",
+        "output": "Upon evaluating your submitted sequence, our predictive algorithms suggest the presence of: Glutamine amidotransferase, CTP synthase N-terminal domains",
+        "metadata": {
+            "protein_accession": "A0A367ZXQ1",
+            "num_tokens_in_input": 550,
+            "seq_len": 542,
+            "task": "domain/motif",
+            "annots": "Glutamine amidotransferase, CTP synthase N-terminal",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please predict any recognizable motifs or domains that this protein sequence might contain. The sequence is provided below: ",
+        "input": "```\nMNGLVNRHILLGVTGGIAAYKAAELVRLLRRAGAQVRVVMTRGATEFVTPLTFQALSGHAVRCELFDAAAEAGMDHIELARWAELVLVAPASADFLARLAAGRADDLLATLSLATAAPIALAPAMNRQMWQAAATQDNVQVLAARGVHLFGPASGEQACGEIGPGRMLEPAELARRAGELFAAGPLAGVRALVTAGPTREAIDPVRFVSNRSSGRMGFAVAGALALAGAEVTLVAGPVTLPTPAGVRRVDVESAAEMLAAAEREQFELLVATAAVADYRPVAAADSKIKKNNAGIMLEMTQNPDILAHLATTRPEVFTVGFAAETDELERYARGKLVQKKLDMIAANWVGGGRGFDTERNALQVFWEGGGAELAEAPKDELARQLVALVAERYAAR\n```",
+        "output": "Our predictive analysis of the given protein sequence reveals possible domains or motifs. These include: Flavoprotein, DNA/pantothenate metabolism flavoprotein C-terminal domains",
+        "metadata": {
+            "protein_accession": "A0A2N2AEA7",
+            "num_tokens_in_input": 404,
+            "seq_len": 396,
+            "task": "domain/motif",
+            "annots": "Flavoprotein, DNA/pantothenate metabolism flavoprotein C-terminal",
+            "split": "train"
+        }
+    },
+    {
+        "instruction": "Please predict any recognizable motifs or domains that this protein sequence might contain. The sequence is provided below: ",
+        "input": "```\nMLDQHTKDVVKSTIPLLEAAGPALTTHFYQRMFEHNPELKDVFNLAHQHTGGQPVALFNAVAAYAKNIDNLEALGAAVERIAHKHTGFLIKPEQYAIVGGHLLATLKELGGDAVTEEVLTAWGNAYGFLADIFINREAQLYQQTAAKTGGWEGTRRFVVQAKTPESSVITSFLLAPEDGQPVVEFTPGQYLSVSLDHEQLDFKEIRQYSLSDAPNGSTYRISVKREQGGKVSNLLHEHYQVGDIIDVVAPAGDFVLNTAAETPVVLLSAGVGLTPMKSMLNQLLSQSHTANITWVHACEDGAQHSFKQAIKAKRDVNTNLESYVWYRQPLATDLPAEDFDFEGTVELNNIAESIVPNAQYYFCGPIGFMKAIKQQLLGLNVPESQLHYEVFGPHADL\n```",
+        "output": "Our predictive analysis of the given protein sequence reveals possible domains or motifs. These include: Globin family profile, FAD-binding FR-type domains",
+        "metadata": {
+            "protein_accession": "A0A2N7CMQ2",
+            "num_tokens_in_input": 405,
+            "seq_len": 397,
+            "task": "domain/motif",
+            "annots": "Globin family profile, FAD-binding FR-type",
+            "split": "train"
+        }
+    }
+]

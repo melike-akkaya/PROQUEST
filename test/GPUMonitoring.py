@@ -7,7 +7,7 @@ def get_gpu_memory_usage():
         result = subprocess.run(['nvidia-smi', '--query-gpu=memory.used', '--format=csv,noheader,nounits'], stdout=subprocess.PIPE)
         output = result.stdout.decode('utf-8').strip()
 
-        memory_used_mib = int(output.split()[0])  # first GPU is in use
+        memory_used_mib = int(output.split()[5])  # first GPU is in use
         memory_used_gb = memory_used_mib / 1024  # MiB to GB
         
         return memory_used_gb

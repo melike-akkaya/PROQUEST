@@ -5,7 +5,7 @@ import sqlite3
 
 filePath = 'asset/per-protein.h5'
 indexFile = 'protein_embeddings.ann'
-databaseFile = 'protein_index.db'
+databaseFile = 'protein_index2.db'
 
 def isValidEmbedding(embedding):
     return not np.any(np.isnan(embedding) | np.isinf(embedding))
