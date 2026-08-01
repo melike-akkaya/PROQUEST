@@ -1,4 +1,6 @@
-# ProQuest: Protein Querying Using Semantic Technology for developing the UniProtKB LLM Query Interface
+# ProQuest: LLM-powered semantic exploration of the Universal Protein Resource
+
+<img width="1511" height="801" alt="ProQuest_Figure1A" src="https://github.com/user-attachments/assets/3a92f369-12b2-40a4-bcf2-a01f05091f29" />
 
 ## Abstract
 
