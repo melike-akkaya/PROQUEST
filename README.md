@@ -136,6 +136,10 @@ python testRAG.py
 
 ## Assets & Data
 
+The project data is available on Figshare: https://doi.org/10.6084/m9.figshare.32885441
+
+Instructions for running the application using the provided data files or rebuilding the required assets from scratch are available in [`DATA_AND_REPRODUCIBILITY_MANIFEST.md`](./DATA_AND_REPRODUCIBILITY_MANIFEST.md).
+
 All major data files are in `backend/asset/`:
 
 - **protein_index2.db**: Main SQLite database
